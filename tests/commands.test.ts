@@ -112,6 +112,134 @@ describe('doctor command runner', () => {
     expect(captured.stdout.value).toContain('Diagnostics:\n  none');
   });
 
+  test('private internal @ankhorage package does not receive strict public-package field rules', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        name: '@ankhorage/internal-example',
+        private: true,
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(captured.stdout.value).toContain('profile: unknown');
+    expect(captured.stdout.value).not.toContain('package.json.name.required');
+    expect(captured.stdout.value).not.toContain('package.json.version.required');
+    expect(captured.stdout.value).not.toContain('package.json.type.required');
+  });
+
+  test('public package fails when publishConfig is missing', async () => {
+    const packageJson = createValidPublicPackageJson({
+      docsScript: 'echo docs',
+    });
+    delete packageJson.publishConfig;
+    const fixture = await createDoctorFixture({
+      packageJson,
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.json.publish-config.required');
+  });
+
+  test('public package fails when publishConfig.access is missing', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        ...createValidPublicPackageJson({
+          docsScript: 'echo docs',
+        }),
+        publishConfig: {},
+      },
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.json.publish-config.public');
+  });
+
+  test('public package fails when publishConfig.access is not public', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        ...createValidPublicPackageJson({
+          docsScript: 'echo docs',
+        }),
+        publishConfig: {
+          access: 'restricted',
+        },
+      },
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.json.publish-config.public');
+  });
+
+  test('public package passes when publishConfig.access is public', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createValidPublicPackageJson({
+        docsScript: 'echo docs',
+      }),
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(captured.stdout.value).not.toContain('package.json.publish-config.public');
+  });
+
   test('provider package without package.json.ankh fails', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createValidPublicPackageJson({
@@ -213,6 +341,11 @@ describe('doctor command runner', () => {
     const packageJson = createValidPublicPackageJson({
       docsScript: 'bunx @ankhorage/paradox && ankhorage-prettier --write README.md paradox',
     });
+    const { devDependencies } = packageJson;
+    if (devDependencies === undefined || Array.isArray(devDependencies)) {
+      throw new Error('Expected devDependencies to be a record.');
+    }
+    delete devDependencies['@ankhorage/paradox'];
 
     const fixture = await createDoctorFixture({
       packageJson,
@@ -236,6 +369,66 @@ describe('doctor command runner', () => {
 
     expect(result.exitCode).toBe(1);
     expect(captured.stdout.value).toContain('package.dependencies.paradox.required');
+  });
+
+  test('public package requires @types/bun in devDependencies', async () => {
+    const packageJson = createValidPublicPackageJson({
+      docsScript: 'echo docs',
+    });
+    const { devDependencies } = packageJson;
+    if (devDependencies === undefined || Array.isArray(devDependencies)) {
+      throw new Error('Expected devDependencies to be a record.');
+    }
+    delete devDependencies['@types/bun'];
+    const fixture = await createDoctorFixture({
+      packageJson,
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.dependencies.types-bun.required');
+  });
+
+  test('public package requires @types/node in devDependencies', async () => {
+    const packageJson = createValidPublicPackageJson({
+      docsScript: 'echo docs',
+    });
+    const { devDependencies } = packageJson;
+    if (devDependencies === undefined || Array.isArray(devDependencies)) {
+      throw new Error('Expected devDependencies to be a record.');
+    }
+    delete devDependencies['@types/node'];
+    const fixture = await createDoctorFixture({
+      packageJson,
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.dependencies.types-node.required');
   });
 
   test('provider command descriptors without matching handlers fail mechanically', async () => {

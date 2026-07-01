@@ -356,7 +356,7 @@ async function analyzePackagePolicy(request: {
   const diagnostics: DoctorDiagnostic[] = [];
   const { packageJson } = request;
 
-  if (request.profile === 'public-package' || request.profile === 'deferred-package') {
+  if (request.profile === 'public-package') {
     requireNonEmptyStringField({
       diagnostics,
       packageJson,
@@ -496,15 +496,11 @@ async function analyzePackagePolicy(request: {
   }
 
   const { publishConfig } = packageJson;
-  if (
-    isRecord(publishConfig) &&
-    publishConfig.access !== undefined &&
-    publishConfig.access !== 'public'
-  ) {
+  if (isRecord(publishConfig) && publishConfig.access !== 'public') {
     diagnostics.push(
       createDiagnostic({
-        code: 'field-invalid',
-        message: 'package.json publishConfig.access must be "public".',
+        code: isNonEmptyString(publishConfig.access) ? 'field-invalid' : 'field-missing',
+        message: 'package.json publishConfig.access must exist and equal "public".',
         path: request.packageJsonPath,
         profile: request.profile,
         ruleId: 'package.json.publish-config.public',
@@ -585,6 +581,32 @@ async function analyzePackagePolicy(request: {
         path: request.packageJsonPath,
         profile: request.profile,
         ruleId: 'package.dependencies.changesets.required',
+        severity: 'error',
+      }),
+    );
+  }
+
+  if (!hasDependency(devDependencies, '@types/bun')) {
+    diagnostics.push(
+      createDiagnostic({
+        code: 'missing-dependency',
+        message: 'Public package repos must declare @types/bun in devDependencies.',
+        path: request.packageJsonPath,
+        profile: request.profile,
+        ruleId: 'package.dependencies.types-bun.required',
+        severity: 'error',
+      }),
+    );
+  }
+
+  if (!hasDependency(devDependencies, '@types/node')) {
+    diagnostics.push(
+      createDiagnostic({
+        code: 'missing-dependency',
+        message: 'Public package repos must declare @types/node in devDependencies.',
+        path: request.packageJsonPath,
+        profile: request.profile,
+        ruleId: 'package.dependencies.types-node.required',
         severity: 'error',
       }),
     );
@@ -947,7 +969,7 @@ function detectProfile(
     }
 
     if (isNonEmptyString(packageJson.name) && packageJson.name.startsWith('@ankhorage/')) {
-      return packageJson.private === true ? 'deferred-package' : 'public-package';
+      return packageJson.private === true ? 'unknown' : 'public-package';
     }
   }
 

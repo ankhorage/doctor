@@ -13,8 +13,7 @@ export type DoctorDiagnosticCode =
   | 'unsupported-target';
 
 export type DoctorDiagnosticSeverity = 'error' | 'warning';
-export type DoctorPolicyProfile =
-  'deferred-package' | 'integration-monorepo' | 'public-package' | 'unknown';
+export type DoctorPolicyProfile = 'integration-monorepo' | 'public-package' | 'unknown';
 export type DoctorRuleId =
   | 'integration.package.ankh.disallowed'
   | 'integration.package.private.required'
@@ -26,6 +25,8 @@ export type DoctorRuleId =
   | 'package.dependencies.changesets.required'
   | 'package.dependencies.devtools.required'
   | 'package.dependencies.paradox.required'
+  | 'package.dependencies.types-bun.required'
+  | 'package.dependencies.types-node.required'
   | 'package.dependencies.typescript.required'
   | 'package.json.bugs.required'
   | 'package.json.description.required'
