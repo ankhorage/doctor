@@ -9,26 +9,66 @@ import {
 } from './testSupport.js';
 
 describe('doctor command runner', () => {
-  test('validate auto-detects repo-only targets without reporting package.json missing', async () => {
+  test('validate reports missing paths', async () => {
+    const fixture = await createDoctorFixture();
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: ['missing-path'],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('target.path.exists');
+  });
+
+  test('validate rejects file paths', async () => {
+    const fixture = await createDoctorFixture({
+      withGitDir: true,
+    });
+    const filePath = await createStandaloneFile(fixture, 'notes.txt');
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [filePath],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('target.path.directory');
+  });
+
+  test('repo mode rejects non-repo candidates', async () => {
+    const fixture = await createDoctorFixture();
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('repo'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('target.repo-markers.required');
+  });
+
+  test('package mode rejects non-package candidates', async () => {
     const fixture = await createDoctorFixture({
       withGitDir: true,
       withChangeset: true,
-      withWorkflows: true,
-      withReadme: true,
-      withChangelog: true,
-      withLicense: true,
     });
     const captured = createCapturedCommandContext(fixture);
 
     const result = await runDoctorCommand({
       argv: [],
-      command: getCommand('validate'),
+      command: getCommand('package'),
       context: captured.context,
     });
 
-    expect(result.exitCode).toBe(0);
-    expect(captured.stdout.value).toContain('checks: repo');
-    expect(captured.stdout.value).not.toContain('package-json-missing');
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('target.package-json.required');
   });
 
   test('validate reports malformed package.json', async () => {
@@ -47,80 +87,203 @@ describe('doctor command runner', () => {
     expect(captured.stdout.value).toContain('invalid-package-json');
   });
 
-  test('validate reports missing paths', async () => {
-    const fixture = await createDoctorFixture();
-    const captured = createCapturedCommandContext(fixture);
-
-    const result = await runDoctorCommand({
-      argv: ['missing-path'],
-      command: getCommand('validate'),
-      context: captured.context,
-    });
-
-    expect(result.exitCode).toBe(1);
-    expect(captured.stdout.value).toContain('target-not-found');
-  });
-
-  test('validate rejects file paths', async () => {
+  test('valid public non-provider package passes without requiring package.json.ankh', async () => {
     const fixture = await createDoctorFixture({
+      packageJson: createValidPublicPackageJson({
+        docsScript: 'echo docs',
+      }),
       withGitDir: true,
-    });
-    const filePath = await createStandaloneFile(fixture, 'notes.txt');
-    const captured = createCapturedCommandContext(fixture);
-
-    const result = await runDoctorCommand({
-      argv: [filePath],
-      command: getCommand('validate'),
-      context: captured.context,
-    });
-
-    expect(result.exitCode).toBe(1);
-    expect(captured.stdout.value).toContain('target-not-directory');
-  });
-
-  test('repo mode rejects non-repo candidates', async () => {
-    const fixture = await createDoctorFixture();
-    const captured = createCapturedCommandContext(fixture);
-
-    const result = await runDoctorCommand({
-      argv: [],
-      command: getCommand('repo'),
-      context: captured.context,
-    });
-
-    expect(result.exitCode).toBe(1);
-    expect(captured.stdout.value).toContain('repo-markers-missing');
-  });
-
-  test('package mode rejects non-package candidates', async () => {
-    const fixture = await createDoctorFixture({
-      withGitDir: true,
+      withWorkflows: true,
       withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
     });
     const captured = createCapturedCommandContext(fixture);
 
     const result = await runDoctorCommand({
       argv: [],
-      command: getCommand('package'),
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(captured.stdout.value).toContain('profile: public-package');
+    expect(captured.stdout.value).toContain('Diagnostics:\n  none');
+  });
+
+  test('provider package without package.json.ankh fails', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createValidPublicPackageJson({
+        docsScript: 'echo docs',
+      }),
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate'],
+          commandCapabilities: ['doctor.validate'],
+        }),
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
       context: captured.context,
     });
 
     expect(result.exitCode).toBe(1);
-    expect(captured.stdout.value).toContain('package-json-missing');
+    expect(captured.stdout.value).toContain('package.ankh.required-for-provider');
   });
 
-  test('fix is non-mutating in #1', async () => {
+  test('non-provider package with malformed package.json.ankh fails conservatively', async () => {
     const fixture = await createDoctorFixture({
       packageJson: {
-        name: '@ankhorage/example',
-        version: '1.0.0',
-        type: 'module',
+        ...createValidPublicPackageJson({
+          docsScript: 'echo docs',
+        }),
+        ankh: {
+          category: '',
+          capabilities: ['doctor.validate'],
+        },
       },
       withGitDir: true,
       withWorkflows: true,
       withChangeset: true,
       withReadme: true,
       withChangelog: true,
+      withLicense: true,
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.ankh.present.valid-shape');
+  });
+
+  test('provider capability drift is enforced mechanically from the implemented provider surface', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        ...createValidPublicPackageJson({
+          docsScript: 'echo docs',
+        }),
+        ankh: {
+          category: 'doctor',
+          provider: './dist/ankh.provider.js',
+          capabilities: ['doctor.validate', 'doctor.fix'],
+        },
+      },
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate'],
+          commandCapabilities: ['doctor.validate'],
+        }),
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.ankh.capabilities.match-provider');
+  });
+
+  test('paradox dependency is required only when the package owns docs generation through Paradox', async () => {
+    const packageJson = createValidPublicPackageJson({
+      docsScript: 'bunx @ankhorage/paradox && ankhorage-prettier --write README.md paradox',
+    });
+
+    const fixture = await createDoctorFixture({
+      packageJson,
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/readme-usage.ts': 'export {};\n',
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.dependencies.paradox.required');
+  });
+
+  test('provider command descriptors without matching handlers fail mechanically', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        ...createValidPublicPackageJson({
+          docsScript: 'echo docs',
+        }),
+        ankh: {
+          category: 'doctor',
+          provider: './dist/ankh.provider.js',
+          capabilities: ['doctor.validate'],
+        },
+      },
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate'],
+          commandCapabilities: ['doctor.validate'],
+          handlerPaths: [],
+        }),
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('provider.commands.match-handlers');
+  });
+
+  test('fix emits planned changes and does not mutate files', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createValidPublicPackageJson({
+        docsScript: 'echo docs',
+      }),
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
       withLicense: true,
     });
     const before = await snapshotDirectory(fixture);
@@ -134,9 +297,69 @@ describe('doctor command runner', () => {
 
     const after = await snapshotDirectory(fixture);
 
-    expect(result.exitCode).toBe(0);
-    expect(captured.stdout.value).toContain('No automatic fixes available.');
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('Planned changes:');
+    expect(captured.stdout.value).toContain('repo.readme.required');
+    expect(captured.stdout.value).toContain('repo.changelog.required');
     expect(after).toEqual(before);
+  });
+
+  test('validate and fix use the same policy engine', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        ...createValidPublicPackageJson({
+          docsScript: 'echo docs',
+        }),
+        type: 'commonjs',
+      },
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+    });
+    const validateCaptured = createCapturedCommandContext(fixture);
+    const fixCaptured = createCapturedCommandContext(fixture);
+
+    const validateResult = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: validateCaptured.context,
+    });
+    const fixResult = await runDoctorCommand({
+      argv: [],
+      command: getCommand('fix'),
+      context: fixCaptured.context,
+    });
+
+    expect(validateResult.exitCode).toBe(1);
+    expect(fixResult.exitCode).toBe(1);
+    expect(validateCaptured.stdout.value).toContain('package.json.type.module');
+    expect(fixCaptured.stdout.value).toContain('package.json.type.module');
+  });
+
+  test('integration monorepo profile is recognized and does not receive public-package fix plans', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        name: 'ankhorage4',
+        private: true,
+        workspaces: ['packages/*', 'apps/*'],
+      },
+      withGitDir: true,
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('fix'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(captured.stdout.value).toContain('profile: integration-monorepo');
+    expect(captured.stdout.value).toContain('Planned changes:\n  none');
+    expect(captured.stdout.value).not.toContain('repo.readme.required');
   });
 });
 
@@ -147,4 +370,94 @@ function getCommand(name: 'fix' | 'package' | 'repo' | 'validate') {
   }
 
   return command;
+}
+
+function createValidPublicPackageJson(options: {
+  readonly docsScript: string;
+}): Record<string, unknown> {
+  return {
+    name: '@ankhorage/example',
+    version: '1.0.0',
+    description: 'Example package.',
+    repository: {
+      type: 'git',
+      url: 'git+https://github.com/ankhorage/example.git',
+    },
+    homepage: 'https://github.com/ankhorage/example#readme',
+    bugs: {
+      url: 'https://github.com/ankhorage/example/issues',
+    },
+    license: 'MIT',
+    keywords: ['ankhorage', 'example'],
+    type: 'module',
+    files: ['dist', 'README.md', 'CHANGELOG.md', 'LICENSE'],
+    exports: {
+      '.': {
+        import: './dist/index.js',
+        types: './dist/index.d.ts',
+      },
+    },
+    publishConfig: {
+      access: 'public',
+    },
+    scripts: {
+      build: 'bun x tsc -p tsconfig.build.json',
+      typecheck: 'bun x tsc --noEmit -p tsconfig.json',
+      lint: 'ankhorage-eslint . --max-warnings=0',
+      'lint:fix': 'ankhorage-eslint . --fix --max-warnings=0',
+      format: 'ankhorage-prettier --write .',
+      'format:check': 'ankhorage-prettier --check .',
+      test: 'bun test',
+      knip: 'ankhorage-knip',
+      docs: options.docsScript,
+      changeset: 'changeset',
+      'changeset:status': 'changeset status --since=origin/main',
+      'version-packages': 'changeset version',
+    },
+    devDependencies: {
+      '@ankhorage/devtools': '^1.0.6',
+      '@changesets/cli': '^2.31.0',
+      '@types/bun': '^1.3.13',
+      '@types/node': '^25.6.0',
+      typescript: '^5.9.3',
+    },
+    packageManager: 'bun@1.3.13',
+  };
+}
+
+function createProviderSource(options: {
+  readonly capabilities: readonly string[];
+  readonly commandCapabilities: readonly string[];
+  readonly handlerPaths?: readonly string[];
+}): string {
+  const handlerPaths = options.handlerPaths ?? ['validate'];
+  const commandLines = options.commandCapabilities
+    .map(
+      (capability) =>
+        `    { capability: '${capability}', path: ['${capability.split('.').at(-1) ?? 'validate'}'], summary: 'summary' },`,
+    )
+    .join('\n');
+  const handlerLines = handlerPaths
+    .map(
+      (handlerPath) => `    { path: ['${handlerPath}'], handler: async () => ({ exitCode: 0 }) },`,
+    )
+    .join('\n');
+
+  return [
+    'const provider = {',
+    "  id: '@ankhorage/example',",
+    "  category: 'doctor',",
+    "  version: '1.0.0',",
+    `  capabilities: ${JSON.stringify(options.capabilities)},`,
+    '  commands: [',
+    commandLines,
+    '  ],',
+    '  handlers: [',
+    handlerLines,
+    '  ],',
+    '};',
+    '',
+    'export default provider;',
+    '',
+  ].join('\n');
 }

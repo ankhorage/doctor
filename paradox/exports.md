@@ -4,7 +4,7 @@
 
 Kind: `function`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:35:1`
+Source: `src/analysis.ts:86:1`
 
 ### Signatures
 
@@ -82,7 +82,7 @@ Source: `src/packageMetadata.ts:10:14`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:9:1`
+Source: `src/analysis.ts:12:1`
 
 ### Members
 
@@ -96,17 +96,20 @@ Source: `src/analysis.ts:9:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:15:1`
+Source: `src/analysis.ts:33:1`
 
 ### Members
 
-| Name           | Kind     | Type                           | Required | Description |
-| -------------- | -------- | ------------------------------ | -------- | ----------- |
-| appliedChecks  | property | `readonly DoctorTargetCheck[]` | yes      |             |
-| diagnostics    | property | `readonly DoctorDiagnostic[]`  | yes      |             |
-| hasPackageJson | property | `boolean`                      | yes      |             |
-| repoMarkers    | property | `readonly string[]`            | yes      |             |
-| targetPath     | property | `string`                       | yes      |             |
+| Name           | Kind     | Type                             | Required | Description |
+| -------------- | -------- | -------------------------------- | -------- | ----------- |
+| appliedChecks  | property | `readonly DoctorTargetCheck[]`   | yes      |             |
+| diagnostics    | property | `readonly DoctorDiagnostic[]`    | yes      |             |
+| fixPlan        | property | `DoctorFixPlan \| null`          | yes      |             |
+| hasPackageJson | property | `boolean`                        | yes      |             |
+| plannedChanges | property | `readonly DoctorPlannedChange[]` | yes      |             |
+| profile        | property | `DoctorPolicyProfile`            | yes      |             |
+| repoMarkers    | property | `readonly string[]`              | yes      |             |
+| targetPath     | property | `string`                         | yes      |             |
 
 ## DoctorCommandContext
 
@@ -140,7 +143,7 @@ Source: `src/commandContext.ts:11:1`
 
 Kind: `type`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:20:1`
+Source: `src/diagnostics.ts:74:1`
 
 ### Members
 
@@ -149,6 +152,8 @@ Source: `src/diagnostics.ts:20:1`
 | code     | property | `DoctorDiagnosticCode`     | yes      |             |
 | message  | property | `string`                   | yes      |             |
 | path     | property | `string`                   | yes      |             |
+| profile  | property | `DoctorPolicyProfile`      | yes      |             |
+| ruleId   | property | `DoctorRuleId`             | yes      |             |
 | severity | property | `DoctorDiagnosticSeverity` | yes      |             |
 
 ## DoctorDiagnosticCode
@@ -161,19 +166,68 @@ Source: `src/diagnostics.ts:1:1`
 
 Kind: `unknown`
 Module: `src/diagnostics.ts`
+Source: `src/diagnostics.ts:15:1`
+
+## DoctorFixPlan
+
+Kind: `type`
+Module: `src/analysis.ts`
+Source: `src/analysis.ts:26:1`
+
+### Members
+
+| Name        | Kind     | Type                             | Required | Description |
+| ----------- | -------- | -------------------------------- | -------- | ----------- |
+| changes     | property | `readonly DoctorPlannedChange[]` | yes      |             |
+| diagnostics | property | `readonly DoctorDiagnostic[]`    | yes      |             |
+| profile     | property | `DoctorPolicyProfile`            | yes      |             |
+| targetPath  | property | `string`                         | yes      |             |
+
+## DoctorPlannedChange
+
+Kind: `type`
+Module: `src/analysis.ts`
+Source: `src/analysis.ts:18:1`
+
+### Members
+
+| Name        | Kind     | Type                      | Required | Description |
+| ----------- | -------- | ------------------------- | -------- | ----------- |
+| description | property | `string`                  | yes      |             |
+| filePath    | property | `string`                  | yes      |             |
+| kind        | property | `DoctorPlannedChangeKind` | yes      |             |
+| ruleId      | property | `DoctorRuleId`            | yes      |             |
+| safe        | property | `boolean`                 | yes      |             |
+
+## DoctorPlannedChangeKind
+
+Kind: `unknown`
+Module: `src/analysis.ts`
+Source: `src/analysis.ts:9:1`
+
+## DoctorPolicyProfile
+
+Kind: `unknown`
+Module: `src/diagnostics.ts`
+Source: `src/diagnostics.ts:16:1`
+
+## DoctorRuleId
+
+Kind: `unknown`
+Module: `src/diagnostics.ts`
 Source: `src/diagnostics.ts:18:1`
 
 ## DoctorTargetCheck
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:6:1`
+Source: `src/analysis.ts:7:1`
 
 ## DoctorTargetMode
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:7:1`
+Source: `src/analysis.ts:8:1`
 
 ## runCli
 

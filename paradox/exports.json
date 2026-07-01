@@ -8,7 +8,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 35,
+      "line": 86,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -220,7 +220,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 9,
+      "line": 12,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -260,11 +260,17 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 15,
+      "line": 33,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorDiagnostic", "DoctorTargetCheck"],
+    "relatedSymbols": [
+      "DoctorDiagnostic",
+      "DoctorFixPlan",
+      "DoctorPlannedChange",
+      "DoctorPolicyProfile",
+      "DoctorTargetCheck"
+    ],
     "signatures": [],
     "members": [
       {
@@ -282,9 +288,30 @@
         "description": null
       },
       {
+        "name": "fixPlan",
+        "kind": "property",
+        "type": "DoctorFixPlan | null",
+        "required": true,
+        "description": null
+      },
+      {
         "name": "hasPackageJson",
         "kind": "property",
         "type": "boolean",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "plannedChanges",
+        "kind": "property",
+        "type": "readonly DoctorPlannedChange[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "profile",
+        "kind": "property",
+        "type": "DoctorPolicyProfile",
         "required": true,
         "description": null
       },
@@ -394,11 +421,16 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
-      "line": 20,
+      "line": 74,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorDiagnosticCode", "DoctorDiagnosticSeverity"],
+    "relatedSymbols": [
+      "DoctorDiagnosticCode",
+      "DoctorDiagnosticSeverity",
+      "DoctorPolicyProfile",
+      "DoctorRuleId"
+    ],
     "signatures": [],
     "members": [
       {
@@ -419,6 +451,20 @@
         "name": "path",
         "kind": "property",
         "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "profile",
+        "kind": "property",
+        "type": "DoctorPolicyProfile",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "ruleId",
+        "kind": "property",
+        "type": "DoctorRuleId",
         "required": true,
         "description": null
       },
@@ -459,6 +505,161 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
+      "line": 15,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorFixPlan",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/analysis.ts",
+    "sourceLocation": {
+      "filePath": "src/analysis.ts",
+      "line": 26,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorDiagnostic", "DoctorPlannedChange", "DoctorPolicyProfile"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "changes",
+        "kind": "property",
+        "type": "readonly DoctorPlannedChange[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "diagnostics",
+        "kind": "property",
+        "type": "readonly DoctorDiagnostic[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "profile",
+        "kind": "property",
+        "type": "DoctorPolicyProfile",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "targetPath",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorPlannedChange",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/analysis.ts",
+    "sourceLocation": {
+      "filePath": "src/analysis.ts",
+      "line": 18,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorPlannedChangeKind", "DoctorRuleId"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "description",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "filePath",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "kind",
+        "kind": "property",
+        "type": "DoctorPlannedChangeKind",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "ruleId",
+        "kind": "property",
+        "type": "DoctorRuleId",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "safe",
+        "kind": "property",
+        "type": "boolean",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorPlannedChangeKind",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/analysis.ts",
+    "sourceLocation": {
+      "filePath": "src/analysis.ts",
+      "line": 9,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorPolicyProfile",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/diagnostics.ts",
+    "sourceLocation": {
+      "filePath": "src/diagnostics.ts",
+      "line": 16,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorRuleId",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/diagnostics.ts",
+    "sourceLocation": {
+      "filePath": "src/diagnostics.ts",
       "line": 18,
       "column": 1
     },
@@ -477,7 +678,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 6,
+      "line": 7,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -495,7 +696,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 7,
+      "line": 8,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],

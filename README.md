@@ -3,7 +3,7 @@
 
 # DOCTOR
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.2.0](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.2.1](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
 
 Executable doctor provider and standalone CLI for lightweight Ankhorage repo and package compliance diagnostics.
 
@@ -25,10 +25,18 @@ Current command surface:
 - `repo`
 - `package`
 
-`doctor#1` intentionally stays lightweight:
+`doctor#2` adds a profile-based policy engine:
 
-- path-aware local repo/package diagnostics are implemented now
-- GitHub checks, CI checks, full policy enforcement, and autofix rules are deferred
+- strict `public-package` validation for extracted public package repos
+- light recognized `integration-monorepo` validation for `ankhorage4`
+- non-mutating `fix` plans for deterministic mechanical changes only
+
+Still deferred:
+
+- GitHub checks
+- CI checks
+- on-disk `fix --apply`
+- deeper cross-repo policy enforcement
 
 Path handling:
 

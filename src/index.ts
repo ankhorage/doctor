@@ -1,6 +1,9 @@
 export type {
   DoctorAnalysisRequest,
   DoctorAnalysisResult,
+  DoctorFixPlan,
+  DoctorPlannedChange,
+  DoctorPlannedChangeKind,
   DoctorTargetCheck,
   DoctorTargetMode,
 } from './analysis.js';
@@ -16,6 +19,8 @@ export type {
   DoctorDiagnostic,
   DoctorDiagnosticCode,
   DoctorDiagnosticSeverity,
+  DoctorPolicyProfile,
+  DoctorRuleId,
 } from './diagnostics.js';
 export {
   DOCTOR_CAPABILITIES,

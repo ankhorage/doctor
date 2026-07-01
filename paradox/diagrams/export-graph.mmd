@@ -41,6 +41,9 @@ graph LR
   export_DoctorAnalysisResult["DoctorAnalysisResult"]
   module_src_analysis_ts --> export_DoctorAnalysisResult
   export_DoctorAnalysisResult -.-> export_DoctorDiagnostic
+  export_DoctorAnalysisResult -.-> export_DoctorFixPlan
+  export_DoctorAnalysisResult -.-> export_DoctorPlannedChange
+  export_DoctorAnalysisResult -.-> export_DoctorPolicyProfile
   export_DoctorAnalysisResult -.-> export_DoctorTargetCheck
   export_DoctorCommandContext["DoctorCommandContext"]
   module_src_commandContext_ts --> export_DoctorCommandContext
@@ -50,10 +53,27 @@ graph LR
   module_src_diagnostics_ts --> export_DoctorDiagnostic
   export_DoctorDiagnostic -.-> export_DoctorDiagnosticCode
   export_DoctorDiagnostic -.-> export_DoctorDiagnosticSeverity
+  export_DoctorDiagnostic -.-> export_DoctorPolicyProfile
+  export_DoctorDiagnostic -.-> export_DoctorRuleId
   export_DoctorDiagnosticCode["DoctorDiagnosticCode"]
   module_src_diagnostics_ts --> export_DoctorDiagnosticCode
   export_DoctorDiagnosticSeverity["DoctorDiagnosticSeverity"]
   module_src_diagnostics_ts --> export_DoctorDiagnosticSeverity
+  export_DoctorFixPlan["DoctorFixPlan"]
+  module_src_analysis_ts --> export_DoctorFixPlan
+  export_DoctorFixPlan -.-> export_DoctorDiagnostic
+  export_DoctorFixPlan -.-> export_DoctorPlannedChange
+  export_DoctorFixPlan -.-> export_DoctorPolicyProfile
+  export_DoctorPlannedChange["DoctorPlannedChange"]
+  module_src_analysis_ts --> export_DoctorPlannedChange
+  export_DoctorPlannedChange -.-> export_DoctorPlannedChangeKind
+  export_DoctorPlannedChange -.-> export_DoctorRuleId
+  export_DoctorPlannedChangeKind["DoctorPlannedChangeKind"]
+  module_src_analysis_ts --> export_DoctorPlannedChangeKind
+  export_DoctorPolicyProfile["DoctorPolicyProfile"]
+  module_src_diagnostics_ts --> export_DoctorPolicyProfile
+  export_DoctorRuleId["DoctorRuleId"]
+  module_src_diagnostics_ts --> export_DoctorRuleId
   export_DoctorTargetCheck["DoctorTargetCheck"]
   module_src_analysis_ts --> export_DoctorTargetCheck
   export_DoctorTargetMode["DoctorTargetMode"]
