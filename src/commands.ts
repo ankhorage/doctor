@@ -1,6 +1,6 @@
 import type { AnkhCapabilityId, AnkhCommandDescriptor } from '@ankhorage/contracts/cli';
 
-import type { DoctorAnalysisResult, DoctorTargetMode } from './analysis.js';
+import type { DoctorAnalysisResult, DoctorPlannedChange, DoctorTargetMode } from './analysis.js';
 import { analyzeDoctorTarget } from './analysis.js';
 import type { DoctorCommandContext, DoctorCommandRunResult } from './commandContext.js';
 import {
@@ -64,7 +64,7 @@ export const DOCTOR_COMMANDS = [
     path: ['validate'],
     capability: COMMAND_CAPABILITIES.validate,
     mode: 'validate',
-    summary: 'Auto-detect lightweight repo and package diagnostics for a local path.',
+    summary: 'Auto-detect the applicable doctor policy profile and validate a local path.',
     run: runValidateCommand,
   },
   {
@@ -72,7 +72,7 @@ export const DOCTOR_COMMANDS = [
     path: ['fix'],
     capability: COMMAND_CAPABILITIES.fix,
     mode: 'fix',
-    summary: 'Run the same lightweight checks and report that no automatic fixes exist yet.',
+    summary: 'Build a non-mutating fix plan for deterministic doctor policy violations.',
     run: runFixCommand,
   },
   {
@@ -226,7 +226,6 @@ async function runFixCommand(
   });
 
   request.context.writeStdout(renderAnalysisReport('fix', result));
-  request.context.writeStdout('No automatic fixes available.\n');
 
   return {
     exitCode: countErrorDiagnostics(result.diagnostics) > 0 ? 1 : 0,
@@ -274,6 +273,7 @@ function renderAnalysisReport(
   const lines = [
     `doctor ${commandName}`,
     `target: ${result.targetPath}`,
+    `profile: ${result.profile}`,
     `checks: ${result.appliedChecks.length > 0 ? result.appliedChecks.join(', ') : 'none'}`,
     `repoMarkers: ${result.repoMarkers.length > 0 ? result.repoMarkers.join(', ') : 'none'}`,
     '',
@@ -288,6 +288,19 @@ function renderAnalysisReport(
     }
   }
 
+  if (commandName === 'fix') {
+    lines.push('');
+    lines.push('Planned changes:');
+
+    if (result.plannedChanges.length === 0) {
+      lines.push('  none');
+    } else {
+      for (const change of result.plannedChanges) {
+        lines.push(renderPlannedChangeLine(change));
+      }
+    }
+  }
+
   const errorCount = countErrorDiagnostics(result.diagnostics);
   const warningCount = countWarningDiagnostics(result.diagnostics);
 
@@ -299,7 +312,11 @@ function renderAnalysisReport(
 }
 
 function renderDiagnosticLine(diagnostic: DoctorDiagnostic): string {
-  return `  - ${diagnostic.severity.toUpperCase()} ${diagnostic.code}: ${diagnostic.message}`;
+  return `  - ${diagnostic.severity.toUpperCase()} ${diagnostic.ruleId} (${diagnostic.code}): ${diagnostic.message}`;
+}
+
+function renderPlannedChangeLine(change: DoctorPlannedChange): string {
+  return `  - ${change.ruleId} [${change.kind}]: ${change.description}`;
 }
 
 function renderCommandFailure(commandName: DoctorCommandName, error: unknown): string {

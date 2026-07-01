@@ -11,6 +11,7 @@ export interface CapturedCommandContext {
 }
 
 export interface DoctorFixtureOptions {
+  readonly extraFiles?: Readonly<Record<string, string>>;
   readonly packageJson?: Record<string, unknown> | 'invalid-json' | null;
   readonly withBunLock?: boolean;
   readonly withChangelog?: boolean;
@@ -87,6 +88,14 @@ export async function createDoctorFixture(options: DoctorFixtureOptions = {}): P
       `${JSON.stringify(options.packageJson, null, 2)}\n`,
       'utf8',
     );
+  }
+
+  if (options.extraFiles !== undefined) {
+    for (const [relativePath, content] of Object.entries(options.extraFiles)) {
+      const absolutePath = path.join(rootPath, relativePath);
+      await fs.mkdir(path.dirname(absolutePath), { recursive: true });
+      await fs.writeFile(absolutePath, content, 'utf8');
+    }
   }
 
   return rootPath;

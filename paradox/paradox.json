@@ -12,7 +12,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.2.0",
+      "value": "v0.2.1",
       "color": "cb3837"
     },
     {
@@ -70,7 +70,7 @@
   "readmeUsage": [
     {
       "title": "Provider and CLI surface",
-      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#1` intentionally stays lightweight:\n\n- path-aware local repo/package diagnostics are implemented now\n- GitHub checks, CI checks, full policy enforcement, and autofix rules are deferred\n\nPath handling:\n\n- pass `[path]`, or\n- omit it to inspect the current working directory",
+      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#2` adds a profile-based policy engine:\n\n- strict `public-package` validation for extracted public package repos\n- light recognized `integration-monorepo` validation for `ankhorage4`\n- non-mutating `fix` plans for deterministic mechanical changes only\n\nStill deferred:\n\n- GitHub checks\n- CI checks\n- on-disk `fix --apply`\n- deeper cross-repo policy enforcement\n\nPath handling:\n\n- pass `[path]`, or\n- omit it to inspect the current working directory",
       "language": "ts",
       "code": "import { runCli } from './cli.js';\n\nawait runCli(['--help']);",
       "sourcePath": "src/readme-usage.ts"
@@ -93,6 +93,9 @@
         "analyzeDoctorTarget",
         "DoctorAnalysisRequest",
         "DoctorAnalysisResult",
+        "DoctorFixPlan",
+        "DoctorPlannedChange",
+        "DoctorPlannedChangeKind",
         "DoctorTargetCheck",
         "DoctorTargetMode"
       ]
@@ -147,7 +150,9 @@
         "countWarningDiagnostics",
         "DoctorDiagnostic",
         "DoctorDiagnosticCode",
-        "DoctorDiagnosticSeverity"
+        "DoctorDiagnosticSeverity",
+        "DoctorPolicyProfile",
+        "DoctorRuleId"
       ]
     },
     {
@@ -171,6 +176,11 @@
         "DoctorDiagnostic",
         "DoctorDiagnosticCode",
         "DoctorDiagnosticSeverity",
+        "DoctorFixPlan",
+        "DoctorPlannedChange",
+        "DoctorPlannedChangeKind",
+        "DoctorPolicyProfile",
+        "DoctorRuleId",
         "DoctorTargetCheck",
         "DoctorTargetMode",
         "runCli"
@@ -236,7 +246,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 35,
+        "line": 86,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -448,7 +458,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 9,
+        "line": 12,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -488,11 +498,17 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 15,
+        "line": 33,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorDiagnostic", "DoctorTargetCheck"],
+      "relatedSymbols": [
+        "DoctorDiagnostic",
+        "DoctorFixPlan",
+        "DoctorPlannedChange",
+        "DoctorPolicyProfile",
+        "DoctorTargetCheck"
+      ],
       "signatures": [],
       "members": [
         {
@@ -510,9 +526,30 @@
           "description": null
         },
         {
+          "name": "fixPlan",
+          "kind": "property",
+          "type": "DoctorFixPlan | null",
+          "required": true,
+          "description": null
+        },
+        {
           "name": "hasPackageJson",
           "kind": "property",
           "type": "boolean",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "plannedChanges",
+          "kind": "property",
+          "type": "readonly DoctorPlannedChange[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "profile",
+          "kind": "property",
+          "type": "DoctorPolicyProfile",
           "required": true,
           "description": null
         },
@@ -622,11 +659,16 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 20,
+        "line": 74,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorDiagnosticCode", "DoctorDiagnosticSeverity"],
+      "relatedSymbols": [
+        "DoctorDiagnosticCode",
+        "DoctorDiagnosticSeverity",
+        "DoctorPolicyProfile",
+        "DoctorRuleId"
+      ],
       "signatures": [],
       "members": [
         {
@@ -647,6 +689,20 @@
           "name": "path",
           "kind": "property",
           "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "profile",
+          "kind": "property",
+          "type": "DoctorPolicyProfile",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "ruleId",
+          "kind": "property",
+          "type": "DoctorRuleId",
           "required": true,
           "description": null
         },
@@ -687,6 +743,161 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
+        "line": 15,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorFixPlan",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/analysis.ts",
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 26,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorDiagnostic", "DoctorPlannedChange", "DoctorPolicyProfile"],
+      "signatures": [],
+      "members": [
+        {
+          "name": "changes",
+          "kind": "property",
+          "type": "readonly DoctorPlannedChange[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "diagnostics",
+          "kind": "property",
+          "type": "readonly DoctorDiagnostic[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "profile",
+          "kind": "property",
+          "type": "DoctorPolicyProfile",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "targetPath",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorPlannedChange",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/analysis.ts",
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 18,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorPlannedChangeKind", "DoctorRuleId"],
+      "signatures": [],
+      "members": [
+        {
+          "name": "description",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "filePath",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "kind",
+          "kind": "property",
+          "type": "DoctorPlannedChangeKind",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "ruleId",
+          "kind": "property",
+          "type": "DoctorRuleId",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "safe",
+          "kind": "property",
+          "type": "boolean",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorPlannedChangeKind",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/analysis.ts",
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 9,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorPolicyProfile",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/diagnostics.ts",
+      "sourceLocation": {
+        "filePath": "src/diagnostics.ts",
+        "line": 16,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorRuleId",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/diagnostics.ts",
+      "sourceLocation": {
+        "filePath": "src/diagnostics.ts",
         "line": 18,
         "column": 1
       },
@@ -705,7 +916,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 6,
+        "line": 7,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -723,7 +934,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 7,
+        "line": 8,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -778,34 +989,151 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 35,
+        "line": 86,
         "column": 1
       }
     },
     {
-      "name": "analyzeRepoLight",
+      "name": "analyzeRepoPolicy",
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 151,
+        "line": 233,
         "column": 1
       }
     },
     {
-      "name": "analyzePackageLight",
+      "name": "analyzePackagePolicy",
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 173,
+        "line": 345,
         "column": 1
       }
     },
     {
-      "name": "maybeWarnForMissingPath",
+      "name": "validateAnkhMetadataAndProvider",
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 251,
+        "line": 635,
+        "column": 1
+      }
+    },
+    {
+      "name": "inspectProviderSource",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 771,
+        "column": 1
+      }
+    },
+    {
+      "name": "resolveProviderSourcePath",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 860,
+        "column": 1
+      }
+    },
+    {
+      "name": "findRepoMarkers",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 888,
+        "column": 1
+      }
+    },
+    {
+      "name": "readPackageJson",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 898,
+        "column": 1
+      }
+    },
+    {
+      "name": "detectProfile",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 940,
+        "column": 1
+      }
+    },
+    {
+      "name": "isProviderPackage",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 961,
+        "column": 1
+      }
+    },
+    {
+      "name": "maybeRequirePath",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 971,
+        "column": 1
+      }
+    },
+    {
+      "name": "requireNonEmptyStringField",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1009,
+        "column": 1
+      }
+    },
+    {
+      "name": "requireRecordField",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1033,
+        "column": 1
+      }
+    },
+    {
+      "name": "requireStringArrayField",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1057,
+        "column": 1
+      }
+    },
+    {
+      "name": "expectsParadox",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1081,
+        "column": 1
+      }
+    },
+    {
+      "name": "expectsDevtools",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1100,
+        "column": 1
+      }
+    },
+    {
+      "name": "hasDependency",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1115,
         "column": 1
       }
     },
@@ -814,7 +1142,25 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 277,
+        "line": 1122,
+        "column": 1
+      }
+    },
+    {
+      "name": "mapScriptRule",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1156,
+        "column": 1
+      }
+    },
+    {
+      "name": "createEarlyResult",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1185,
         "column": 1
       }
     },
@@ -823,7 +1169,16 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 300,
+        "line": 1198,
+        "column": 1
+      }
+    },
+    {
+      "name": "createPlannedChange",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1202,
         "column": 1
       }
     },
@@ -832,7 +1187,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 314,
+        "line": 1209,
         "column": 1
       }
     },
@@ -841,7 +1196,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 319,
+        "line": 1214,
         "column": 1
       }
     },
@@ -850,7 +1205,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 323,
+        "line": 1218,
         "column": 1
       }
     },
@@ -859,7 +1214,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 335,
+        "line": 1230,
         "column": 1
       }
     },
@@ -868,7 +1223,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 344,
+        "line": 1239,
         "column": 1
       }
     },
@@ -877,7 +1232,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 348,
+        "line": 1243,
         "column": 1
       }
     },
@@ -886,7 +1241,43 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 352,
+        "line": 1247,
+        "column": 1
+      }
+    },
+    {
+      "name": "isStringTuple",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1251,
+        "column": 1
+      }
+    },
+    {
+      "name": "readStringArray",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1255,
+        "column": 1
+      }
+    },
+    {
+      "name": "sameStringSet",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1259,
+        "column": 1
+      }
+    },
+    {
+      "name": "uniqueSorted",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1267,
         "column": 1
       }
     },
@@ -1030,7 +1421,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 236,
+        "line": 235,
         "column": 1
       }
     },
@@ -1039,7 +1430,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 253,
+        "line": 252,
         "column": 1
       }
     },
@@ -1048,7 +1439,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 270,
+        "line": 269,
         "column": 1
       }
     },
@@ -1057,7 +1448,16 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 301,
+        "line": 314,
+        "column": 1
+      }
+    },
+    {
+      "name": "renderPlannedChangeLine",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 318,
         "column": 1
       }
     },
@@ -1066,7 +1466,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 305,
+        "line": 322,
         "column": 1
       }
     },
@@ -1075,7 +1475,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 310,
+        "line": 327,
         "column": 1
       }
     },
@@ -1084,7 +1484,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 27,
+        "line": 83,
         "column": 1
       }
     },
@@ -1093,7 +1493,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 31,
+        "line": 87,
         "column": 1
       }
     }
@@ -1287,8 +1687,236 @@
       },
       {
         "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "createEarlyResult",
+        "callExpression": "createEarlyResult",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
         "toSymbol": "createDiagnostic",
         "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "findRepoMarkers",
+        "callExpression": "findRepoMarkers",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "readPackageJson",
+        "callExpression": "readPackageJson",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "detectProfile",
+        "callExpression": "detectProfile",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "analyzeRepoPolicy",
+        "callExpression": "analyzeRepoPolicy",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "analyzePackagePolicy",
+        "callExpression": "analyzePackagePolicy",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeRepoPolicy",
+        "toSymbol": "maybeRequirePath",
+        "callExpression": "maybeRequirePath",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeRepoPolicy",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "requireNonEmptyStringField",
+        "callExpression": "requireNonEmptyStringField",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "validateAnkhMetadataAndProvider",
+        "callExpression": "validateAnkhMetadataAndProvider",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "requireRecordField",
+        "callExpression": "requireRecordField",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "requireStringArrayField",
+        "callExpression": "requireStringArrayField",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "createPlannedChange",
+        "callExpression": "createPlannedChange",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "mapScriptRule",
+        "callExpression": "mapScriptRule",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "hasDependency",
+        "callExpression": "hasDependency",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "expectsDevtools",
+        "callExpression": "expectsDevtools",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "expectsParadox",
+        "callExpression": "expectsParadox",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "isProviderPackage",
+        "callExpression": "isProviderPackage",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "createPlannedChange",
+        "callExpression": "createPlannedChange",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "validateAnkhMetadataShape",
+        "callExpression": "validateAnkhMetadataShape",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "inspectProviderSource",
+        "callExpression": "inspectProviderSource",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "uniqueSorted",
+        "callExpression": "uniqueSorted",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "sameStringSet",
+        "callExpression": "sameStringSet",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "inspectProviderSource",
+        "toSymbol": "resolveProviderSourcePath",
+        "callExpression": "resolveProviderSourcePath",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "inspectProviderSource",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "inspectProviderSource",
+        "toSymbol": "pathToFileURL",
+        "callExpression": "pathToFileURL",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "inspectProviderSource",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "inspectProviderSource",
+        "toSymbol": "readStringArray",
+        "callExpression": "readStringArray",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "src/analysis.ts",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "src/analysis.ts",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "src/analysis.ts",
+        "toSymbol": "isStringTuple",
+        "callExpression": "isStringTuple",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "resolveProviderSourcePath",
+        "toSymbol": "pathExists",
+        "callExpression": "pathExists",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -1298,63 +1926,117 @@
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "analyzeDoctorTarget",
-        "toSymbol": "analyzeRepoLight",
-        "callExpression": "analyzeRepoLight",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "analyzeDoctorTarget",
-        "toSymbol": "analyzePackageLight",
-        "callExpression": "analyzePackageLight",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "analyzeRepoLight",
-        "toSymbol": "maybeWarnForMissingPath",
-        "callExpression": "maybeWarnForMissingPath",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "analyzePackageLight",
+        "fromSymbol": "readPackageJson",
         "toSymbol": "createDiagnostic",
         "callExpression": "createDiagnostic",
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "analyzePackageLight",
+        "fromSymbol": "readPackageJson",
         "toSymbol": "createInvalidPackageJsonMessage",
         "callExpression": "createInvalidPackageJsonMessage",
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "analyzePackageLight",
+        "fromSymbol": "readPackageJson",
         "toSymbol": "isRecord",
         "callExpression": "isRecord",
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "analyzePackageLight",
+        "fromSymbol": "detectProfile",
         "toSymbol": "isNonEmptyString",
         "callExpression": "isNonEmptyString",
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "analyzePackageLight",
-        "toSymbol": "validateAnkhMetadataShape",
-        "callExpression": "validateAnkhMetadataShape",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "maybeWarnForMissingPath",
+        "fromSymbol": "isProviderPackage",
         "toSymbol": "pathExists",
         "callExpression": "pathExists",
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "maybeWarnForMissingPath",
+        "fromSymbol": "maybeRequirePath",
+        "toSymbol": "pathExists",
+        "callExpression": "pathExists",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "maybeRequirePath",
         "toSymbol": "createDiagnostic",
         "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "maybeRequirePath",
+        "toSymbol": "createPlannedChange",
+        "callExpression": "createPlannedChange",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "requireNonEmptyStringField",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "requireNonEmptyStringField",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "requireRecordField",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "requireRecordField",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "requireStringArrayField",
+        "toSymbol": "readStringArray",
+        "callExpression": "readStringArray",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "requireStringArrayField",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "expectsParadox",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "expectsParadox",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "expectsParadox",
+        "toSymbol": "pathExists",
+        "callExpression": "pathExists",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "expectsDevtools",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "hasDependency",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -1376,12 +2058,6 @@
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "src/analysis.ts",
-        "toSymbol": "isNonEmptyString",
-        "callExpression": "isNonEmptyString",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
         "fromSymbol": "pathExists",
         "toSymbol": "statOrNull",
         "callExpression": "statOrNull",
@@ -1397,6 +2073,12 @@
         "fromSymbol": "isPackageRelativeProviderPath",
         "toSymbol": "isNonEmptyString",
         "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "sameStringSet",
+        "toSymbol": "uniqueSorted",
+        "callExpression": "uniqueSorted",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -1629,6 +2311,12 @@
       },
       {
         "fromSymbol": "renderAnalysisReport",
+        "toSymbol": "renderPlannedChangeLine",
+        "callExpression": "renderPlannedChangeLine",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "renderAnalysisReport",
         "toSymbol": "countErrorDiagnostics",
         "callExpression": "countErrorDiagnostics",
         "sourcePath": "src/commands.ts"
@@ -1803,6 +2491,18 @@
       },
       {
         "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "createValidPublicPackageJson",
+        "callExpression": "createValidPublicPackageJson",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "createProviderSource",
+        "callExpression": "createProviderSource",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
         "toSymbol": "snapshotDirectory",
         "callExpression": "snapshotDirectory",
         "sourcePath": "tests/commands.test.ts"
@@ -1857,7 +2557,47 @@
       },
       {
         "fromSymbol": "DoctorAnalysisResult",
+        "toType": "DoctorFixPlan",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorAnalysisResult",
+        "toType": "DoctorPlannedChange",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorAnalysisResult",
+        "toType": "DoctorPolicyProfile",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorAnalysisResult",
         "toType": "DoctorTargetCheck",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorFixPlan",
+        "toType": "DoctorDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorFixPlan",
+        "toType": "DoctorPlannedChange",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorFixPlan",
+        "toType": "DoctorPolicyProfile",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorPlannedChange",
+        "toType": "DoctorPlannedChangeKind",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorPlannedChange",
+        "toType": "DoctorRuleId",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -1928,6 +2668,16 @@
       {
         "fromSymbol": "DoctorDiagnostic",
         "toType": "DoctorDiagnosticSeverity",
+        "sourcePath": "src/diagnostics.ts"
+      },
+      {
+        "fromSymbol": "DoctorDiagnostic",
+        "toType": "DoctorPolicyProfile",
+        "sourcePath": "src/diagnostics.ts"
+      },
+      {
+        "fromSymbol": "DoctorDiagnostic",
+        "toType": "DoctorRuleId",
         "sourcePath": "src/diagnostics.ts"
       }
     ],

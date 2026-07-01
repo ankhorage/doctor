@@ -17,10 +17,18 @@ import { runCli } from './cli.js';
  * - `repo`
  * - `package`
  *
- * `doctor#1` intentionally stays lightweight:
+ * `doctor#2` adds a profile-based policy engine:
  *
- * - path-aware local repo/package diagnostics are implemented now
- * - GitHub checks, CI checks, full policy enforcement, and autofix rules are deferred
+ * - strict `public-package` validation for extracted public package repos
+ * - light recognized `integration-monorepo` validation for `ankhorage4`
+ * - non-mutating `fix` plans for deterministic mechanical changes only
+ *
+ * Still deferred:
+ *
+ * - GitHub checks
+ * - CI checks
+ * - on-disk `fix --apply`
+ * - deeper cross-repo policy enforcement
  *
  * Path handling:
  *
