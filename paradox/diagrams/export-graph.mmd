@@ -1,0 +1,63 @@
+graph LR
+  module_package_json["package.json"]
+  module_src_analysis_ts["src/analysis.ts"]
+  module_src_ankh_provider_ts["src/ankh.provider.ts"]
+  module_src_cli_ts["src/cli.ts"]
+  module_src_commandContext_ts["src/commandContext.ts"]
+  module_src_commands_ts["src/commands.ts"]
+  module_src_diagnostics_ts["src/diagnostics.ts"]
+  module_src_index_ts["src/index.ts"]
+  module_src_packageMetadata_ts["src/packageMetadata.ts"]
+  module_tests_ankh_provider_test_ts["tests/ankh.provider.test.ts"]
+  module_tests_cli_test_ts["tests/cli.test.ts"]
+  module_tests_commands_test_ts["tests/commands.test.ts"]
+  module_tests_package_test_ts["tests/package.test.ts"]
+  module_tests_testSupport_ts["tests/testSupport.ts"]
+  export_analyzeDoctorTarget["analyzeDoctorTarget"]
+  module_src_analysis_ts --> export_analyzeDoctorTarget
+  export_analyzeDoctorTarget -.-> export_DoctorAnalysisRequest
+  export_analyzeDoctorTarget -.-> export_DoctorAnalysisResult
+  export_createDefaultCommandContext["createDefaultCommandContext"]
+  module_src_commandContext_ts --> export_createDefaultCommandContext
+  export_createDefaultCommandContext -.-> export_DoctorCommandContext
+  export_createDoctorRuntimeProvider["createDoctorRuntimeProvider"]
+  module_src_ankh_provider_ts --> export_createDoctorRuntimeProvider
+  export_createDoctorRuntimeProvider -.-> export_CreateDoctorRuntimeProviderOptions
+  export_CreateDoctorRuntimeProviderOptions["CreateDoctorRuntimeProviderOptions"]
+  module_src_ankh_provider_ts --> export_CreateDoctorRuntimeProviderOptions
+  export_DOCTOR_CAPABILITIES["DOCTOR_CAPABILITIES"]
+  module_src_packageMetadata_ts --> export_DOCTOR_CAPABILITIES
+  export_DOCTOR_COMMAND_CATEGORY["DOCTOR_COMMAND_CATEGORY"]
+  module_src_packageMetadata_ts --> export_DOCTOR_COMMAND_CATEGORY
+  export_DOCTOR_PACKAGE_METADATA["DOCTOR_PACKAGE_METADATA"]
+  module_src_packageMetadata_ts --> export_DOCTOR_PACKAGE_METADATA
+  export_DOCTOR_PACKAGE_NAME["DOCTOR_PACKAGE_NAME"]
+  module_src_packageMetadata_ts --> export_DOCTOR_PACKAGE_NAME
+  export_DOCTOR_PACKAGE_VERSION["DOCTOR_PACKAGE_VERSION"]
+  module_src_packageMetadata_ts --> export_DOCTOR_PACKAGE_VERSION
+  export_DoctorAnalysisRequest["DoctorAnalysisRequest"]
+  module_src_analysis_ts --> export_DoctorAnalysisRequest
+  export_DoctorAnalysisRequest -.-> export_DoctorTargetMode
+  export_DoctorAnalysisResult["DoctorAnalysisResult"]
+  module_src_analysis_ts --> export_DoctorAnalysisResult
+  export_DoctorAnalysisResult -.-> export_DoctorDiagnostic
+  export_DoctorAnalysisResult -.-> export_DoctorTargetCheck
+  export_DoctorCommandContext["DoctorCommandContext"]
+  module_src_commandContext_ts --> export_DoctorCommandContext
+  export_DoctorCommandRunResult["DoctorCommandRunResult"]
+  module_src_commandContext_ts --> export_DoctorCommandRunResult
+  export_DoctorDiagnostic["DoctorDiagnostic"]
+  module_src_diagnostics_ts --> export_DoctorDiagnostic
+  export_DoctorDiagnostic -.-> export_DoctorDiagnosticCode
+  export_DoctorDiagnostic -.-> export_DoctorDiagnosticSeverity
+  export_DoctorDiagnosticCode["DoctorDiagnosticCode"]
+  module_src_diagnostics_ts --> export_DoctorDiagnosticCode
+  export_DoctorDiagnosticSeverity["DoctorDiagnosticSeverity"]
+  module_src_diagnostics_ts --> export_DoctorDiagnosticSeverity
+  export_DoctorTargetCheck["DoctorTargetCheck"]
+  module_src_analysis_ts --> export_DoctorTargetCheck
+  export_DoctorTargetMode["DoctorTargetMode"]
+  module_src_analysis_ts --> export_DoctorTargetMode
+  export_runCli["runCli"]
+  module_src_cli_ts --> export_runCli
+  export_runCli -.-> export_DoctorCommandRunResult

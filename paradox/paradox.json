@@ -1,0 +1,1936 @@
+{
+  "packageName": "DOCTOR",
+  "packageId": "@ankhorage/doctor",
+  "description": "Executable doctor provider and standalone CLI for lightweight Ankhorage repo and package compliance diagnostics.",
+  "badges": [
+    {
+      "id": "license",
+      "label": "license",
+      "value": "MIT",
+      "color": "2563eb"
+    },
+    {
+      "id": "npm",
+      "label": "npm",
+      "value": "v0.1.0",
+      "color": "cb3837"
+    },
+    {
+      "id": "runtime",
+      "label": "runtime",
+      "value": "bun",
+      "color": "f59e0b"
+    },
+    {
+      "id": "typescript",
+      "label": "typescript",
+      "value": "strict",
+      "color": "2563eb"
+    },
+    {
+      "id": "eslint",
+      "label": "eslint",
+      "value": "checked",
+      "color": "0a7f3f"
+    },
+    {
+      "id": "prettier",
+      "label": "prettier",
+      "value": "checked",
+      "color": "0a7f3f"
+    },
+    {
+      "id": "build",
+      "label": "build",
+      "value": "checked",
+      "color": "0a7f3f"
+    },
+    {
+      "id": "tests",
+      "label": "tests",
+      "value": "checked",
+      "color": "0a7f3f"
+    },
+    {
+      "id": "docs",
+      "label": "docs",
+      "value": "paradox",
+      "color": "0f766e"
+    }
+  ],
+  "usage": {
+    "packageName": "@ankhorage/doctor",
+    "commands": [
+      {
+        "name": "ankhorage-doctor",
+        "command": "bunx @ankhorage/doctor"
+      }
+    ]
+  },
+  "readmeUsage": [
+    {
+      "title": "Provider and CLI surface",
+      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#1` intentionally stays lightweight:\n\n- path-aware local repo/package diagnostics are implemented now\n- GitHub checks, CI checks, full policy enforcement, and autofix rules are deferred\n\nPath handling:\n\n- pass `[path]`, or\n- omit it to inspect the current working directory",
+      "language": "ts",
+      "code": "import { runCli } from './cli.js';\n\nawait runCli(['--help']);",
+      "sourcePath": "src/readme-usage.ts"
+    }
+  ],
+  "config": null,
+  "entrypoints": ["src/index.ts"],
+  "modules": [
+    {
+      "path": "package.json",
+      "isEntrypoint": false,
+      "dependencies": [],
+      "exports": []
+    },
+    {
+      "path": "src/analysis.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/diagnostics.ts"],
+      "exports": [
+        "analyzeDoctorTarget",
+        "DoctorAnalysisRequest",
+        "DoctorAnalysisResult",
+        "DoctorTargetCheck",
+        "DoctorTargetMode"
+      ]
+    },
+    {
+      "path": "src/ankh.provider.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/commands.ts", "src/packageMetadata.ts"],
+      "exports": ["createDoctorRuntimeProvider", "CreateDoctorRuntimeProviderOptions", "default"]
+    },
+    {
+      "path": "src/cli.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/commandContext.ts", "src/commands.ts"],
+      "exports": ["DoctorCliOptions", "runCli"]
+    },
+    {
+      "path": "src/commandContext.ts",
+      "isEntrypoint": false,
+      "dependencies": ["package.json"],
+      "exports": ["createDefaultCommandContext", "DoctorCommandContext", "DoctorCommandRunResult"]
+    },
+    {
+      "path": "src/commands.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/analysis.ts",
+        "src/commandContext.ts",
+        "src/diagnostics.ts",
+        "src/packageMetadata.ts"
+      ],
+      "exports": [
+        "createProviderCommandDescriptors",
+        "DOCTOR_COMMANDS",
+        "DoctorCommandDefinition",
+        "DoctorCommandInvocation",
+        "DoctorCommandServices",
+        "findDoctorCommandByStandaloneName",
+        "renderRootHelp",
+        "renderUnknownCommand",
+        "runDoctorCommand",
+        "RunDoctorCommandImpl",
+        "RunDoctorCommandOptions"
+      ]
+    },
+    {
+      "path": "src/diagnostics.ts",
+      "isEntrypoint": false,
+      "dependencies": [],
+      "exports": [
+        "countErrorDiagnostics",
+        "countWarningDiagnostics",
+        "DoctorDiagnostic",
+        "DoctorDiagnosticCode",
+        "DoctorDiagnosticSeverity"
+      ]
+    },
+    {
+      "path": "src/index.ts",
+      "isEntrypoint": true,
+      "dependencies": [],
+      "exports": [
+        "analyzeDoctorTarget",
+        "createDefaultCommandContext",
+        "createDoctorRuntimeProvider",
+        "CreateDoctorRuntimeProviderOptions",
+        "DOCTOR_CAPABILITIES",
+        "DOCTOR_COMMAND_CATEGORY",
+        "DOCTOR_PACKAGE_METADATA",
+        "DOCTOR_PACKAGE_NAME",
+        "DOCTOR_PACKAGE_VERSION",
+        "DoctorAnalysisRequest",
+        "DoctorAnalysisResult",
+        "DoctorCommandContext",
+        "DoctorCommandRunResult",
+        "DoctorDiagnostic",
+        "DoctorDiagnosticCode",
+        "DoctorDiagnosticSeverity",
+        "DoctorTargetCheck",
+        "DoctorTargetMode",
+        "runCli"
+      ]
+    },
+    {
+      "path": "src/packageMetadata.ts",
+      "isEntrypoint": false,
+      "dependencies": ["package.json"],
+      "exports": [
+        "DOCTOR_CAPABILITIES",
+        "DOCTOR_COMMAND_CATEGORY",
+        "DOCTOR_PACKAGE_METADATA",
+        "DOCTOR_PACKAGE_NAME",
+        "DOCTOR_PACKAGE_VERSION"
+      ]
+    },
+    {
+      "path": "tests/ankh.provider.test.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/ankh.provider.ts", "src/commands.ts"],
+      "exports": []
+    },
+    {
+      "path": "tests/cli.test.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/ankh.provider.ts", "src/cli.ts", "tests/testSupport.ts"],
+      "exports": []
+    },
+    {
+      "path": "tests/commands.test.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/commands.ts", "tests/testSupport.ts"],
+      "exports": []
+    },
+    {
+      "path": "tests/package.test.ts",
+      "isEntrypoint": false,
+      "dependencies": ["package.json"],
+      "exports": []
+    },
+    {
+      "path": "tests/testSupport.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/commandContext.ts"],
+      "exports": [
+        "CapturedCommandContext",
+        "createCapturedCommandContext",
+        "createDoctorFixture",
+        "createStandaloneFile",
+        "DoctorFixtureOptions",
+        "snapshotDirectory"
+      ]
+    }
+  ],
+  "exports": [
+    {
+      "name": "analyzeDoctorTarget",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/analysis.ts",
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 35,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+      "signatures": [
+        {
+          "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult>",
+          "parameters": [
+            {
+              "name": "request",
+              "type": "DoctorAnalysisRequest",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returnType": "Promise<DoctorAnalysisResult>",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "createDefaultCommandContext",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/commandContext.ts",
+      "sourceLocation": {
+        "filePath": "src/commandContext.ts",
+        "line": 15,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorCommandContext"],
+      "signatures": [
+        {
+          "label": "() => DoctorCommandContext",
+          "parameters": [],
+          "returnType": "DoctorCommandContext",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "createDoctorRuntimeProvider",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/ankh.provider.ts",
+      "sourceLocation": {
+        "filePath": "src/ankh.provider.ts",
+        "line": 22,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["CreateDoctorRuntimeProviderOptions"],
+      "signatures": [
+        {
+          "label": "(options?: CreateDoctorRuntimeProviderOptions) => AnkhRuntimeCommandProvider",
+          "parameters": [
+            {
+              "name": "options",
+              "type": "CreateDoctorRuntimeProviderOptions",
+              "required": false,
+              "description": null
+            }
+          ],
+          "returnType": "AnkhRuntimeCommandProvider",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "CreateDoctorRuntimeProviderOptions",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/ankh.provider.ts",
+      "sourceLocation": {
+        "filePath": "src/ankh.provider.ts",
+        "line": 17,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [
+        {
+          "name": "runCommandImpl",
+          "kind": "property",
+          "type": "RunDoctorCommandImpl | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "services",
+          "kind": "property",
+          "type": "Partial<DoctorCommandServices> | undefined",
+          "required": false,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "DOCTOR_CAPABILITIES",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "value",
+      "modulePath": "src/packageMetadata.ts",
+      "sourceLocation": {
+        "filePath": "src/packageMetadata.ts",
+        "line": 12,
+        "column": 14
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DOCTOR_COMMAND_CATEGORY",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "value",
+      "modulePath": "src/packageMetadata.ts",
+      "sourceLocation": {
+        "filePath": "src/packageMetadata.ts",
+        "line": 11,
+        "column": 14
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DOCTOR_PACKAGE_METADATA",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "value",
+      "modulePath": "src/packageMetadata.ts",
+      "sourceLocation": {
+        "filePath": "src/packageMetadata.ts",
+        "line": 19,
+        "column": 14
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DOCTOR_PACKAGE_NAME",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "value",
+      "modulePath": "src/packageMetadata.ts",
+      "sourceLocation": {
+        "filePath": "src/packageMetadata.ts",
+        "line": 9,
+        "column": 14
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DOCTOR_PACKAGE_VERSION",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "value",
+      "modulePath": "src/packageMetadata.ts",
+      "sourceLocation": {
+        "filePath": "src/packageMetadata.ts",
+        "line": 10,
+        "column": 14
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorAnalysisRequest",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/analysis.ts",
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 9,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorTargetMode"],
+      "signatures": [],
+      "members": [
+        {
+          "name": "cwd",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "inputPath",
+          "kind": "property",
+          "type": "string | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "mode",
+          "kind": "property",
+          "type": "DoctorTargetMode",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorAnalysisResult",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/analysis.ts",
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 15,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorDiagnostic", "DoctorTargetCheck"],
+      "signatures": [],
+      "members": [
+        {
+          "name": "appliedChecks",
+          "kind": "property",
+          "type": "readonly DoctorTargetCheck[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "diagnostics",
+          "kind": "property",
+          "type": "readonly DoctorDiagnostic[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "hasPackageJson",
+          "kind": "property",
+          "type": "boolean",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "repoMarkers",
+          "kind": "property",
+          "type": "readonly string[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "targetPath",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorCommandContext",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/commandContext.ts",
+      "sourceLocation": {
+        "filePath": "src/commandContext.ts",
+        "line": 3,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [
+        {
+          "name": "cwd",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "env",
+          "kind": "property",
+          "type": "NodeJS.ProcessEnv",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "version",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "writeStderr",
+          "kind": "method",
+          "type": "(text: string) => void",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "writeStdout",
+          "kind": "method",
+          "type": "(text: string) => void",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorCommandRunResult",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/commandContext.ts",
+      "sourceLocation": {
+        "filePath": "src/commandContext.ts",
+        "line": 11,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [
+        {
+          "name": "exitCode",
+          "kind": "property",
+          "type": "number",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorDiagnostic",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/diagnostics.ts",
+      "sourceLocation": {
+        "filePath": "src/diagnostics.ts",
+        "line": 20,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorDiagnosticCode", "DoctorDiagnosticSeverity"],
+      "signatures": [],
+      "members": [
+        {
+          "name": "code",
+          "kind": "property",
+          "type": "DoctorDiagnosticCode",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "message",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "path",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "severity",
+          "kind": "property",
+          "type": "DoctorDiagnosticSeverity",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorDiagnosticCode",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/diagnostics.ts",
+      "sourceLocation": {
+        "filePath": "src/diagnostics.ts",
+        "line": 1,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorDiagnosticSeverity",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/diagnostics.ts",
+      "sourceLocation": {
+        "filePath": "src/diagnostics.ts",
+        "line": 18,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorTargetCheck",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/analysis.ts",
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 6,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "DoctorTargetMode",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/analysis.ts",
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 7,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "runCli",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/cli.ts",
+      "sourceLocation": {
+        "filePath": "src/cli.ts",
+        "line": 20,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorCommandRunResult"],
+      "signatures": [
+        {
+          "label": "(argv: readonly string[], options?: DoctorCliOptions) => Promise<DoctorCommandRunResult>",
+          "parameters": [
+            {
+              "name": "argv",
+              "type": "readonly string[]",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "options",
+              "type": "DoctorCliOptions",
+              "required": false,
+              "description": null
+            }
+          ],
+          "returnType": "Promise<DoctorCommandRunResult>",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    }
+  ],
+  "components": [],
+  "sourceFunctions": [
+    {
+      "name": "analyzeDoctorTarget",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 35,
+        "column": 1
+      }
+    },
+    {
+      "name": "analyzeRepoLight",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 151,
+        "column": 1
+      }
+    },
+    {
+      "name": "analyzePackageLight",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 173,
+        "column": 1
+      }
+    },
+    {
+      "name": "maybeWarnForMissingPath",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 251,
+        "column": 1
+      }
+    },
+    {
+      "name": "validateAnkhMetadataShape",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 277,
+        "column": 1
+      }
+    },
+    {
+      "name": "createDiagnostic",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 300,
+        "column": 1
+      }
+    },
+    {
+      "name": "createInvalidPackageJsonMessage",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 314,
+        "column": 1
+      }
+    },
+    {
+      "name": "pathExists",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 319,
+        "column": 1
+      }
+    },
+    {
+      "name": "statOrNull",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 323,
+        "column": 1
+      }
+    },
+    {
+      "name": "isMissingPathError",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 335,
+        "column": 1
+      }
+    },
+    {
+      "name": "isNonEmptyString",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 344,
+        "column": 1
+      }
+    },
+    {
+      "name": "isPackageRelativeProviderPath",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 348,
+        "column": 1
+      }
+    },
+    {
+      "name": "isRecord",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 352,
+        "column": 1
+      }
+    },
+    {
+      "name": "createDoctorRuntimeProvider",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/ankh.provider.ts",
+        "line": 22,
+        "column": 1
+      }
+    },
+    {
+      "name": "runCli",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cli.ts",
+        "line": 20,
+        "column": 1
+      }
+    },
+    {
+      "name": "isHelpToken",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cli.ts",
+        "line": 56,
+        "column": 1
+      }
+    },
+    {
+      "name": "isVersionToken",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cli.ts",
+        "line": 60,
+        "column": 1
+      }
+    },
+    {
+      "name": "createDefaultCommandContext",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commandContext.ts",
+        "line": 15,
+        "column": 1
+      }
+    },
+    {
+      "name": "runDoctorCommand",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 96,
+        "column": 1
+      }
+    },
+    {
+      "name": "createProviderCommandDescriptors",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 122,
+        "column": 1
+      }
+    },
+    {
+      "name": "findDoctorCommandByStandaloneName",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 130,
+        "column": 1
+      }
+    },
+    {
+      "name": "renderRootHelp",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 134,
+        "column": 1
+      }
+    },
+    {
+      "name": "renderUnknownCommand",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 155,
+        "column": 1
+      }
+    },
+    {
+      "name": "renderCommandHelp",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 159,
+        "column": 1
+      }
+    },
+    {
+      "name": "createDoctorCommandServices",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 173,
+        "column": 1
+      }
+    },
+    {
+      "name": "parseCommandArguments",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 181,
+        "column": 1
+      }
+    },
+    {
+      "name": "runValidateCommand",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 201,
+        "column": 1
+      }
+    },
+    {
+      "name": "runFixCommand",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 218,
+        "column": 1
+      }
+    },
+    {
+      "name": "runRepoCommand",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 236,
+        "column": 1
+      }
+    },
+    {
+      "name": "runPackageCommand",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 253,
+        "column": 1
+      }
+    },
+    {
+      "name": "renderAnalysisReport",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 270,
+        "column": 1
+      }
+    },
+    {
+      "name": "renderDiagnosticLine",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 301,
+        "column": 1
+      }
+    },
+    {
+      "name": "renderCommandFailure",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 305,
+        "column": 1
+      }
+    },
+    {
+      "name": "isHelpToken",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/commands.ts",
+        "line": 310,
+        "column": 1
+      }
+    },
+    {
+      "name": "countErrorDiagnostics",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/diagnostics.ts",
+        "line": 27,
+        "column": 1
+      }
+    },
+    {
+      "name": "countWarningDiagnostics",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/diagnostics.ts",
+        "line": 31,
+        "column": 1
+      }
+    }
+  ],
+  "sequenceScenarios": [
+    {
+      "kind": "export",
+      "name": "analyzeDoctorTarget",
+      "sourcePath": "src/analysis.ts",
+      "symbolName": "analyzeDoctorTarget",
+      "description": null,
+      "isReadme": false
+    },
+    {
+      "kind": "bin",
+      "name": "ankhorage-doctor",
+      "sourcePath": "src/cli.ts",
+      "symbolName": "runCli",
+      "description": null,
+      "isReadme": false
+    },
+    {
+      "kind": "export",
+      "name": "createDefaultCommandContext",
+      "sourcePath": "src/commandContext.ts",
+      "symbolName": "createDefaultCommandContext",
+      "description": null,
+      "isReadme": false
+    },
+    {
+      "kind": "export",
+      "name": "createDoctorRuntimeProvider",
+      "sourcePath": "src/ankh.provider.ts",
+      "symbolName": "createDoctorRuntimeProvider",
+      "description": null,
+      "isReadme": false
+    },
+    {
+      "kind": "export",
+      "name": "runCli",
+      "sourcePath": "src/cli.ts",
+      "symbolName": "runCli",
+      "description": null,
+      "isReadme": false
+    }
+  ],
+  "graphs": {
+    "imports": [
+      {
+        "fromPath": "src/analysis.ts",
+        "toPath": "src/diagnostics.ts",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromPath": "src/ankh.provider.ts",
+        "toPath": "src/commands.ts",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromPath": "src/ankh.provider.ts",
+        "toPath": "src/packageMetadata.ts",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromPath": "src/cli.ts",
+        "toPath": "src/commandContext.ts",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromPath": "src/cli.ts",
+        "toPath": "src/commands.ts",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromPath": "src/commandContext.ts",
+        "toPath": "package.json",
+        "sourcePath": "src/commandContext.ts"
+      },
+      {
+        "fromPath": "src/commands.ts",
+        "toPath": "src/analysis.ts",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromPath": "src/commands.ts",
+        "toPath": "src/commandContext.ts",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromPath": "src/commands.ts",
+        "toPath": "src/diagnostics.ts",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromPath": "src/commands.ts",
+        "toPath": "src/packageMetadata.ts",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromPath": "src/index.ts",
+        "toPath": "src/analysis.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/index.ts",
+        "toPath": "src/ankh.provider.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/index.ts",
+        "toPath": "src/cli.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/index.ts",
+        "toPath": "src/commandContext.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/index.ts",
+        "toPath": "src/diagnostics.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/index.ts",
+        "toPath": "src/packageMetadata.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/packageMetadata.ts",
+        "toPath": "package.json",
+        "sourcePath": "src/packageMetadata.ts"
+      },
+      {
+        "fromPath": "src/readme-usage.ts",
+        "toPath": "src/cli.ts",
+        "sourcePath": "src/readme-usage.ts"
+      },
+      {
+        "fromPath": "tests/ankh.provider.test.ts",
+        "toPath": "src/ankh.provider.ts",
+        "sourcePath": "tests/ankh.provider.test.ts"
+      },
+      {
+        "fromPath": "tests/ankh.provider.test.ts",
+        "toPath": "src/commands.ts",
+        "sourcePath": "tests/ankh.provider.test.ts"
+      },
+      {
+        "fromPath": "tests/cli.test.ts",
+        "toPath": "src/ankh.provider.ts",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromPath": "tests/cli.test.ts",
+        "toPath": "src/cli.ts",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromPath": "tests/cli.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromPath": "tests/commands.test.ts",
+        "toPath": "src/commands.ts",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromPath": "tests/commands.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromPath": "tests/package.test.ts",
+        "toPath": "package.json",
+        "sourcePath": "tests/package.test.ts"
+      },
+      {
+        "fromPath": "tests/testSupport.ts",
+        "toPath": "src/commandContext.ts",
+        "sourcePath": "tests/testSupport.ts"
+      }
+    ],
+    "calls": [
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "statOrNull",
+        "callExpression": "statOrNull",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "src/analysis.ts",
+        "toSymbol": "pathExists",
+        "callExpression": "pathExists",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "analyzeRepoLight",
+        "callExpression": "analyzeRepoLight",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toSymbol": "analyzePackageLight",
+        "callExpression": "analyzePackageLight",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeRepoLight",
+        "toSymbol": "maybeWarnForMissingPath",
+        "callExpression": "maybeWarnForMissingPath",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackageLight",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackageLight",
+        "toSymbol": "createInvalidPackageJsonMessage",
+        "callExpression": "createInvalidPackageJsonMessage",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackageLight",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackageLight",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackageLight",
+        "toSymbol": "validateAnkhMetadataShape",
+        "callExpression": "validateAnkhMetadataShape",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "maybeWarnForMissingPath",
+        "toSymbol": "pathExists",
+        "callExpression": "pathExists",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "maybeWarnForMissingPath",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataShape",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataShape",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataShape",
+        "toSymbol": "isPackageRelativeProviderPath",
+        "callExpression": "isPackageRelativeProviderPath",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "src/analysis.ts",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "pathExists",
+        "toSymbol": "statOrNull",
+        "callExpression": "statOrNull",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "statOrNull",
+        "toSymbol": "isMissingPathError",
+        "callExpression": "isMissingPathError",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "isPackageRelativeProviderPath",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "createDoctorRuntimeProvider",
+        "toSymbol": "createProviderCommandDescriptors",
+        "callExpression": "createProviderCommandDescriptors",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromSymbol": "handler",
+        "toSymbol": "runCommandImpl",
+        "callExpression": "runCommandImpl",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromSymbol": "src/ankh.provider.ts",
+        "toSymbol": "createDoctorRuntimeProvider",
+        "callExpression": "createDoctorRuntimeProvider",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "createDefaultCommandContext",
+        "callExpression": "createDefaultCommandContext",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "isHelpToken",
+        "callExpression": "isHelpToken",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "writeStdout",
+        "callExpression": "context.writeStdout",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "renderRootHelp",
+        "callExpression": "renderRootHelp",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "isVersionToken",
+        "callExpression": "isVersionToken",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "findDoctorCommandByStandaloneName",
+        "callExpression": "findDoctorCommandByStandaloneName",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "writeStderr",
+        "callExpression": "context.writeStderr",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "renderUnknownCommand",
+        "callExpression": "renderUnknownCommand",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "runCommand",
+        "callExpression": "runCommand",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "src/cli.ts",
+        "toSymbol": "runCli",
+        "callExpression": "runCli",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runDoctorCommand",
+        "toSymbol": "createDoctorCommandServices",
+        "callExpression": "createDoctorCommandServices",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runDoctorCommand",
+        "toSymbol": "parseCommandArguments",
+        "callExpression": "parseCommandArguments",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runDoctorCommand",
+        "toSymbol": "writeStdout",
+        "callExpression": "request.context.writeStdout",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runDoctorCommand",
+        "toSymbol": "renderCommandHelp",
+        "callExpression": "renderCommandHelp",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runDoctorCommand",
+        "toSymbol": "run",
+        "callExpression": "request.command.run",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runDoctorCommand",
+        "toSymbol": "writeStderr",
+        "callExpression": "request.context.writeStderr",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runDoctorCommand",
+        "toSymbol": "renderCommandFailure",
+        "callExpression": "renderCommandFailure",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "parseCommandArguments",
+        "toSymbol": "isHelpToken",
+        "callExpression": "isHelpToken",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runValidateCommand",
+        "toSymbol": "analyzeTarget",
+        "callExpression": "services.analyzeTarget",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runValidateCommand",
+        "toSymbol": "writeStdout",
+        "callExpression": "request.context.writeStdout",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runValidateCommand",
+        "toSymbol": "renderAnalysisReport",
+        "callExpression": "renderAnalysisReport",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runValidateCommand",
+        "toSymbol": "countErrorDiagnostics",
+        "callExpression": "countErrorDiagnostics",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runFixCommand",
+        "toSymbol": "analyzeTarget",
+        "callExpression": "services.analyzeTarget",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runFixCommand",
+        "toSymbol": "writeStdout",
+        "callExpression": "request.context.writeStdout",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runFixCommand",
+        "toSymbol": "renderAnalysisReport",
+        "callExpression": "renderAnalysisReport",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runFixCommand",
+        "toSymbol": "countErrorDiagnostics",
+        "callExpression": "countErrorDiagnostics",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runRepoCommand",
+        "toSymbol": "analyzeTarget",
+        "callExpression": "services.analyzeTarget",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runRepoCommand",
+        "toSymbol": "writeStdout",
+        "callExpression": "request.context.writeStdout",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runRepoCommand",
+        "toSymbol": "renderAnalysisReport",
+        "callExpression": "renderAnalysisReport",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runRepoCommand",
+        "toSymbol": "countErrorDiagnostics",
+        "callExpression": "countErrorDiagnostics",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runPackageCommand",
+        "toSymbol": "analyzeTarget",
+        "callExpression": "services.analyzeTarget",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runPackageCommand",
+        "toSymbol": "writeStdout",
+        "callExpression": "request.context.writeStdout",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runPackageCommand",
+        "toSymbol": "renderAnalysisReport",
+        "callExpression": "renderAnalysisReport",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runPackageCommand",
+        "toSymbol": "countErrorDiagnostics",
+        "callExpression": "countErrorDiagnostics",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "renderAnalysisReport",
+        "toSymbol": "renderDiagnosticLine",
+        "callExpression": "renderDiagnosticLine",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "renderAnalysisReport",
+        "toSymbol": "countErrorDiagnostics",
+        "callExpression": "countErrorDiagnostics",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "renderAnalysisReport",
+        "toSymbol": "countWarningDiagnostics",
+        "callExpression": "countWarningDiagnostics",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "src/readme-usage.ts",
+        "toSymbol": "runCli",
+        "callExpression": "runCli",
+        "sourcePath": "src/readme-usage.ts"
+      },
+      {
+        "fromSymbol": "tests/ankh.provider.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/ankh.provider.test.ts"
+      },
+      {
+        "fromSymbol": "tests/ankh.provider.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/ankh.provider.test.ts"
+      },
+      {
+        "fromSymbol": "tests/ankh.provider.test.ts",
+        "toSymbol": "createDoctorRuntimeProvider",
+        "callExpression": "createDoctorRuntimeProvider",
+        "sourcePath": "tests/ankh.provider.test.ts"
+      },
+      {
+        "fromSymbol": "tests/ankh.provider.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/ankh.provider.test.ts"
+      },
+      {
+        "fromSymbol": "tests/ankh.provider.test.ts",
+        "toSymbol": "createProviderCommandDescriptors",
+        "callExpression": "createProviderCommandDescriptors",
+        "sourcePath": "tests/ankh.provider.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "createCapturedCommandContext",
+        "callExpression": "createCapturedCommandContext",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "runCli",
+        "callExpression": "runCli",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "runCommandImpl",
+        "toSymbol": "writeStdout",
+        "callExpression": "request.context.writeStdout",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "createDoctorRuntimeProvider",
+        "callExpression": "createDoctorRuntimeProvider",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "createPackageRegistry",
+        "callExpression": "createPackageRegistry",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "createDiscoveredPackage",
+        "callExpression": "createDiscoveredPackage",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "createProviderRegistry",
+        "callExpression": "createProviderRegistry",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "createLoadedProvider",
+        "callExpression": "createLoadedProvider",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/cli.test.ts",
+        "toSymbol": "runAnkhCli",
+        "callExpression": "runAnkhCli",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "createLoadedProvider",
+        "toSymbol": "createDiscoveredPackage",
+        "callExpression": "createDiscoveredPackage",
+        "sourcePath": "tests/cli.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "createCapturedCommandContext",
+        "callExpression": "createCapturedCommandContext",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "runDoctorCommand",
+        "callExpression": "runDoctorCommand",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "getCommand",
+        "callExpression": "getCommand",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "createStandaloneFile",
+        "callExpression": "createStandaloneFile",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "snapshotDirectory",
+        "callExpression": "snapshotDirectory",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "getCommand",
+        "toSymbol": "findDoctorCommandByStandaloneName",
+        "callExpression": "findDoctorCommandByStandaloneName",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/package.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/package.test.ts"
+      },
+      {
+        "fromSymbol": "tests/package.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/package.test.ts"
+      },
+      {
+        "fromSymbol": "tests/package.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/package.test.ts"
+      },
+      {
+        "fromSymbol": "snapshotDirectory",
+        "toSymbol": "walkDirectory",
+        "callExpression": "walkDirectory",
+        "sourcePath": "tests/testSupport.ts"
+      },
+      {
+        "fromSymbol": "walkDirectory",
+        "toSymbol": "walkDirectory",
+        "callExpression": "walkDirectory",
+        "sourcePath": "tests/testSupport.ts"
+      }
+    ],
+    "typeReferences": [
+      {
+        "fromSymbol": "DoctorAnalysisRequest",
+        "toType": "DoctorTargetMode",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorAnalysisResult",
+        "toType": "DoctorDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "DoctorAnalysisResult",
+        "toType": "DoctorTargetCheck",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toType": "DoctorAnalysisRequest",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTarget",
+        "toType": "DoctorAnalysisResult",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "createDoctorRuntimeProvider",
+        "toType": "AnkhRuntimeCommandProvider",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromSymbol": "createDoctorRuntimeProvider",
+        "toType": "CreateDoctorRuntimeProviderOptions",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromSymbol": "CreateDoctorRuntimeProviderOptions",
+        "toType": "DoctorCommandServices",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromSymbol": "CreateDoctorRuntimeProviderOptions",
+        "toType": "Partial",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromSymbol": "CreateDoctorRuntimeProviderOptions",
+        "toType": "RunDoctorCommandImpl",
+        "sourcePath": "src/ankh.provider.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toType": "DoctorCliOptions",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toType": "DoctorCommandRunResult",
+        "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "DoctorCommandContext",
+        "toType": "NodeJS",
+        "sourcePath": "src/commandContext.ts"
+      },
+      {
+        "fromSymbol": "DoctorCommandContext",
+        "toType": "ProcessEnv",
+        "sourcePath": "src/commandContext.ts"
+      },
+      {
+        "fromSymbol": "createDefaultCommandContext",
+        "toType": "DoctorCommandContext",
+        "sourcePath": "src/commandContext.ts"
+      },
+      {
+        "fromSymbol": "DoctorDiagnostic",
+        "toType": "DoctorDiagnosticCode",
+        "sourcePath": "src/diagnostics.ts"
+      },
+      {
+        "fromSymbol": "DoctorDiagnostic",
+        "toType": "DoctorDiagnosticSeverity",
+        "sourcePath": "src/diagnostics.ts"
+      }
+    ],
+    "componentComposition": []
+  }
+}
