@@ -1,0 +1,85 @@
+{
+  "name": "@ankhorage/doctor",
+  "version": "0.1.0",
+  "description": "Executable Ankh provider and standalone CLI for lightweight repo and package compliance diagnostics.",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/ankhorage/doctor#readme",
+  "bugs": {
+    "url": "https://github.com/ankhorage/doctor/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankhorage/doctor.git"
+  },
+  "keywords": [
+    "ankhorage",
+    "doctor",
+    "cli",
+    "compliance",
+    "typescript",
+    "bun"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "package.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "ankhorage-doctor": "./dist/cli.js"
+  },
+  "ankh": {
+    "category": "doctor",
+    "provider": "./dist/ankh.provider.js",
+    "capabilities": [
+      "doctor.validate",
+      "doctor.fix",
+      "doctor.repo",
+      "doctor.package"
+    ]
+  },
+  "scripts": {
+    "build": "rm -rf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo && bun x tsc -p tsconfig.build.json",
+    "typecheck": "bun x tsc --noEmit -p tsconfig.json",
+    "lint": "ankhorage-eslint . --max-warnings=0",
+    "lint:fix": "ankhorage-eslint . --fix --max-warnings=0",
+    "format": "ankhorage-prettier --write .",
+    "format:check": "ankhorage-prettier --check .",
+    "test": "bun test",
+    "knip": "ankhorage-knip",
+    "docs": "bunx @ankhorage/paradox && ankhorage-prettier --write README.md paradox",
+    "changeset": "changeset",
+    "changeset:status": "changeset status --since=origin/main",
+    "version-packages": "changeset version"
+  },
+  "dependencies": {
+    "@ankhorage/contracts": "^1.19.0"
+  },
+  "devDependencies": {
+    "@ankhorage/ankh": "^0.4.0",
+    "@ankhorage/devtools": "^1.0.6",
+    "@ankhorage/paradox": "^0.1.10",
+    "@changesets/cli": "^2.31.0",
+    "@types/bun": "^1.3.13",
+    "@types/node": "^25.6.0",
+    "typescript": "^5.9.3"
+  },
+  "sideEffects": false,
+  "packageManager": "bun@1.3.13"
+}

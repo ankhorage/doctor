@@ -1,0 +1,545 @@
+[
+  {
+    "name": "analyzeDoctorTarget",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/analysis.ts",
+    "sourceLocation": {
+      "filePath": "src/analysis.ts",
+      "line": 35,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+    "signatures": [
+      {
+        "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult>",
+        "parameters": [
+          {
+            "name": "request",
+            "type": "DoctorAnalysisRequest",
+            "required": true,
+            "description": null
+          }
+        ],
+        "returnType": "Promise<DoctorAnalysisResult>",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "createDefaultCommandContext",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/commandContext.ts",
+    "sourceLocation": {
+      "filePath": "src/commandContext.ts",
+      "line": 15,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorCommandContext"],
+    "signatures": [
+      {
+        "label": "() => DoctorCommandContext",
+        "parameters": [],
+        "returnType": "DoctorCommandContext",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "createDoctorRuntimeProvider",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/ankh.provider.ts",
+    "sourceLocation": {
+      "filePath": "src/ankh.provider.ts",
+      "line": 22,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["CreateDoctorRuntimeProviderOptions"],
+    "signatures": [
+      {
+        "label": "(options?: CreateDoctorRuntimeProviderOptions) => AnkhRuntimeCommandProvider",
+        "parameters": [
+          {
+            "name": "options",
+            "type": "CreateDoctorRuntimeProviderOptions",
+            "required": false,
+            "description": null
+          }
+        ],
+        "returnType": "AnkhRuntimeCommandProvider",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "CreateDoctorRuntimeProviderOptions",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/ankh.provider.ts",
+    "sourceLocation": {
+      "filePath": "src/ankh.provider.ts",
+      "line": 17,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [
+      {
+        "name": "runCommandImpl",
+        "kind": "property",
+        "type": "RunDoctorCommandImpl | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "services",
+        "kind": "property",
+        "type": "Partial<DoctorCommandServices> | undefined",
+        "required": false,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DOCTOR_CAPABILITIES",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "value",
+    "modulePath": "src/packageMetadata.ts",
+    "sourceLocation": {
+      "filePath": "src/packageMetadata.ts",
+      "line": 12,
+      "column": 14
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DOCTOR_COMMAND_CATEGORY",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "value",
+    "modulePath": "src/packageMetadata.ts",
+    "sourceLocation": {
+      "filePath": "src/packageMetadata.ts",
+      "line": 11,
+      "column": 14
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DOCTOR_PACKAGE_METADATA",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "value",
+    "modulePath": "src/packageMetadata.ts",
+    "sourceLocation": {
+      "filePath": "src/packageMetadata.ts",
+      "line": 19,
+      "column": 14
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DOCTOR_PACKAGE_NAME",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "value",
+    "modulePath": "src/packageMetadata.ts",
+    "sourceLocation": {
+      "filePath": "src/packageMetadata.ts",
+      "line": 9,
+      "column": 14
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DOCTOR_PACKAGE_VERSION",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "value",
+    "modulePath": "src/packageMetadata.ts",
+    "sourceLocation": {
+      "filePath": "src/packageMetadata.ts",
+      "line": 10,
+      "column": 14
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorAnalysisRequest",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/analysis.ts",
+    "sourceLocation": {
+      "filePath": "src/analysis.ts",
+      "line": 9,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorTargetMode"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "cwd",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "inputPath",
+        "kind": "property",
+        "type": "string | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "mode",
+        "kind": "property",
+        "type": "DoctorTargetMode",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorAnalysisResult",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/analysis.ts",
+    "sourceLocation": {
+      "filePath": "src/analysis.ts",
+      "line": 15,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorDiagnostic", "DoctorTargetCheck"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "appliedChecks",
+        "kind": "property",
+        "type": "readonly DoctorTargetCheck[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "diagnostics",
+        "kind": "property",
+        "type": "readonly DoctorDiagnostic[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "hasPackageJson",
+        "kind": "property",
+        "type": "boolean",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "repoMarkers",
+        "kind": "property",
+        "type": "readonly string[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "targetPath",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorCommandContext",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/commandContext.ts",
+    "sourceLocation": {
+      "filePath": "src/commandContext.ts",
+      "line": 3,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [
+      {
+        "name": "cwd",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "env",
+        "kind": "property",
+        "type": "NodeJS.ProcessEnv",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "version",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "writeStderr",
+        "kind": "method",
+        "type": "(text: string) => void",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "writeStdout",
+        "kind": "method",
+        "type": "(text: string) => void",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorCommandRunResult",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/commandContext.ts",
+    "sourceLocation": {
+      "filePath": "src/commandContext.ts",
+      "line": 11,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [
+      {
+        "name": "exitCode",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorDiagnostic",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/diagnostics.ts",
+    "sourceLocation": {
+      "filePath": "src/diagnostics.ts",
+      "line": 20,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorDiagnosticCode", "DoctorDiagnosticSeverity"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "code",
+        "kind": "property",
+        "type": "DoctorDiagnosticCode",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "message",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "path",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "severity",
+        "kind": "property",
+        "type": "DoctorDiagnosticSeverity",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorDiagnosticCode",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/diagnostics.ts",
+    "sourceLocation": {
+      "filePath": "src/diagnostics.ts",
+      "line": 1,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorDiagnosticSeverity",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/diagnostics.ts",
+    "sourceLocation": {
+      "filePath": "src/diagnostics.ts",
+      "line": 18,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorTargetCheck",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/analysis.ts",
+    "sourceLocation": {
+      "filePath": "src/analysis.ts",
+      "line": 6,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorTargetMode",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/analysis.ts",
+    "sourceLocation": {
+      "filePath": "src/analysis.ts",
+      "line": 7,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "runCli",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/cli.ts",
+    "sourceLocation": {
+      "filePath": "src/cli.ts",
+      "line": 20,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorCommandRunResult"],
+    "signatures": [
+      {
+        "label": "(argv: readonly string[], options?: DoctorCliOptions) => Promise<DoctorCommandRunResult>",
+        "parameters": [
+          {
+            "name": "argv",
+            "type": "readonly string[]",
+            "required": true,
+            "description": null
+          },
+          {
+            "name": "options",
+            "type": "DoctorCliOptions",
+            "required": false,
+            "description": null
+          }
+        ],
+        "returnType": "Promise<DoctorCommandRunResult>",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  }
+]

@@ -1,0 +1,5 @@
+sequenceDiagram
+  participant participant_createDoctorRuntimeProvider as createDoctorRuntimeProvider
+  participant participant_createProviderCommandDescriptors as createProviderCommandDescriptors
+  participant_createDoctorRuntimeProvider->>participant_createProviderCommandDescriptors: createProviderCommandDescriptors()
+  participant_createProviderCommandDescriptors-->>participant_createDoctorRuntimeProvider: return
