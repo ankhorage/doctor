@@ -341,10 +341,7 @@ describe('doctor command runner', () => {
     const packageJson = createValidPublicPackageJson({
       docsScript: 'bunx @ankhorage/paradox && ankhorage-prettier --write README.md paradox',
     });
-    const { devDependencies } = packageJson;
-    if (devDependencies === undefined || Array.isArray(devDependencies)) {
-      throw new Error('Expected devDependencies to be a record.');
-    }
+    const devDependencies = getRecordField(packageJson, 'devDependencies');
     delete devDependencies['@ankhorage/paradox'];
 
     const fixture = await createDoctorFixture({
@@ -375,10 +372,7 @@ describe('doctor command runner', () => {
     const packageJson = createValidPublicPackageJson({
       docsScript: 'echo docs',
     });
-    const { devDependencies } = packageJson;
-    if (devDependencies === undefined || Array.isArray(devDependencies)) {
-      throw new Error('Expected devDependencies to be a record.');
-    }
+    const devDependencies = getRecordField(packageJson, 'devDependencies');
     delete devDependencies['@types/bun'];
     const fixture = await createDoctorFixture({
       packageJson,
@@ -405,10 +399,7 @@ describe('doctor command runner', () => {
     const packageJson = createValidPublicPackageJson({
       docsScript: 'echo docs',
     });
-    const { devDependencies } = packageJson;
-    if (devDependencies === undefined || Array.isArray(devDependencies)) {
-      throw new Error('Expected devDependencies to be a record.');
-    }
+    const devDependencies = getRecordField(packageJson, 'devDependencies');
     delete devDependencies['@types/node'];
     const fixture = await createDoctorFixture({
       packageJson,
@@ -653,4 +644,20 @@ function createProviderSource(options: {
     'export default provider;',
     '',
   ].join('\n');
+}
+
+function getRecordField(
+  record: Record<string, unknown>,
+  fieldName: string,
+): Record<string, unknown> {
+  const value = record[fieldName];
+  if (!isRecord(value)) {
+    throw new Error(`Expected ${fieldName} to be a record.`);
+  }
+
+  return value;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
