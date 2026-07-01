@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+### Minor Changes
+
+- 0c86ddb: Add a profile-based doctor policy engine with non-mutating fix plans.
+
 ## 0.2.1
 
 ### Patch Changes
