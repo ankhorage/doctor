@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1
+
+### Patch Changes
+
+- 0c1f5c2: Expose the package command provider.
+
 ## 0.3.0
 
 ### Minor Changes
