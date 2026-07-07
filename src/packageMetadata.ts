@@ -18,6 +18,6 @@ export const DOCTOR_CAPABILITIES = [
 
 export const DOCTOR_PACKAGE_METADATA = {
   category: DOCTOR_COMMAND_CATEGORY,
-  provider: './dist/ankh.provider.js',
+  provider: './dist/cli/index.js',
   capabilities: DOCTOR_CAPABILITIES,
 } as const satisfies AnkhPackageMetadata;

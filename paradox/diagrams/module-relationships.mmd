@@ -1,8 +1,8 @@
 graph LR
   module_package_json["package.json"]
   module_src_analysis_ts["src/analysis.ts"]
-  module_src_ankh_provider_ts["src/ankh.provider.ts"]
   module_src_cli_ts["src/cli.ts"]
+  module_src_cli_index_ts["src/cli/index.ts"]
   module_src_commandContext_ts["src/commandContext.ts"]
   module_src_commands_ts["src/commands.ts"]
   module_src_diagnostics_ts["src/diagnostics.ts"]
@@ -14,20 +14,20 @@ graph LR
   module_tests_package_test_ts["tests/package.test.ts"]
   module_tests_testSupport_ts["tests/testSupport.ts"]
   module_src_analysis_ts --> module_src_diagnostics_ts
-  module_src_ankh_provider_ts --> module_src_commands_ts
-  module_src_ankh_provider_ts --> module_src_packageMetadata_ts
   module_src_cli_ts --> module_src_commandContext_ts
   module_src_cli_ts --> module_src_commands_ts
+  module_src_cli_index_ts --> module_src_commands_ts
+  module_src_cli_index_ts --> module_src_packageMetadata_ts
   module_src_commandContext_ts --> module_package_json
   module_src_commands_ts --> module_src_analysis_ts
   module_src_commands_ts --> module_src_commandContext_ts
   module_src_commands_ts --> module_src_diagnostics_ts
   module_src_commands_ts --> module_src_packageMetadata_ts
   module_src_packageMetadata_ts --> module_package_json
-  module_tests_ankh_provider_test_ts --> module_src_ankh_provider_ts
+  module_tests_ankh_provider_test_ts --> module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --> module_src_commands_ts
-  module_tests_cli_test_ts --> module_src_ankh_provider_ts
   module_tests_cli_test_ts --> module_src_cli_ts
+  module_tests_cli_test_ts --> module_src_cli_index_ts
   module_tests_cli_test_ts --> module_tests_testSupport_ts
   module_tests_commands_test_ts --> module_src_commands_ts
   module_tests_commands_test_ts --> module_tests_testSupport_ts

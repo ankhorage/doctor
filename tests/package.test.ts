@@ -7,7 +7,7 @@ describe('package metadata', () => {
   test('publishes the expected Ankh metadata and bin entry', () => {
     const expectedAnkhMetadata = {
       category: 'doctor',
-      provider: './dist/ankh.provider.js',
+      provider: './dist/cli/index.js',
       capabilities: ['doctor.validate', 'doctor.fix', 'doctor.repo', 'doctor.package'],
     } as const satisfies AnkhPackageMetadata;
 

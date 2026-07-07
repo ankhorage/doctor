@@ -1,10 +1,10 @@
 import type { AnkhRuntimeCommandProvider } from '@ankhorage/ankh';
 import { describe, expect, test } from 'bun:test';
 
-import provider, { createDoctorRuntimeProvider } from '../src/ankh.provider.js';
+import provider, { createDoctorRuntimeProvider } from '../src/cli/index.js';
 import { createProviderCommandDescriptors, DOCTOR_COMMANDS } from '../src/commands.js';
 
-describe('ankh provider', () => {
+describe('doctor package provider', () => {
   test('publishes the expected runtime provider shape', () => {
     const expectedProvider = createDoctorRuntimeProvider() satisfies AnkhRuntimeCommandProvider;
 

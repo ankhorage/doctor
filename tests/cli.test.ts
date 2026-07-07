@@ -6,8 +6,8 @@ import {
 } from '@ankhorage/ankh';
 import { describe, expect, test } from 'bun:test';
 
-import { createDoctorRuntimeProvider } from '../src/ankh.provider.js';
 import { runCli } from '../src/cli.js';
+import { createDoctorRuntimeProvider } from '../src/cli/index.js';
 import { createCapturedCommandContext } from './testSupport.js';
 
 describe('standalone cli and provider-backed dispatch', () => {
@@ -107,7 +107,7 @@ function createDiscoveredPackage(): AnkhDiscoveredPackage {
   return {
     metadata: {
       category: 'doctor',
-      provider: './dist/ankh.provider.js',
+      provider: './dist/cli/index.js',
       capabilities: ['doctor.validate', 'doctor.fix', 'doctor.repo', 'doctor.package'],
     },
     packageJsonPath: '/workspace/package.json',
@@ -130,7 +130,7 @@ function createLoadedProvider(
       commands: provider.commands,
     },
     providerModuleDefaultExport: provider,
-    providerModulePath: '/workspace/dist/ankh.provider.js',
-    providerModuleUrl: 'file:///workspace/dist/ankh.provider.js',
+    providerModulePath: '/workspace/dist/cli/index.js',
+    providerModuleUrl: 'file:///workspace/dist/cli/index.js',
   };
 }
