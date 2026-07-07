@@ -62,9 +62,9 @@
     "isReadme": false,
     "examples": [],
     "kind": "function",
-    "modulePath": "src/ankh.provider.ts",
+    "modulePath": "src/cli/index.ts",
     "sourceLocation": {
-      "filePath": "src/ankh.provider.ts",
+      "filePath": "src/cli/index.ts",
       "line": 22,
       "column": 1
     },
@@ -94,9 +94,9 @@
     "isReadme": false,
     "examples": [],
     "kind": "type",
-    "modulePath": "src/ankh.provider.ts",
+    "modulePath": "src/cli/index.ts",
     "sourceLocation": {
-      "filePath": "src/ankh.provider.ts",
+      "filePath": "src/cli/index.ts",
       "line": 17,
       "column": 1
     },
@@ -421,7 +421,7 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
-      "line": 74,
+      "line": 75,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -660,7 +660,7 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
-      "line": 18,
+      "line": 17,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],

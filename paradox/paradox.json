@@ -12,7 +12,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.2.1",
+      "value": "v0.3.0",
       "color": "cb3837"
     },
     {
@@ -101,16 +101,16 @@
       ]
     },
     {
-      "path": "src/ankh.provider.ts",
-      "isEntrypoint": false,
-      "dependencies": ["src/commands.ts", "src/packageMetadata.ts"],
-      "exports": ["createDoctorRuntimeProvider", "CreateDoctorRuntimeProviderOptions", "default"]
-    },
-    {
       "path": "src/cli.ts",
       "isEntrypoint": false,
       "dependencies": ["src/commandContext.ts", "src/commands.ts"],
       "exports": ["DoctorCliOptions", "runCli"]
+    },
+    {
+      "path": "src/cli/index.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/commands.ts", "src/packageMetadata.ts"],
+      "exports": ["createDoctorRuntimeProvider", "CreateDoctorRuntimeProviderOptions", "default"]
     },
     {
       "path": "src/commandContext.ts",
@@ -201,13 +201,13 @@
     {
       "path": "tests/ankh.provider.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/ankh.provider.ts", "src/commands.ts"],
+      "dependencies": ["src/cli/index.ts", "src/commands.ts"],
       "exports": []
     },
     {
       "path": "tests/cli.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/ankh.provider.ts", "src/cli.ts", "tests/testSupport.ts"],
+      "dependencies": ["src/cli.ts", "src/cli/index.ts", "tests/testSupport.ts"],
       "exports": []
     },
     {
@@ -300,9 +300,9 @@
       "isReadme": false,
       "examples": [],
       "kind": "function",
-      "modulePath": "src/ankh.provider.ts",
+      "modulePath": "src/cli/index.ts",
       "sourceLocation": {
-        "filePath": "src/ankh.provider.ts",
+        "filePath": "src/cli/index.ts",
         "line": 22,
         "column": 1
       },
@@ -332,9 +332,9 @@
       "isReadme": false,
       "examples": [],
       "kind": "type",
-      "modulePath": "src/ankh.provider.ts",
+      "modulePath": "src/cli/index.ts",
       "sourceLocation": {
-        "filePath": "src/ankh.provider.ts",
+        "filePath": "src/cli/index.ts",
         "line": 17,
         "column": 1
       },
@@ -659,7 +659,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 74,
+        "line": 75,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -898,7 +898,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 18,
+        "line": 17,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -1016,7 +1016,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 635,
+        "line": 657,
         "column": 1
       }
     },
@@ -1025,7 +1025,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 771,
+        "line": 793,
         "column": 1
       }
     },
@@ -1034,7 +1034,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 860,
+        "line": 882,
         "column": 1
       }
     },
@@ -1043,7 +1043,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 888,
+        "line": 910,
         "column": 1
       }
     },
@@ -1052,7 +1052,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 898,
+        "line": 920,
         "column": 1
       }
     },
@@ -1061,7 +1061,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 940,
+        "line": 962,
         "column": 1
       }
     },
@@ -1070,7 +1070,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 961,
+        "line": 983,
         "column": 1
       }
     },
@@ -1079,7 +1079,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 971,
+        "line": 993,
         "column": 1
       }
     },
@@ -1088,7 +1088,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1009,
+        "line": 1031,
         "column": 1
       }
     },
@@ -1097,7 +1097,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1033,
+        "line": 1055,
         "column": 1
       }
     },
@@ -1106,7 +1106,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1057,
+        "line": 1079,
         "column": 1
       }
     },
@@ -1115,7 +1115,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1081,
+        "line": 1103,
         "column": 1
       }
     },
@@ -1124,7 +1124,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1100,
+        "line": 1122,
         "column": 1
       }
     },
@@ -1133,7 +1133,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1115,
+        "line": 1137,
         "column": 1
       }
     },
@@ -1142,7 +1142,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1122,
+        "line": 1144,
         "column": 1
       }
     },
@@ -1151,7 +1151,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1156,
+        "line": 1178,
         "column": 1
       }
     },
@@ -1160,7 +1160,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1185,
+        "line": 1207,
         "column": 1
       }
     },
@@ -1169,7 +1169,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1198,
+        "line": 1220,
         "column": 1
       }
     },
@@ -1178,7 +1178,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1202,
+        "line": 1224,
         "column": 1
       }
     },
@@ -1187,7 +1187,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1209,
+        "line": 1231,
         "column": 1
       }
     },
@@ -1196,7 +1196,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1214,
+        "line": 1236,
         "column": 1
       }
     },
@@ -1205,7 +1205,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1218,
+        "line": 1240,
         "column": 1
       }
     },
@@ -1214,7 +1214,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1230,
+        "line": 1252,
         "column": 1
       }
     },
@@ -1223,7 +1223,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1239,
+        "line": 1261,
         "column": 1
       }
     },
@@ -1232,7 +1232,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1243,
+        "line": 1265,
         "column": 1
       }
     },
@@ -1241,7 +1241,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1247,
+        "line": 1269,
         "column": 1
       }
     },
@@ -1250,7 +1250,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1251,
+        "line": 1273,
         "column": 1
       }
     },
@@ -1259,7 +1259,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1255,
+        "line": 1277,
         "column": 1
       }
     },
@@ -1268,7 +1268,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1259,
+        "line": 1281,
         "column": 1
       }
     },
@@ -1277,16 +1277,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1267,
-        "column": 1
-      }
-    },
-    {
-      "name": "createDoctorRuntimeProvider",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/ankh.provider.ts",
-        "line": 22,
+        "line": 1289,
         "column": 1
       }
     },
@@ -1315,6 +1306,24 @@
         "filePath": "src/cli.ts",
         "line": 60,
         "column": 1
+      }
+    },
+    {
+      "name": "createDoctorRuntimeProvider",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cli/index.ts",
+        "line": 22,
+        "column": 1
+      }
+    },
+    {
+      "name": "handler",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cli/index.ts",
+        "line": 34,
+        "column": 13
       }
     },
     {
@@ -1484,7 +1493,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 83,
+        "line": 84,
         "column": 1
       }
     },
@@ -1493,7 +1502,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 87,
+        "line": 88,
         "column": 1
       }
     }
@@ -1526,7 +1535,7 @@
     {
       "kind": "export",
       "name": "createDoctorRuntimeProvider",
-      "sourcePath": "src/ankh.provider.ts",
+      "sourcePath": "src/cli/index.ts",
       "symbolName": "createDoctorRuntimeProvider",
       "description": null,
       "isReadme": false
@@ -1546,16 +1555,6 @@
         "fromPath": "src/analysis.ts",
         "toPath": "src/diagnostics.ts",
         "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromPath": "src/ankh.provider.ts",
-        "toPath": "src/commands.ts",
-        "sourcePath": "src/ankh.provider.ts"
-      },
-      {
-        "fromPath": "src/ankh.provider.ts",
-        "toPath": "src/packageMetadata.ts",
-        "sourcePath": "src/ankh.provider.ts"
       },
       {
         "fromPath": "src/cli.ts",
@@ -1599,12 +1598,12 @@
       },
       {
         "fromPath": "src/index.ts",
-        "toPath": "src/ankh.provider.ts",
+        "toPath": "src/cli.ts",
         "sourcePath": "src/index.ts"
       },
       {
         "fromPath": "src/index.ts",
-        "toPath": "src/cli.ts",
+        "toPath": "src/cli/index.ts",
         "sourcePath": "src/index.ts"
       },
       {
@@ -1634,7 +1633,7 @@
       },
       {
         "fromPath": "tests/ankh.provider.test.ts",
-        "toPath": "src/ankh.provider.ts",
+        "toPath": "src/cli/index.ts",
         "sourcePath": "tests/ankh.provider.test.ts"
       },
       {
@@ -1644,12 +1643,12 @@
       },
       {
         "fromPath": "tests/cli.test.ts",
-        "toPath": "src/ankh.provider.ts",
+        "toPath": "src/cli.ts",
         "sourcePath": "tests/cli.test.ts"
       },
       {
         "fromPath": "tests/cli.test.ts",
-        "toPath": "src/cli.ts",
+        "toPath": "src/cli/index.ts",
         "sourcePath": "tests/cli.test.ts"
       },
       {
@@ -1676,6 +1675,16 @@
         "fromPath": "tests/testSupport.ts",
         "toPath": "src/commandContext.ts",
         "sourcePath": "tests/testSupport.ts"
+      },
+      {
+        "fromPath": "src/cli/index.ts",
+        "toPath": "src/commands.ts",
+        "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromPath": "src/cli/index.ts",
+        "toPath": "src/packageMetadata.ts",
+        "sourcePath": "src/cli/index.ts"
       }
     ],
     "calls": [
@@ -2082,24 +2091,6 @@
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "createDoctorRuntimeProvider",
-        "toSymbol": "createProviderCommandDescriptors",
-        "callExpression": "createProviderCommandDescriptors",
-        "sourcePath": "src/ankh.provider.ts"
-      },
-      {
-        "fromSymbol": "handler",
-        "toSymbol": "runCommandImpl",
-        "callExpression": "runCommandImpl",
-        "sourcePath": "src/ankh.provider.ts"
-      },
-      {
-        "fromSymbol": "src/ankh.provider.ts",
-        "toSymbol": "createDoctorRuntimeProvider",
-        "callExpression": "createDoctorRuntimeProvider",
-        "sourcePath": "src/ankh.provider.ts"
-      },
-      {
         "fromSymbol": "runCli",
         "toSymbol": "createDefaultCommandContext",
         "callExpression": "createDefaultCommandContext",
@@ -2503,6 +2494,12 @@
       },
       {
         "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "getRecordField",
+        "callExpression": "getRecordField",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
         "toSymbol": "snapshotDirectory",
         "callExpression": "snapshotDirectory",
         "sourcePath": "tests/commands.test.ts"
@@ -2511,6 +2508,12 @@
         "fromSymbol": "getCommand",
         "toSymbol": "findDoctorCommandByStandaloneName",
         "callExpression": "findDoctorCommandByStandaloneName",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "getRecordField",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
         "sourcePath": "tests/commands.test.ts"
       },
       {
@@ -2542,6 +2545,24 @@
         "toSymbol": "walkDirectory",
         "callExpression": "walkDirectory",
         "sourcePath": "tests/testSupport.ts"
+      },
+      {
+        "fromSymbol": "createDoctorRuntimeProvider",
+        "toSymbol": "createProviderCommandDescriptors",
+        "callExpression": "createProviderCommandDescriptors",
+        "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromSymbol": "handler",
+        "toSymbol": "runCommandImpl",
+        "callExpression": "runCommandImpl",
+        "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromSymbol": "src/cli/index.ts",
+        "toSymbol": "createDoctorRuntimeProvider",
+        "callExpression": "createDoctorRuntimeProvider",
+        "sourcePath": "src/cli/index.ts"
       }
     ],
     "typeReferences": [
@@ -2611,31 +2632,6 @@
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "createDoctorRuntimeProvider",
-        "toType": "AnkhRuntimeCommandProvider",
-        "sourcePath": "src/ankh.provider.ts"
-      },
-      {
-        "fromSymbol": "createDoctorRuntimeProvider",
-        "toType": "CreateDoctorRuntimeProviderOptions",
-        "sourcePath": "src/ankh.provider.ts"
-      },
-      {
-        "fromSymbol": "CreateDoctorRuntimeProviderOptions",
-        "toType": "DoctorCommandServices",
-        "sourcePath": "src/ankh.provider.ts"
-      },
-      {
-        "fromSymbol": "CreateDoctorRuntimeProviderOptions",
-        "toType": "Partial",
-        "sourcePath": "src/ankh.provider.ts"
-      },
-      {
-        "fromSymbol": "CreateDoctorRuntimeProviderOptions",
-        "toType": "RunDoctorCommandImpl",
-        "sourcePath": "src/ankh.provider.ts"
-      },
-      {
         "fromSymbol": "runCli",
         "toType": "DoctorCliOptions",
         "sourcePath": "src/cli.ts"
@@ -2644,6 +2640,31 @@
         "fromSymbol": "runCli",
         "toType": "DoctorCommandRunResult",
         "sourcePath": "src/cli.ts"
+      },
+      {
+        "fromSymbol": "createDoctorRuntimeProvider",
+        "toType": "AnkhRuntimeCommandProvider",
+        "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromSymbol": "createDoctorRuntimeProvider",
+        "toType": "CreateDoctorRuntimeProviderOptions",
+        "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromSymbol": "CreateDoctorRuntimeProviderOptions",
+        "toType": "DoctorCommandServices",
+        "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromSymbol": "CreateDoctorRuntimeProviderOptions",
+        "toType": "Partial",
+        "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromSymbol": "CreateDoctorRuntimeProviderOptions",
+        "toType": "RunDoctorCommandImpl",
+        "sourcePath": "src/cli/index.ts"
       },
       {
         "fromSymbol": "DoctorCommandContext",

@@ -26,8 +26,8 @@ Source: `src/commandContext.ts:15:1`
 ## createDoctorRuntimeProvider
 
 Kind: `function`
-Module: `src/ankh.provider.ts`
-Source: `src/ankh.provider.ts:22:1`
+Module: `src/cli/index.ts`
+Source: `src/cli/index.ts:22:1`
 
 ### Signatures
 
@@ -38,8 +38,8 @@ Source: `src/ankh.provider.ts:22:1`
 ## CreateDoctorRuntimeProviderOptions
 
 Kind: `type`
-Module: `src/ankh.provider.ts`
-Source: `src/ankh.provider.ts:17:1`
+Module: `src/cli/index.ts`
+Source: `src/cli/index.ts:17:1`
 
 ### Members
 
@@ -143,7 +143,7 @@ Source: `src/commandContext.ts:11:1`
 
 Kind: `type`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:74:1`
+Source: `src/diagnostics.ts:75:1`
 
 ### Members
 
@@ -215,7 +215,7 @@ Source: `src/diagnostics.ts:16:1`
 
 Kind: `unknown`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:18:1`
+Source: `src/diagnostics.ts:17:1`
 
 ## DoctorTargetCheck
 

@@ -6,8 +6,8 @@ import {
 } from '@ankhorage/ankh';
 import { describe, expect, test } from 'bun:test';
 
-import { createDoctorRuntimeProvider } from '../src/cli/index.js';
 import { runCli } from '../src/cli.js';
+import { createDoctorRuntimeProvider } from '../src/cli/index.js';
 import { createCapturedCommandContext } from './testSupport.js';
 
 describe('standalone cli and provider-backed dispatch', () => {

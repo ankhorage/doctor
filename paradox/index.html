@@ -205,15 +205,15 @@
               </button>
             </li>
             <li>
-              <button class="nav-button" type="button" data-target="src/ankh.provider.ts">
-                src/ankh.provider.ts
-                <small>1 function</small>
-              </button>
-            </li>
-            <li>
               <button class="nav-button" type="button" data-target="src/cli.ts">
                 src/cli.ts
                 <small>3 functions</small>
+              </button>
+            </li>
+            <li>
+              <button class="nav-button" type="button" data-target="src/cli/index.ts">
+                src/cli/index.ts
+                <small>2 functions</small>
               </button>
             </li>
             <li>
@@ -278,21 +278,6 @@
             </article>
             <article
               class="item"
-              data-search="src/ankh.provider.ts src/commands.ts src/packageMetadata.ts createDoctorRuntimeProvider CreateDoctorRuntimeProviderOptions default"
-            >
-              <h3>src/ankh.provider.ts</h3>
-              <p class="muted">Referenced module</p>
-              <p>
-                <strong>Dependencies:</strong> <code>src/commands.ts</code>,
-                <code>src/packageMetadata.ts</code>
-              </p>
-              <p>
-                <strong>Exports:</strong> <code>createDoctorRuntimeProvider</code>,
-                <code>CreateDoctorRuntimeProviderOptions</code>, <code>default</code>
-              </p>
-            </article>
-            <article
-              class="item"
               data-search="src/cli.ts src/commandContext.ts src/commands.ts DoctorCliOptions runCli"
             >
               <h3>src/cli.ts</h3>
@@ -302,6 +287,21 @@
                 <code>src/commands.ts</code>
               </p>
               <p><strong>Exports:</strong> <code>DoctorCliOptions</code>, <code>runCli</code></p>
+            </article>
+            <article
+              class="item"
+              data-search="src/cli/index.ts src/commands.ts src/packageMetadata.ts createDoctorRuntimeProvider CreateDoctorRuntimeProviderOptions default"
+            >
+              <h3>src/cli/index.ts</h3>
+              <p class="muted">Referenced module</p>
+              <p>
+                <strong>Dependencies:</strong> <code>src/commands.ts</code>,
+                <code>src/packageMetadata.ts</code>
+              </p>
+              <p>
+                <strong>Exports:</strong> <code>createDoctorRuntimeProvider</code>,
+                <code>CreateDoctorRuntimeProviderOptions</code>, <code>default</code>
+              </p>
             </article>
             <article
               class="item"
@@ -386,25 +386,25 @@
             </article>
             <article
               class="item"
-              data-search="tests/ankh.provider.test.ts src/ankh.provider.ts src/commands.ts"
+              data-search="tests/ankh.provider.test.ts src/cli/index.ts src/commands.ts"
             >
               <h3>tests/ankh.provider.test.ts</h3>
               <p class="muted">Referenced module</p>
               <p>
-                <strong>Dependencies:</strong> <code>src/ankh.provider.ts</code>,
+                <strong>Dependencies:</strong> <code>src/cli/index.ts</code>,
                 <code>src/commands.ts</code>
               </p>
               <p><strong>Exports:</strong> <span class="empty">None</span></p>
             </article>
             <article
               class="item"
-              data-search="tests/cli.test.ts src/ankh.provider.ts src/cli.ts tests/testSupport.ts"
+              data-search="tests/cli.test.ts src/cli.ts src/cli/index.ts tests/testSupport.ts"
             >
               <h3>tests/cli.test.ts</h3>
               <p class="muted">Referenced module</p>
               <p>
-                <strong>Dependencies:</strong> <code>src/ankh.provider.ts</code>,
-                <code>src/cli.ts</code>, <code>tests/testSupport.ts</code>
+                <strong>Dependencies:</strong> <code>src/cli.ts</code>,
+                <code>src/cli/index.ts</code>, <code>tests/testSupport.ts</code>
               </p>
               <p><strong>Exports:</strong> <span class="empty">None</span></p>
             </article>
@@ -789,88 +789,6 @@
               </article>
             </section>
             <section>
-              <h3>src/ankh.provider.ts</h3>
-              <article
-                class="item"
-                id="symbol-createdoctorruntimeprovider"
-                data-search="createDoctorRuntimeProvider function src/ankh.provider.ts  CreateDoctorRuntimeProviderOptions (options?: CreateDoctorRuntimeProviderOptions) =&gt; AnkhRuntimeCommandProvider"
-              >
-                <h4>createDoctorRuntimeProvider</h4>
-                <p class="muted">function • <code>src/ankh.provider.ts:22:1</code></p>
-
-                <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
-                <div>
-                  <strong>Related symbols:</strong>
-                  <ul class="chips">
-                    <li class="chip">CreateDoctorRuntimeProviderOptions</li>
-                  </ul>
-                </div>
-                <div>
-                  <h5>Signature</h5>
-                  <pre>
-(options?: CreateDoctorRuntimeProviderOptions) =&gt; AnkhRuntimeCommandProvider</pre>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Parameter</th>
-                        <th>Type</th>
-                        <th>Required</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><code>options</code></td>
-                        <td><code>CreateDoctorRuntimeProviderOptions</code></td>
-                        <td>no</td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <p><strong>Returns:</strong> <code>AnkhRuntimeCommandProvider</code></p>
-                </div>
-              </article>
-              <article
-                class="item"
-                id="symbol-createdoctorruntimeprovideroptions"
-                data-search="CreateDoctorRuntimeProviderOptions type src/ankh.provider.ts "
-              >
-                <h4>CreateDoctorRuntimeProviderOptions</h4>
-                <p class="muted">type • <code>src/ankh.provider.ts:17:1</code></p>
-
-                <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
-                <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
-
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Member</th>
-                      <th>Kind</th>
-                      <th>Type</th>
-                      <th>Required</th>
-                      <th>Description</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><code>runCommandImpl</code></td>
-                      <td>property</td>
-                      <td><code>RunDoctorCommandImpl | undefined</code></td>
-                      <td>no</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td><code>services</code></td>
-                      <td>property</td>
-                      <td><code>Partial&lt;DoctorCommandServices&gt; | undefined</code></td>
-                      <td>no</td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </article>
-            </section>
-            <section>
               <h3>src/cli.ts</h3>
               <article
                 class="item"
@@ -919,6 +837,88 @@
                     <strong>Returns:</strong> <code>Promise&lt;DoctorCommandRunResult&gt;</code>
                   </p>
                 </div>
+              </article>
+            </section>
+            <section>
+              <h3>src/cli/index.ts</h3>
+              <article
+                class="item"
+                id="symbol-createdoctorruntimeprovider"
+                data-search="createDoctorRuntimeProvider function src/cli/index.ts  CreateDoctorRuntimeProviderOptions (options?: CreateDoctorRuntimeProviderOptions) =&gt; AnkhRuntimeCommandProvider"
+              >
+                <h4>createDoctorRuntimeProvider</h4>
+                <p class="muted">function • <code>src/cli/index.ts:22:1</code></p>
+
+                <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
+                <div>
+                  <strong>Related symbols:</strong>
+                  <ul class="chips">
+                    <li class="chip">CreateDoctorRuntimeProviderOptions</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5>Signature</h5>
+                  <pre>
+(options?: CreateDoctorRuntimeProviderOptions) =&gt; AnkhRuntimeCommandProvider</pre>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>options</code></td>
+                        <td><code>CreateDoctorRuntimeProviderOptions</code></td>
+                        <td>no</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p><strong>Returns:</strong> <code>AnkhRuntimeCommandProvider</code></p>
+                </div>
+              </article>
+              <article
+                class="item"
+                id="symbol-createdoctorruntimeprovideroptions"
+                data-search="CreateDoctorRuntimeProviderOptions type src/cli/index.ts "
+              >
+                <h4>CreateDoctorRuntimeProviderOptions</h4>
+                <p class="muted">type • <code>src/cli/index.ts:17:1</code></p>
+
+                <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
+                <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Member</th>
+                      <th>Kind</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>runCommandImpl</code></td>
+                      <td>property</td>
+                      <td><code>RunDoctorCommandImpl | undefined</code></td>
+                      <td>no</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><code>services</code></td>
+                      <td>property</td>
+                      <td><code>Partial&lt;DoctorCommandServices&gt; | undefined</code></td>
+                      <td>no</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
               </article>
             </section>
             <section>
@@ -1046,7 +1046,7 @@
                 data-search="DoctorDiagnostic type src/diagnostics.ts  DoctorDiagnosticCode DoctorDiagnosticSeverity DoctorPolicyProfile DoctorRuleId"
               >
                 <h4>DoctorDiagnostic</h4>
-                <p class="muted">type • <code>src/diagnostics.ts:74:1</code></p>
+                <p class="muted">type • <code>src/diagnostics.ts:75:1</code></p>
 
                 <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
                 <div>
@@ -1154,7 +1154,7 @@
                 data-search="DoctorRuleId unknown src/diagnostics.ts "
               >
                 <h4>DoctorRuleId</h4>
-                <p class="muted">unknown • <code>src/diagnostics.ts:18:1</code></p>
+                <p class="muted">unknown • <code>src/diagnostics.ts:17:1</code></p>
 
                 <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
                 <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
@@ -1238,14 +1238,12 @@
                 package__ankhorage_doctor -.-&gt; module_package_json
                 module_src_analysis_ts[&quot;src/analysis.ts&quot;] package__ankhorage_doctor
                 -.-&gt; module_src_analysis_ts module_src_analysis_ts --&gt;
-                module_src_diagnostics_ts
-                module_src_ankh_provider_ts[&quot;src/ankh.provider.ts&quot;]
-                package__ankhorage_doctor -.-&gt; module_src_ankh_provider_ts
-                module_src_ankh_provider_ts --&gt; module_src_commands_ts
-                module_src_ankh_provider_ts --&gt; module_src_packageMetadata_ts
-                module_src_cli_ts[&quot;src/cli.ts&quot;] package__ankhorage_doctor -.-&gt;
-                module_src_cli_ts module_src_cli_ts --&gt; module_src_commandContext_ts
-                module_src_cli_ts --&gt; module_src_commands_ts
+                module_src_diagnostics_ts module_src_cli_ts[&quot;src/cli.ts&quot;]
+                package__ankhorage_doctor -.-&gt; module_src_cli_ts module_src_cli_ts --&gt;
+                module_src_commandContext_ts module_src_cli_ts --&gt; module_src_commands_ts
+                module_src_cli_index_ts[&quot;src/cli/index.ts&quot;] package__ankhorage_doctor
+                -.-&gt; module_src_cli_index_ts module_src_cli_index_ts --&gt;
+                module_src_commands_ts module_src_cli_index_ts --&gt; module_src_packageMetadata_ts
                 module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_src_commandContext_ts
                 module_src_commandContext_ts --&gt; module_package_json
@@ -1261,12 +1259,12 @@
                 module_src_packageMetadata_ts --&gt; module_package_json
                 module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_tests_ankh_provider_test_ts
-                module_tests_ankh_provider_test_ts --&gt; module_src_ankh_provider_ts
+                module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
                 module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
                 module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;] package__ankhorage_doctor
-                -.-&gt; module_tests_cli_test_ts module_tests_cli_test_ts --&gt;
-                module_src_ankh_provider_ts module_tests_cli_test_ts --&gt; module_src_cli_ts
-                module_tests_cli_test_ts --&gt; module_tests_testSupport_ts
+                -.-&gt; module_tests_cli_test_ts module_tests_cli_test_ts --&gt; module_src_cli_ts
+                module_tests_cli_test_ts --&gt; module_src_cli_index_ts module_tests_cli_test_ts
+                --&gt; module_tests_testSupport_ts
                 module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_tests_commands_test_ts
                 module_tests_commands_test_ts --&gt; module_src_commands_ts
@@ -1290,14 +1288,14 @@ graph TD
   module_src_analysis_ts[&quot;src/analysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_analysis_ts
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
-  module_src_ankh_provider_ts[&quot;src/ankh.provider.ts&quot;]
-  package__ankhorage_doctor -.-&gt; module_src_ankh_provider_ts
-  module_src_ankh_provider_ts --&gt; module_src_commands_ts
-  module_src_ankh_provider_ts --&gt; module_src_packageMetadata_ts
   module_src_cli_ts[&quot;src/cli.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_cli_ts
   module_src_cli_ts --&gt; module_src_commandContext_ts
   module_src_cli_ts --&gt; module_src_commands_ts
+  module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_cli_index_ts
+  module_src_cli_index_ts --&gt; module_src_commands_ts
+  module_src_cli_index_ts --&gt; module_src_packageMetadata_ts
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_commandContext_ts
   module_src_commandContext_ts --&gt; module_package_json
@@ -1315,12 +1313,12 @@ graph TD
   module_src_packageMetadata_ts --&gt; module_package_json
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_ankh_provider_test_ts
-  module_tests_ankh_provider_test_ts --&gt; module_src_ankh_provider_ts
+  module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
   module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_cli_test_ts
-  module_tests_cli_test_ts --&gt; module_src_ankh_provider_ts
   module_tests_cli_test_ts --&gt; module_src_cli_ts
+  module_tests_cli_test_ts --&gt; module_src_cli_index_ts
   module_tests_cli_test_ts --&gt; module_tests_testSupport_ts
   module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_commands_test_ts
@@ -1344,8 +1342,8 @@ graph TD
               <div class="mermaid">
                 graph LR module_package_json[&quot;package.json&quot;]
                 module_src_analysis_ts[&quot;src/analysis.ts&quot;]
-                module_src_ankh_provider_ts[&quot;src/ankh.provider.ts&quot;]
                 module_src_cli_ts[&quot;src/cli.ts&quot;]
+                module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
                 module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
                 module_src_commands_ts[&quot;src/commands.ts&quot;]
                 module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
@@ -1356,19 +1354,19 @@ graph TD
                 module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
                 module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
                 module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;] module_src_analysis_ts
-                --&gt; module_src_diagnostics_ts module_src_ankh_provider_ts --&gt;
-                module_src_commands_ts module_src_ankh_provider_ts --&gt;
-                module_src_packageMetadata_ts module_src_cli_ts --&gt; module_src_commandContext_ts
-                module_src_cli_ts --&gt; module_src_commands_ts module_src_commandContext_ts --&gt;
+                --&gt; module_src_diagnostics_ts module_src_cli_ts --&gt;
+                module_src_commandContext_ts module_src_cli_ts --&gt; module_src_commands_ts
+                module_src_cli_index_ts --&gt; module_src_commands_ts module_src_cli_index_ts --&gt;
+                module_src_packageMetadata_ts module_src_commandContext_ts --&gt;
                 module_package_json module_src_commands_ts --&gt; module_src_analysis_ts
                 module_src_commands_ts --&gt; module_src_commandContext_ts module_src_commands_ts
                 --&gt; module_src_diagnostics_ts module_src_commands_ts --&gt;
                 module_src_packageMetadata_ts module_src_packageMetadata_ts --&gt;
                 module_package_json module_tests_ankh_provider_test_ts --&gt;
-                module_src_ankh_provider_ts module_tests_ankh_provider_test_ts --&gt;
-                module_src_commands_ts module_tests_cli_test_ts --&gt; module_src_ankh_provider_ts
-                module_tests_cli_test_ts --&gt; module_src_cli_ts module_tests_cli_test_ts --&gt;
-                module_tests_testSupport_ts module_tests_commands_test_ts --&gt;
+                module_src_cli_index_ts module_tests_ankh_provider_test_ts --&gt;
+                module_src_commands_ts module_tests_cli_test_ts --&gt; module_src_cli_ts
+                module_tests_cli_test_ts --&gt; module_src_cli_index_ts module_tests_cli_test_ts
+                --&gt; module_tests_testSupport_ts module_tests_commands_test_ts --&gt;
                 module_src_commands_ts module_tests_commands_test_ts --&gt;
                 module_tests_testSupport_ts module_tests_package_test_ts --&gt; module_package_json
                 module_tests_testSupport_ts --&gt; module_src_commandContext_ts
@@ -1379,8 +1377,8 @@ graph TD
 graph LR
   module_package_json[&quot;package.json&quot;]
   module_src_analysis_ts[&quot;src/analysis.ts&quot;]
-  module_src_ankh_provider_ts[&quot;src/ankh.provider.ts&quot;]
   module_src_cli_ts[&quot;src/cli.ts&quot;]
+  module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   module_src_commands_ts[&quot;src/commands.ts&quot;]
   module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
@@ -1392,20 +1390,20 @@ graph LR
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
-  module_src_ankh_provider_ts --&gt; module_src_commands_ts
-  module_src_ankh_provider_ts --&gt; module_src_packageMetadata_ts
   module_src_cli_ts --&gt; module_src_commandContext_ts
   module_src_cli_ts --&gt; module_src_commands_ts
+  module_src_cli_index_ts --&gt; module_src_commands_ts
+  module_src_cli_index_ts --&gt; module_src_packageMetadata_ts
   module_src_commandContext_ts --&gt; module_package_json
   module_src_commands_ts --&gt; module_src_analysis_ts
   module_src_commands_ts --&gt; module_src_commandContext_ts
   module_src_commands_ts --&gt; module_src_diagnostics_ts
   module_src_commands_ts --&gt; module_src_packageMetadata_ts
   module_src_packageMetadata_ts --&gt; module_package_json
-  module_tests_ankh_provider_test_ts --&gt; module_src_ankh_provider_ts
+  module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
-  module_tests_cli_test_ts --&gt; module_src_ankh_provider_ts
   module_tests_cli_test_ts --&gt; module_src_cli_ts
+  module_tests_cli_test_ts --&gt; module_src_cli_index_ts
   module_tests_cli_test_ts --&gt; module_tests_testSupport_ts
   module_tests_commands_test_ts --&gt; module_src_commands_ts
   module_tests_commands_test_ts --&gt; module_tests_testSupport_ts
@@ -1420,8 +1418,8 @@ graph LR
               <div class="mermaid">
                 graph LR module_package_json[&quot;package.json&quot;]
                 module_src_analysis_ts[&quot;src/analysis.ts&quot;]
-                module_src_ankh_provider_ts[&quot;src/ankh.provider.ts&quot;]
                 module_src_cli_ts[&quot;src/cli.ts&quot;]
+                module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
                 module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
                 module_src_commands_ts[&quot;src/commands.ts&quot;]
                 module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
@@ -1440,10 +1438,10 @@ graph LR
                 module_src_commandContext_ts --&gt; export_createDefaultCommandContext
                 export_createDefaultCommandContext -.-&gt; export_DoctorCommandContext
                 export_createDoctorRuntimeProvider[&quot;createDoctorRuntimeProvider&quot;]
-                module_src_ankh_provider_ts --&gt; export_createDoctorRuntimeProvider
+                module_src_cli_index_ts --&gt; export_createDoctorRuntimeProvider
                 export_createDoctorRuntimeProvider -.-&gt; export_CreateDoctorRuntimeProviderOptions
                 export_CreateDoctorRuntimeProviderOptions[&quot;CreateDoctorRuntimeProviderOptions&quot;]
-                module_src_ankh_provider_ts --&gt; export_CreateDoctorRuntimeProviderOptions
+                module_src_cli_index_ts --&gt; export_CreateDoctorRuntimeProviderOptions
                 export_DOCTOR_CAPABILITIES[&quot;DOCTOR_CAPABILITIES&quot;]
                 module_src_packageMetadata_ts --&gt; export_DOCTOR_CAPABILITIES
                 export_DOCTOR_COMMAND_CATEGORY[&quot;DOCTOR_COMMAND_CATEGORY&quot;]
@@ -1501,8 +1499,8 @@ graph LR
 graph LR
   module_package_json[&quot;package.json&quot;]
   module_src_analysis_ts[&quot;src/analysis.ts&quot;]
-  module_src_ankh_provider_ts[&quot;src/ankh.provider.ts&quot;]
   module_src_cli_ts[&quot;src/cli.ts&quot;]
+  module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   module_src_commands_ts[&quot;src/commands.ts&quot;]
   module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
@@ -1521,10 +1519,10 @@ graph LR
   module_src_commandContext_ts --&gt; export_createDefaultCommandContext
   export_createDefaultCommandContext -.-&gt; export_DoctorCommandContext
   export_createDoctorRuntimeProvider[&quot;createDoctorRuntimeProvider&quot;]
-  module_src_ankh_provider_ts --&gt; export_createDoctorRuntimeProvider
+  module_src_cli_index_ts --&gt; export_createDoctorRuntimeProvider
   export_createDoctorRuntimeProvider -.-&gt; export_CreateDoctorRuntimeProviderOptions
   export_CreateDoctorRuntimeProviderOptions[&quot;CreateDoctorRuntimeProviderOptions&quot;]
-  module_src_ankh_provider_ts --&gt; export_CreateDoctorRuntimeProviderOptions
+  module_src_cli_index_ts --&gt; export_CreateDoctorRuntimeProviderOptions
   export_DOCTOR_CAPABILITIES[&quot;DOCTOR_CAPABILITIES&quot;]
   module_src_packageMetadata_ts --&gt; export_DOCTOR_CAPABILITIES
   export_DOCTOR_COMMAND_CATEGORY[&quot;DOCTOR_COMMAND_CATEGORY&quot;]
@@ -1706,167 +1704,152 @@ sequenceDiagram
             </article>
             <article class="item" data-search="validateAnkhMetadataAndProvider src/analysis.ts ">
               <h3>validateAnkhMetadataAndProvider</h3>
-              <p class="muted"><code>src/analysis.ts:635:1</code></p>
+              <p class="muted"><code>src/analysis.ts:657:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="inspectProviderSource src/analysis.ts ">
               <h3>inspectProviderSource</h3>
-              <p class="muted"><code>src/analysis.ts:771:1</code></p>
+              <p class="muted"><code>src/analysis.ts:793:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="resolveProviderSourcePath src/analysis.ts ">
               <h3>resolveProviderSourcePath</h3>
-              <p class="muted"><code>src/analysis.ts:860:1</code></p>
+              <p class="muted"><code>src/analysis.ts:882:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="findRepoMarkers src/analysis.ts ">
               <h3>findRepoMarkers</h3>
-              <p class="muted"><code>src/analysis.ts:888:1</code></p>
+              <p class="muted"><code>src/analysis.ts:910:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="readPackageJson src/analysis.ts ">
               <h3>readPackageJson</h3>
-              <p class="muted"><code>src/analysis.ts:898:1</code></p>
+              <p class="muted"><code>src/analysis.ts:920:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="detectProfile src/analysis.ts ">
               <h3>detectProfile</h3>
-              <p class="muted"><code>src/analysis.ts:940:1</code></p>
+              <p class="muted"><code>src/analysis.ts:962:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isProviderPackage src/analysis.ts ">
               <h3>isProviderPackage</h3>
-              <p class="muted"><code>src/analysis.ts:961:1</code></p>
+              <p class="muted"><code>src/analysis.ts:983:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="maybeRequirePath src/analysis.ts ">
               <h3>maybeRequirePath</h3>
-              <p class="muted"><code>src/analysis.ts:971:1</code></p>
+              <p class="muted"><code>src/analysis.ts:993:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="requireNonEmptyStringField src/analysis.ts ">
               <h3>requireNonEmptyStringField</h3>
-              <p class="muted"><code>src/analysis.ts:1009:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1031:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="requireRecordField src/analysis.ts ">
               <h3>requireRecordField</h3>
-              <p class="muted"><code>src/analysis.ts:1033:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1055:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="requireStringArrayField src/analysis.ts ">
               <h3>requireStringArrayField</h3>
-              <p class="muted"><code>src/analysis.ts:1057:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1079:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="expectsParadox src/analysis.ts ">
               <h3>expectsParadox</h3>
-              <p class="muted"><code>src/analysis.ts:1081:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1103:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="expectsDevtools src/analysis.ts ">
               <h3>expectsDevtools</h3>
-              <p class="muted"><code>src/analysis.ts:1100:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1122:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="hasDependency src/analysis.ts ">
               <h3>hasDependency</h3>
-              <p class="muted"><code>src/analysis.ts:1115:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1137:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="validateAnkhMetadataShape src/analysis.ts ">
               <h3>validateAnkhMetadataShape</h3>
-              <p class="muted"><code>src/analysis.ts:1122:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1144:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="mapScriptRule src/analysis.ts ">
               <h3>mapScriptRule</h3>
-              <p class="muted"><code>src/analysis.ts:1156:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1178:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createEarlyResult src/analysis.ts ">
               <h3>createEarlyResult</h3>
-              <p class="muted"><code>src/analysis.ts:1185:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1207:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createDiagnostic src/analysis.ts ">
               <h3>createDiagnostic</h3>
-              <p class="muted"><code>src/analysis.ts:1198:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1220:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createPlannedChange src/analysis.ts ">
               <h3>createPlannedChange</h3>
-              <p class="muted"><code>src/analysis.ts:1202:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1224:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createInvalidPackageJsonMessage src/analysis.ts ">
               <h3>createInvalidPackageJsonMessage</h3>
-              <p class="muted"><code>src/analysis.ts:1209:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1231:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="pathExists src/analysis.ts ">
               <h3>pathExists</h3>
-              <p class="muted"><code>src/analysis.ts:1214:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1236:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="statOrNull src/analysis.ts ">
               <h3>statOrNull</h3>
-              <p class="muted"><code>src/analysis.ts:1218:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1240:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isMissingPathError src/analysis.ts ">
               <h3>isMissingPathError</h3>
-              <p class="muted"><code>src/analysis.ts:1230:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1252:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isNonEmptyString src/analysis.ts ">
               <h3>isNonEmptyString</h3>
-              <p class="muted"><code>src/analysis.ts:1239:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1261:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isPackageRelativeProviderPath src/analysis.ts ">
               <h3>isPackageRelativeProviderPath</h3>
-              <p class="muted"><code>src/analysis.ts:1243:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1265:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isRecord src/analysis.ts ">
               <h3>isRecord</h3>
-              <p class="muted"><code>src/analysis.ts:1247:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1269:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isStringTuple src/analysis.ts ">
               <h3>isStringTuple</h3>
-              <p class="muted"><code>src/analysis.ts:1251:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1273:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="readStringArray src/analysis.ts ">
               <h3>readStringArray</h3>
-              <p class="muted"><code>src/analysis.ts:1255:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1277:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="sameStringSet src/analysis.ts ">
               <h3>sameStringSet</h3>
-              <p class="muted"><code>src/analysis.ts:1259:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1281:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="uniqueSorted src/analysis.ts ">
               <h3>uniqueSorted</h3>
-              <p class="muted"><code>src/analysis.ts:1267:1</code></p>
-              <p class="empty">No description available.</p>
-            </article>
-          </section>
-        </section>
-        <section
-          id="view-src-ankh-provider-ts"
-          class="view"
-          data-view="src/ankh.provider.ts"
-          hidden
-        >
-          <section class="panel">
-            <h2>src/ankh.provider.ts</h2>
-            <article class="item" data-search="createDoctorRuntimeProvider src/ankh.provider.ts ">
-              <h3>createDoctorRuntimeProvider</h3>
-              <p class="muted"><code>src/ankh.provider.ts:22:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1289:1</code></p>
               <p class="empty">No description available.</p>
             </article>
           </section>
@@ -1887,6 +1870,21 @@ sequenceDiagram
             <article class="item" data-search="isVersionToken src/cli.ts ">
               <h3>isVersionToken</h3>
               <p class="muted"><code>src/cli.ts:60:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+          </section>
+        </section>
+        <section id="view-src-cli-index-ts" class="view" data-view="src/cli/index.ts" hidden>
+          <section class="panel">
+            <h2>src/cli/index.ts</h2>
+            <article class="item" data-search="createDoctorRuntimeProvider src/cli/index.ts ">
+              <h3>createDoctorRuntimeProvider</h3>
+              <p class="muted"><code>src/cli/index.ts:22:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article class="item" data-search="handler src/cli/index.ts ">
+              <h3>handler</h3>
+              <p class="muted"><code>src/cli/index.ts:34:13</code></p>
               <p class="empty">No description available.</p>
             </article>
           </section>
@@ -2001,12 +1999,12 @@ sequenceDiagram
             <h2>src/diagnostics.ts</h2>
             <article class="item" data-search="countErrorDiagnostics src/diagnostics.ts ">
               <h3>countErrorDiagnostics</h3>
-              <p class="muted"><code>src/diagnostics.ts:83:1</code></p>
+              <p class="muted"><code>src/diagnostics.ts:84:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="countWarningDiagnostics src/diagnostics.ts ">
               <h3>countWarningDiagnostics</h3>
-              <p class="muted"><code>src/diagnostics.ts:87:1</code></p>
+              <p class="muted"><code>src/diagnostics.ts:88:1</code></p>
               <p class="empty">No description available.</p>
             </article>
           </section>

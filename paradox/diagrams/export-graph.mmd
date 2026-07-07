@@ -1,8 +1,8 @@
 graph LR
   module_package_json["package.json"]
   module_src_analysis_ts["src/analysis.ts"]
-  module_src_ankh_provider_ts["src/ankh.provider.ts"]
   module_src_cli_ts["src/cli.ts"]
+  module_src_cli_index_ts["src/cli/index.ts"]
   module_src_commandContext_ts["src/commandContext.ts"]
   module_src_commands_ts["src/commands.ts"]
   module_src_diagnostics_ts["src/diagnostics.ts"]
@@ -21,10 +21,10 @@ graph LR
   module_src_commandContext_ts --> export_createDefaultCommandContext
   export_createDefaultCommandContext -.-> export_DoctorCommandContext
   export_createDoctorRuntimeProvider["createDoctorRuntimeProvider"]
-  module_src_ankh_provider_ts --> export_createDoctorRuntimeProvider
+  module_src_cli_index_ts --> export_createDoctorRuntimeProvider
   export_createDoctorRuntimeProvider -.-> export_CreateDoctorRuntimeProviderOptions
   export_CreateDoctorRuntimeProviderOptions["CreateDoctorRuntimeProviderOptions"]
-  module_src_ankh_provider_ts --> export_CreateDoctorRuntimeProviderOptions
+  module_src_cli_index_ts --> export_CreateDoctorRuntimeProviderOptions
   export_DOCTOR_CAPABILITIES["DOCTOR_CAPABILITIES"]
   module_src_packageMetadata_ts --> export_DOCTOR_CAPABILITIES
   export_DOCTOR_COMMAND_CATEGORY["DOCTOR_COMMAND_CATEGORY"]
