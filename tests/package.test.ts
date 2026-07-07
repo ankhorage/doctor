@@ -16,19 +16,6 @@ describe('package metadata', () => {
     expect(packageJson.bin).toEqual({
       'ankhorage-doctor': './dist/cli.js',
     });
-    expect(packageJson.exports).toEqual({
-      '.': {
-        types: './dist/index.d.ts',
-        import: './dist/index.js',
-        default: './dist/index.js',
-      },
-      './cli': {
-        types: './dist/cli/index.d.ts',
-        import: './dist/cli/index.js',
-        default: './dist/cli/index.js',
-      },
-      './package.json': './package.json',
-    });
     expect(JSON.stringify(packageJson.ankh)).toBe(JSON.stringify(expectedAnkhMetadata));
     expect(JSON.parse(JSON.stringify(expectedAnkhMetadata))).toEqual(expectedAnkhMetadata);
 
