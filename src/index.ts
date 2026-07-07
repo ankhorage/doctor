@@ -11,7 +11,7 @@ export { analyzeDoctorTarget } from './analysis.js';
 export {
   createDoctorRuntimeProvider,
   type CreateDoctorRuntimeProviderOptions,
-} from './ankh.provider.js';
+} from './cli/index.js';
 export { runCli } from './cli.js';
 export type { DoctorCommandContext, DoctorCommandRunResult } from './commandContext.js';
 export { createDefaultCommandContext } from './commandContext.js';
