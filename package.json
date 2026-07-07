@@ -31,6 +31,11 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./cli": {
+      "types": "./dist/cli/index.d.ts",
+      "import": "./dist/cli/index.js",
+      "default": "./dist/cli/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -46,7 +51,7 @@
   },
   "ankh": {
     "category": "doctor",
-    "provider": "./dist/ankh.provider.js",
+    "provider": "./dist/cli/index.js",
     "capabilities": [
       "doctor.validate",
       "doctor.fix",
