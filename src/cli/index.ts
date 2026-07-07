@@ -1,4 +1,4 @@
-import type { AnkhRuntimeCommandProvider } from '@ankhorage/ankh';
+import type { AnkhCommandHandler, AnkhRuntimeCommandProvider } from '@ankhorage/ankh';
 
 import {
   createProviderCommandDescriptors,
@@ -30,10 +30,9 @@ export function createDoctorRuntimeProvider(
     version: DOCTOR_PACKAGE_VERSION,
     capabilities: [...DOCTOR_CAPABILITIES],
     commands: createProviderCommandDescriptors(),
-    handlers: DOCTOR_COMMANDS.map((command) => ({
-      path: command.path,
-      handler(request) {
-        return runCommandImpl(
+    handlers: DOCTOR_COMMANDS.map((command) => {
+      const handler: AnkhCommandHandler = (request) =>
+        runCommandImpl(
           {
             argv: request.argv,
             command,
@@ -43,8 +42,12 @@ export function createDoctorRuntimeProvider(
             services: options.services,
           },
         );
-      },
-    })),
+
+      return {
+        path: command.path,
+        handler,
+      };
+    }),
   } satisfies AnkhRuntimeCommandProvider;
 }
 
