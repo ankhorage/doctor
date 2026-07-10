@@ -1,5 +1,6 @@
 import type { AnkhCommandHandler, AnkhRuntimeCommandProvider } from '@ankhorage/ankh';
 
+import { analyzeDoctorTargetWithCliLayout } from '../cliLayoutAnalysis.js';
 import {
   createProviderCommandDescriptors,
   DOCTOR_COMMANDS,
@@ -23,6 +24,10 @@ export function createDoctorRuntimeProvider(
   options: CreateDoctorRuntimeProviderOptions = {},
 ): AnkhRuntimeCommandProvider {
   const runCommandImpl = options.runCommandImpl ?? runDoctorCommand;
+  const services = {
+    analyzeTarget: analyzeDoctorTargetWithCliLayout,
+    ...options.services,
+  } satisfies DoctorCommandServices;
 
   return {
     id: DOCTOR_PACKAGE_NAME,
@@ -39,7 +44,7 @@ export function createDoctorRuntimeProvider(
             context: request.context,
           },
           {
-            services: options.services,
+            services,
           },
         );
 

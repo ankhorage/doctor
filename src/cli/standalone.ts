@@ -1,7 +1,8 @@
 #!/usr/bin/env bun
 
-import type { DoctorCommandContext, DoctorCommandRunResult } from './commandContext.js';
-import { createDefaultCommandContext } from './commandContext.js';
+import { analyzeDoctorTargetWithCliLayout } from '../cliLayoutAnalysis.js';
+import type { DoctorCommandContext, DoctorCommandRunResult } from '../commandContext.js';
+import { createDefaultCommandContext } from '../commandContext.js';
 import {
   type DoctorCommandServices,
   findDoctorCommandByStandaloneName,
@@ -9,7 +10,7 @@ import {
   renderUnknownCommand,
   runDoctorCommand,
   type RunDoctorCommandImpl,
-} from './commands.js';
+} from '../commands.js';
 
 export interface DoctorCliOptions {
   readonly context?: DoctorCommandContext;
@@ -48,7 +49,10 @@ export async function runCli(
       context,
     },
     {
-      services: options.services,
+      services: {
+        analyzeTarget: analyzeDoctorTargetWithCliLayout,
+        ...options.services,
+      },
     },
   );
 }

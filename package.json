@@ -47,7 +47,7 @@
     "LICENSE"
   ],
   "bin": {
-    "ankhorage-doctor": "./dist/cli.js"
+    "ankhorage-doctor": "./dist/cli/standalone.js"
   },
   "ankh": {
     "category": "doctor",
