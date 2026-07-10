@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0
+
+### Minor Changes
+
+- 23a5302: Validate canonical `./cli` exports, reject `@ankh/*` workspace aliases and active `ankhorage4` source references, and enforce direct Studio ownership of runtime and drag-and-drop packages.
+
 ## 0.4.0
 
 ### Minor Changes
