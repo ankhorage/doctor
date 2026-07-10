@@ -75,10 +75,7 @@ function exposesCliProvider(packageJson: Record<string, unknown>): boolean {
   const ankh = isRecord(packageJson.ankh) ? packageJson.ankh : null;
   const exportsField = isRecord(packageJson.exports) ? packageJson.exports : null;
 
-  return (
-    (ankh !== null && isNonEmptyString(ankh.provider)) ||
-    (exportsField !== null && exportsField['./cli'] !== undefined)
-  );
+  return isNonEmptyString(ankh?.provider) || exportsField?.['./cli'] !== undefined;
 }
 
 async function readPackageJson(packageJsonPath: string): Promise<Record<string, unknown> | null> {
