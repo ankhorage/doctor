@@ -22,6 +22,8 @@ export type DoctorRuleId =
   | 'package.ankh.present.valid-shape'
   | 'package.ankh.provider-path.required'
   | 'package.ankh.required-for-provider'
+  | 'package.cli.index.required'
+  | 'package.cli.root-file.disallowed'
   | 'package.dependencies.changesets.required'
   | 'package.dependencies.devtools.required'
   | 'package.dependencies.paradox.required'
