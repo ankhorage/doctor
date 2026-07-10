@@ -8,7 +8,8 @@ export type {
   DoctorTargetMode,
 } from './analysis.js';
 export { analyzeDoctorTarget } from './analysis.js';
-export { runCli } from './cli.js';
+export { analyzeDoctorTargetWithCliLayout } from './cliLayoutAnalysis.js';
+export { runCli } from './cli/standalone.js';
 export {
   createDoctorRuntimeProvider,
   type CreateDoctorRuntimeProviderOptions,
