@@ -14,7 +14,7 @@ describe('package metadata', () => {
     expect(packageJson.name).toBe('@ankhorage/doctor');
     expect(packageJson.type).toBe('module');
     expect(packageJson.bin).toEqual({
-      'ankhorage-doctor': './dist/cli.js',
+      'ankhorage-doctor': './dist/cli/standalone.js',
     });
     expect(JSON.stringify(packageJson.ankh)).toBe(JSON.stringify(expectedAnkhMetadata));
     expect(JSON.parse(JSON.stringify(expectedAnkhMetadata))).toEqual(expectedAnkhMetadata);
