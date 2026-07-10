@@ -30,7 +30,19 @@ jobs:
       - name: Apply repository formatting
         run: |
           bun run format
-          bun run lint:fix
+          set +e
+          bun run lint:fix > .github/target-architecture-lint.log 2>&1
+          status=$?
+          cat .github/target-architecture-lint.log
+          if [ "$status" -ne 0 ]; then
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add -A
+            git commit -m "Capture target architecture lint failure"
+            git push origin HEAD:agent/validate-target-package-architecture
+            exit "$status"
+          fi
+          rm .github/target-architecture-lint.log
 
       - name: Validate implementation
         run: |
