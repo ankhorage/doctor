@@ -34,22 +34,10 @@ jobs:
 
           path = Path('src/cliLayoutAnalysis.ts')
           source = path.read_text()
-          old = """    for (const match of source.matchAll(pattern)) {
-              const specifier = match[1];
-              if (specifier !== undefined) {
-                specifiers.add(specifier);
-              }
-            }
-          """
-          new = """    for (const match of source.matchAll(pattern)) {
-              const [, specifier] = match;
-              if (specifier !== undefined) {
-                specifiers.add(specifier);
-              }
-            }
-          """
-          if old not in source:
-              raise SystemExit('Expected import match block was not found')
+          old = 'const specifier = match[1];'
+          new = 'const [, specifier] = match;'
+          if source.count(old) != 1:
+              raise SystemExit(f'Expected exactly one import match assignment, found {source.count(old)}')
           path.write_text(source.replace(old, new, 1))
           PY
           rm -f .github/target-architecture-lint.log
