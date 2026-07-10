@@ -12,6 +12,18 @@ Source: `src/analysis.ts:86:1`
   - request: `DoctorAnalysisRequest`
   - returns: `Promise<DoctorAnalysisResult>`
 
+## analyzeDoctorTargetWithCliLayout
+
+Kind: `function`
+Module: `src/cliLayoutAnalysis.ts`
+Source: `src/cliLayoutAnalysis.ts:62:1`
+
+### Signatures
+
+- `(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult>`
+  - request: `DoctorAnalysisRequest`
+  - returns: `Promise<DoctorAnalysisResult>`
+
 ## createDefaultCommandContext
 
 Kind: `function`
@@ -27,7 +39,7 @@ Source: `src/commandContext.ts:15:1`
 
 Kind: `function`
 Module: `src/cli/index.ts`
-Source: `src/cli/index.ts:22:1`
+Source: `src/cli/index.ts:23:1`
 
 ### Signatures
 
@@ -39,7 +51,7 @@ Source: `src/cli/index.ts:22:1`
 
 Kind: `type`
 Module: `src/cli/index.ts`
-Source: `src/cli/index.ts:17:1`
+Source: `src/cli/index.ts:18:1`
 
 ### Members
 
@@ -143,7 +155,7 @@ Source: `src/commandContext.ts:11:1`
 
 Kind: `type`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:75:1`
+Source: `src/diagnostics.ts:86:1`
 
 ### Members
 
@@ -232,8 +244,8 @@ Source: `src/analysis.ts:8:1`
 ## runCli
 
 Kind: `function`
-Module: `src/cli.ts`
-Source: `src/cli.ts:20:1`
+Module: `src/cli/standalone.ts`
+Source: `src/cli/standalone.ts:21:1`
 
 ### Signatures
 

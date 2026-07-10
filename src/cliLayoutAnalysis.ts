@@ -374,7 +374,7 @@ function extractImportSpecifiers(source: string): string[] {
 
   for (const pattern of patterns) {
     for (const match of source.matchAll(pattern)) {
-      const specifier = match[1];
+      const [, specifier] = match;
       if (specifier !== undefined) {
         specifiers.add(specifier);
       }

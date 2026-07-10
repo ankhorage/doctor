@@ -1,8 +1,0 @@
-$ ankhorage-eslint . --fix --max-warnings=0
-
-/home/runner/work/doctor/doctor/src/cliLayoutAnalysis.ts
-  377:13  error  Use array destructuring  @typescript-eslint/prefer-destructuring
-
-✖ 1 problem (1 error, 0 warnings)
-
-error: script "lint:fix" exited with code 1
