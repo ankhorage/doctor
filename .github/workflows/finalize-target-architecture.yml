@@ -27,22 +27,34 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Apply repository formatting
+      - name: Apply final source fix and formatting
         run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('src/cliLayoutAnalysis.ts')
+          source = path.read_text()
+          old = """    for (const match of source.matchAll(pattern)) {
+              const specifier = match[1];
+              if (specifier !== undefined) {
+                specifiers.add(specifier);
+              }
+            }
+          """
+          new = """    for (const match of source.matchAll(pattern)) {
+              const [, specifier] = match;
+              if (specifier !== undefined) {
+                specifiers.add(specifier);
+              }
+            }
+          """
+          if old not in source:
+              raise SystemExit('Expected import match block was not found')
+          path.write_text(source.replace(old, new, 1))
+          PY
+          rm -f .github/target-architecture-lint.log
           bun run format
-          set +e
-          bun run lint:fix > .github/target-architecture-lint.log 2>&1
-          status=$?
-          cat .github/target-architecture-lint.log
-          if [ "$status" -ne 0 ]; then
-            git config user.name github-actions[bot]
-            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git add -A
-            git commit -m "Capture target architecture lint failure"
-            git push origin HEAD:agent/validate-target-package-architecture
-            exit "$status"
-          fi
-          rm .github/target-architecture-lint.log
+          bun run lint:fix
 
       - name: Validate implementation
         run: |
