@@ -1,0 +1,57 @@
+name: Standardize CLI layout
+
+on:
+  push:
+    branches:
+      - agent/standardize-cli-layout
+
+permissions:
+  contents: write
+
+jobs:
+  migrate-and-validate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/standardize-cli-layout
+          fetch-depth: 0
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.13
+
+      - name: Apply migration
+        run: node .github/scripts/standardize-cli-layout.mjs
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Apply repository fixers
+        run: |
+          bun run lint:fix
+          bun run format
+
+      - name: Validate
+        run: |
+          bun run knip
+          bun run typecheck
+          bun run build
+          bun run test
+          bun dist/cli/standalone.js validate .
+
+      - name: Remove one-time migration files
+        run: |
+          rm .github/scripts/standardize-cli-layout.mjs
+          rm .github/workflows/standardize-cli-layout.yml
+
+      - name: Commit validated migration
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "Standardize CLI folder layout"
+          git push origin HEAD:agent/standardize-cli-layout
