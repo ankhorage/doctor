@@ -53,7 +53,11 @@ async function analyzeCliLayout(
   }
 
   const packageJson = await readPackageJson(path.join(targetPath, 'package.json'));
-  if (packageJson !== null && exposesCliProvider(packageJson) && !(await pathExists(canonicalCliIndexPath))) {
+  if (
+    packageJson !== null &&
+    exposesCliProvider(packageJson) &&
+    !(await pathExists(canonicalCliIndexPath))
+  ) {
     diagnostics.push({
       code: 'missing-path',
       message: 'CLI-capable packages must expose their provider from src/cli/index.ts.',

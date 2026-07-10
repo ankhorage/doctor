@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 
+import { analyzeDoctorTargetWithCliLayout } from '../cliLayoutAnalysis.js';
 import type { DoctorCommandContext, DoctorCommandRunResult } from '../commandContext.js';
 import { createDefaultCommandContext } from '../commandContext.js';
 import {
@@ -10,7 +11,6 @@ import {
   runDoctorCommand,
   type RunDoctorCommandImpl,
 } from '../commands.js';
-import { analyzeDoctorTargetWithCliLayout } from '../cliLayoutAnalysis.js';
 
 export interface DoctorCliOptions {
   readonly context?: DoctorCommandContext;
