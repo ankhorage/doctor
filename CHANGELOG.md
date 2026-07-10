@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+- 1d1a8fd: Enforce the canonical `src/cli/index.ts` provider layout, reject root `src/cli.ts` files, and move the Doctor standalone executable under `src/cli/`.
+
 ## 0.3.1
 
 ### Patch Changes
