@@ -78,8 +78,9 @@ describe('target package architecture policy', () => {
     const messages = result.diagnostics.map((diagnostic) => diagnostic.message).join('\n');
 
     expect(ruleIds).toContain('package.dependencies.ankh-workspace-alias.disallowed');
-    expect(ruleIds.filter((ruleId) => ruleId === 'package.imports.ankh-workspace-alias.disallowed'))
-      .toHaveLength(2);
+    expect(
+      ruleIds.filter((ruleId) => ruleId === 'package.imports.ankh-workspace-alias.disallowed'),
+    ).toHaveLength(2);
     expect(messages).toContain('@ankhorage/runtime');
     expect(messages).toContain('@ankhorage/studio/runtime');
   });
@@ -111,8 +112,7 @@ describe('target package architecture policy', () => {
       packageJson: createStudioPackageJson({ withOwnerDependencies: true }),
       extraFiles: {
         'src/cli/index.ts': 'export default {};\n',
-        'src/dnd/primitives.ts':
-          "export * from '@ankhorage/react-native-reanimated-dnd-web';\n",
+        'src/dnd/primitives.ts': "export * from '@ankhorage/react-native-reanimated-dnd-web';\n",
         'src/runtime/registry.ts': "import { createRuntime } from '@ankhorage/runtime';\n",
       },
     });

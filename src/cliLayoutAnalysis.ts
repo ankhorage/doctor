@@ -254,7 +254,9 @@ function validateStudioOwnership(request: {
       .filter((dependency) => dependency.fieldName === 'dependencies')
       .map((dependency) => dependency.packageName),
   );
-  const importedSpecifiers = request.activeSourceImports.map((sourceImport) => sourceImport.specifier);
+  const importedSpecifiers = request.activeSourceImports.map(
+    (sourceImport) => sourceImport.specifier,
+  );
 
   if (!directDependencies.has(STUDIO_DND_PACKAGE_NAME)) {
     diagnostics.push({
@@ -278,7 +280,9 @@ function validateStudioOwnership(request: {
     });
   }
 
-  if (!importedSpecifiers.some((specifier) => isPackageImport(specifier, STUDIO_DND_PACKAGE_NAME))) {
+  if (
+    !importedSpecifiers.some((specifier) => isPackageImport(specifier, STUDIO_DND_PACKAGE_NAME))
+  ) {
     diagnostics.push({
       code: 'field-missing',
       message: `@ankhorage/studio must import "${STUDIO_DND_PACKAGE_NAME}" directly from its Studio DnD boundary.`,
