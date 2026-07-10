@@ -12,7 +12,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.3.0",
+      "value": "v0.4.0",
       "color": "cb3837"
     },
     {
@@ -72,7 +72,7 @@
       "title": "Provider and CLI surface",
       "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#2` adds a profile-based policy engine:\n\n- strict `public-package` validation for extracted public package repos\n- light recognized `integration-monorepo` validation for `ankhorage4`\n- non-mutating `fix` plans for deterministic mechanical changes only\n\nStill deferred:\n\n- GitHub checks\n- CI checks\n- on-disk `fix --apply`\n- deeper cross-repo policy enforcement\n\nPath handling:\n\n- pass `[path]`, or\n- omit it to inspect the current working directory",
       "language": "ts",
-      "code": "import { runCli } from './cli.js';\n\nawait runCli(['--help']);",
+      "code": "import { runCli } from './cli/standalone.js';\n\nawait runCli(['--help']);",
       "sourcePath": "src/readme-usage.ts"
     }
   ],
@@ -101,16 +101,22 @@
       ]
     },
     {
-      "path": "src/cli.ts",
+      "path": "src/cli/index.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/commandContext.ts", "src/commands.ts"],
+      "dependencies": ["src/cliLayoutAnalysis.ts", "src/commands.ts", "src/packageMetadata.ts"],
+      "exports": ["createDoctorRuntimeProvider", "CreateDoctorRuntimeProviderOptions", "default"]
+    },
+    {
+      "path": "src/cli/standalone.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/cliLayoutAnalysis.ts", "src/commandContext.ts", "src/commands.ts"],
       "exports": ["DoctorCliOptions", "runCli"]
     },
     {
-      "path": "src/cli/index.ts",
+      "path": "src/cliLayoutAnalysis.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/commands.ts", "src/packageMetadata.ts"],
-      "exports": ["createDoctorRuntimeProvider", "CreateDoctorRuntimeProviderOptions", "default"]
+      "dependencies": ["src/analysis.ts", "src/diagnostics.ts"],
+      "exports": ["analyzeDoctorTargetWithCliLayout"]
     },
     {
       "path": "src/commandContext.ts",
@@ -161,6 +167,7 @@
       "dependencies": [],
       "exports": [
         "analyzeDoctorTarget",
+        "analyzeDoctorTargetWithCliLayout",
         "createDefaultCommandContext",
         "createDoctorRuntimeProvider",
         "CreateDoctorRuntimeProviderOptions",
@@ -207,7 +214,7 @@
     {
       "path": "tests/cli.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/cli.ts", "src/cli/index.ts", "tests/testSupport.ts"],
+      "dependencies": ["src/cli/index.ts", "src/cli/standalone.ts", "tests/testSupport.ts"],
       "exports": []
     },
     {
@@ -220,6 +227,12 @@
       "path": "tests/package.test.ts",
       "isEntrypoint": false,
       "dependencies": ["package.json"],
+      "exports": []
+    },
+    {
+      "path": "tests/targetArchitecture.test.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/cliLayoutAnalysis.ts", "tests/testSupport.ts"],
       "exports": []
     },
     {
@@ -247,6 +260,38 @@
       "sourceLocation": {
         "filePath": "src/analysis.ts",
         "line": 86,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+      "signatures": [
+        {
+          "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult>",
+          "parameters": [
+            {
+              "name": "request",
+              "type": "DoctorAnalysisRequest",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returnType": "Promise<DoctorAnalysisResult>",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "analyzeDoctorTargetWithCliLayout",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/cliLayoutAnalysis.ts",
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 62,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -303,7 +348,7 @@
       "modulePath": "src/cli/index.ts",
       "sourceLocation": {
         "filePath": "src/cli/index.ts",
-        "line": 22,
+        "line": 23,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -335,7 +380,7 @@
       "modulePath": "src/cli/index.ts",
       "sourceLocation": {
         "filePath": "src/cli/index.ts",
-        "line": 17,
+        "line": 18,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -659,7 +704,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 75,
+        "line": 86,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -949,10 +994,10 @@
       "isReadme": false,
       "examples": [],
       "kind": "function",
-      "modulePath": "src/cli.ts",
+      "modulePath": "src/cli/standalone.ts",
       "sourceLocation": {
-        "filePath": "src/cli.ts",
-        "line": 20,
+        "filePath": "src/cli/standalone.ts",
+        "line": 21,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -1282,38 +1327,11 @@
       }
     },
     {
-      "name": "runCli",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/cli.ts",
-        "line": 20,
-        "column": 1
-      }
-    },
-    {
-      "name": "isHelpToken",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/cli.ts",
-        "line": 56,
-        "column": 1
-      }
-    },
-    {
-      "name": "isVersionToken",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/cli.ts",
-        "line": 60,
-        "column": 1
-      }
-    },
-    {
       "name": "createDoctorRuntimeProvider",
       "description": null,
       "sourceLocation": {
         "filePath": "src/cli/index.ts",
-        "line": 22,
+        "line": 23,
         "column": 1
       }
     },
@@ -1322,8 +1340,197 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cli/index.ts",
-        "line": 34,
+        "line": 39,
         "column": 13
+      }
+    },
+    {
+      "name": "runCli",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cli/standalone.ts",
+        "line": 21,
+        "column": 1
+      }
+    },
+    {
+      "name": "isHelpToken",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cli/standalone.ts",
+        "line": 60,
+        "column": 1
+      }
+    },
+    {
+      "name": "isVersionToken",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cli/standalone.ts",
+        "line": 64,
+        "column": 1
+      }
+    },
+    {
+      "name": "analyzeDoctorTargetWithCliLayout",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 62,
+        "column": 1
+      }
+    },
+    {
+      "name": "analyzeTargetArchitecture",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 95,
+        "column": 1
+      }
+    },
+    {
+      "name": "validateDependencyArchitecture",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 175,
+        "column": 1
+      }
+    },
+    {
+      "name": "validateActiveSourceImports",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 212,
+        "column": 1
+      }
+    },
+    {
+      "name": "validateStudioOwnership",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 245,
+        "column": 1
+      }
+    },
+    {
+      "name": "collectActiveSourceImports",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 312,
+        "column": 1
+      }
+    },
+    {
+      "name": "listActiveSourceFiles",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 332,
+        "column": 1
+      }
+    },
+    {
+      "name": "visit",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 337,
+        "column": 3
+      }
+    },
+    {
+      "name": "isActiveSourceFile",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 360,
+        "column": 1
+      }
+    },
+    {
+      "name": "extractImportSpecifiers",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 368,
+        "column": 1
+      }
+    },
+    {
+      "name": "collectDependencyEntries",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 387,
+        "column": 1
+      }
+    },
+    {
+      "name": "hasAnkhProvider",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 411,
+        "column": 1
+      }
+    },
+    {
+      "name": "isPackageImport",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 416,
+        "column": 1
+      }
+    },
+    {
+      "name": "toOwningPackageSpecifier",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 420,
+        "column": 1
+      }
+    },
+    {
+      "name": "readPackageJson",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 424,
+        "column": 1
+      }
+    },
+    {
+      "name": "pathExists",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 433,
+        "column": 1
+      }
+    },
+    {
+      "name": "isNonEmptyString",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 442,
+        "column": 1
+      }
+    },
+    {
+      "name": "isRecord",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 446,
+        "column": 1
       }
     },
     {
@@ -1493,7 +1700,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 84,
+        "line": 95,
         "column": 1
       }
     },
@@ -1502,7 +1709,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 88,
+        "line": 99,
         "column": 1
       }
     }
@@ -1517,9 +1724,17 @@
       "isReadme": false
     },
     {
+      "kind": "export",
+      "name": "analyzeDoctorTargetWithCliLayout",
+      "sourcePath": "src/cliLayoutAnalysis.ts",
+      "symbolName": "analyzeDoctorTargetWithCliLayout",
+      "description": null,
+      "isReadme": false
+    },
+    {
       "kind": "bin",
       "name": "ankhorage-doctor",
-      "sourcePath": "src/cli.ts",
+      "sourcePath": "src/cli/standalone.ts",
       "symbolName": "runCli",
       "description": null,
       "isReadme": false
@@ -1543,7 +1758,7 @@
     {
       "kind": "export",
       "name": "runCli",
-      "sourcePath": "src/cli.ts",
+      "sourcePath": "src/cli/standalone.ts",
       "symbolName": "runCli",
       "description": null,
       "isReadme": false
@@ -1557,14 +1772,14 @@
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromPath": "src/cli.ts",
-        "toPath": "src/commandContext.ts",
-        "sourcePath": "src/cli.ts"
+        "fromPath": "src/cliLayoutAnalysis.ts",
+        "toPath": "src/analysis.ts",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromPath": "src/cli.ts",
-        "toPath": "src/commands.ts",
-        "sourcePath": "src/cli.ts"
+        "fromPath": "src/cliLayoutAnalysis.ts",
+        "toPath": "src/diagnostics.ts",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
         "fromPath": "src/commandContext.ts",
@@ -1598,12 +1813,17 @@
       },
       {
         "fromPath": "src/index.ts",
-        "toPath": "src/cli.ts",
+        "toPath": "src/cli/index.ts",
         "sourcePath": "src/index.ts"
       },
       {
         "fromPath": "src/index.ts",
-        "toPath": "src/cli/index.ts",
+        "toPath": "src/cli/standalone.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/index.ts",
+        "toPath": "src/cliLayoutAnalysis.ts",
         "sourcePath": "src/index.ts"
       },
       {
@@ -1628,7 +1848,7 @@
       },
       {
         "fromPath": "src/readme-usage.ts",
-        "toPath": "src/cli.ts",
+        "toPath": "src/cli/standalone.ts",
         "sourcePath": "src/readme-usage.ts"
       },
       {
@@ -1643,12 +1863,12 @@
       },
       {
         "fromPath": "tests/cli.test.ts",
-        "toPath": "src/cli.ts",
+        "toPath": "src/cli/index.ts",
         "sourcePath": "tests/cli.test.ts"
       },
       {
         "fromPath": "tests/cli.test.ts",
-        "toPath": "src/cli/index.ts",
+        "toPath": "src/cli/standalone.ts",
         "sourcePath": "tests/cli.test.ts"
       },
       {
@@ -1672,9 +1892,24 @@
         "sourcePath": "tests/package.test.ts"
       },
       {
+        "fromPath": "tests/targetArchitecture.test.ts",
+        "toPath": "src/cliLayoutAnalysis.ts",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromPath": "tests/targetArchitecture.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
         "fromPath": "tests/testSupport.ts",
         "toPath": "src/commandContext.ts",
         "sourcePath": "tests/testSupport.ts"
+      },
+      {
+        "fromPath": "src/cli/index.ts",
+        "toPath": "src/cliLayoutAnalysis.ts",
+        "sourcePath": "src/cli/index.ts"
       },
       {
         "fromPath": "src/cli/index.ts",
@@ -1685,6 +1920,21 @@
         "fromPath": "src/cli/index.ts",
         "toPath": "src/packageMetadata.ts",
         "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromPath": "src/cli/standalone.ts",
+        "toPath": "src/cliLayoutAnalysis.ts",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromPath": "src/cli/standalone.ts",
+        "toPath": "src/commandContext.ts",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromPath": "src/cli/standalone.ts",
+        "toPath": "src/commands.ts",
+        "sourcePath": "src/cli/standalone.ts"
       }
     ],
     "calls": [
@@ -2091,64 +2341,154 @@
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toSymbol": "createDefaultCommandContext",
-        "callExpression": "createDefaultCommandContext",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeDoctorTargetWithCliLayout",
+        "toSymbol": "analyzeDoctorTarget",
+        "callExpression": "analyzeDoctorTarget",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toSymbol": "isHelpToken",
-        "callExpression": "isHelpToken",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeDoctorTargetWithCliLayout",
+        "toSymbol": "readPackageJson",
+        "callExpression": "readPackageJson",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toSymbol": "writeStdout",
-        "callExpression": "context.writeStdout",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeDoctorTargetWithCliLayout",
+        "toSymbol": "analyzeTargetArchitecture",
+        "callExpression": "analyzeTargetArchitecture",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toSymbol": "renderRootHelp",
-        "callExpression": "renderRootHelp",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeTargetArchitecture",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toSymbol": "isVersionToken",
-        "callExpression": "isVersionToken",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeTargetArchitecture",
+        "toSymbol": "hasAnkhProvider",
+        "callExpression": "hasAnkhProvider",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toSymbol": "findDoctorCommandByStandaloneName",
-        "callExpression": "findDoctorCommandByStandaloneName",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeTargetArchitecture",
+        "toSymbol": "pathExists",
+        "callExpression": "pathExists",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toSymbol": "writeStderr",
-        "callExpression": "context.writeStderr",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeTargetArchitecture",
+        "toSymbol": "collectDependencyEntries",
+        "callExpression": "collectDependencyEntries",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toSymbol": "renderUnknownCommand",
-        "callExpression": "renderUnknownCommand",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeTargetArchitecture",
+        "toSymbol": "validateDependencyArchitecture",
+        "callExpression": "validateDependencyArchitecture",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toSymbol": "runCommand",
-        "callExpression": "runCommand",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeTargetArchitecture",
+        "toSymbol": "collectActiveSourceImports",
+        "callExpression": "collectActiveSourceImports",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromSymbol": "src/cli.ts",
-        "toSymbol": "runCli",
-        "callExpression": "runCli",
-        "sourcePath": "src/cli.ts"
+        "fromSymbol": "analyzeTargetArchitecture",
+        "toSymbol": "validateActiveSourceImports",
+        "callExpression": "validateActiveSourceImports",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeTargetArchitecture",
+        "toSymbol": "validateStudioOwnership",
+        "callExpression": "validateStudioOwnership",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateDependencyArchitecture",
+        "toSymbol": "toOwningPackageSpecifier",
+        "callExpression": "toOwningPackageSpecifier",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateActiveSourceImports",
+        "toSymbol": "toOwningPackageSpecifier",
+        "callExpression": "toOwningPackageSpecifier",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "src/cliLayoutAnalysis.ts",
+        "toSymbol": "isPackageImport",
+        "callExpression": "isPackageImport",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "collectActiveSourceImports",
+        "toSymbol": "pathExists",
+        "callExpression": "pathExists",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "collectActiveSourceImports",
+        "toSymbol": "listActiveSourceFiles",
+        "callExpression": "listActiveSourceFiles",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "collectActiveSourceImports",
+        "toSymbol": "extractImportSpecifiers",
+        "callExpression": "extractImportSpecifiers",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "listActiveSourceFiles",
+        "toSymbol": "visit",
+        "callExpression": "visit",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "visit",
+        "toSymbol": "visit",
+        "callExpression": "visit",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "visit",
+        "toSymbol": "isActiveSourceFile",
+        "callExpression": "isActiveSourceFile",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "collectDependencyEntries",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "collectDependencyEntries",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "hasAnkhProvider",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "hasAnkhProvider",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "readPackageJson",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
         "fromSymbol": "runDoctorCommand",
@@ -2535,6 +2875,84 @@
         "sourcePath": "tests/package.test.ts"
       },
       {
+        "fromSymbol": "tests/targetArchitecture.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "tests/targetArchitecture.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "tests/targetArchitecture.test.ts",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "tests/targetArchitecture.test.ts",
+        "toSymbol": "createInternalPackageJson",
+        "callExpression": "createInternalPackageJson",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "tests/targetArchitecture.test.ts",
+        "toSymbol": "analyzeRuleIds",
+        "callExpression": "analyzeRuleIds",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "tests/targetArchitecture.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "tests/targetArchitecture.test.ts",
+        "toSymbol": "createCliPackageJson",
+        "callExpression": "createCliPackageJson",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "tests/targetArchitecture.test.ts",
+        "toSymbol": "analyze",
+        "callExpression": "analyze",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "tests/targetArchitecture.test.ts",
+        "toSymbol": "createStudioPackageJson",
+        "callExpression": "createStudioPackageJson",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "analyze",
+        "toSymbol": "analyzeDoctorTargetWithCliLayout",
+        "callExpression": "analyzeDoctorTargetWithCliLayout",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "analyzeRuleIds",
+        "toSymbol": "analyze",
+        "callExpression": "analyze",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "createCliPackageJson",
+        "toSymbol": "createInternalPackageJson",
+        "callExpression": "createInternalPackageJson",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
+        "fromSymbol": "createStudioPackageJson",
+        "toSymbol": "createCliPackageJson",
+        "callExpression": "createCliPackageJson",
+        "sourcePath": "tests/targetArchitecture.test.ts"
+      },
+      {
         "fromSymbol": "snapshotDirectory",
         "toSymbol": "walkDirectory",
         "callExpression": "walkDirectory",
@@ -2563,6 +2981,66 @@
         "toSymbol": "createDoctorRuntimeProvider",
         "callExpression": "createDoctorRuntimeProvider",
         "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "createDefaultCommandContext",
+        "callExpression": "createDefaultCommandContext",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "isHelpToken",
+        "callExpression": "isHelpToken",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "writeStdout",
+        "callExpression": "context.writeStdout",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "renderRootHelp",
+        "callExpression": "renderRootHelp",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "isVersionToken",
+        "callExpression": "isVersionToken",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "findDoctorCommandByStandaloneName",
+        "callExpression": "findDoctorCommandByStandaloneName",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "writeStderr",
+        "callExpression": "context.writeStderr",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "renderUnknownCommand",
+        "callExpression": "renderUnknownCommand",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toSymbol": "runCommand",
+        "callExpression": "runCommand",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "src/cli/standalone.ts",
+        "toSymbol": "runCli",
+        "callExpression": "runCli",
+        "sourcePath": "src/cli/standalone.ts"
       }
     ],
     "typeReferences": [
@@ -2632,16 +3110,6 @@
         "sourcePath": "src/analysis.ts"
       },
       {
-        "fromSymbol": "runCli",
-        "toType": "DoctorCliOptions",
-        "sourcePath": "src/cli.ts"
-      },
-      {
-        "fromSymbol": "runCli",
-        "toType": "DoctorCommandRunResult",
-        "sourcePath": "src/cli.ts"
-      },
-      {
         "fromSymbol": "createDoctorRuntimeProvider",
         "toType": "AnkhRuntimeCommandProvider",
         "sourcePath": "src/cli/index.ts"
@@ -2665,6 +3133,26 @@
         "fromSymbol": "CreateDoctorRuntimeProviderOptions",
         "toType": "RunDoctorCommandImpl",
         "sourcePath": "src/cli/index.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toType": "DoctorCliOptions",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "runCli",
+        "toType": "DoctorCommandRunResult",
+        "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTargetWithCliLayout",
+        "toType": "DoctorAnalysisRequest",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTargetWithCliLayout",
+        "toType": "DoctorAnalysisResult",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
         "fromSymbol": "DoctorCommandContext",

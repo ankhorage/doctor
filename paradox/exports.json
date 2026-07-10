@@ -32,6 +32,38 @@
     "structuredRows": []
   },
   {
+    "name": "analyzeDoctorTargetWithCliLayout",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/cliLayoutAnalysis.ts",
+    "sourceLocation": {
+      "filePath": "src/cliLayoutAnalysis.ts",
+      "line": 62,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+    "signatures": [
+      {
+        "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult>",
+        "parameters": [
+          {
+            "name": "request",
+            "type": "DoctorAnalysisRequest",
+            "required": true,
+            "description": null
+          }
+        ],
+        "returnType": "Promise<DoctorAnalysisResult>",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
     "name": "createDefaultCommandContext",
     "description": null,
     "isReadme": false,
@@ -65,7 +97,7 @@
     "modulePath": "src/cli/index.ts",
     "sourceLocation": {
       "filePath": "src/cli/index.ts",
-      "line": 22,
+      "line": 23,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -97,7 +129,7 @@
     "modulePath": "src/cli/index.ts",
     "sourceLocation": {
       "filePath": "src/cli/index.ts",
-      "line": 17,
+      "line": 18,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -421,7 +453,7 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
-      "line": 75,
+      "line": 86,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -711,10 +743,10 @@
     "isReadme": false,
     "examples": [],
     "kind": "function",
-    "modulePath": "src/cli.ts",
+    "modulePath": "src/cli/standalone.ts",
     "sourceLocation": {
-      "filePath": "src/cli.ts",
-      "line": 20,
+      "filePath": "src/cli/standalone.ts",
+      "line": 21,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
