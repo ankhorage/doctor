@@ -19,6 +19,9 @@
     "doctor",
     "cli",
     "compliance",
+    "manifest",
+    "secret-store",
+    "oauth",
     "typescript",
     "bun"
   ],
@@ -74,7 +77,7 @@
     "version-packages": "changeset version"
   },
   "dependencies": {
-    "@ankhorage/contracts": "^2.0.0"
+    "@ankhorage/contracts": "^2.1.0"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.4.0",
