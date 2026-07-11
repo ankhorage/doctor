@@ -1,5 +1,107 @@
 [
   {
+    "name": "analyzeAppManifest",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/manifestAnalysis.ts",
+    "sourceLocation": {
+      "filePath": "src/manifestAnalysis.ts",
+      "line": 112,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorDiagnostic"],
+    "signatures": [
+      {
+        "label": "(manifest: unknown, manifestPath?: string) => DoctorDiagnostic[]",
+        "parameters": [
+          {
+            "name": "manifest",
+            "type": "unknown",
+            "required": true,
+            "description": null
+          },
+          {
+            "name": "manifestPath",
+            "type": "string",
+            "required": false,
+            "description": null
+          }
+        ],
+        "returnType": "DoctorDiagnostic[]",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "analyzeAppManifestFile",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/manifestAnalysis.ts",
+    "sourceLocation": {
+      "filePath": "src/manifestAnalysis.ts",
+      "line": 78,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorDiagnostic"],
+    "signatures": [
+      {
+        "label": "(filePath: string) => Promise<DoctorDiagnostic[]>",
+        "parameters": [
+          {
+            "name": "filePath",
+            "type": "string",
+            "required": true,
+            "description": null
+          }
+        ],
+        "returnType": "Promise<DoctorDiagnostic[]>",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "analyzeAppManifestTarget",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/manifestAnalysis.ts",
+    "sourceLocation": {
+      "filePath": "src/manifestAnalysis.ts",
+      "line": 39,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+    "signatures": [
+      {
+        "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult | null>",
+        "parameters": [
+          {
+            "name": "request",
+            "type": "DoctorAnalysisRequest",
+            "required": true,
+            "description": null
+          }
+        ],
+        "returnType": "Promise<DoctorAnalysisResult | null>",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
     "name": "analyzeDoctorTarget",
     "description": null,
     "isReadme": false,
@@ -40,7 +142,7 @@
     "modulePath": "src/cliLayoutAnalysis.ts",
     "sourceLocation": {
       "filePath": "src/cliLayoutAnalysis.ts",
-      "line": 62,
+      "line": 63,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -453,7 +555,7 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
-      "line": 86,
+      "line": 103,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -537,7 +639,7 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
-      "line": 15,
+      "line": 16,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -674,7 +776,7 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
-      "line": 16,
+      "line": 17,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -692,7 +794,7 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
-      "line": 17,
+      "line": 19,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],

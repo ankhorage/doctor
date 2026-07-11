@@ -7,6 +7,7 @@ import {
   type DoctorAnalysisResult,
 } from './analysis.js';
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
+import { analyzeAppManifestTarget } from './manifestAnalysis.js';
 
 const LEGACY_ROOT_CLI_SOURCE = path.join('src', 'cli.ts');
 const CANONICAL_CLI_INDEX_SOURCE = path.join('src', 'cli', 'index.ts');
@@ -62,6 +63,11 @@ interface DependencyEntry {
 export async function analyzeDoctorTargetWithCliLayout(
   request: DoctorAnalysisRequest,
 ): Promise<DoctorAnalysisResult> {
+  const manifestResult = await analyzeAppManifestTarget(request);
+  if (manifestResult !== null) {
+    return manifestResult;
+  }
+
   const result = await analyzeDoctorTarget(request);
   if (!result.hasPackageJson) {
     return result;

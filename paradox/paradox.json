@@ -12,7 +12,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.4.0",
+      "value": "v0.5.0",
       "color": "cb3837"
     },
     {
@@ -70,7 +70,7 @@
   "readmeUsage": [
     {
       "title": "Provider and CLI surface",
-      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#2` adds a profile-based policy engine:\n\n- strict `public-package` validation for extracted public package repos\n- light recognized `integration-monorepo` validation for `ankhorage4`\n- non-mutating `fix` plans for deterministic mechanical changes only\n\nStill deferred:\n\n- GitHub checks\n- CI checks\n- on-disk `fix --apply`\n- deeper cross-repo policy enforcement\n\nPath handling:\n\n- pass `[path]`, or\n- omit it to inspect the current working directory",
+      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#2` adds a profile-based policy engine:\n\n- strict `public-package` validation for extracted public package repos\n- light recognized `integration-monorepo` validation for `ankhorage4`\n- canonical app-manifest authentication validation for JSON file targets\n- non-mutating `fix` plans for deterministic mechanical changes only\n\nManifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects\n`settings.authFlow` with a manual-migration diagnostic, and permits authentication without\nan authorization block.\n\nStill deferred:\n\n- GitHub checks\n- CI checks\n- on-disk `fix --apply`\n- deeper cross-repo policy enforcement\n\nPath handling:\n\n- pass a repo/package directory or app-manifest JSON file as `[path]`, or\n- omit it to inspect the current working directory",
       "language": "ts",
       "code": "import { runCli } from './cli/standalone.js';\n\nawait runCli(['--help']);",
       "sourcePath": "src/readme-usage.ts"
@@ -115,7 +115,7 @@
     {
       "path": "src/cliLayoutAnalysis.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/analysis.ts", "src/diagnostics.ts"],
+      "dependencies": ["src/analysis.ts", "src/diagnostics.ts", "src/manifestAnalysis.ts"],
       "exports": ["analyzeDoctorTargetWithCliLayout"]
     },
     {
@@ -129,6 +129,7 @@
       "isEntrypoint": false,
       "dependencies": [
         "src/analysis.ts",
+        "src/cliLayoutAnalysis.ts",
         "src/commandContext.ts",
         "src/diagnostics.ts",
         "src/packageMetadata.ts"
@@ -166,6 +167,9 @@
       "isEntrypoint": true,
       "dependencies": [],
       "exports": [
+        "analyzeAppManifest",
+        "analyzeAppManifestFile",
+        "analyzeAppManifestTarget",
         "analyzeDoctorTarget",
         "analyzeDoctorTargetWithCliLayout",
         "createDefaultCommandContext",
@@ -192,6 +196,12 @@
         "DoctorTargetMode",
         "runCli"
       ]
+    },
+    {
+      "path": "src/manifestAnalysis.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/analysis.ts", "src/diagnostics.ts"],
+      "exports": ["analyzeAppManifest", "analyzeAppManifestFile", "analyzeAppManifestTarget"]
     },
     {
       "path": "src/packageMetadata.ts",
@@ -224,6 +234,16 @@
       "exports": []
     },
     {
+      "path": "tests/manifestAnalysis.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/cliLayoutAnalysis.ts",
+        "src/manifestAnalysis.ts",
+        "tests/testSupport.ts"
+      ],
+      "exports": []
+    },
+    {
       "path": "tests/package.test.ts",
       "isEntrypoint": false,
       "dependencies": ["package.json"],
@@ -250,6 +270,108 @@
     }
   ],
   "exports": [
+    {
+      "name": "analyzeAppManifest",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/manifestAnalysis.ts",
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 112,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorDiagnostic"],
+      "signatures": [
+        {
+          "label": "(manifest: unknown, manifestPath?: string) => DoctorDiagnostic[]",
+          "parameters": [
+            {
+              "name": "manifest",
+              "type": "unknown",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "manifestPath",
+              "type": "string",
+              "required": false,
+              "description": null
+            }
+          ],
+          "returnType": "DoctorDiagnostic[]",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "analyzeAppManifestFile",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/manifestAnalysis.ts",
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 78,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorDiagnostic"],
+      "signatures": [
+        {
+          "label": "(filePath: string) => Promise<DoctorDiagnostic[]>",
+          "parameters": [
+            {
+              "name": "filePath",
+              "type": "string",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returnType": "Promise<DoctorDiagnostic[]>",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "analyzeAppManifestTarget",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/manifestAnalysis.ts",
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 39,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+      "signatures": [
+        {
+          "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult | null>",
+          "parameters": [
+            {
+              "name": "request",
+              "type": "DoctorAnalysisRequest",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returnType": "Promise<DoctorAnalysisResult | null>",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
     {
       "name": "analyzeDoctorTarget",
       "description": null,
@@ -291,7 +413,7 @@
       "modulePath": "src/cliLayoutAnalysis.ts",
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 62,
+        "line": 63,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -704,7 +826,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 86,
+        "line": 103,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -788,7 +910,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 15,
+        "line": 16,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -925,7 +1047,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 16,
+        "line": 17,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -943,7 +1065,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 17,
+        "line": 19,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -1376,7 +1498,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 62,
+        "line": 63,
         "column": 1
       }
     },
@@ -1385,7 +1507,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 95,
+        "line": 101,
         "column": 1
       }
     },
@@ -1394,7 +1516,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 175,
+        "line": 181,
         "column": 1
       }
     },
@@ -1403,7 +1525,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 212,
+        "line": 218,
         "column": 1
       }
     },
@@ -1412,7 +1534,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 245,
+        "line": 251,
         "column": 1
       }
     },
@@ -1421,7 +1543,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 312,
+        "line": 318,
         "column": 1
       }
     },
@@ -1430,7 +1552,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 332,
+        "line": 338,
         "column": 1
       }
     },
@@ -1439,7 +1561,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 337,
+        "line": 343,
         "column": 3
       }
     },
@@ -1448,7 +1570,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 360,
+        "line": 366,
         "column": 1
       }
     },
@@ -1457,7 +1579,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 368,
+        "line": 374,
         "column": 1
       }
     },
@@ -1466,7 +1588,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 387,
+        "line": 393,
         "column": 1
       }
     },
@@ -1475,7 +1597,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 411,
+        "line": 417,
         "column": 1
       }
     },
@@ -1484,7 +1606,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 416,
+        "line": 422,
         "column": 1
       }
     },
@@ -1493,7 +1615,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 420,
+        "line": 426,
         "column": 1
       }
     },
@@ -1502,7 +1624,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 424,
+        "line": 430,
         "column": 1
       }
     },
@@ -1511,7 +1633,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 433,
+        "line": 439,
         "column": 1
       }
     },
@@ -1520,7 +1642,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 442,
+        "line": 448,
         "column": 1
       }
     },
@@ -1529,7 +1651,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 446,
+        "line": 452,
         "column": 1
       }
     },
@@ -1547,7 +1669,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 96,
+        "line": 97,
         "column": 1
       }
     },
@@ -1556,7 +1678,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 122,
+        "line": 123,
         "column": 1
       }
     },
@@ -1565,7 +1687,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 130,
+        "line": 131,
         "column": 1
       }
     },
@@ -1574,7 +1696,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 134,
+        "line": 135,
         "column": 1
       }
     },
@@ -1583,7 +1705,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 155,
+        "line": 156,
         "column": 1
       }
     },
@@ -1592,7 +1714,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 159,
+        "line": 160,
         "column": 1
       }
     },
@@ -1601,7 +1723,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 173,
+        "line": 174,
         "column": 1
       }
     },
@@ -1610,7 +1732,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 181,
+        "line": 182,
         "column": 1
       }
     },
@@ -1619,7 +1741,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 201,
+        "line": 202,
         "column": 1
       }
     },
@@ -1628,7 +1750,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 218,
+        "line": 219,
         "column": 1
       }
     },
@@ -1637,7 +1759,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 235,
+        "line": 236,
         "column": 1
       }
     },
@@ -1646,7 +1768,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 252,
+        "line": 253,
         "column": 1
       }
     },
@@ -1655,7 +1777,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 269,
+        "line": 270,
         "column": 1
       }
     },
@@ -1664,7 +1786,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 314,
+        "line": 315,
         "column": 1
       }
     },
@@ -1673,7 +1795,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 318,
+        "line": 319,
         "column": 1
       }
     },
@@ -1682,7 +1804,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 322,
+        "line": 323,
         "column": 1
       }
     },
@@ -1691,7 +1813,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 327,
+        "line": 328,
         "column": 1
       }
     },
@@ -1700,7 +1822,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 95,
+        "line": 112,
         "column": 1
       }
     },
@@ -1709,12 +1831,171 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 99,
+        "line": 116,
+        "column": 1
+      }
+    },
+    {
+      "name": "analyzeAppManifestTarget",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 39,
+        "column": 1
+      }
+    },
+    {
+      "name": "analyzeAppManifestFile",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 78,
+        "column": 1
+      }
+    },
+    {
+      "name": "analyzeAppManifest",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 112,
+        "column": 1
+      }
+    },
+    {
+      "name": "parseAuthFlow",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 186,
+        "column": 1
+      }
+    },
+    {
+      "name": "readRequiredRoute",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 222,
+        "column": 1
+      }
+    },
+    {
+      "name": "readOptionalRoutes",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 245,
+        "column": 1
+      }
+    },
+    {
+      "name": "validateAuthFlowRelationships",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 278,
+        "column": 1
+      }
+    },
+    {
+      "name": "validateAuthorization",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 360,
+        "column": 1
+      }
+    },
+    {
+      "name": "validateAuthorizationField",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 400,
+        "column": 1
+      }
+    },
+    {
+      "name": "createManifestDiagnostic",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 422,
+        "column": 1
+      }
+    },
+    {
+      "name": "normalizeRoute",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 435,
+        "column": 1
+      }
+    },
+    {
+      "name": "hasOwn",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 440,
+        "column": 1
+      }
+    },
+    {
+      "name": "isRecord",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 444,
+        "column": 1
+      }
+    },
+    {
+      "name": "statOrNull",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 448,
+        "column": 1
+      }
+    },
+    {
+      "name": "toErrorMessage",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/manifestAnalysis.ts",
+        "line": 456,
         "column": 1
       }
     }
   ],
   "sequenceScenarios": [
+    {
+      "kind": "export",
+      "name": "analyzeAppManifest",
+      "sourcePath": "src/manifestAnalysis.ts",
+      "symbolName": "analyzeAppManifest",
+      "description": null,
+      "isReadme": false
+    },
+    {
+      "kind": "export",
+      "name": "analyzeAppManifestFile",
+      "sourcePath": "src/manifestAnalysis.ts",
+      "symbolName": "analyzeAppManifestFile",
+      "description": null,
+      "isReadme": false
+    },
+    {
+      "kind": "export",
+      "name": "analyzeAppManifestTarget",
+      "sourcePath": "src/manifestAnalysis.ts",
+      "symbolName": "analyzeAppManifestTarget",
+      "description": null,
+      "isReadme": false
+    },
     {
       "kind": "export",
       "name": "analyzeDoctorTarget",
@@ -1782,6 +2063,11 @@
         "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
+        "fromPath": "src/cliLayoutAnalysis.ts",
+        "toPath": "src/manifestAnalysis.ts",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
         "fromPath": "src/commandContext.ts",
         "toPath": "package.json",
         "sourcePath": "src/commandContext.ts"
@@ -1789,6 +2075,11 @@
       {
         "fromPath": "src/commands.ts",
         "toPath": "src/analysis.ts",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromPath": "src/commands.ts",
+        "toPath": "src/cliLayoutAnalysis.ts",
         "sourcePath": "src/commands.ts"
       },
       {
@@ -1838,8 +2129,23 @@
       },
       {
         "fromPath": "src/index.ts",
+        "toPath": "src/manifestAnalysis.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/index.ts",
         "toPath": "src/packageMetadata.ts",
         "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/manifestAnalysis.ts",
+        "toPath": "src/analysis.ts",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromPath": "src/manifestAnalysis.ts",
+        "toPath": "src/diagnostics.ts",
+        "sourcePath": "src/manifestAnalysis.ts"
       },
       {
         "fromPath": "src/packageMetadata.ts",
@@ -1885,6 +2191,21 @@
         "fromPath": "tests/commands.test.ts",
         "toPath": "tests/testSupport.ts",
         "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromPath": "tests/manifestAnalysis.test.ts",
+        "toPath": "src/cliLayoutAnalysis.ts",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromPath": "tests/manifestAnalysis.test.ts",
+        "toPath": "src/manifestAnalysis.ts",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromPath": "tests/manifestAnalysis.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
       },
       {
         "fromPath": "tests/package.test.ts",
@@ -2342,6 +2663,12 @@
       },
       {
         "fromSymbol": "analyzeDoctorTargetWithCliLayout",
+        "toSymbol": "analyzeAppManifestTarget",
+        "callExpression": "analyzeAppManifestTarget",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeDoctorTargetWithCliLayout",
         "toSymbol": "analyzeDoctorTarget",
         "callExpression": "analyzeDoctorTarget",
         "sourcePath": "src/cliLayoutAnalysis.ts"
@@ -2659,6 +2986,156 @@
         "sourcePath": "src/commands.ts"
       },
       {
+        "fromSymbol": "analyzeAppManifestTarget",
+        "toSymbol": "statOrNull",
+        "callExpression": "statOrNull",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifestTarget",
+        "toSymbol": "analyzeAppManifestFile",
+        "callExpression": "analyzeAppManifestFile",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifestFile",
+        "toSymbol": "createManifestDiagnostic",
+        "callExpression": "createManifestDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifestFile",
+        "toSymbol": "toErrorMessage",
+        "callExpression": "toErrorMessage",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifestFile",
+        "toSymbol": "analyzeAppManifest",
+        "callExpression": "analyzeAppManifest",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifest",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifest",
+        "toSymbol": "createManifestDiagnostic",
+        "callExpression": "createManifestDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifest",
+        "toSymbol": "hasOwn",
+        "callExpression": "hasOwn",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifest",
+        "toSymbol": "parseAuthFlow",
+        "callExpression": "parseAuthFlow",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifest",
+        "toSymbol": "validateAuthFlowRelationships",
+        "callExpression": "validateAuthFlowRelationships",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifest",
+        "toSymbol": "validateAuthorization",
+        "callExpression": "validateAuthorization",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "parseAuthFlow",
+        "toSymbol": "resolveAuthFlow",
+        "callExpression": "resolveAuthFlow",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "parseAuthFlow",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "parseAuthFlow",
+        "toSymbol": "createManifestDiagnostic",
+        "callExpression": "createManifestDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "parseAuthFlow",
+        "toSymbol": "readRequiredRoute",
+        "callExpression": "readRequiredRoute",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "parseAuthFlow",
+        "toSymbol": "readOptionalRoutes",
+        "callExpression": "readOptionalRoutes",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "readRequiredRoute",
+        "toSymbol": "createManifestDiagnostic",
+        "callExpression": "createManifestDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "readOptionalRoutes",
+        "toSymbol": "createManifestDiagnostic",
+        "callExpression": "createManifestDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "src/manifestAnalysis.ts",
+        "toSymbol": "normalizeRoute",
+        "callExpression": "normalizeRoute",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateAuthFlowRelationships",
+        "toSymbol": "createManifestDiagnostic",
+        "callExpression": "createManifestDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateAuthFlowRelationships",
+        "toSymbol": "normalizeRoute",
+        "callExpression": "normalizeRoute",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateAuthorization",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateAuthorization",
+        "toSymbol": "createManifestDiagnostic",
+        "callExpression": "createManifestDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateAuthorization",
+        "toSymbol": "validateAuthorizationField",
+        "callExpression": "validateAuthorizationField",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateAuthorizationField",
+        "toSymbol": "createManifestDiagnostic",
+        "callExpression": "createManifestDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
         "fromSymbol": "src/readme-usage.ts",
         "toSymbol": "runCli",
         "callExpression": "runCli",
@@ -2855,6 +3332,54 @@
         "toSymbol": "isRecord",
         "callExpression": "isRecord",
         "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/manifestAnalysis.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/manifestAnalysis.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/manifestAnalysis.test.ts",
+        "toSymbol": "analyzeAppManifest",
+        "callExpression": "analyzeAppManifest",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/manifestAnalysis.test.ts",
+        "toSymbol": "createSettings",
+        "callExpression": "createSettings",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/manifestAnalysis.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/manifestAnalysis.test.ts",
+        "toSymbol": "createCanonicalFlow",
+        "callExpression": "createCanonicalFlow",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/manifestAnalysis.test.ts",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/manifestAnalysis.test.ts",
+        "toSymbol": "analyzeDoctorTargetWithCliLayout",
+        "callExpression": "analyzeDoctorTargetWithCliLayout",
+        "sourcePath": "tests/manifestAnalysis.test.ts"
       },
       {
         "fromSymbol": "tests/package.test.ts",
@@ -3188,6 +3713,26 @@
         "fromSymbol": "DoctorDiagnostic",
         "toType": "DoctorRuleId",
         "sourcePath": "src/diagnostics.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifest",
+        "toType": "DoctorDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifestFile",
+        "toType": "DoctorDiagnostic",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifestTarget",
+        "toType": "DoctorAnalysisRequest",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifestTarget",
+        "toType": "DoctorAnalysisResult",
+        "sourcePath": "src/manifestAnalysis.ts"
       }
     ],
     "componentComposition": []

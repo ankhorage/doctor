@@ -3,7 +3,7 @@
 
 # DOCTOR
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.4.0](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.5.0](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
 
 Executable doctor provider and standalone CLI for lightweight Ankhorage repo and package compliance diagnostics.
 
@@ -29,7 +29,12 @@ Current command surface:
 
 - strict `public-package` validation for extracted public package repos
 - light recognized `integration-monorepo` validation for `ankhorage4`
+- canonical app-manifest authentication validation for JSON file targets
 - non-mutating `fix` plans for deterministic mechanical changes only
+
+Manifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects
+`settings.authFlow` with a manual-migration diagnostic, and permits authentication without
+an authorization block.
 
 Still deferred:
 
@@ -40,7 +45,7 @@ Still deferred:
 
 Path handling:
 
-- pass `[path]`, or
+- pass a repo/package directory or app-manifest JSON file as `[path]`, or
 - omit it to inspect the current working directory
 
 Source: `src/readme-usage.ts`

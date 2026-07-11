@@ -21,7 +21,12 @@ import { runCli } from './cli/standalone.js';
  *
  * - strict `public-package` validation for extracted public package repos
  * - light recognized `integration-monorepo` validation for `ankhorage4`
+ * - canonical app-manifest authentication validation for JSON file targets
  * - non-mutating `fix` plans for deterministic mechanical changes only
+ *
+ * Manifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects
+ * `settings.authFlow` with a manual-migration diagnostic, and permits authentication without
+ * an authorization block.
  *
  * Still deferred:
  *
@@ -32,7 +37,7 @@ import { runCli } from './cli/standalone.js';
  *
  * Path handling:
  *
- * - pass `[path]`, or
+ * - pass a repo/package directory or app-manifest JSON file as `[path]`, or
  * - omit it to inspect the current working directory
  *
  * @usage

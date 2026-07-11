@@ -4,7 +4,7 @@ import { pathToFileURL } from 'node:url';
 
 import type { DoctorDiagnostic, DoctorPolicyProfile, DoctorRuleId } from './diagnostics.js';
 
-export type DoctorTargetCheck = 'package' | 'repo';
+export type DoctorTargetCheck = 'manifest' | 'package' | 'repo';
 export type DoctorTargetMode = 'fix' | 'package' | 'repo' | 'validate';
 export type DoctorPlannedChangeKind =
   'create-directory' | 'create-file' | 'update-json' | 'update-text';

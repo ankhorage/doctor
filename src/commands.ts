@@ -1,7 +1,7 @@
 import type { AnkhCapabilityId, AnkhCommandDescriptor } from '@ankhorage/contracts/cli';
 
 import type { DoctorAnalysisResult, DoctorPlannedChange, DoctorTargetMode } from './analysis.js';
-import { analyzeDoctorTarget } from './analysis.js';
+import { analyzeDoctorTargetWithCliLayout } from './cliLayoutAnalysis.js';
 import type { DoctorCommandContext, DoctorCommandRunResult } from './commandContext.js';
 import {
   countErrorDiagnostics,
@@ -38,7 +38,7 @@ export interface DoctorCommandInvocation {
 }
 
 export interface DoctorCommandServices {
-  readonly analyzeTarget: typeof analyzeDoctorTarget;
+  readonly analyzeTarget: typeof analyzeDoctorTargetWithCliLayout;
 }
 
 export interface RunDoctorCommandOptions {
@@ -64,7 +64,8 @@ export const DOCTOR_COMMANDS = [
     path: ['validate'],
     capability: COMMAND_CAPABILITIES.validate,
     mode: 'validate',
-    summary: 'Auto-detect the applicable doctor policy profile and validate a local path.',
+    summary:
+      'Validate a repo, package, or app-manifest JSON path with the applicable Doctor profile.',
     run: runValidateCommand,
   },
   {
@@ -147,7 +148,7 @@ export function renderRootHelp(version: string): string {
     commandLines,
     '',
     'Path resolution:',
-    '  Pass [path], or omit it to validate the current working directory.',
+    '  Pass a repo/package directory or app-manifest JSON file, or omit [path] to inspect the current directory.',
     '',
   ].join('\n');
 }
@@ -165,7 +166,7 @@ function renderCommandHelp(command: DoctorCommandDefinition): string {
     `  ankh ${DOCTOR_COMMAND_CATEGORY} ${command.path.join(' ')} [path]`,
     '',
     'Path resolution:',
-    '  Pass [path], or omit it to validate the current working directory.',
+    '  Pass a repo/package directory or app-manifest JSON file, or omit [path] to inspect the current directory.',
     '',
   ].join('\n');
 }
@@ -174,7 +175,7 @@ function createDoctorCommandServices(
   overrides: Partial<DoctorCommandServices> = {},
 ): DoctorCommandServices {
   return {
-    analyzeTarget: overrides.analyzeTarget ?? analyzeDoctorTarget,
+    analyzeTarget: overrides.analyzeTarget ?? analyzeDoctorTargetWithCliLayout,
   };
 }
 

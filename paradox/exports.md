@@ -1,5 +1,42 @@
 # Public API
 
+## analyzeAppManifest
+
+Kind: `function`
+Module: `src/manifestAnalysis.ts`
+Source: `src/manifestAnalysis.ts:112:1`
+
+### Signatures
+
+- `(manifest: unknown, manifestPath?: string) => DoctorDiagnostic[]`
+  - manifest: `unknown`
+  - manifestPath: `string` (optional)
+  - returns: `DoctorDiagnostic[]`
+
+## analyzeAppManifestFile
+
+Kind: `function`
+Module: `src/manifestAnalysis.ts`
+Source: `src/manifestAnalysis.ts:78:1`
+
+### Signatures
+
+- `(filePath: string) => Promise<DoctorDiagnostic[]>`
+  - filePath: `string`
+  - returns: `Promise<DoctorDiagnostic[]>`
+
+## analyzeAppManifestTarget
+
+Kind: `function`
+Module: `src/manifestAnalysis.ts`
+Source: `src/manifestAnalysis.ts:39:1`
+
+### Signatures
+
+- `(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult | null>`
+  - request: `DoctorAnalysisRequest`
+  - returns: `Promise<DoctorAnalysisResult | null>`
+
 ## analyzeDoctorTarget
 
 Kind: `function`
@@ -16,7 +53,7 @@ Source: `src/analysis.ts:86:1`
 
 Kind: `function`
 Module: `src/cliLayoutAnalysis.ts`
-Source: `src/cliLayoutAnalysis.ts:62:1`
+Source: `src/cliLayoutAnalysis.ts:63:1`
 
 ### Signatures
 
@@ -155,7 +192,7 @@ Source: `src/commandContext.ts:11:1`
 
 Kind: `type`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:86:1`
+Source: `src/diagnostics.ts:103:1`
 
 ### Members
 
@@ -178,7 +215,7 @@ Source: `src/diagnostics.ts:1:1`
 
 Kind: `unknown`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:15:1`
+Source: `src/diagnostics.ts:16:1`
 
 ## DoctorFixPlan
 
@@ -221,13 +258,13 @@ Source: `src/analysis.ts:9:1`
 
 Kind: `unknown`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:16:1`
+Source: `src/diagnostics.ts:17:1`
 
 ## DoctorRuleId
 
 Kind: `unknown`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:17:1`
+Source: `src/diagnostics.ts:19:1`
 
 ## DoctorTargetCheck
 
