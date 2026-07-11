@@ -51,3 +51,13 @@ replace_exact(
     "    '  Pass a repo/package directory or app-manifest JSON file, or omit [path] to inspect the current directory.',",
     expected=2,
 )
+replace_exact(
+    'src/manifestAnalysis.ts',
+    "import type { DoctorAnalysisRequest, DoctorAnalysisResult } from './analysis.js';",
+    "import type {\n  DoctorAnalysisRequest,\n  DoctorAnalysisResult,\n  DoctorFixPlan,\n  DoctorPlannedChange,\n} from './analysis.js';",
+)
+replace_exact(
+    'src/manifestAnalysis.ts',
+    '  const plannedChanges = [];\n  const fixPlan =',
+    '  const plannedChanges: DoctorPlannedChange[] = [];\n  const fixPlan: DoctorFixPlan | null =',
+)
