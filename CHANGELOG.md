@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+
+### Minor Changes
+
+- 9cdfeaf: Validate canonical secret-store selection and OAuth credential references, reject inline secret values, duplicate provider IDs, invalid callback routes, and enabled OAuth providers without a configured secret store.
+
 ## 0.6.0
 
 ### Minor Changes
