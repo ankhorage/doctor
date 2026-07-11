@@ -1,0 +1,120 @@
+name: Complete Canonical Auth Flow Migration
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.head_ref == 'phase1/canonical-auth-flow'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone migration branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone --quiet --depth 1 --branch "$GITHUB_HEAD_REF" \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" repo
+
+      - name: Wire manifest validation into Doctor
+        working-directory: repo
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+
+          def replace_exact(path: str, old: str, new: str, expected: int = 1) -> None:
+              file = Path(path)
+              content = file.read_text()
+              count = content.count(old)
+              if count != expected:
+                  raise SystemExit(f'{path}: expected {expected} occurrence(s), found {count}: {old!r}')
+              file.write_text(content.replace(old, new))
+
+          replace_exact(
+              'src/analysis.ts',
+              "export type DoctorTargetCheck = 'package' | 'repo';",
+              "export type DoctorTargetCheck = 'manifest' | 'package' | 'repo';",
+          )
+
+          replace_exact(
+              'src/cliLayoutAnalysis.ts',
+              "import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';\n",
+              "import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';\nimport { analyzeAppManifestTarget } from './manifestAnalysis.js';\n",
+          )
+          replace_exact(
+              'src/cliLayoutAnalysis.ts',
+              "export async function analyzeDoctorTargetWithCliLayout(\n  request: DoctorAnalysisRequest,\n): Promise<DoctorAnalysisResult> {\n  const result = await analyzeDoctorTarget(request);",
+              "export async function analyzeDoctorTargetWithCliLayout(\n  request: DoctorAnalysisRequest,\n): Promise<DoctorAnalysisResult> {\n  const manifestResult = await analyzeAppManifestTarget(request);\n  if (manifestResult !== null) {\n    return manifestResult;\n  }\n\n  const result = await analyzeDoctorTarget(request);",
+          )
+
+          replace_exact(
+              'src/commands.ts',
+              "import { analyzeDoctorTarget } from './analysis.js';",
+              "import { analyzeDoctorTargetWithCliLayout } from './cliLayoutAnalysis.js';",
+          )
+          replace_exact(
+              'src/commands.ts',
+              "  readonly analyzeTarget: typeof analyzeDoctorTarget;",
+              "  readonly analyzeTarget: typeof analyzeDoctorTargetWithCliLayout;",
+          )
+          replace_exact(
+              'src/commands.ts',
+              "    analyzeTarget: overrides.analyzeTarget ?? analyzeDoctorTarget,",
+              "    analyzeTarget: overrides.analyzeTarget ?? analyzeDoctorTargetWithCliLayout,",
+          )
+          replace_exact(
+              'src/commands.ts',
+              "    summary: 'Auto-detect the applicable doctor policy profile and validate a local path.',",
+              "    summary: 'Validate a repo, package, or app-manifest JSON path with the applicable Doctor profile.',",
+          )
+          replace_exact(
+              'src/commands.ts',
+              "    '  Pass [path], or omit it to validate the current working directory.',",
+              "    '  Pass a repo/package directory or app-manifest JSON file, or omit [path] to inspect the current directory.',",
+              expected=2,
+          )
+          PY
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.13'
+
+      - name: Install dependencies
+        working-directory: repo
+        run: bun install --frozen-lockfile
+
+      - name: Format and generate docs
+        working-directory: repo
+        run: |
+          bun run format
+          bun run lint:fix || true
+          bun run format
+          bun run docs
+          bun run format
+
+      - name: Validate
+        working-directory: repo
+        run: |
+          bun run build
+          bun run typecheck
+          bun run lint
+          bun run test
+          bun run knip
+          bun run format:check
+          git diff --check
+
+      - name: Commit validated migration
+        working-directory: repo
+        run: |
+          rm .github/workflows/phase1-canonical-auth-flow.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "feat: validate canonical authentication manifests"
+          git push origin HEAD:${{ github.head_ref }}
