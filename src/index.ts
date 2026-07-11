@@ -24,6 +24,11 @@ export type {
   DoctorRuleId,
 } from './diagnostics.js';
 export {
+  analyzeAppManifest,
+  analyzeAppManifestFile,
+  analyzeAppManifestTarget,
+} from './manifestAnalysis.js';
+export {
   DOCTOR_CAPABILITIES,
   DOCTOR_COMMAND_CATEGORY,
   DOCTOR_PACKAGE_METADATA,
