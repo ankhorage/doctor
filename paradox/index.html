@@ -246,6 +246,12 @@
                 <small>15 functions</small>
               </button>
             </li>
+            <li>
+              <button class="nav-button" type="button" data-target="src/secretManifestAnalysis.ts">
+                src/secretManifestAnalysis.ts
+                <small>4 functions</small>
+              </button>
+            </li>
           </ul>
         </nav>
       </aside>
@@ -256,7 +262,7 @@
             <div class="summary">
               <div><strong>28</strong><span class="muted">public exports</span></div>
               <div><strong>0</strong><span class="muted">components</span></div>
-              <div><strong>18</strong><span class="muted">modules</span></div>
+              <div><strong>20</strong><span class="muted">modules</span></div>
               <div><strong>1</strong><span class="muted">entrypoints</span></div>
             </div>
             <h3>Entrypoints</h3>
@@ -399,13 +405,13 @@
             </article>
             <article
               class="item"
-              data-search="src/manifestAnalysis.ts src/analysis.ts src/diagnostics.ts analyzeAppManifest analyzeAppManifestFile analyzeAppManifestTarget"
+              data-search="src/manifestAnalysis.ts src/analysis.ts src/diagnostics.ts src/secretManifestAnalysis.ts analyzeAppManifest analyzeAppManifestFile analyzeAppManifestTarget"
             >
               <h3>src/manifestAnalysis.ts</h3>
               <p class="muted">Referenced module</p>
               <p>
                 <strong>Dependencies:</strong> <code>src/analysis.ts</code>,
-                <code>src/diagnostics.ts</code>
+                <code>src/diagnostics.ts</code>, <code>src/secretManifestAnalysis.ts</code>
               </p>
               <p>
                 <strong>Exports:</strong> <code>analyzeAppManifest</code>,
@@ -424,6 +430,15 @@
                 <code>DOCTOR_COMMAND_CATEGORY</code>, <code>DOCTOR_PACKAGE_METADATA</code>,
                 <code>DOCTOR_PACKAGE_NAME</code>, <code>DOCTOR_PACKAGE_VERSION</code>
               </p>
+            </article>
+            <article
+              class="item"
+              data-search="src/secretManifestAnalysis.ts src/diagnostics.ts analyzeSecretStoreManifest"
+            >
+              <h3>src/secretManifestAnalysis.ts</h3>
+              <p class="muted">Referenced module</p>
+              <p><strong>Dependencies:</strong> <code>src/diagnostics.ts</code></p>
+              <p><strong>Exports:</strong> <code>analyzeSecretStoreManifest</code></p>
             </article>
             <article
               class="item"
@@ -477,6 +492,15 @@
               <h3>tests/package.test.ts</h3>
               <p class="muted">Referenced module</p>
               <p><strong>Dependencies:</strong> <code>package.json</code></p>
+              <p><strong>Exports:</strong> <span class="empty">None</span></p>
+            </article>
+            <article
+              class="item"
+              data-search="tests/secretManifestAnalysis.test.ts src/manifestAnalysis.ts"
+            >
+              <h3>tests/secretManifestAnalysis.test.ts</h3>
+              <p class="muted">Referenced module</p>
+              <p><strong>Dependencies:</strong> <code>src/manifestAnalysis.ts</code></p>
               <p><strong>Exports:</strong> <span class="empty">None</span></p>
             </article>
             <article
@@ -1155,7 +1179,7 @@
                 data-search="DoctorDiagnostic type src/diagnostics.ts  DoctorDiagnosticCode DoctorDiagnosticSeverity DoctorPolicyProfile DoctorRuleId"
               >
                 <h4>DoctorDiagnostic</h4>
-                <p class="muted">type • <code>src/diagnostics.ts:103:1</code></p>
+                <p class="muted">type • <code>src/diagnostics.ts:113:1</code></p>
 
                 <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
                 <div>
@@ -1277,7 +1301,7 @@
                 data-search="analyzeAppManifest function src/manifestAnalysis.ts  DoctorDiagnostic (manifest: unknown, manifestPath?: string) =&gt; DoctorDiagnostic[]"
               >
                 <h4>analyzeAppManifest</h4>
-                <p class="muted">function • <code>src/manifestAnalysis.ts:112:1</code></p>
+                <p class="muted">function • <code>src/manifestAnalysis.ts:113:1</code></p>
 
                 <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
                 <div>
@@ -1322,7 +1346,7 @@
                 data-search="analyzeAppManifestFile function src/manifestAnalysis.ts  DoctorDiagnostic (filePath: string) =&gt; Promise&lt;DoctorDiagnostic[]&gt;"
               >
                 <h4>analyzeAppManifestFile</h4>
-                <p class="muted">function • <code>src/manifestAnalysis.ts:78:1</code></p>
+                <p class="muted">function • <code>src/manifestAnalysis.ts:79:1</code></p>
 
                 <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
                 <div>
@@ -1361,7 +1385,7 @@
                 data-search="analyzeAppManifestTarget function src/manifestAnalysis.ts  DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult | null&gt;"
               >
                 <h4>analyzeAppManifestTarget</h4>
-                <p class="muted">function • <code>src/manifestAnalysis.ts:39:1</code></p>
+                <p class="muted">function • <code>src/manifestAnalysis.ts:40:1</code></p>
 
                 <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
                 <div>
@@ -1507,9 +1531,13 @@
                 package__ankhorage_doctor -.-&gt; module_src_manifestAnalysis_ts
                 module_src_manifestAnalysis_ts --&gt; module_src_analysis_ts
                 module_src_manifestAnalysis_ts --&gt; module_src_diagnostics_ts
+                module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
                 module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_src_packageMetadata_ts
                 module_src_packageMetadata_ts --&gt; module_package_json
+                module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
+                package__ankhorage_doctor -.-&gt; module_src_secretManifestAnalysis_ts
+                module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
                 module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_tests_ankh_provider_test_ts
                 module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
@@ -1530,6 +1558,9 @@
                 module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_tests_package_test_ts
                 module_tests_package_test_ts --&gt; module_package_json
+                module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
+                package__ankhorage_doctor -.-&gt; module_tests_secretManifestAnalysis_test_ts
+                module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
                 module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_tests_targetArchitecture_test_ts
                 module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1582,9 +1613,13 @@ graph TD
   package__ankhorage_doctor -.-&gt; module_src_manifestAnalysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_analysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_packageMetadata_ts
   module_src_packageMetadata_ts --&gt; module_package_json
+  module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_secretManifestAnalysis_ts
+  module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_ankh_provider_test_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
@@ -1606,6 +1641,9 @@ graph TD
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_package_test_ts
   module_tests_package_test_ts --&gt; module_package_json
+  module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_secretManifestAnalysis_test_ts
+  module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_targetArchitecture_test_ts
   module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1634,11 +1672,13 @@ graph TD
                 module_src_index_ts[&quot;src/index.ts&quot;]
                 module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
                 module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
+                module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
                 module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
                 module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
                 module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
                 module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
                 module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
+                module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
                 module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
                 module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;] module_src_analysis_ts
                 --&gt; module_src_diagnostics_ts module_src_cli_index_ts --&gt;
@@ -1657,7 +1697,9 @@ graph TD
                 module_src_commands_ts --&gt; module_src_packageMetadata_ts
                 module_src_manifestAnalysis_ts --&gt; module_src_analysis_ts
                 module_src_manifestAnalysis_ts --&gt; module_src_diagnostics_ts
+                module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
                 module_src_packageMetadata_ts --&gt; module_package_json
+                module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
                 module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
                 module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
                 module_tests_cli_test_ts --&gt; module_src_cli_index_ts module_tests_cli_test_ts
@@ -1668,6 +1710,7 @@ graph TD
                 module_src_cliLayoutAnalysis_ts module_tests_manifestAnalysis_test_ts --&gt;
                 module_src_manifestAnalysis_ts module_tests_manifestAnalysis_test_ts --&gt;
                 module_tests_testSupport_ts module_tests_package_test_ts --&gt; module_package_json
+                module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
                 module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
                 module_tests_targetArchitecture_test_ts --&gt; module_tests_testSupport_ts
                 module_tests_testSupport_ts --&gt; module_src_commandContext_ts
@@ -1687,11 +1730,13 @@ graph LR
   module_src_index_ts[&quot;src/index.ts&quot;]
   module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
+  module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
   module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
   module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
+  module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
@@ -1712,7 +1757,9 @@ graph LR
   module_src_commands_ts --&gt; module_src_packageMetadata_ts
   module_src_manifestAnalysis_ts --&gt; module_src_analysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
   module_src_packageMetadata_ts --&gt; module_package_json
+  module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
   module_tests_cli_test_ts --&gt; module_src_cli_index_ts
@@ -1724,6 +1771,7 @@ graph LR
   module_tests_manifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
   module_tests_manifestAnalysis_test_ts --&gt; module_tests_testSupport_ts
   module_tests_package_test_ts --&gt; module_package_json
+  module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
   module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_targetArchitecture_test_ts --&gt; module_tests_testSupport_ts
   module_tests_testSupport_ts --&gt; module_src_commandContext_ts
@@ -1745,11 +1793,13 @@ graph LR
                 module_src_index_ts[&quot;src/index.ts&quot;]
                 module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
                 module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
+                module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
                 module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
                 module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
                 module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
                 module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
                 module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
+                module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
                 module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
                 module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
                 export_analyzeAppManifest[&quot;analyzeAppManifest&quot;]
@@ -1845,11 +1895,13 @@ graph LR
   module_src_index_ts[&quot;src/index.ts&quot;]
   module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
+  module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
   module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
   module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
+  module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   export_analyzeAppManifest[&quot;analyzeAppManifest&quot;]
@@ -2471,12 +2523,12 @@ sequenceDiagram
             <h2>src/diagnostics.ts</h2>
             <article class="item" data-search="countErrorDiagnostics src/diagnostics.ts ">
               <h3>countErrorDiagnostics</h3>
-              <p class="muted"><code>src/diagnostics.ts:112:1</code></p>
+              <p class="muted"><code>src/diagnostics.ts:122:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="countWarningDiagnostics src/diagnostics.ts ">
               <h3>countWarningDiagnostics</h3>
-              <p class="muted"><code>src/diagnostics.ts:116:1</code></p>
+              <p class="muted"><code>src/diagnostics.ts:126:1</code></p>
               <p class="empty">No description available.</p>
             </article>
           </section>
@@ -2491,32 +2543,32 @@ sequenceDiagram
             <h2>src/manifestAnalysis.ts</h2>
             <article class="item" data-search="analyzeAppManifestTarget src/manifestAnalysis.ts ">
               <h3>analyzeAppManifestTarget</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:39:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:40:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="analyzeAppManifestFile src/manifestAnalysis.ts ">
               <h3>analyzeAppManifestFile</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:78:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:79:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="analyzeAppManifest src/manifestAnalysis.ts ">
               <h3>analyzeAppManifest</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:112:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:113:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="parseAuthFlow src/manifestAnalysis.ts ">
               <h3>parseAuthFlow</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:186:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:189:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="readRequiredRoute src/manifestAnalysis.ts ">
               <h3>readRequiredRoute</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:222:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:225:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="readOptionalRoutes src/manifestAnalysis.ts ">
               <h3>readOptionalRoutes</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:245:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:248:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article
@@ -2524,47 +2576,80 @@ sequenceDiagram
               data-search="validateAuthFlowRelationships src/manifestAnalysis.ts "
             >
               <h3>validateAuthFlowRelationships</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:278:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:281:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="validateAuthorization src/manifestAnalysis.ts ">
               <h3>validateAuthorization</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:360:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:363:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="validateAuthorizationField src/manifestAnalysis.ts ">
               <h3>validateAuthorizationField</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:400:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:403:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createManifestDiagnostic src/manifestAnalysis.ts ">
               <h3>createManifestDiagnostic</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:422:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:425:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="normalizeRoute src/manifestAnalysis.ts ">
               <h3>normalizeRoute</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:435:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:438:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="hasOwn src/manifestAnalysis.ts ">
               <h3>hasOwn</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:440:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:443:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isRecord src/manifestAnalysis.ts ">
               <h3>isRecord</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:444:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:447:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="statOrNull src/manifestAnalysis.ts ">
               <h3>statOrNull</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:448:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:451:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="toErrorMessage src/manifestAnalysis.ts ">
               <h3>toErrorMessage</h3>
-              <p class="muted"><code>src/manifestAnalysis.ts:456:1</code></p>
+              <p class="muted"><code>src/manifestAnalysis.ts:459:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+          </section>
+        </section>
+        <section
+          id="view-src-secretmanifestanalysis-ts"
+          class="view"
+          data-view="src/secretManifestAnalysis.ts"
+          hidden
+        >
+          <section class="panel">
+            <h2>src/secretManifestAnalysis.ts</h2>
+            <article
+              class="item"
+              data-search="analyzeSecretStoreManifest src/secretManifestAnalysis.ts "
+            >
+              <h3>analyzeSecretStoreManifest</h3>
+              <p class="muted"><code>src/secretManifestAnalysis.ts:11:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article class="item" data-search="validateSecretStore src/secretManifestAnalysis.ts ">
+              <h3>validateSecretStore</h3>
+              <p class="muted"><code>src/secretManifestAnalysis.ts:177:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article class="item" data-search="diagnostic src/secretManifestAnalysis.ts ">
+              <h3>diagnostic</h3>
+              <p class="muted"><code>src/secretManifestAnalysis.ts:223:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article class="item" data-search="isRecord src/secretManifestAnalysis.ts ">
+              <h3>isRecord</h3>
+              <p class="muted"><code>src/secretManifestAnalysis.ts:239:1</code></p>
               <p class="empty">No description available.</p>
             </article>
           </section>

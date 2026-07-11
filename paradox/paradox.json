@@ -12,7 +12,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.5.0",
+      "value": "v0.6.0",
       "color": "cb3837"
     },
     {
@@ -30,8 +30,8 @@
     {
       "id": "eslint",
       "label": "eslint",
-      "value": "checked",
-      "color": "0a7f3f"
+      "value": "configured",
+      "color": "2563eb"
     },
     {
       "id": "prettier",
@@ -200,7 +200,7 @@
     {
       "path": "src/manifestAnalysis.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/analysis.ts", "src/diagnostics.ts"],
+      "dependencies": ["src/analysis.ts", "src/diagnostics.ts", "src/secretManifestAnalysis.ts"],
       "exports": ["analyzeAppManifest", "analyzeAppManifestFile", "analyzeAppManifestTarget"]
     },
     {
@@ -214,6 +214,12 @@
         "DOCTOR_PACKAGE_NAME",
         "DOCTOR_PACKAGE_VERSION"
       ]
+    },
+    {
+      "path": "src/secretManifestAnalysis.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/diagnostics.ts"],
+      "exports": ["analyzeSecretStoreManifest"]
     },
     {
       "path": "tests/ankh.provider.test.ts",
@@ -250,6 +256,12 @@
       "exports": []
     },
     {
+      "path": "tests/secretManifestAnalysis.test.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/manifestAnalysis.ts"],
+      "exports": []
+    },
+    {
       "path": "tests/targetArchitecture.test.ts",
       "isEntrypoint": false,
       "dependencies": ["src/cliLayoutAnalysis.ts", "tests/testSupport.ts"],
@@ -279,7 +291,7 @@
       "modulePath": "src/manifestAnalysis.ts",
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 112,
+        "line": 113,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -317,7 +329,7 @@
       "modulePath": "src/manifestAnalysis.ts",
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 78,
+        "line": 79,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -349,7 +361,7 @@
       "modulePath": "src/manifestAnalysis.ts",
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 39,
+        "line": 40,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -826,7 +838,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 103,
+        "line": 113,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -1822,7 +1834,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 112,
+        "line": 122,
         "column": 1
       }
     },
@@ -1831,7 +1843,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 116,
+        "line": 126,
         "column": 1
       }
     },
@@ -1840,7 +1852,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 39,
+        "line": 40,
         "column": 1
       }
     },
@@ -1849,7 +1861,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 78,
+        "line": 79,
         "column": 1
       }
     },
@@ -1858,7 +1870,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 112,
+        "line": 113,
         "column": 1
       }
     },
@@ -1867,7 +1879,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 186,
+        "line": 189,
         "column": 1
       }
     },
@@ -1876,7 +1888,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 222,
+        "line": 225,
         "column": 1
       }
     },
@@ -1885,7 +1897,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 245,
+        "line": 248,
         "column": 1
       }
     },
@@ -1894,7 +1906,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 278,
+        "line": 281,
         "column": 1
       }
     },
@@ -1903,7 +1915,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 360,
+        "line": 363,
         "column": 1
       }
     },
@@ -1912,7 +1924,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 400,
+        "line": 403,
         "column": 1
       }
     },
@@ -1921,7 +1933,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 422,
+        "line": 425,
         "column": 1
       }
     },
@@ -1930,7 +1942,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 435,
+        "line": 438,
         "column": 1
       }
     },
@@ -1939,7 +1951,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 440,
+        "line": 443,
         "column": 1
       }
     },
@@ -1948,7 +1960,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 444,
+        "line": 447,
         "column": 1
       }
     },
@@ -1957,7 +1969,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 448,
+        "line": 451,
         "column": 1
       }
     },
@@ -1966,7 +1978,43 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 456,
+        "line": 459,
+        "column": 1
+      }
+    },
+    {
+      "name": "analyzeSecretStoreManifest",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/secretManifestAnalysis.ts",
+        "line": 11,
+        "column": 1
+      }
+    },
+    {
+      "name": "validateSecretStore",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/secretManifestAnalysis.ts",
+        "line": 177,
+        "column": 1
+      }
+    },
+    {
+      "name": "diagnostic",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/secretManifestAnalysis.ts",
+        "line": 223,
+        "column": 1
+      }
+    },
+    {
+      "name": "isRecord",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/secretManifestAnalysis.ts",
+        "line": 239,
         "column": 1
       }
     }
@@ -2148,6 +2196,11 @@
         "sourcePath": "src/manifestAnalysis.ts"
       },
       {
+        "fromPath": "src/manifestAnalysis.ts",
+        "toPath": "src/secretManifestAnalysis.ts",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
         "fromPath": "src/packageMetadata.ts",
         "toPath": "package.json",
         "sourcePath": "src/packageMetadata.ts"
@@ -2156,6 +2209,11 @@
         "fromPath": "src/readme-usage.ts",
         "toPath": "src/cli/standalone.ts",
         "sourcePath": "src/readme-usage.ts"
+      },
+      {
+        "fromPath": "src/secretManifestAnalysis.ts",
+        "toPath": "src/diagnostics.ts",
+        "sourcePath": "src/secretManifestAnalysis.ts"
       },
       {
         "fromPath": "tests/ankh.provider.test.ts",
@@ -2211,6 +2269,11 @@
         "fromPath": "tests/package.test.ts",
         "toPath": "package.json",
         "sourcePath": "tests/package.test.ts"
+      },
+      {
+        "fromPath": "tests/secretManifestAnalysis.test.ts",
+        "toPath": "src/manifestAnalysis.ts",
+        "sourcePath": "tests/secretManifestAnalysis.test.ts"
       },
       {
         "fromPath": "tests/targetArchitecture.test.ts",
@@ -3035,6 +3098,12 @@
       },
       {
         "fromSymbol": "analyzeAppManifest",
+        "toSymbol": "analyzeSecretStoreManifest",
+        "callExpression": "analyzeSecretStoreManifest",
+        "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeAppManifest",
         "toSymbol": "parseAuthFlow",
         "callExpression": "parseAuthFlow",
         "sourcePath": "src/manifestAnalysis.ts"
@@ -3140,6 +3209,54 @@
         "toSymbol": "runCli",
         "callExpression": "runCli",
         "sourcePath": "src/readme-usage.ts"
+      },
+      {
+        "fromSymbol": "analyzeSecretStoreManifest",
+        "toSymbol": "validateSecretStore",
+        "callExpression": "validateSecretStore",
+        "sourcePath": "src/secretManifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeSecretStoreManifest",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/secretManifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeSecretStoreManifest",
+        "toSymbol": "diagnostic",
+        "callExpression": "diagnostic",
+        "sourcePath": "src/secretManifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "src/secretManifestAnalysis.ts",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/secretManifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeSecretStoreManifest",
+        "toSymbol": "findForbiddenInlineSecretFields",
+        "callExpression": "findForbiddenInlineSecretFields",
+        "sourcePath": "src/secretManifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeSecretStoreManifest",
+        "toSymbol": "normalizeSecretRef",
+        "callExpression": "normalizeSecretRef",
+        "sourcePath": "src/secretManifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateSecretStore",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/secretManifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateSecretStore",
+        "toSymbol": "diagnostic",
+        "callExpression": "diagnostic",
+        "sourcePath": "src/secretManifestAnalysis.ts"
       },
       {
         "fromSymbol": "tests/ankh.provider.test.ts",
@@ -3398,6 +3515,36 @@
         "toSymbol": "expect",
         "callExpression": "expect",
         "sourcePath": "tests/package.test.ts"
+      },
+      {
+        "fromSymbol": "tests/secretManifestAnalysis.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/secretManifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/secretManifestAnalysis.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/secretManifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/secretManifestAnalysis.test.ts",
+        "toSymbol": "analyzeAppManifest",
+        "callExpression": "analyzeAppManifest",
+        "sourcePath": "tests/secretManifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/secretManifestAnalysis.test.ts",
+        "toSymbol": "createSettings",
+        "callExpression": "createSettings",
+        "sourcePath": "tests/secretManifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/secretManifestAnalysis.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/secretManifestAnalysis.test.ts"
       },
       {
         "fromSymbol": "tests/targetArchitecture.test.ts",
