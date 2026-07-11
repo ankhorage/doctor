@@ -4,7 +4,7 @@
 
 Kind: `function`
 Module: `src/manifestAnalysis.ts`
-Source: `src/manifestAnalysis.ts:112:1`
+Source: `src/manifestAnalysis.ts:113:1`
 
 ### Signatures
 
@@ -17,7 +17,7 @@ Source: `src/manifestAnalysis.ts:112:1`
 
 Kind: `function`
 Module: `src/manifestAnalysis.ts`
-Source: `src/manifestAnalysis.ts:78:1`
+Source: `src/manifestAnalysis.ts:79:1`
 
 ### Signatures
 
@@ -29,7 +29,7 @@ Source: `src/manifestAnalysis.ts:78:1`
 
 Kind: `function`
 Module: `src/manifestAnalysis.ts`
-Source: `src/manifestAnalysis.ts:39:1`
+Source: `src/manifestAnalysis.ts:40:1`
 
 ### Signatures
 
@@ -192,7 +192,7 @@ Source: `src/commandContext.ts:11:1`
 
 Kind: `type`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:103:1`
+Source: `src/diagnostics.ts:113:1`
 
 ### Members
 

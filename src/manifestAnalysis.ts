@@ -16,6 +16,7 @@ import type {
   DoctorPolicyProfile,
   DoctorRuleId,
 } from './diagnostics.js';
+import { analyzeSecretStoreManifest } from './secretManifestAnalysis.js';
 
 const MANIFEST_PROFILE = 'app-manifest' satisfies DoctorPolicyProfile;
 const AUTH_ACTION_ROUTE_KEYS = [
@@ -155,6 +156,8 @@ export function analyzeAppManifest(
     );
     return diagnostics;
   }
+
+  diagnostics.push(...analyzeSecretStoreManifest(infra, manifestPath));
 
   const { auth } = infra;
   if (auth === undefined) {
