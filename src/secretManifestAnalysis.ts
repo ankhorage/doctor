@@ -16,7 +16,7 @@ export function analyzeSecretStoreManifest(
   const secretStoreProvider = validateSecretStore(infra.secretStore, manifestPath, diagnostics);
 
   if (!isRecord(infra.auth)) return diagnostics;
-  const oauth = infra.auth.oauth;
+  const { oauth } = infra.auth;
   if (oauth === undefined) return diagnostics;
 
   if (!isRecord(oauth)) {
