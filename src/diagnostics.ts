@@ -15,7 +15,10 @@ export type DoctorDiagnosticCode =
 
 export type DoctorDiagnosticSeverity = 'error' | 'warning';
 export type DoctorPolicyProfile =
-  'app-manifest' | 'integration-monorepo' | 'public-package' | 'unknown';
+  | 'app-manifest'
+  | 'integration-monorepo'
+  | 'public-package'
+  | 'unknown';
 export type DoctorRuleId =
   | 'integration.package.ankh.disallowed'
   | 'integration.package.private.required'
@@ -29,11 +32,21 @@ export type DoctorRuleId =
   | 'manifest.auth.flow.route.valid'
   | 'manifest.auth.flow.unauthorized-route.valid'
   | 'manifest.auth.flow.valid-shape'
+  | 'manifest.auth.oauth.callback-route.valid'
+  | 'manifest.auth.oauth.provider.credentials-ref.required'
+  | 'manifest.auth.oauth.provider.credentials-ref.valid'
+  | 'manifest.auth.oauth.provider.duplicate'
+  | 'manifest.auth.oauth.provider.inline-secret.disallowed'
+  | 'manifest.auth.oauth.providers.valid'
+  | 'manifest.auth.oauth.valid-shape'
   | 'manifest.auth.valid-shape'
   | 'manifest.infra.valid-shape'
   | 'manifest.json.readable'
   | 'manifest.json.valid'
   | 'manifest.root.valid-shape'
+  | 'manifest.secret-store.provider.required'
+  | 'manifest.secret-store.provider.valid'
+  | 'manifest.secret-store.valid-shape'
   | 'manifest.settings.auth-flow.removed'
   | 'package.ankh.capabilities.match-provider'
   | 'package.ankh.present.valid-shape'
