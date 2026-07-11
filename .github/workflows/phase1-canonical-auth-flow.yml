@@ -40,7 +40,6 @@ jobs:
               "export type DoctorTargetCheck = 'package' | 'repo';",
               "export type DoctorTargetCheck = 'manifest' | 'package' | 'repo';",
           )
-
           replace_exact(
               'src/cliLayoutAnalysis.ts',
               "import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';\n",
@@ -51,7 +50,6 @@ jobs:
               "export async function analyzeDoctorTargetWithCliLayout(\n  request: DoctorAnalysisRequest,\n): Promise<DoctorAnalysisResult> {\n  const result = await analyzeDoctorTarget(request);",
               "export async function analyzeDoctorTargetWithCliLayout(\n  request: DoctorAnalysisRequest,\n): Promise<DoctorAnalysisResult> {\n  const manifestResult = await analyzeAppManifestTarget(request);\n  if (manifestResult !== null) {\n    return manifestResult;\n  }\n\n  const result = await analyzeDoctorTarget(request);",
           )
-
           replace_exact(
               'src/commands.ts',
               "import { analyzeDoctorTarget } from './analysis.js';",
@@ -87,27 +85,44 @@ jobs:
 
       - name: Install dependencies
         working-directory: repo
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile >/dev/null
 
       - name: Format and generate docs
         working-directory: repo
         run: |
-          bun run format
-          bun run lint:fix || true
-          bun run format
-          bun run docs
-          bun run format
+          bun run format >/dev/null
+          bun run lint:fix >/dev/null || true
+          bun run format >/dev/null
+          bun run docs >/dev/null
+          bun run format >/dev/null
 
-      - name: Validate
+      - name: Build
         working-directory: repo
-        run: |
-          bun run build
-          bun run typecheck
-          bun run lint
-          bun run test
-          bun run knip
-          bun run format:check
-          git diff --check
+        run: bun run build
+
+      - name: Typecheck
+        working-directory: repo
+        run: bun run typecheck
+
+      - name: Lint
+        working-directory: repo
+        run: bun run lint
+
+      - name: Test
+        working-directory: repo
+        run: bun run test
+
+      - name: Knip
+        working-directory: repo
+        run: bun run knip
+
+      - name: Format check
+        working-directory: repo
+        run: bun run format:check
+
+      - name: Diff check
+        working-directory: repo
+        run: git diff --check
 
       - name: Commit validated migration
         working-directory: repo
