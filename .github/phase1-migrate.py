@@ -61,3 +61,13 @@ replace_exact(
     '  const plannedChanges = [];\n  const fixPlan =',
     '  const plannedChanges: DoctorPlannedChange[] = [];\n  const fixPlan: DoctorFixPlan | null =',
 )
+replace_exact(
+    'tests/manifestAnalysis.test.ts',
+    "    expect(diagnostics).toContainEqual(\n      expect.objectContaining({\n        ruleId: 'manifest.settings.auth-flow.removed',\n        severity: 'error',\n      }),\n    );",
+    "    expect(\n      diagnostics.some(\n        (diagnostic) =>\n          diagnostic.ruleId === 'manifest.settings.auth-flow.removed' &&\n          diagnostic.severity === 'error',\n      ),\n    ).toBe(true);",
+)
+replace_exact(
+    'tests/manifestAnalysis.test.ts',
+    "    expect(invalidResult.diagnostics).toContainEqual(\n      expect.objectContaining({\n        code: 'invalid-app-manifest-json',\n        ruleId: 'manifest.json.valid',\n      }),\n    );\n    expect(legacyFixResult.diagnostics).toContainEqual(\n      expect.objectContaining({ ruleId: 'manifest.settings.auth-flow.removed' }),\n    );",
+    "    expect(\n      invalidResult.diagnostics.some(\n        (diagnostic) =>\n          diagnostic.code === 'invalid-app-manifest-json' &&\n          diagnostic.ruleId === 'manifest.json.valid',\n      ),\n    ).toBe(true);\n    expect(\n      legacyFixResult.diagnostics.some(\n        (diagnostic) => diagnostic.ruleId === 'manifest.settings.auth-flow.removed',\n      ),\n    ).toBe(true);",
+)
