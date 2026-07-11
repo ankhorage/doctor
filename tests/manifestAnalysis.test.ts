@@ -52,12 +52,13 @@ describe('app manifest authentication diagnostics', () => {
       },
     });
 
-    expect(diagnostics).toContainEqual(
-      expect.objectContaining({
-        ruleId: 'manifest.settings.auth-flow.removed',
-        severity: 'error',
-      }),
-    );
+    expect(
+      diagnostics.some(
+        (diagnostic) =>
+          diagnostic.ruleId === 'manifest.settings.auth-flow.removed' &&
+          diagnostic.severity === 'error',
+      ),
+    ).toBe(true);
     expect(diagnostics.map((diagnostic) => diagnostic.message).join('\n')).toContain(
       'Move this configuration manually to infra.auth.flow',
     );
@@ -199,15 +200,18 @@ describe('app manifest authentication diagnostics', () => {
       mode: 'fix',
     });
 
-    expect(invalidResult.diagnostics).toContainEqual(
-      expect.objectContaining({
-        code: 'invalid-app-manifest-json',
-        ruleId: 'manifest.json.valid',
-      }),
-    );
-    expect(legacyFixResult.diagnostics).toContainEqual(
-      expect.objectContaining({ ruleId: 'manifest.settings.auth-flow.removed' }),
-    );
+    expect(
+      invalidResult.diagnostics.some(
+        (diagnostic) =>
+          diagnostic.code === 'invalid-app-manifest-json' &&
+          diagnostic.ruleId === 'manifest.json.valid',
+      ),
+    ).toBe(true);
+    expect(
+      legacyFixResult.diagnostics.some(
+        (diagnostic) => diagnostic.ruleId === 'manifest.settings.auth-flow.removed',
+      ),
+    ).toBe(true);
     expect(legacyFixResult.plannedChanges).toEqual([]);
     expect(legacyFixResult.fixPlan?.changes).toEqual([]);
   });

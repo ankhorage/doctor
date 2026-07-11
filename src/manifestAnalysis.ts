@@ -2,9 +2,14 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { AUTHZ_ENGINES, AUTHZ_KINDS } from '@ankhorage/contracts';
-import { resolveAuthFlow, type AuthFlowConfig } from '@ankhorage/contracts/auth';
+import { type AuthFlowConfig, resolveAuthFlow } from '@ankhorage/contracts/auth';
 
-import type { DoctorAnalysisRequest, DoctorAnalysisResult } from './analysis.js';
+import type {
+  DoctorAnalysisRequest,
+  DoctorAnalysisResult,
+  DoctorFixPlan,
+  DoctorPlannedChange,
+} from './analysis.js';
 import type {
   DoctorDiagnostic,
   DoctorDiagnosticCode,
@@ -47,8 +52,8 @@ export async function analyzeAppManifestTarget(
   }
 
   const diagnostics = await analyzeAppManifestFile(targetPath);
-  const plannedChanges = [];
-  const fixPlan =
+  const plannedChanges: DoctorPlannedChange[] = [];
+  const fixPlan: DoctorFixPlan | null =
     request.mode === 'fix'
       ? {
           changes: plannedChanges,
@@ -120,7 +125,7 @@ export function analyzeAppManifest(
   }
 
   const diagnostics: DoctorDiagnostic[] = [];
-  const settings = manifest.settings;
+  const { settings } = manifest;
 
   if (isRecord(settings) && hasOwn(settings, 'authFlow')) {
     diagnostics.push(
@@ -134,7 +139,7 @@ export function analyzeAppManifest(
     );
   }
 
-  const infra = manifest.infra;
+  const { infra } = manifest;
   if (infra === undefined) {
     return diagnostics;
   }
@@ -151,7 +156,7 @@ export function analyzeAppManifest(
     return diagnostics;
   }
 
-  const auth = infra.auth;
+  const { auth } = infra;
   if (auth === undefined) {
     return diagnostics;
   }
@@ -365,7 +370,8 @@ function validateAuthorization(
     diagnostics.push(
       createManifestDiagnostic({
         code: 'field-invalid',
-        message: 'manifest.infra.auth.authorization must be a JSON object when explicitly configured.',
+        message:
+          'manifest.infra.auth.authorization must be a JSON object when explicitly configured.',
         path: manifestPath,
         ruleId: 'manifest.auth.authorization.valid-shape',
       }),
