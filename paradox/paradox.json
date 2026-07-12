@@ -12,7 +12,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.6.0",
+      "value": "v0.7.0",
       "color": "cb3837"
     },
     {
@@ -30,8 +30,8 @@
     {
       "id": "eslint",
       "label": "eslint",
-      "value": "configured",
-      "color": "2563eb"
+      "value": "checked",
+      "color": "0a7f3f"
     },
     {
       "id": "prettier",
