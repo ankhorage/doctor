@@ -27,9 +27,6 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Validate Ankhorage repository
-        run: bunx @ankhorage/ankh doctor validate .
-
       - name: Run build
         run: |
           if node -e "const p=require('./package.json'); process.exit(p.scripts?.build ? 0 : 1)"; then
@@ -37,6 +34,9 @@ jobs:
           else
             echo "No build script found; skipping."
           fi
+
+      - name: Validate Ankhorage repository
+        run: bunx @ankhorage/ankh doctor validate .
 
       - name: Run lint
         run: |
