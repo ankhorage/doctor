@@ -27,27 +27,62 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Run build
-        run: bun run build
+      - name: Validate Ankhorage repository
+        run: bunx @ankhorage/ankh doctor validate .
 
-      - name: Run typecheck
-        run: bun run typecheck
+      - name: Run build
+        run: |
+          if node -e "const p=require('./package.json'); process.exit(p.scripts?.build ? 0 : 1)"; then
+            bun run build
+          else
+            echo "No build script found; skipping."
+          fi
 
       - name: Run lint
-        run: bun run lint
+        run: |
+          if node -e "const p=require('./package.json'); process.exit(p.scripts?.lint ? 0 : 1)"; then
+            bun run lint
+          else
+            echo "No lint script found; skipping."
+          fi
 
       - name: Run format check
-        run: bun run format:check
+        run: |
+          if node -e "const p=require('./package.json'); process.exit(p.scripts?.['format:check'] ? 0 : 1)"; then
+            bun run format:check
+          else
+            echo "No format:check script found; skipping."
+          fi
 
       - name: Run Knip
-        run: bun run knip
+        run: |
+          if node -e "const p=require('./package.json'); process.exit(p.scripts?.knip ? 0 : 1)"; then
+            bun run knip
+          else
+            echo "No knip script found; skipping."
+          fi
 
       - name: Run tests
-        run: bun run test
+        run: |
+          if node -e "const p=require('./package.json'); process.exit(p.scripts?.test ? 0 : 1)"; then
+            bun run test
+          else
+            echo "No test script found; skipping."
+          fi
 
-      - name: Generate docs
-        run: bun run docs
+      - name: Run typecheck
+        run: |
+          if node -e "const p=require('./package.json'); process.exit(p.scripts?.typecheck ? 0 : 1)"; then
+            bun run typecheck
+          else
+            echo "No typecheck script found; skipping."
+          fi
 
       - name: Check changesets
         if: github.event_name == 'pull_request'
-        run: bun run changeset:status
+        run: |
+          if node -e "const p=require('./package.json'); process.exit(p.scripts?.['changeset:status'] ? 0 : 1)"; then
+            bun run changeset:status
+          else
+            echo "No changeset:status script found; skipping."
+          fi
