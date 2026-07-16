@@ -627,6 +627,7 @@ async function analyzePackagePolicy(request: {
   }
 
   if (
+    packageJson.name !== '@ankhorage/paradox' &&
     (await expectsParadox(request.targetPath, packageJson)) &&
     !hasDependency(devDependencies, '@ankhorage/paradox')
   ) {
