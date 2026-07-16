@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.2
+
+### Patch Changes
+
+- 3630754: Do not require `@ankhorage/paradox` to declare itself as a development dependency when validating Paradox's own package repository, while keeping the requirement for other packages that own Paradox docs generation.
+
 ## 0.7.1
 
 ### Patch Changes
