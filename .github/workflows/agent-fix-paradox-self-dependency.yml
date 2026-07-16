@@ -1,0 +1,51 @@
+name: Apply Paradox self-dependency fix
+
+on:
+  push:
+    branches:
+      - agent/ignore-paradox-self-dependency
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/ignore-paradox-self-dependency
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: Apply source and tests
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          analysis = Path('src/analysis.ts')
+          source = analysis.read_text()
+          old = """  if (\n    (await expectsParadox(request.targetPath, packageJson)) &&\n    !hasDependency(devDependencies, '@ankhorage/paradox')\n  ) {\n"""
+          new = """  if (\n    packageJson.name !== '@ankhorage/paradox' &&\n    (await expectsParadox(request.targetPath, packageJson)) &&\n    !hasDependency(devDependencies, '@ankhorage/paradox')\n  ) {\n"""
+          if old not in source:
+              raise SystemExit('Expected Paradox dependency rule block not found')
+          analysis.write_text(source.replace(old, new, 1))
+
+          Path('tests/paradoxSelfDependency.test.ts').write_text("""import { mkdtemp, rm, writeFile } from 'node:fs/promises';\nimport { tmpdir } from 'node:os';\nimport { join } from 'node:path';\n\nimport { describe, expect, test } from 'bun:test';\n\nimport { analyzeDoctorTarget } from '../src/analysis.js';\n\ndescribe('Paradox dependency policy', () => {\n  test('does not require @ankhorage/paradox to depend on itself', async () => {\n    const root = await createPublicPackage('@ankhorage/paradox');\n\n    try {\n      const result = await analyzeDoctorTarget({ cwd: root, mode: 'validate' });\n\n      expect(result.diagnostics.some((diagnostic) => diagnostic.ruleId === 'package.dependencies.paradox.required')).toBe(false);\n    } finally {\n      await rm(root, { recursive: true, force: true });\n    }\n  });\n\n  test('still requires Paradox for other packages that own Paradox docs generation', async () => {\n    const root = await createPublicPackage('@fixture/docs');\n\n    try {\n      const result = await analyzeDoctorTarget({ cwd: root, mode: 'validate' });\n\n      expect(result.diagnostics.some((diagnostic) => diagnostic.ruleId === 'package.dependencies.paradox.required')).toBe(true);\n    } finally {\n      await rm(root, { recursive: true, force: true });\n    }\n  });\n});\n\nasync function createPublicPackage(name: string): Promise<string> {\n  const root = await mkdtemp(join(tmpdir(), 'doctor-paradox-self-'));\n  const scripts = {\n    build: 'tsc',\n    typecheck: 'tsc --noEmit',\n    lint: 'eslint .',\n    'lint:fix': 'eslint . --fix',\n    format: 'prettier --write .',\n    'format:check': 'prettier --check .',\n    test: 'bun test',\n    knip: 'knip',\n    docs: 'bunx @ankhorage/paradox',\n    changeset: 'changeset',\n    'changeset:status': 'changeset status',\n    'version-packages': 'changeset version',\n  };\n\n  await writeFile(\n    join(root, 'package.json'),\n    JSON.stringify(\n      {\n        name,\n        version: '1.0.0',\n        description: 'Fixture package.',\n        license: 'MIT',\n        type: 'module',\n        publishConfig: { access: 'public' },\n        repository: { type: 'git', url: 'https://example.com/repo.git' },\n        homepage: 'https://example.com',\n        keywords: ['fixture'],\n        files: ['dist'],\n        exports: { '.': './dist/index.js' },\n        packageManager: 'bun@1.3.13',\n        scripts,\n        devDependencies: {\n          '@ankhorage/devtools': '1.0.0',\n          '@changesets/cli': '2.0.0',\n          '@types/bun': '1.0.0',\n          '@types/node': '1.0.0',\n          typescript: '5.0.0',\n        },\n      },\n      null,\n      2,\n    ),\n  );\n  await writeFile(join(root, 'paradox.config.ts'), 'export default {};\\n');\n\n  return root;\n}\n""")
+
+          Path('.changeset/paradox-self-dependency.md').write_text("""---\n'@ankhorage/doctor': patch\n---\n\nDo not require `@ankhorage/paradox` to declare itself as a development dependency when validating Paradox's own package repository.\n""")
+          PY
+      - run: bun run format
+      - run: bun run lint
+      - run: bun run typecheck
+      - run: bun run test
+      - run: bun run knip
+      - name: Remove temporary workflow and commit
+        run: |
+          rm .github/workflows/agent-fix-paradox-self-dependency.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "fix paradox self-dependency validation"
+          git push
