@@ -1,6 +1,6 @@
 import type { AnkhCommandHandler, AnkhRuntimeCommandProvider } from '@ankhorage/ankh';
 
-import { analyzeDoctorTargetWithCliLayout } from '../cliLayoutAnalysis.js';
+import { analyzeDoctorTargetWithCliLayout } from '../dependencyPolicyAnalysis.js';
 import {
   createProviderCommandDescriptors,
   DOCTOR_COMMANDS,
