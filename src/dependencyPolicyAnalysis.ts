@@ -36,11 +36,7 @@ async function applyDevtoolsDependencyPlacementPolicy(
 
   const packageJsonPath = path.join(result.targetPath, 'package.json');
   const packageJson = await readPackageJson(packageJsonPath);
-  if (
-    packageJson === null ||
-    packageJson.name !== ANKH_PACKAGE_NAME ||
-    !expectsDevtools(packageJson)
-  ) {
+  if (packageJson?.name !== ANKH_PACKAGE_NAME || !expectsDevtools(packageJson)) {
     return result;
   }
 
