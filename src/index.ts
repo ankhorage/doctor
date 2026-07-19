@@ -7,13 +7,15 @@ export type {
   DoctorTargetCheck,
   DoctorTargetMode,
 } from './analysis.js';
-export { analyzeDoctorTarget } from './analysis.js';
+export {
+  analyzeDoctorTarget,
+  analyzeDoctorTargetWithCliLayout,
+} from './dependencyPolicyAnalysis.js';
 export {
   createDoctorRuntimeProvider,
   type CreateDoctorRuntimeProviderOptions,
 } from './cli/index.js';
 export { runCli } from './cli/standalone.js';
-export { analyzeDoctorTargetWithCliLayout } from './cliLayoutAnalysis.js';
 export type { DoctorCommandContext, DoctorCommandRunResult } from './commandContext.js';
 export { createDefaultCommandContext } from './commandContext.js';
 export type {
