@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.3
+
+### Patch Changes
+
+- a6a33a3: Accept `@ankhorage/devtools` as a runtime dependency for `@ankhorage/ankh` while keeping the usual devDependency requirement for other public packages.
+
 ## 0.7.2
 
 ### Patch Changes
