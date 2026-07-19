@@ -235,6 +235,16 @@
               </button>
             </li>
             <li>
+              <button
+                class="nav-button"
+                type="button"
+                data-target="src/dependencyPolicyAnalysis.ts"
+              >
+                src/dependencyPolicyAnalysis.ts
+                <small>9 functions</small>
+              </button>
+            </li>
+            <li>
               <button class="nav-button" type="button" data-target="src/diagnostics.ts">
                 src/diagnostics.ts
                 <small>2 functions</small>
@@ -262,7 +272,7 @@
             <div class="summary">
               <div><strong>28</strong><span class="muted">public exports</span></div>
               <div><strong>0</strong><span class="muted">components</span></div>
-              <div><strong>20</strong><span class="muted">modules</span></div>
+              <div><strong>23</strong><span class="muted">modules</span></div>
               <div><strong>1</strong><span class="muted">entrypoints</span></div>
             </div>
             <h3>Entrypoints</h3>
@@ -296,13 +306,13 @@
             </article>
             <article
               class="item"
-              data-search="src/cli/index.ts src/cliLayoutAnalysis.ts src/commands.ts src/packageMetadata.ts createDoctorRuntimeProvider CreateDoctorRuntimeProviderOptions default"
+              data-search="src/cli/index.ts src/commands.ts src/dependencyPolicyAnalysis.ts src/packageMetadata.ts createDoctorRuntimeProvider CreateDoctorRuntimeProviderOptions default"
             >
               <h3>src/cli/index.ts</h3>
               <p class="muted">Referenced module</p>
               <p>
-                <strong>Dependencies:</strong> <code>src/cliLayoutAnalysis.ts</code>,
-                <code>src/commands.ts</code>, <code>src/packageMetadata.ts</code>
+                <strong>Dependencies:</strong> <code>src/commands.ts</code>,
+                <code>src/dependencyPolicyAnalysis.ts</code>, <code>src/packageMetadata.ts</code>
               </p>
               <p>
                 <strong>Exports:</strong> <code>createDoctorRuntimeProvider</code>,
@@ -311,13 +321,13 @@
             </article>
             <article
               class="item"
-              data-search="src/cli/standalone.ts src/cliLayoutAnalysis.ts src/commandContext.ts src/commands.ts DoctorCliOptions runCli"
+              data-search="src/cli/standalone.ts src/commandContext.ts src/commands.ts src/dependencyPolicyAnalysis.ts DoctorCliOptions runCli"
             >
               <h3>src/cli/standalone.ts</h3>
               <p class="muted">Referenced module</p>
               <p>
-                <strong>Dependencies:</strong> <code>src/cliLayoutAnalysis.ts</code>,
-                <code>src/commandContext.ts</code>, <code>src/commands.ts</code>
+                <strong>Dependencies:</strong> <code>src/commandContext.ts</code>,
+                <code>src/commands.ts</code>, <code>src/dependencyPolicyAnalysis.ts</code>
               </p>
               <p><strong>Exports:</strong> <code>DoctorCliOptions</code>, <code>runCli</code></p>
             </article>
@@ -363,6 +373,21 @@
                 <code>findDoctorCommandByStandaloneName</code>, <code>renderRootHelp</code>,
                 <code>renderUnknownCommand</code>, <code>runDoctorCommand</code>,
                 <code>RunDoctorCommandImpl</code>, <code>RunDoctorCommandOptions</code>
+              </p>
+            </article>
+            <article
+              class="item"
+              data-search="src/dependencyPolicyAnalysis.ts src/analysis.ts src/cliLayoutAnalysis.ts src/diagnostics.ts analyzeDoctorTarget analyzeDoctorTargetWithCliLayout"
+            >
+              <h3>src/dependencyPolicyAnalysis.ts</h3>
+              <p class="muted">Referenced module</p>
+              <p>
+                <strong>Dependencies:</strong> <code>src/analysis.ts</code>,
+                <code>src/cliLayoutAnalysis.ts</code>, <code>src/diagnostics.ts</code>
+              </p>
+              <p>
+                <strong>Exports:</strong> <code>analyzeDoctorTarget</code>,
+                <code>analyzeDoctorTargetWithCliLayout</code>
               </p>
             </article>
             <article
@@ -478,6 +503,18 @@
             </article>
             <article
               class="item"
+              data-search="tests/devtoolsDependencyPlacement.test.ts src/index.ts tests/testSupport.ts"
+            >
+              <h3>tests/devtoolsDependencyPlacement.test.ts</h3>
+              <p class="muted">Referenced module</p>
+              <p>
+                <strong>Dependencies:</strong> <code>src/index.ts</code>,
+                <code>tests/testSupport.ts</code>
+              </p>
+              <p><strong>Exports:</strong> <span class="empty">None</span></p>
+            </article>
+            <article
+              class="item"
               data-search="tests/manifestAnalysis.test.ts src/cliLayoutAnalysis.ts src/manifestAnalysis.ts tests/testSupport.ts"
             >
               <h3>tests/manifestAnalysis.test.ts</h3>
@@ -492,6 +529,12 @@
               <h3>tests/package.test.ts</h3>
               <p class="muted">Referenced module</p>
               <p><strong>Dependencies:</strong> <code>package.json</code></p>
+              <p><strong>Exports:</strong> <span class="empty">None</span></p>
+            </article>
+            <article class="item" data-search="tests/paradoxSelfDependency.test.ts src/analysis.ts">
+              <h3>tests/paradoxSelfDependency.test.ts</h3>
+              <p class="muted">Referenced module</p>
+              <p><strong>Dependencies:</strong> <code>src/analysis.ts</code></p>
               <p><strong>Exports:</strong> <span class="empty">None</span></p>
             </article>
             <article
@@ -535,47 +578,6 @@
 
             <section>
               <h3>src/analysis.ts</h3>
-              <article
-                class="item"
-                id="symbol-analyzedoctortarget"
-                data-search="analyzeDoctorTarget function src/analysis.ts  DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;"
-              >
-                <h4>analyzeDoctorTarget</h4>
-                <p class="muted">function • <code>src/analysis.ts:86:1</code></p>
-
-                <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
-                <div>
-                  <strong>Related symbols:</strong>
-                  <ul class="chips">
-                    <li class="chip">DoctorAnalysisRequest</li>
-                    <li class="chip">DoctorAnalysisResult</li>
-                  </ul>
-                </div>
-                <div>
-                  <h5>Signature</h5>
-                  <pre>
-(request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;</pre>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Parameter</th>
-                        <th>Type</th>
-                        <th>Required</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><code>request</code></td>
-                        <td><code>DoctorAnalysisRequest</code></td>
-                        <td>yes</td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <p><strong>Returns:</strong> <code>Promise&lt;DoctorAnalysisResult&gt;</code></p>
-                </div>
-              </article>
               <article
                 class="item"
                 id="symbol-doctoranalysisrequest"
@@ -1011,50 +1013,6 @@
               </article>
             </section>
             <section>
-              <h3>src/cliLayoutAnalysis.ts</h3>
-              <article
-                class="item"
-                id="symbol-analyzedoctortargetwithclilayout"
-                data-search="analyzeDoctorTargetWithCliLayout function src/cliLayoutAnalysis.ts  DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;"
-              >
-                <h4>analyzeDoctorTargetWithCliLayout</h4>
-                <p class="muted">function • <code>src/cliLayoutAnalysis.ts:63:1</code></p>
-
-                <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
-                <div>
-                  <strong>Related symbols:</strong>
-                  <ul class="chips">
-                    <li class="chip">DoctorAnalysisRequest</li>
-                    <li class="chip">DoctorAnalysisResult</li>
-                  </ul>
-                </div>
-                <div>
-                  <h5>Signature</h5>
-                  <pre>
-(request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;</pre>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Parameter</th>
-                        <th>Type</th>
-                        <th>Required</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><code>request</code></td>
-                        <td><code>DoctorAnalysisRequest</code></td>
-                        <td>yes</td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <p><strong>Returns:</strong> <code>Promise&lt;DoctorAnalysisResult&gt;</code></p>
-                </div>
-              </article>
-            </section>
-            <section>
               <h3>src/commandContext.ts</h3>
               <article
                 class="item"
@@ -1169,6 +1127,91 @@
                     </tr>
                   </tbody>
                 </table>
+              </article>
+            </section>
+            <section>
+              <h3>src/dependencyPolicyAnalysis.ts</h3>
+              <article
+                class="item"
+                id="symbol-analyzedoctortarget"
+                data-search="analyzeDoctorTarget function src/dependencyPolicyAnalysis.ts  DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;"
+              >
+                <h4>analyzeDoctorTarget</h4>
+                <p class="muted">function • <code>src/dependencyPolicyAnalysis.ts:16:1</code></p>
+
+                <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
+                <div>
+                  <strong>Related symbols:</strong>
+                  <ul class="chips">
+                    <li class="chip">DoctorAnalysisRequest</li>
+                    <li class="chip">DoctorAnalysisResult</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5>Signature</h5>
+                  <pre>
+(request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;</pre>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>request</code></td>
+                        <td><code>DoctorAnalysisRequest</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p><strong>Returns:</strong> <code>Promise&lt;DoctorAnalysisResult&gt;</code></p>
+                </div>
+              </article>
+              <article
+                class="item"
+                id="symbol-analyzedoctortargetwithclilayout"
+                data-search="analyzeDoctorTargetWithCliLayout function src/dependencyPolicyAnalysis.ts  DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;"
+              >
+                <h4>analyzeDoctorTargetWithCliLayout</h4>
+                <p class="muted">function • <code>src/dependencyPolicyAnalysis.ts:22:1</code></p>
+
+                <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
+                <div>
+                  <strong>Related symbols:</strong>
+                  <ul class="chips">
+                    <li class="chip">DoctorAnalysisRequest</li>
+                    <li class="chip">DoctorAnalysisResult</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5>Signature</h5>
+                  <pre>
+(request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;</pre>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>request</code></td>
+                        <td><code>DoctorAnalysisRequest</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p><strong>Returns:</strong> <code>Promise&lt;DoctorAnalysisResult&gt;</code></p>
+                </div>
               </article>
             </section>
             <section>
@@ -1504,13 +1547,14 @@
                 -.-&gt; module_src_analysis_ts module_src_analysis_ts --&gt;
                 module_src_diagnostics_ts module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_src_cli_index_ts module_src_cli_index_ts
-                --&gt; module_src_cliLayoutAnalysis_ts module_src_cli_index_ts --&gt;
-                module_src_commands_ts module_src_cli_index_ts --&gt; module_src_packageMetadata_ts
+                --&gt; module_src_commands_ts module_src_cli_index_ts --&gt;
+                module_src_dependencyPolicyAnalysis_ts module_src_cli_index_ts --&gt;
+                module_src_packageMetadata_ts
                 module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_src_cli_standalone_ts
-                module_src_cli_standalone_ts --&gt; module_src_cliLayoutAnalysis_ts
                 module_src_cli_standalone_ts --&gt; module_src_commandContext_ts
                 module_src_cli_standalone_ts --&gt; module_src_commands_ts
+                module_src_cli_standalone_ts --&gt; module_src_dependencyPolicyAnalysis_ts
                 module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_src_cliLayoutAnalysis_ts
                 module_src_cliLayoutAnalysis_ts --&gt; module_src_analysis_ts
@@ -1525,6 +1569,11 @@
                 --&gt; module_src_commandContext_ts module_src_commands_ts --&gt;
                 module_src_diagnostics_ts module_src_commands_ts --&gt;
                 module_src_packageMetadata_ts
+                module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
+                package__ankhorage_doctor -.-&gt; module_src_dependencyPolicyAnalysis_ts
+                module_src_dependencyPolicyAnalysis_ts --&gt; module_src_analysis_ts
+                module_src_dependencyPolicyAnalysis_ts --&gt; module_src_cliLayoutAnalysis_ts
+                module_src_dependencyPolicyAnalysis_ts --&gt; module_src_diagnostics_ts
                 module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;] package__ankhorage_doctor
                 -.-&gt; module_src_diagnostics_ts module_src_index_ts[&quot;src/index.ts&quot;]
                 module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
@@ -1550,6 +1599,10 @@
                 package__ankhorage_doctor -.-&gt; module_tests_commands_test_ts
                 module_tests_commands_test_ts --&gt; module_src_commands_ts
                 module_tests_commands_test_ts --&gt; module_tests_testSupport_ts
+                module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
+                package__ankhorage_doctor -.-&gt; module_tests_devtoolsDependencyPlacement_test_ts
+                module_tests_devtoolsDependencyPlacement_test_ts --&gt; module_src_index_ts
+                module_tests_devtoolsDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
                 module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_tests_manifestAnalysis_test_ts
                 module_tests_manifestAnalysis_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1558,6 +1611,9 @@
                 module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_tests_package_test_ts
                 module_tests_package_test_ts --&gt; module_package_json
+                module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
+                package__ankhorage_doctor -.-&gt; module_tests_paradoxSelfDependency_test_ts
+                module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
                 module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_tests_secretManifestAnalysis_test_ts
                 module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
@@ -1583,14 +1639,14 @@ graph TD
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_cli_index_ts
-  module_src_cli_index_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_src_cli_index_ts --&gt; module_src_commands_ts
+  module_src_cli_index_ts --&gt; module_src_dependencyPolicyAnalysis_ts
   module_src_cli_index_ts --&gt; module_src_packageMetadata_ts
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_cli_standalone_ts
-  module_src_cli_standalone_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_src_cli_standalone_ts --&gt; module_src_commandContext_ts
   module_src_cli_standalone_ts --&gt; module_src_commands_ts
+  module_src_cli_standalone_ts --&gt; module_src_dependencyPolicyAnalysis_ts
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_cliLayoutAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_analysis_ts
@@ -1606,6 +1662,11 @@ graph TD
   module_src_commands_ts --&gt; module_src_commandContext_ts
   module_src_commands_ts --&gt; module_src_diagnostics_ts
   module_src_commands_ts --&gt; module_src_packageMetadata_ts
+  module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_dependencyPolicyAnalysis_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_analysis_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_diagnostics_ts
   module_src_index_ts[&quot;src/index.ts&quot;]
@@ -1633,6 +1694,10 @@ graph TD
   package__ankhorage_doctor -.-&gt; module_tests_commands_test_ts
   module_tests_commands_test_ts --&gt; module_src_commands_ts
   module_tests_commands_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_devtoolsDependencyPlacement_test_ts
+  module_tests_devtoolsDependencyPlacement_test_ts --&gt; module_src_index_ts
+  module_tests_devtoolsDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
   module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_manifestAnalysis_test_ts
   module_tests_manifestAnalysis_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1641,6 +1706,9 @@ graph TD
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_package_test_ts
   module_tests_package_test_ts --&gt; module_package_json
+  module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_paradoxSelfDependency_test_ts
+  module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_secretManifestAnalysis_test_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
@@ -1668,6 +1736,7 @@ graph TD
                 module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
                 module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
                 module_src_commands_ts[&quot;src/commands.ts&quot;]
+                module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
                 module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
                 module_src_index_ts[&quot;src/index.ts&quot;]
                 module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
@@ -1676,40 +1745,49 @@ graph TD
                 module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
                 module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
                 module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
+                module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
                 module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
                 module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
+                module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
                 module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
                 module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
                 module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;] module_src_analysis_ts
                 --&gt; module_src_diagnostics_ts module_src_cli_index_ts --&gt;
-                module_src_cliLayoutAnalysis_ts module_src_cli_index_ts --&gt;
-                module_src_commands_ts module_src_cli_index_ts --&gt; module_src_packageMetadata_ts
-                module_src_cli_standalone_ts --&gt; module_src_cliLayoutAnalysis_ts
-                module_src_cli_standalone_ts --&gt; module_src_commandContext_ts
-                module_src_cli_standalone_ts --&gt; module_src_commands_ts
-                module_src_cliLayoutAnalysis_ts --&gt; module_src_analysis_ts
-                module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
-                module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
-                module_src_commandContext_ts --&gt; module_package_json module_src_commands_ts
-                --&gt; module_src_analysis_ts module_src_commands_ts --&gt;
-                module_src_cliLayoutAnalysis_ts module_src_commands_ts --&gt;
-                module_src_commandContext_ts module_src_commands_ts --&gt; module_src_diagnostics_ts
-                module_src_commands_ts --&gt; module_src_packageMetadata_ts
-                module_src_manifestAnalysis_ts --&gt; module_src_analysis_ts
-                module_src_manifestAnalysis_ts --&gt; module_src_diagnostics_ts
-                module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
-                module_src_packageMetadata_ts --&gt; module_package_json
-                module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
-                module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
-                module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
-                module_tests_cli_test_ts --&gt; module_src_cli_index_ts module_tests_cli_test_ts
-                --&gt; module_src_cli_standalone_ts module_tests_cli_test_ts --&gt;
-                module_tests_testSupport_ts module_tests_commands_test_ts --&gt;
-                module_src_commands_ts module_tests_commands_test_ts --&gt;
-                module_tests_testSupport_ts module_tests_manifestAnalysis_test_ts --&gt;
-                module_src_cliLayoutAnalysis_ts module_tests_manifestAnalysis_test_ts --&gt;
-                module_src_manifestAnalysis_ts module_tests_manifestAnalysis_test_ts --&gt;
-                module_tests_testSupport_ts module_tests_package_test_ts --&gt; module_package_json
+                module_src_commands_ts module_src_cli_index_ts --&gt;
+                module_src_dependencyPolicyAnalysis_ts module_src_cli_index_ts --&gt;
+                module_src_packageMetadata_ts module_src_cli_standalone_ts --&gt;
+                module_src_commandContext_ts module_src_cli_standalone_ts --&gt;
+                module_src_commands_ts module_src_cli_standalone_ts --&gt;
+                module_src_dependencyPolicyAnalysis_ts module_src_cliLayoutAnalysis_ts --&gt;
+                module_src_analysis_ts module_src_cliLayoutAnalysis_ts --&gt;
+                module_src_diagnostics_ts module_src_cliLayoutAnalysis_ts --&gt;
+                module_src_manifestAnalysis_ts module_src_commandContext_ts --&gt;
+                module_package_json module_src_commands_ts --&gt; module_src_analysis_ts
+                module_src_commands_ts --&gt; module_src_cliLayoutAnalysis_ts module_src_commands_ts
+                --&gt; module_src_commandContext_ts module_src_commands_ts --&gt;
+                module_src_diagnostics_ts module_src_commands_ts --&gt;
+                module_src_packageMetadata_ts module_src_dependencyPolicyAnalysis_ts --&gt;
+                module_src_analysis_ts module_src_dependencyPolicyAnalysis_ts --&gt;
+                module_src_cliLayoutAnalysis_ts module_src_dependencyPolicyAnalysis_ts --&gt;
+                module_src_diagnostics_ts module_src_manifestAnalysis_ts --&gt;
+                module_src_analysis_ts module_src_manifestAnalysis_ts --&gt;
+                module_src_diagnostics_ts module_src_manifestAnalysis_ts --&gt;
+                module_src_secretManifestAnalysis_ts module_src_packageMetadata_ts --&gt;
+                module_package_json module_src_secretManifestAnalysis_ts --&gt;
+                module_src_diagnostics_ts module_tests_ankh_provider_test_ts --&gt;
+                module_src_cli_index_ts module_tests_ankh_provider_test_ts --&gt;
+                module_src_commands_ts module_tests_cli_test_ts --&gt; module_src_cli_index_ts
+                module_tests_cli_test_ts --&gt; module_src_cli_standalone_ts
+                module_tests_cli_test_ts --&gt; module_tests_testSupport_ts
+                module_tests_commands_test_ts --&gt; module_src_commands_ts
+                module_tests_commands_test_ts --&gt; module_tests_testSupport_ts
+                module_tests_devtoolsDependencyPlacement_test_ts --&gt; module_src_index_ts
+                module_tests_devtoolsDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
+                module_tests_manifestAnalysis_test_ts --&gt; module_src_cliLayoutAnalysis_ts
+                module_tests_manifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
+                module_tests_manifestAnalysis_test_ts --&gt; module_tests_testSupport_ts
+                module_tests_package_test_ts --&gt; module_package_json
+                module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
                 module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
                 module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
                 module_tests_targetArchitecture_test_ts --&gt; module_tests_testSupport_ts
@@ -1726,6 +1804,7 @@ graph LR
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   module_src_commands_ts[&quot;src/commands.ts&quot;]
+  module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
   module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
   module_src_index_ts[&quot;src/index.ts&quot;]
   module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
@@ -1734,18 +1813,20 @@ graph LR
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
   module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
+  module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
   module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
+  module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
-  module_src_cli_index_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_src_cli_index_ts --&gt; module_src_commands_ts
+  module_src_cli_index_ts --&gt; module_src_dependencyPolicyAnalysis_ts
   module_src_cli_index_ts --&gt; module_src_packageMetadata_ts
-  module_src_cli_standalone_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_src_cli_standalone_ts --&gt; module_src_commandContext_ts
   module_src_cli_standalone_ts --&gt; module_src_commands_ts
+  module_src_cli_standalone_ts --&gt; module_src_dependencyPolicyAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_analysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
@@ -1755,6 +1836,9 @@ graph LR
   module_src_commands_ts --&gt; module_src_commandContext_ts
   module_src_commands_ts --&gt; module_src_diagnostics_ts
   module_src_commands_ts --&gt; module_src_packageMetadata_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_analysis_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_manifestAnalysis_ts --&gt; module_src_analysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
@@ -1767,10 +1851,13 @@ graph LR
   module_tests_cli_test_ts --&gt; module_tests_testSupport_ts
   module_tests_commands_test_ts --&gt; module_src_commands_ts
   module_tests_commands_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_devtoolsDependencyPlacement_test_ts --&gt; module_src_index_ts
+  module_tests_devtoolsDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
   module_tests_manifestAnalysis_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_manifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
   module_tests_manifestAnalysis_test_ts --&gt; module_tests_testSupport_ts
   module_tests_package_test_ts --&gt; module_package_json
+  module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
   module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_targetArchitecture_test_ts --&gt; module_tests_testSupport_ts
@@ -1789,6 +1876,7 @@ graph LR
                 module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
                 module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
                 module_src_commands_ts[&quot;src/commands.ts&quot;]
+                module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
                 module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
                 module_src_index_ts[&quot;src/index.ts&quot;]
                 module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
@@ -1797,8 +1885,10 @@ graph LR
                 module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
                 module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
                 module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
+                module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
                 module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
                 module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
+                module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
                 module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
                 module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
                 module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
@@ -1812,14 +1902,15 @@ graph LR
                 module_src_manifestAnalysis_ts --&gt; export_analyzeAppManifestTarget
                 export_analyzeAppManifestTarget -.-&gt; export_DoctorAnalysisRequest
                 export_analyzeAppManifestTarget -.-&gt; export_DoctorAnalysisResult
-                export_analyzeDoctorTarget[&quot;analyzeDoctorTarget&quot;] module_src_analysis_ts
-                --&gt; export_analyzeDoctorTarget export_analyzeDoctorTarget -.-&gt;
-                export_DoctorAnalysisRequest export_analyzeDoctorTarget -.-&gt;
-                export_DoctorAnalysisResult
+                export_analyzeDoctorTarget[&quot;analyzeDoctorTarget&quot;]
+                module_src_dependencyPolicyAnalysis_ts --&gt; export_analyzeDoctorTarget
+                export_analyzeDoctorTarget -.-&gt; export_DoctorAnalysisRequest
+                export_analyzeDoctorTarget -.-&gt; export_DoctorAnalysisResult
                 export_analyzeDoctorTargetWithCliLayout[&quot;analyzeDoctorTargetWithCliLayout&quot;]
-                module_src_cliLayoutAnalysis_ts --&gt; export_analyzeDoctorTargetWithCliLayout
-                export_analyzeDoctorTargetWithCliLayout -.-&gt; export_DoctorAnalysisRequest
-                export_analyzeDoctorTargetWithCliLayout -.-&gt; export_DoctorAnalysisResult
+                module_src_dependencyPolicyAnalysis_ts --&gt;
+                export_analyzeDoctorTargetWithCliLayout export_analyzeDoctorTargetWithCliLayout
+                -.-&gt; export_DoctorAnalysisRequest export_analyzeDoctorTargetWithCliLayout -.-&gt;
+                export_DoctorAnalysisResult
                 export_createDefaultCommandContext[&quot;createDefaultCommandContext&quot;]
                 module_src_commandContext_ts --&gt; export_createDefaultCommandContext
                 export_createDefaultCommandContext -.-&gt; export_DoctorCommandContext
@@ -1891,6 +1982,7 @@ graph LR
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   module_src_commands_ts[&quot;src/commands.ts&quot;]
+  module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
   module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
   module_src_index_ts[&quot;src/index.ts&quot;]
   module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
@@ -1899,8 +1991,10 @@ graph LR
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
   module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
+  module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
   module_tests_manifestAnalysis_test_ts[&quot;tests/manifestAnalysis.test.ts&quot;]
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
+  module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
@@ -1915,11 +2009,11 @@ graph LR
   export_analyzeAppManifestTarget -.-&gt; export_DoctorAnalysisRequest
   export_analyzeAppManifestTarget -.-&gt; export_DoctorAnalysisResult
   export_analyzeDoctorTarget[&quot;analyzeDoctorTarget&quot;]
-  module_src_analysis_ts --&gt; export_analyzeDoctorTarget
+  module_src_dependencyPolicyAnalysis_ts --&gt; export_analyzeDoctorTarget
   export_analyzeDoctorTarget -.-&gt; export_DoctorAnalysisRequest
   export_analyzeDoctorTarget -.-&gt; export_DoctorAnalysisResult
   export_analyzeDoctorTargetWithCliLayout[&quot;analyzeDoctorTargetWithCliLayout&quot;]
-  module_src_cliLayoutAnalysis_ts --&gt; export_analyzeDoctorTargetWithCliLayout
+  module_src_dependencyPolicyAnalysis_ts --&gt; export_analyzeDoctorTargetWithCliLayout
   export_analyzeDoctorTargetWithCliLayout -.-&gt; export_DoctorAnalysisRequest
   export_analyzeDoctorTargetWithCliLayout -.-&gt; export_DoctorAnalysisResult
   export_createDefaultCommandContext[&quot;createDefaultCommandContext&quot;]
@@ -2111,152 +2205,152 @@ sequenceDiagram
             </article>
             <article class="item" data-search="validateAnkhMetadataAndProvider src/analysis.ts ">
               <h3>validateAnkhMetadataAndProvider</h3>
-              <p class="muted"><code>src/analysis.ts:657:1</code></p>
+              <p class="muted"><code>src/analysis.ts:658:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="inspectProviderSource src/analysis.ts ">
               <h3>inspectProviderSource</h3>
-              <p class="muted"><code>src/analysis.ts:793:1</code></p>
+              <p class="muted"><code>src/analysis.ts:794:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="resolveProviderSourcePath src/analysis.ts ">
               <h3>resolveProviderSourcePath</h3>
-              <p class="muted"><code>src/analysis.ts:882:1</code></p>
+              <p class="muted"><code>src/analysis.ts:883:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="findRepoMarkers src/analysis.ts ">
               <h3>findRepoMarkers</h3>
-              <p class="muted"><code>src/analysis.ts:910:1</code></p>
+              <p class="muted"><code>src/analysis.ts:911:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="readPackageJson src/analysis.ts ">
               <h3>readPackageJson</h3>
-              <p class="muted"><code>src/analysis.ts:920:1</code></p>
+              <p class="muted"><code>src/analysis.ts:921:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="detectProfile src/analysis.ts ">
               <h3>detectProfile</h3>
-              <p class="muted"><code>src/analysis.ts:962:1</code></p>
+              <p class="muted"><code>src/analysis.ts:963:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isProviderPackage src/analysis.ts ">
               <h3>isProviderPackage</h3>
-              <p class="muted"><code>src/analysis.ts:983:1</code></p>
+              <p class="muted"><code>src/analysis.ts:984:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="maybeRequirePath src/analysis.ts ">
               <h3>maybeRequirePath</h3>
-              <p class="muted"><code>src/analysis.ts:993:1</code></p>
+              <p class="muted"><code>src/analysis.ts:994:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="requireNonEmptyStringField src/analysis.ts ">
               <h3>requireNonEmptyStringField</h3>
-              <p class="muted"><code>src/analysis.ts:1031:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1032:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="requireRecordField src/analysis.ts ">
               <h3>requireRecordField</h3>
-              <p class="muted"><code>src/analysis.ts:1055:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1056:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="requireStringArrayField src/analysis.ts ">
               <h3>requireStringArrayField</h3>
-              <p class="muted"><code>src/analysis.ts:1079:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1080:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="expectsParadox src/analysis.ts ">
               <h3>expectsParadox</h3>
-              <p class="muted"><code>src/analysis.ts:1103:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1104:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="expectsDevtools src/analysis.ts ">
               <h3>expectsDevtools</h3>
-              <p class="muted"><code>src/analysis.ts:1122:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1123:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="hasDependency src/analysis.ts ">
               <h3>hasDependency</h3>
-              <p class="muted"><code>src/analysis.ts:1137:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1138:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="validateAnkhMetadataShape src/analysis.ts ">
               <h3>validateAnkhMetadataShape</h3>
-              <p class="muted"><code>src/analysis.ts:1144:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1145:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="mapScriptRule src/analysis.ts ">
               <h3>mapScriptRule</h3>
-              <p class="muted"><code>src/analysis.ts:1178:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1179:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createEarlyResult src/analysis.ts ">
               <h3>createEarlyResult</h3>
-              <p class="muted"><code>src/analysis.ts:1207:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1208:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createDiagnostic src/analysis.ts ">
               <h3>createDiagnostic</h3>
-              <p class="muted"><code>src/analysis.ts:1220:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1221:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createPlannedChange src/analysis.ts ">
               <h3>createPlannedChange</h3>
-              <p class="muted"><code>src/analysis.ts:1224:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1225:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createInvalidPackageJsonMessage src/analysis.ts ">
               <h3>createInvalidPackageJsonMessage</h3>
-              <p class="muted"><code>src/analysis.ts:1231:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1232:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="pathExists src/analysis.ts ">
               <h3>pathExists</h3>
-              <p class="muted"><code>src/analysis.ts:1236:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1237:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="statOrNull src/analysis.ts ">
               <h3>statOrNull</h3>
-              <p class="muted"><code>src/analysis.ts:1240:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1241:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isMissingPathError src/analysis.ts ">
               <h3>isMissingPathError</h3>
-              <p class="muted"><code>src/analysis.ts:1252:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1253:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isNonEmptyString src/analysis.ts ">
               <h3>isNonEmptyString</h3>
-              <p class="muted"><code>src/analysis.ts:1261:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1262:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isPackageRelativeProviderPath src/analysis.ts ">
               <h3>isPackageRelativeProviderPath</h3>
-              <p class="muted"><code>src/analysis.ts:1265:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1266:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isRecord src/analysis.ts ">
               <h3>isRecord</h3>
-              <p class="muted"><code>src/analysis.ts:1269:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1270:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isStringTuple src/analysis.ts ">
               <h3>isStringTuple</h3>
-              <p class="muted"><code>src/analysis.ts:1273:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1274:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="readStringArray src/analysis.ts ">
               <h3>readStringArray</h3>
-              <p class="muted"><code>src/analysis.ts:1277:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1278:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="sameStringSet src/analysis.ts ">
               <h3>sameStringSet</h3>
-              <p class="muted"><code>src/analysis.ts:1281:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1282:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="uniqueSorted src/analysis.ts ">
               <h3>uniqueSorted</h3>
-              <p class="muted"><code>src/analysis.ts:1289:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1290:1</code></p>
               <p class="empty">No description available.</p>
             </article>
           </section>
@@ -2514,6 +2608,73 @@ sequenceDiagram
             <article class="item" data-search="isHelpToken src/commands.ts ">
               <h3>isHelpToken</h3>
               <p class="muted"><code>src/commands.ts:328:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+          </section>
+        </section>
+        <section
+          id="view-src-dependencypolicyanalysis-ts"
+          class="view"
+          data-view="src/dependencyPolicyAnalysis.ts"
+          hidden
+        >
+          <section class="panel">
+            <h2>src/dependencyPolicyAnalysis.ts</h2>
+            <article
+              class="item"
+              data-search="analyzeDoctorTarget src/dependencyPolicyAnalysis.ts "
+            >
+              <h3>analyzeDoctorTarget</h3>
+              <p class="muted"><code>src/dependencyPolicyAnalysis.ts:16:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article
+              class="item"
+              data-search="analyzeDoctorTargetWithCliLayout src/dependencyPolicyAnalysis.ts "
+            >
+              <h3>analyzeDoctorTargetWithCliLayout</h3>
+              <p class="muted"><code>src/dependencyPolicyAnalysis.ts:22:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article
+              class="item"
+              data-search="applyDevtoolsDependencyPlacementPolicy src/dependencyPolicyAnalysis.ts "
+            >
+              <h3>applyDevtoolsDependencyPlacementPolicy</h3>
+              <p class="muted"><code>src/dependencyPolicyAnalysis.ts:30:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article class="item" data-search="readPackageJson src/dependencyPolicyAnalysis.ts ">
+              <h3>readPackageJson</h3>
+              <p class="muted"><code>src/dependencyPolicyAnalysis.ts:62:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article
+              class="item"
+              data-search="createMissingRuntimeDevtoolsDiagnostic src/dependencyPolicyAnalysis.ts "
+            >
+              <h3>createMissingRuntimeDevtoolsDiagnostic</h3>
+              <p class="muted"><code>src/dependencyPolicyAnalysis.ts:71:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article class="item" data-search="expectsDevtools src/dependencyPolicyAnalysis.ts ">
+              <h3>expectsDevtools</h3>
+              <p class="muted"><code>src/dependencyPolicyAnalysis.ts:86:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article class="item" data-search="hasDependency src/dependencyPolicyAnalysis.ts ">
+              <h3>hasDependency</h3>
+              <p class="muted"><code>src/dependencyPolicyAnalysis.ts:101:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article class="item" data-search="isNonEmptyString src/dependencyPolicyAnalysis.ts ">
+              <h3>isNonEmptyString</h3>
+              <p class="muted"><code>src/dependencyPolicyAnalysis.ts:108:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
+            <article class="item" data-search="isRecord src/dependencyPolicyAnalysis.ts ">
+              <h3>isRecord</h3>
+              <p class="muted"><code>src/dependencyPolicyAnalysis.ts:112:1</code></p>
               <p class="empty">No description available.</p>
             </article>
           </section>

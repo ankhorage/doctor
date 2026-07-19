@@ -107,10 +107,10 @@
     "isReadme": false,
     "examples": [],
     "kind": "function",
-    "modulePath": "src/analysis.ts",
+    "modulePath": "src/dependencyPolicyAnalysis.ts",
     "sourceLocation": {
-      "filePath": "src/analysis.ts",
-      "line": 86,
+      "filePath": "src/dependencyPolicyAnalysis.ts",
+      "line": 16,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -139,10 +139,10 @@
     "isReadme": false,
     "examples": [],
     "kind": "function",
-    "modulePath": "src/cliLayoutAnalysis.ts",
+    "modulePath": "src/dependencyPolicyAnalysis.ts",
     "sourceLocation": {
-      "filePath": "src/cliLayoutAnalysis.ts",
-      "line": 63,
+      "filePath": "src/dependencyPolicyAnalysis.ts",
+      "line": 22,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],

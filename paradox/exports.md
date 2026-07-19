@@ -40,8 +40,8 @@ Source: `src/manifestAnalysis.ts:40:1`
 ## analyzeDoctorTarget
 
 Kind: `function`
-Module: `src/analysis.ts`
-Source: `src/analysis.ts:86:1`
+Module: `src/dependencyPolicyAnalysis.ts`
+Source: `src/dependencyPolicyAnalysis.ts:16:1`
 
 ### Signatures
 
@@ -52,8 +52,8 @@ Source: `src/analysis.ts:86:1`
 ## analyzeDoctorTargetWithCliLayout
 
 Kind: `function`
-Module: `src/cliLayoutAnalysis.ts`
-Source: `src/cliLayoutAnalysis.ts:63:1`
+Module: `src/dependencyPolicyAnalysis.ts`
+Source: `src/dependencyPolicyAnalysis.ts:22:1`
 
 ### Signatures
 
