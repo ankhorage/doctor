@@ -1,9 +1,9 @@
 name: Apply Ankh devtools dependency fix
 
 on:
-  push:
+  pull_request:
     branches:
-      - fix/accept-ankh-runtime-devtools-dependency
+      - main
 
 permissions:
   contents: write
