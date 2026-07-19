@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 
-import { analyzeDoctorTarget } from '../src/analysis.js';
+import { analyzeDoctorTarget } from '../src/index.js';
 import { createDoctorFixture } from './testSupport.js';
 
 describe('devtools dependency placement policy', () => {
