@@ -1,11 +1,18 @@
 import { promises as fs } from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
-
-import { bunRuntimePolicy } from '@ankhorage/devtools/policy';
+import { pathToFileURL } from 'node:url';
 
 import type { DoctorAnalysisResult } from './analysis.js';
 import type { DoctorDiagnostic, DoctorRuleId } from './diagnostics.js';
 
+interface BunRuntimePolicySnapshot {
+  readonly packageManager: string;
+  readonly typesRange: string;
+  readonly version: string;
+}
+
+const DEVTOOLS_POLICY_SPECIFIER = '@ankhorage/devtools/policy';
 const REPAIR_HINT = 'Run "ankh devtools sync" to repair the managed Bun state.';
 const BUN_VERSION_PATTERN = /^\s*bun-version:\s*['"]?([^'"\s#]+)['"]?\s*(?:#.*)?$/mu;
 const WORKFLOWS = [
@@ -26,36 +33,50 @@ export async function applyBunRuntimePolicy(
     return result;
   }
 
+  const policy = await loadTargetBunRuntimePolicy(result.targetPath);
   const packageJsonPath = path.join(result.targetPath, 'package.json');
   const packageJson = await readPackageJson(packageJsonPath);
-  if (packageJson === null) {
+  if (policy === null || packageJson === null) {
     return result;
   }
 
   const diagnostics = [
     ...result.diagnostics,
-    ...analyzePackageBunPolicy(packageJson, packageJsonPath, result),
-    ...(await analyzeWorkflowBunPolicy(result)),
+    ...analyzePackageBunPolicy(packageJson, packageJsonPath, result, policy),
+    ...(await analyzeWorkflowBunPolicy(result, policy)),
   ];
 
-  return {
-    ...result,
-    diagnostics,
-    fixPlan: result.fixPlan === null ? null : { ...result.fixPlan, diagnostics },
-  };
+  return withDiagnostics(result, diagnostics);
+}
+
+async function loadTargetBunRuntimePolicy(
+  targetPath: string,
+): Promise<BunRuntimePolicySnapshot | null> {
+  const requireFromTarget = createRequire(path.join(targetPath, 'package.json'));
+  try {
+    const modulePath = requireFromTarget.resolve(DEVTOOLS_POLICY_SPECIFIER);
+    const importedModule = (await import(pathToFileURL(modulePath).href)) as unknown;
+    return parseBunRuntimePolicy(importedModule);
+  } catch (error) {
+    if (isUnavailablePolicyError(error)) {
+      return null;
+    }
+    throw error;
+  }
 }
 
 function analyzePackageBunPolicy(
   packageJson: Record<string, unknown>,
   packageJsonPath: string,
   result: DoctorAnalysisResult,
+  policy: BunRuntimePolicySnapshot,
 ): DoctorDiagnostic[] {
   const diagnostics: DoctorDiagnostic[] = [];
-  const packageManager = packageJson.packageManager;
+  const { packageManager } = packageJson;
   if (isNonEmptyString(packageManager) && packageManager.startsWith('bun@')) {
     pushMismatch(diagnostics, {
       actual: packageManager,
-      expected: bunRuntimePolicy.packageManager,
+      expected: policy.packageManager,
       location: 'package.json#packageManager',
       path: packageJsonPath,
       profile: result.profile,
@@ -63,12 +84,14 @@ function analyzePackageBunPolicy(
     });
   }
 
-  const devDependencies = isRecord(packageJson.devDependencies) ? packageJson.devDependencies : null;
+  const devDependencies = isRecord(packageJson.devDependencies)
+    ? packageJson.devDependencies
+    : null;
   const bunTypes = devDependencies?.['@types/bun'];
   if (isNonEmptyString(bunTypes)) {
     pushMismatch(diagnostics, {
       actual: bunTypes,
-      expected: bunRuntimePolicy.typesRange,
+      expected: policy.typesRange,
       location: 'package.json#devDependencies.@types/bun',
       path: packageJsonPath,
       profile: result.profile,
@@ -81,50 +104,39 @@ function analyzePackageBunPolicy(
 
 async function analyzeWorkflowBunPolicy(
   result: DoctorAnalysisResult,
+  policy: BunRuntimePolicySnapshot,
 ): Promise<DoctorDiagnostic[]> {
-  return (
-    await Promise.all(
-      WORKFLOWS.map(async (workflow) => await analyzeWorkflow(result, workflow)),
-    )
-  ).flat();
+  const diagnostics = await Promise.all(
+    WORKFLOWS.map(async (workflow) => await analyzeWorkflow(result, workflow, policy)),
+  );
+  return diagnostics.flat();
 }
 
 async function analyzeWorkflow(
   result: DoctorAnalysisResult,
   workflow: (typeof WORKFLOWS)[number],
+  policy: BunRuntimePolicySnapshot,
 ): Promise<DoctorDiagnostic[]> {
   const workflowPath = path.join(result.targetPath, workflow.relativePath);
   const contents = await readTextOrNull(workflowPath);
   if (contents === null) {
     return [
-      createWorkflowDiagnostic(
-        result,
-        workflow.ruleId,
-        workflowPath,
-        `Managed workflow is missing: ${workflow.relativePath}.`,
-        'missing-path',
-      ),
+      createWorkflowDiagnostic(result, workflow, policy, workflowPath, 'missing-path'),
     ];
   }
 
-  const match = contents.match(BUN_VERSION_PATTERN);
+  const match = BUN_VERSION_PATTERN.exec(contents);
   const actual = match?.[1];
   if (!isNonEmptyString(actual)) {
     return [
-      createWorkflowDiagnostic(
-        result,
-        workflow.ruleId,
-        workflowPath,
-        `${workflow.relativePath} does not define bun-version.`,
-        'field-missing',
-      ),
+      createWorkflowDiagnostic(result, workflow, policy, workflowPath, 'field-missing'),
     ];
   }
 
   const diagnostics: DoctorDiagnostic[] = [];
   pushMismatch(diagnostics, {
     actual,
-    expected: bunRuntimePolicy.version,
+    expected: policy.version,
     location: `${workflow.relativePath}#bun-version`,
     path: workflowPath,
     profile: result.profile,
@@ -135,17 +147,21 @@ async function analyzeWorkflow(
 
 function createWorkflowDiagnostic(
   result: DoctorAnalysisResult,
-  ruleId: DoctorRuleId,
+  workflow: (typeof WORKFLOWS)[number],
+  policy: BunRuntimePolicySnapshot,
   workflowPath: string,
-  detail: string,
   code: DoctorDiagnostic['code'],
 ): DoctorDiagnostic {
+  const detail =
+    code === 'missing-path'
+      ? `Managed workflow is missing: ${workflow.relativePath}.`
+      : `${workflow.relativePath} does not define bun-version.`;
   return {
     code,
-    message: `${detail} Expected Bun ${bunRuntimePolicy.version}. ${REPAIR_HINT}`,
+    message: `${detail} Expected Bun ${policy.version}. ${REPAIR_HINT}`,
     path: workflowPath,
     profile: result.profile,
-    ruleId,
+    ruleId: workflow.ruleId,
     severity: 'error',
   };
 }
@@ -174,6 +190,27 @@ function pushMismatch(
   });
 }
 
+function parseBunRuntimePolicy(importedModule: unknown): BunRuntimePolicySnapshot | null {
+  if (!isRecord(importedModule) || !isRecord(importedModule.bunRuntimePolicy)) {
+    return null;
+  }
+  const { packageManager, typesRange, version } = importedModule.bunRuntimePolicy;
+  return isNonEmptyString(packageManager) && isNonEmptyString(typesRange) && isNonEmptyString(version)
+    ? { packageManager, typesRange, version }
+    : null;
+}
+
+function withDiagnostics(
+  result: DoctorAnalysisResult,
+  diagnostics: readonly DoctorDiagnostic[],
+): DoctorAnalysisResult {
+  return {
+    ...result,
+    diagnostics,
+    fixPlan: result.fixPlan === null ? null : { ...result.fixPlan, diagnostics },
+  };
+}
+
 async function readPackageJson(packageJsonPath: string): Promise<Record<string, unknown> | null> {
   try {
     const parsed = JSON.parse(await fs.readFile(packageJsonPath, 'utf8')) as unknown;
@@ -192,6 +229,15 @@ async function readTextOrNull(filePath: string): Promise<string | null> {
     }
     throw error;
   }
+}
+
+function isUnavailablePolicyError(error: unknown): boolean {
+  return (
+    isNodeError(error) &&
+    (error.code === 'MODULE_NOT_FOUND' ||
+      error.code === 'ERR_MODULE_NOT_FOUND' ||
+      error.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED')
+  );
 }
 
 function isNonEmptyString(value: unknown): value is string {
