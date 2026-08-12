@@ -58,7 +58,7 @@ test('reports missing managed workflow Bun state as repairable drift', async () 
   const diagnostics = result.diagnostics.filter(isBunPolicyDiagnostic);
 
   expect(diagnostics.map((diagnostic) => diagnostic.ruleId).sort()).toEqual(
-    ['repo.workflows.ci.bun-policy', 'repo.workflows.release.bun-policy'].sort(),
+    BUN_POLICY_RULE_IDS.slice(2).sort(),
   );
   expect(diagnostics.every((diagnostic) => diagnostic.message.includes('ankh devtools sync'))).toBe(
     true,
