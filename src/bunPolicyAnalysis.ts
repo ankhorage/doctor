@@ -232,11 +232,21 @@ async function readTextOrNull(filePath: string): Promise<string | null> {
 }
 
 function isUnavailablePolicyError(error: unknown): boolean {
-  return (
+  if (
     isNodeError(error) &&
     (error.code === 'MODULE_NOT_FOUND' ||
       error.code === 'ERR_MODULE_NOT_FOUND' ||
       error.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED')
+  ) {
+    return true;
+  }
+
+  const message = error instanceof Error ? error.message : String(error);
+  return (
+    message.includes(DEVTOOLS_POLICY_SPECIFIER) &&
+    (message.includes('Cannot find module') ||
+      message.includes('not exported') ||
+      message.includes('Package subpath'))
   );
 }
 
