@@ -26,7 +26,9 @@ export async function analyzeDoctorTargetWithCliLayout(
   return applyRepositoryPolicies(await analyzeBaseDoctorTargetWithCliLayout(request));
 }
 
-async function applyRepositoryPolicies(result: DoctorAnalysisResult): Promise<DoctorAnalysisResult> {
+async function applyRepositoryPolicies(
+  result: DoctorAnalysisResult,
+): Promise<DoctorAnalysisResult> {
   return applyBunRuntimePolicy(await applyDevtoolsDependencyPlacementPolicy(result));
 }
 
