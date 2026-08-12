@@ -6,6 +6,7 @@ import {
   type DoctorAnalysisRequest,
   type DoctorAnalysisResult,
 } from './analysis.js';
+import { applyBunRuntimePolicy } from './bunPolicyAnalysis.js';
 import { analyzeDoctorTargetWithCliLayout as analyzeBaseDoctorTargetWithCliLayout } from './cliLayoutAnalysis.js';
 import type { DoctorDiagnostic } from './diagnostics.js';
 
@@ -16,15 +17,19 @@ const DEVTOOLS_REQUIRED_RULE_ID = 'package.dependencies.devtools.required';
 export async function analyzeDoctorTarget(
   request: DoctorAnalysisRequest,
 ): Promise<DoctorAnalysisResult> {
-  return applyDevtoolsDependencyPlacementPolicy(await analyzeBaseDoctorTarget(request));
+  return applyRepositoryPolicies(await analyzeBaseDoctorTarget(request));
 }
 
 export async function analyzeDoctorTargetWithCliLayout(
   request: DoctorAnalysisRequest,
 ): Promise<DoctorAnalysisResult> {
-  return applyDevtoolsDependencyPlacementPolicy(
-    await analyzeBaseDoctorTargetWithCliLayout(request),
-  );
+  return applyRepositoryPolicies(await analyzeBaseDoctorTargetWithCliLayout(request));
+}
+
+async function applyRepositoryPolicies(
+  result: DoctorAnalysisResult,
+): Promise<DoctorAnalysisResult> {
+  return applyBunRuntimePolicy(await applyDevtoolsDependencyPlacementPolicy(result));
 }
 
 async function applyDevtoolsDependencyPlacementPolicy(
