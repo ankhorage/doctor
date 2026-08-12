@@ -120,17 +120,13 @@ async function analyzeWorkflow(
   const workflowPath = path.join(result.targetPath, workflow.relativePath);
   const contents = await readTextOrNull(workflowPath);
   if (contents === null) {
-    return [
-      createWorkflowDiagnostic(result, workflow, policy, workflowPath, 'missing-path'),
-    ];
+    return [createWorkflowDiagnostic(result, workflow, policy, workflowPath, 'missing-path')];
   }
 
   const match = BUN_VERSION_PATTERN.exec(contents);
   const actual = match?.[1];
   if (!isNonEmptyString(actual)) {
-    return [
-      createWorkflowDiagnostic(result, workflow, policy, workflowPath, 'field-missing'),
-    ];
+    return [createWorkflowDiagnostic(result, workflow, policy, workflowPath, 'field-missing')];
   }
 
   const diagnostics: DoctorDiagnostic[] = [];
@@ -195,7 +191,9 @@ function parseBunRuntimePolicy(importedModule: unknown): BunRuntimePolicySnapsho
     return null;
   }
   const { packageManager, typesRange, version } = importedModule.bunRuntimePolicy;
-  return isNonEmptyString(packageManager) && isNonEmptyString(typesRange) && isNonEmptyString(version)
+  return isNonEmptyString(packageManager) &&
+    isNonEmptyString(typesRange) &&
+    isNonEmptyString(version)
     ? { packageManager, typesRange, version }
     : null;
 }
