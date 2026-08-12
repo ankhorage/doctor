@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0
+
+### Minor Changes
+
+- f260d59: Validate the exact Devtools-owned Bun runtime policy across package metadata and managed CI/release workflows, with actionable `ankh devtools sync` repair diagnostics.
+
 ## 0.7.3
 
 ### Patch Changes
