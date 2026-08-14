@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.0
+
+### Minor Changes
+
+- 231f7d1: Report platform- and environment-aware OAuth readiness from canonical deploy targets and adapter-owned setup requirements.
+
 ## 0.8.0
 
 ### Minor Changes
