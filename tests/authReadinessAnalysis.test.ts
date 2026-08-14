@@ -53,9 +53,7 @@ describe('Auth 4 target readiness', () => {
   });
 
   test('reports unsupported provider capabilities without inventing a fallback', () => {
-    const manifest = createManifest(['web']);
-    manifest.infra.auth.oauth.providers[0].id = 'azure';
-    const result = analyzeAuthReadiness(manifest);
+    const result = analyzeAuthReadiness(createManifest(['web'], 'azure'));
 
     expect(result.readiness).toHaveLength(3);
     expect(result.readiness.every((item) => item.status === 'unsupported')).toBe(true);
@@ -90,15 +88,18 @@ describe('Auth 4 target readiness', () => {
   });
 
   test('never echoes inline credential material into readiness output', () => {
-    const manifest = createManifest(['web', 'android', 'ios']);
     const rawValue = 'must-never-appear-in-doctor-output';
-    Object.assign(manifest.infra.auth.oauth.providers[0], { clientSecret: rawValue });
+    const manifest = createManifest(['web', 'android', 'ios'], 'google', rawValue);
 
     expect(JSON.stringify(analyzeAuthReadiness(manifest))).not.toContain(rawValue);
   });
 });
 
-function createManifest(enabledTargets: readonly AppDeployTargetId[]) {
+function createManifest(
+  enabledTargets: readonly AppDeployTargetId[],
+  providerId = 'google',
+  inlineCredential?: string,
+) {
   const enabled = new Set(enabledTargets);
   return {
     deploy: {
@@ -126,9 +127,10 @@ function createManifest(enabledTargets: readonly AppDeployTargetId[]) {
           callbackRoute: '/auth/callback',
           providers: [
             {
-              id: 'google',
+              id: providerId,
               enabled: true,
               credentialsRef: 'auth/oauth/google',
+              ...(inlineCredential === undefined ? {} : { clientSecret: inlineCredential }),
             },
           ],
         },
