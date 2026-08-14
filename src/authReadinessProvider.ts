@@ -1,13 +1,10 @@
 import type { AppDeployTargetId, AppDeployTargets } from '@ankhorage/contracts/deploy';
 import { APP_DEPLOY_ENVIRONMENT_IDS } from '@ankhorage/contracts/deploy';
-import { resolveSupabaseOAuthSetupPlan } from '@ankhorage/supabase-auth';
 
-import { analyzeAuthReadinessEnvironment } from './authReadinessEnvironment.js';
 import { createNativeAuthCallbackDiagnostic } from './authReadinessNativeDiagnostic.js';
-import {
-  createUnsupportedAuthDiagnostic,
-  createUnsupportedAuthReadiness,
-} from './authReadinessUnsupported.js';
+import { analyzeAuthProviderEnvironment } from './authReadinessProviderEnvironment.js';
+import { analyzeUnsupportedAuthBackend } from './authReadinessUnsupportedBackend.js';
+import { createUnsupportedAuthDiagnostic } from './authReadinessUnsupported.js';
 import type { DoctorDiagnostic } from './diagnostics.js';
 import type { DoctorReadiness } from './readiness.js';
 
@@ -21,7 +18,14 @@ export function analyzeAuthProviderReadiness(input: {
 }): { readonly diagnostics: DoctorDiagnostic[]; readonly readiness: DoctorReadiness[] } {
   const providerId = typeof input.provider.id === 'string' ? input.provider.id : '';
   if (providerId === '') return { diagnostics: [], readiness: [] };
-  if (input.authProvider !== 'supabase') return unsupportedBackend(input, providerId);
+  if (input.authProvider !== 'supabase') {
+    const result = analyzeUnsupportedAuthBackend({
+      enabledTargets: input.enabledTargets,
+      manifestPath: input.manifestPath,
+      provider: providerId,
+    });
+    return { diagnostics: [...result.diagnostics], readiness: [...result.readiness] };
+  }
 
   const diagnostics: DoctorDiagnostic[] = [];
   const readiness: DoctorReadiness[] = [];
@@ -29,34 +33,16 @@ export function analyzeAuthProviderReadiness(input: {
   let unsupported = false;
 
   for (const environment of APP_DEPLOY_ENVIRONMENT_IDS) {
-    const plan = resolveSupabaseOAuthSetupPlan({
-      provider: providerId,
-      transport: 'brokeredRedirect',
-      environment,
-      targets: input.enabledTargets,
-    });
-    if (plan === null) {
-      unsupported = true;
-      readiness.push(
-        ...createUnsupportedAuthReadiness({
-          environment,
-          provider: providerId,
-          targets: input.enabledTargets,
-        }),
-      );
-      continue;
-    }
-
-    const result = analyzeAuthReadinessEnvironment({
+    const result = analyzeAuthProviderEnvironment({
       callbackRoute: input.callbackRoute,
       credentialsRef: input.provider.credentialsRef,
       enabledTargets: input.enabledTargets,
       environment,
-      plan,
       provider: providerId,
       targets: input.targets,
     });
     readiness.push(...result.readiness);
+    unsupported ||= result.unsupported;
     result.missingNativeTargets.forEach((target) => missingNativeTargets.add(target));
   }
 
@@ -72,25 +58,4 @@ export function analyzeAuthProviderReadiness(input: {
     diagnostics.push(createNativeAuthCallbackDiagnostic(target, input.manifestPath)),
   );
   return { diagnostics, readiness };
-}
-
-function unsupportedBackend(
-  input: Parameters<typeof analyzeAuthProviderReadiness>[0],
-  providerId: string,
-) {
-  return {
-    diagnostics: [
-      createUnsupportedAuthDiagnostic({
-        message: 'Configured OAuth backend has no Doctor setup resolver.',
-        path: input.manifestPath,
-      }),
-    ],
-    readiness: APP_DEPLOY_ENVIRONMENT_IDS.flatMap((environment) =>
-      createUnsupportedAuthReadiness({
-        environment,
-        provider: providerId,
-        targets: input.enabledTargets,
-      }),
-    ),
-  };
 }
