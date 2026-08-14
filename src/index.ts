@@ -8,6 +8,11 @@ export type {
   DoctorTargetMode,
 } from './analysis.js';
 export {
+  analyzeAuthReadiness,
+  analyzeAuthReadinessFile,
+  type DoctorAuthReadinessAnalysis,
+} from './authReadinessAnalysis.js';
+export {
   createDoctorRuntimeProvider,
   type CreateDoctorRuntimeProviderOptions,
 } from './cli/index.js';
@@ -37,3 +42,4 @@ export {
   DOCTOR_PACKAGE_NAME,
   DOCTOR_PACKAGE_VERSION,
 } from './packageMetadata.js';
+export type { DoctorReadiness, DoctorReadinessStatus } from './readiness.js';
