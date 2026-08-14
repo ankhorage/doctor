@@ -49,9 +49,9 @@ test('Auth 5 readiness never derives a native callback scheme from app identity'
 
   expect(android.every((item) => item.status === 'missing')).toBe(true);
   expect(android.every((item) => item.callbackScheme === undefined)).toBe(true);
-  expect(
-    android.every((item) => item.hostRequirement === 'development-or-standalone-build'),
-  ).toBe(true);
+  expect(android.every((item) => item.hostRequirement === 'development-or-standalone-build')).toBe(
+    true,
+  );
   expect(JSON.stringify(android)).not.toContain('com.ankh.android://');
 });
 
@@ -93,9 +93,7 @@ function createManifest() {
         oauth: {
           enabled: true,
           callbackRoute: '/auth/callback',
-          providers: [
-            { id: 'google', enabled: true, credentialsRef: 'auth/oauth/google' },
-          ],
+          providers: [{ id: 'google', enabled: true, credentialsRef: 'auth/oauth/google' }],
         },
       },
     },
