@@ -3,8 +3,8 @@ import { APP_DEPLOY_ENVIRONMENT_IDS } from '@ankhorage/contracts/deploy';
 
 import { createNativeAuthCallbackDiagnostic } from './authReadinessNativeDiagnostic.js';
 import { analyzeAuthProviderEnvironment } from './authReadinessProviderEnvironment.js';
-import { analyzeUnsupportedAuthBackend } from './authReadinessUnsupportedBackend.js';
 import { createUnsupportedAuthDiagnostic } from './authReadinessUnsupported.js';
+import { analyzeUnsupportedAuthBackend } from './authReadinessUnsupportedBackend.js';
 import type { DoctorDiagnostic } from './diagnostics.js';
 import type { DoctorReadiness } from './readiness.js';
 
