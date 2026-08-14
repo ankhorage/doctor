@@ -15,10 +15,7 @@ export type DoctorDiagnosticCode =
 
 export type DoctorDiagnosticSeverity = 'error' | 'warning';
 export type DoctorPolicyProfile =
-  | 'app-manifest'
-  | 'integration-monorepo'
-  | 'public-package'
-  | 'unknown';
+  'app-manifest' | 'integration-monorepo' | 'public-package' | 'unknown';
 export type DoctorRuleId =
   | 'integration.package.ankh.disallowed'
   | 'integration.package.private.required'

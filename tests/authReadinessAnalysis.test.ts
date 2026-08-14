@@ -39,14 +39,21 @@ describe('Auth 4 target readiness', () => {
 
   test('reports a missing native callback scheme for every environment', () => {
     const manifest = createManifest(['android']);
-    delete manifest.deploy.targets.android.scheme;
-    const result = analyzeAuthReadiness(manifest);
+    const result = analyzeAuthReadiness({
+      ...manifest,
+      deploy: {
+        targets: {
+          ...manifest.deploy.targets,
+          android: { enabled: true, package: 'com.ankh.demo' },
+        },
+      },
+    });
 
     expect(result.readiness).toHaveLength(3);
     expect(result.readiness.every((item) => item.status === 'missing')).toBe(true);
-    expect(result.readiness.every((item) => item.message.includes('android deep-link scheme'))).toBe(
-      true,
-    );
+    expect(
+      result.readiness.every((item) => item.message.includes('android deep-link scheme')),
+    ).toBe(true);
     expect(result.diagnostics.map((item) => item.ruleId)).toContain(
       'manifest.auth.oauth.callback-target.configured',
     );

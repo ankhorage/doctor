@@ -4,9 +4,9 @@ import type { AuthOAuthSetupPlan } from '@ankhorage/contracts/auth';
 import {
   APP_DEPLOY_ENVIRONMENT_IDS,
   APP_DEPLOY_TARGET_IDS,
-  isAppDeployManifest,
   type AppDeployTargetId,
   type AppDeployTargets,
+  isAppDeployManifest,
 } from '@ankhorage/contracts/deploy';
 import { normalizeSecretRef } from '@ankhorage/contracts/secrets';
 import { resolveSupabaseOAuthSetupPlan } from '@ankhorage/supabase-auth';
@@ -39,18 +39,20 @@ export function analyzeAuthReadiness(
 ): DoctorAuthReadinessAnalysis {
   if (!isRecord(manifest)) return { diagnostics: [], readiness: [] };
 
+  const infra = isRecord(manifest.infra) ? manifest.infra : null;
+  const auth = infra !== null && isRecord(infra.auth) ? infra.auth : null;
+  const oauth = auth !== null && isRecord(auth.oauth) ? auth.oauth : null;
+  if (oauth?.enabled !== true || !Array.isArray(oauth.providers)) {
+    return { diagnostics: [], readiness: [] };
+  }
+
   const targetResult = resolveTargets(manifest.deploy, manifestPath);
   const diagnostics = [...targetResult.diagnostics];
   if (targetResult.targets === null) return { diagnostics, readiness: [] };
 
-  const auth = isRecord(manifest.infra) && isRecord(manifest.infra.auth) ? manifest.infra.auth : null;
-  const oauth = auth !== null && isRecord(auth.oauth) ? auth.oauth : null;
-  if (oauth?.enabled !== true || !Array.isArray(oauth.providers)) {
-    return { diagnostics, readiness: [] };
-  }
-
   const providers = oauth.providers.filter(
-    (provider): provider is Record<string, unknown> => isRecord(provider) && provider.enabled !== false,
+    (provider): provider is Record<string, unknown> =>
+      isRecord(provider) && provider.enabled !== false,
   );
   const readiness: DoctorReadiness[] = [];
 
@@ -195,7 +197,8 @@ function collectMissingRequirements(input: {
   readonly targets: AppDeployTargets;
 }): string[] {
   const missing: string[] = [];
-  if (input.requiredCredentialRef && !input.credentialRefReady) missing.push('credential reference');
+  if (input.requiredCredentialRef && !input.credentialRefReady)
+    missing.push('credential reference');
   if (!input.callbackRouteReady) missing.push('callback route');
   if (input.target !== 'web' && input.targets[input.target]?.scheme === undefined) {
     missing.push(`${input.target} deep-link scheme`);
@@ -265,7 +268,7 @@ function hasCanonicalCredentialRef(value: unknown): boolean {
 }
 
 function isAbsoluteRoute(value: unknown): boolean {
-  return typeof value === 'string' && value.trim().startsWith('/') && value.trim().length > 1;
+  return typeof value === 'string' && value.trim().startsWith('/') && value.trim().length > 0;
 }
 
 function diagnostic(

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import type { DoctorDiagnostic, DoctorPolicyProfile, DoctorRuleId } from './diagnostics.js';
+import type { DoctorReadiness } from './readiness.js';
 
 export type DoctorTargetCheck = 'manifest' | 'package' | 'repo';
 export type DoctorTargetMode = 'fix' | 'package' | 'repo' | 'validate';
@@ -37,6 +38,7 @@ export interface DoctorAnalysisResult {
   readonly hasPackageJson: boolean;
   readonly plannedChanges: readonly DoctorPlannedChange[];
   readonly profile: DoctorPolicyProfile;
+  readonly readiness?: readonly DoctorReadiness[];
   readonly repoMarkers: readonly string[];
   readonly targetPath: string;
 }
