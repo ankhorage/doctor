@@ -81,12 +81,12 @@ describe('Auth 4 target readiness', () => {
     expect(result.readiness).toHaveLength(3);
     expect(result.readiness.every((item) => item.target === 'web')).toBe(true);
     expect(result.readiness.every((item) => item.status === 'ready')).toBe(true);
-    expect(result.diagnostics).toContainEqual(
-      expect.objectContaining({
-        ruleId: 'manifest.deploy.targets.legacy-web',
-        severity: 'warning',
-      }),
-    );
+    expect(
+      result.diagnostics.some(
+        (item) =>
+          item.ruleId === 'manifest.deploy.targets.legacy-web' && item.severity === 'warning',
+      ),
+    ).toBe(true);
   });
 
   test('never echoes inline credential material into readiness output', () => {
