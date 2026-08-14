@@ -1,12 +1,10 @@
-import { isAppDeployManifest } from '@ankhorage/contracts/deploy';
-
 import { createAuthReadinessDiagnostic } from './authReadinessDiagnostic.js';
 import type { AuthReadinessTargetResolution } from './authReadinessTargetResolution.js';
 
 export function resolveAuthReadinessTargetFallback(
   deploy: unknown,
   manifestPath: string,
-): AuthReadinessTargetResolution | null {
+): AuthReadinessTargetResolution {
   if (deploy === undefined) {
     return {
       diagnostics: [
@@ -24,7 +22,6 @@ export function resolveAuthReadinessTargetFallback(
     };
   }
 
-  if (isAppDeployManifest(deploy)) return null;
   return {
     diagnostics: [
       createAuthReadinessDiagnostic({
