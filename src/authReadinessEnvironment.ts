@@ -5,6 +5,10 @@ import type {
   AppDeployTargets,
 } from '@ankhorage/contracts/deploy';
 
+import {
+  createAuthReadinessMessage,
+  resolveNativeAuthReadinessContext,
+} from './authReadinessNativeContext.js';
 import { collectMissingAuthReadinessRequirements } from './authReadinessRequirements.js';
 import type { DoctorReadiness } from './readiness.js';
 
@@ -33,13 +37,16 @@ export function analyzeAuthReadinessEnvironment(input: {
       missingNativeTargets.add(target);
     }
 
+    const nativeContext = resolveNativeAuthReadinessContext({ target, targets: input.targets });
     return {
+      ...nativeContext,
       category: 'auth-oauth',
       environment: input.environment,
-      message:
-        missing.length === 0
-          ? 'Manifest and adapter setup requirements are satisfiable; concrete callback URLs remain Infra/runtime-owned.'
-          : `Missing ${missing.join(' and ')}.`,
+      message: createAuthReadinessMessage({
+        ...nativeContext,
+        missing,
+        target,
+      }),
       provider: input.provider,
       status: missing.length === 0 ? 'ready' : 'missing',
       target,
