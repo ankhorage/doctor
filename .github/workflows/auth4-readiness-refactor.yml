@@ -27,18 +27,6 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Remove obsolete manifest aliases
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          path = Path('src/manifestAnalysis.ts')
-          text = path.read_text()
-          obsolete = "type AuthActionRouteKey = (typeof AUTH_ACTION_ROUTE_KEYS)[number];\ntype OptionalRouteKey = (typeof OPTIONAL_ROUTE_KEYS)[number];\n\n"
-          if text.count(obsolete) != 1:
-              raise SystemExit('Expected obsolete manifest aliases exactly once')
-          path.write_text(text.replace(obsolete, '', 1))
-          PY
-
       - name: Format and validate
         run: |
           bun run format
