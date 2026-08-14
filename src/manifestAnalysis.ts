@@ -99,13 +99,14 @@ export async function analyzeAppManifestFile(filePath: string): Promise<DoctorDi
   }
 
   let manifest: unknown;
+
   try {
     manifest = JSON.parse(source) as unknown;
   } catch (error) {
     return [
       createManifestDiagnostic({
         code: 'invalid-app-manifest-json',
-        message: `App manifest JSON is invalid: ${toErrorMessage(error)}`,
+        message: `App manifest must contain valid JSON: ${toErrorMessage(error)}`,
         path: filePath,
         ruleId: 'manifest.json.valid',
       }),
@@ -123,7 +124,7 @@ export function analyzeAppManifest(
     return [
       createManifestDiagnostic({
         code: 'field-invalid',
-        message: 'App manifest root must be an object.',
+        message: 'App manifest root must be a JSON object.',
         path: manifestPath,
         ruleId: 'manifest.root.valid-shape',
       }),
@@ -131,241 +132,322 @@ export function analyzeAppManifest(
   }
 
   const diagnostics: DoctorDiagnostic[] = [];
-  diagnostics.push(...analyzeAuthFlowOwnership(manifest, manifestPath));
-  diagnostics.push(...analyzeInfraAuth(manifest.infra, manifestPath));
-  diagnostics.push(...analyzeSecretStoreManifest(manifest, manifestPath));
-  return diagnostics;
-}
+  const { settings } = manifest;
 
-function analyzeAuthFlowOwnership(
-  manifest: Record<string, unknown>,
-  manifestPath: string,
-): DoctorDiagnostic[] {
-  const settings = manifest.settings;
-  if (!isRecord(settings) || !Object.prototype.hasOwnProperty.call(settings, 'authFlow')) return [];
-
-  return [
-    createManifestDiagnostic({
-      code: 'field-invalid',
-      message: 'settings.authFlow was removed. Move authentication flow to infra.auth.flow.',
-      path: manifestPath,
-      ruleId: 'manifest.settings.auth-flow.removed',
-    }),
-  ];
-}
-
-function analyzeInfraAuth(infraValue: unknown, manifestPath: string): DoctorDiagnostic[] {
-  if (infraValue === undefined) return [];
-  if (!isRecord(infraValue)) {
-    return [
+  if (isRecord(settings) && hasOwn(settings, 'authFlow')) {
+    diagnostics.push(
       createManifestDiagnostic({
         code: 'field-invalid',
-        message: 'manifest.infra must be an object.',
+        message:
+          'settings.authFlow was removed. Move this configuration manually to infra.auth.flow; Doctor will not migrate it automatically.',
+        path: manifestPath,
+        ruleId: 'manifest.settings.auth-flow.removed',
+      }),
+    );
+  }
+
+  const { infra } = manifest;
+  if (infra === undefined) {
+    return diagnostics;
+  }
+
+  if (!isRecord(infra)) {
+    diagnostics.push(
+      createManifestDiagnostic({
+        code: 'field-invalid',
+        message: 'manifest.infra must be a JSON object when present.',
         path: manifestPath,
         ruleId: 'manifest.infra.valid-shape',
       }),
-    ];
+    );
+    return diagnostics;
   }
 
-  const authValue = infraValue.auth;
-  if (authValue === undefined) return [];
-  if (!isRecord(authValue)) {
-    return [
+  diagnostics.push(...analyzeSecretStoreManifest(infra, manifestPath));
+
+  const { auth } = infra;
+  if (auth === undefined) {
+    return diagnostics;
+  }
+
+  if (!isRecord(auth)) {
+    diagnostics.push(
       createManifestDiagnostic({
         code: 'field-invalid',
-        message: 'manifest.infra.auth must be an object.',
+        message: 'manifest.infra.auth must be a JSON object when present.',
         path: manifestPath,
         ruleId: 'manifest.auth.valid-shape',
       }),
-    ];
+    );
+    return diagnostics;
   }
 
-  return [
-    ...analyzeAuthFlow(authValue.flow, manifestPath),
-    ...analyzeAuthorization(authValue.authorization, manifestPath),
-  ];
+  const flow = parseAuthFlow(auth.flow, manifestPath, diagnostics);
+  if (flow !== null) {
+    validateAuthFlowRelationships(flow, manifestPath, diagnostics);
+  }
+
+  validateAuthorization(auth.authorization, manifestPath, diagnostics);
+
+  return diagnostics;
 }
 
-function analyzeAuthFlow(flowValue: unknown, manifestPath: string): DoctorDiagnostic[] {
-  if (flowValue === undefined) return [];
-  if (!isRecord(flowValue)) {
-    return [
+function parseAuthFlow(
+  value: unknown,
+  manifestPath: string,
+  diagnostics: DoctorDiagnostic[],
+): AuthFlowConfig | null {
+  if (value === undefined) {
+    return resolveAuthFlow();
+  }
+
+  if (!isRecord(value)) {
+    diagnostics.push(
       createManifestDiagnostic({
         code: 'field-invalid',
-        message: 'infra.auth.flow must be an object.',
+        message: 'manifest.infra.auth.flow must be a JSON object when present.',
         path: manifestPath,
         ruleId: 'manifest.auth.flow.valid-shape',
       }),
-    ];
+    );
+    return null;
   }
 
-  const diagnostics: DoctorDiagnostic[] = [];
-  const resolvedFlow = resolveAuthFlow(flowValue as Partial<AuthFlowConfig>);
-  for (const key of AUTH_ACTION_ROUTE_KEYS) {
-    if (!isNonEmptyString(resolvedFlow[key])) {
-      diagnostics.push(
-        createManifestDiagnostic({
-          code: 'field-missing',
-          message: `infra.auth.flow.${key} must be a non-empty route string.`,
-          path: manifestPath,
-          ruleId: 'manifest.auth.flow.route.required',
-        }),
-      );
-    }
+  const signInRoute = readRequiredRoute(value, 'signInRoute', manifestPath, diagnostics);
+  const postSignInRoute = readRequiredRoute(value, 'postSignInRoute', manifestPath, diagnostics);
+  const optionalRoutes = readOptionalRoutes(value, manifestPath, diagnostics);
+
+  if (signInRoute === null || postSignInRoute === null || optionalRoutes === null) {
+    return null;
   }
+
+  return resolveAuthFlow({
+    signInRoute,
+    postSignInRoute,
+    ...optionalRoutes,
+  });
+}
+
+function readRequiredRoute(
+  flow: Record<string, unknown>,
+  key: 'postSignInRoute' | 'signInRoute',
+  manifestPath: string,
+  diagnostics: DoctorDiagnostic[],
+): string | null {
+  const value = flow[key];
+
+  if (typeof value !== 'string' || value.trim() === '') {
+    diagnostics.push(
+      createManifestDiagnostic({
+        code: value === undefined ? 'field-missing' : 'field-invalid',
+        message: `manifest.infra.auth.flow.${key} must be a non-empty string.`,
+        path: manifestPath,
+        ruleId: 'manifest.auth.flow.route.required',
+      }),
+    );
+    return null;
+  }
+
+  return value;
+}
+
+function readOptionalRoutes(
+  flow: Record<string, unknown>,
+  manifestPath: string,
+  diagnostics: DoctorDiagnostic[],
+): Pick<AuthFlowConfig, OptionalRouteKey> | null {
+  const routes: Partial<Pick<AuthFlowConfig, OptionalRouteKey>> = {};
+  let valid = true;
 
   for (const key of OPTIONAL_ROUTE_KEYS) {
-    const value = resolvedFlow[key];
-    if (value !== undefined && !isValidAbsoluteRoute(value)) {
+    const value = flow[key];
+    if (value === undefined) {
+      continue;
+    }
+
+    if (typeof value !== 'string' || value.trim() === '') {
+      valid = false;
       diagnostics.push(
         createManifestDiagnostic({
           code: 'field-invalid',
-          message: `infra.auth.flow.${key} must be an absolute app route when configured.`,
+          message: `manifest.infra.auth.flow.${key} must be a non-empty string when present.`,
           path: manifestPath,
           ruleId: 'manifest.auth.flow.route.valid',
         }),
       );
+      continue;
     }
+
+    routes[key] = value;
   }
 
-  if (!isValidAbsoluteRoute(resolvedFlow.signInRoute)) {
-    diagnostics.push(
-      createManifestDiagnostic({
-        code: 'field-invalid',
-        message: 'infra.auth.flow.signInRoute must be an absolute app route.',
-        path: manifestPath,
-        ruleId: 'manifest.auth.flow.route.valid',
-      }),
-    );
-  }
-
-  if (!isValidAbsoluteRoute(resolvedFlow.postSignInRoute)) {
-    diagnostics.push(
-      createManifestDiagnostic({
-        code: 'field-invalid',
-        message: 'infra.auth.flow.postSignInRoute must be an absolute app route.',
-        path: manifestPath,
-        ruleId: 'manifest.auth.flow.route.valid',
-      }),
-    );
-  }
-
-  diagnostics.push(...analyzeRouteUniqueness(resolvedFlow, manifestPath));
-  return diagnostics;
+  return valid ? routes : null;
 }
 
-function analyzeRouteUniqueness(
+function validateAuthFlowRelationships(
   flow: AuthFlowConfig,
   manifestPath: string,
-): DoctorDiagnostic[] {
-  const diagnostics: DoctorDiagnostic[] = [];
-  const routes = [
-    ...AUTH_ACTION_ROUTE_KEYS.map((key) => [key, flow[key]] as const),
-    ['unauthorizedRoute', flow.unauthorizedRoute] as const,
-  ].filter((entry): entry is readonly [string, string] => typeof entry[1] === 'string');
+  diagnostics: DoctorDiagnostic[],
+): void {
+  const actionRoutes = AUTH_ACTION_ROUTE_KEYS.flatMap((key) => {
+    const value = flow[key];
+    return typeof value === 'string' ? [{ key, route: normalizeRoute(value) }] : [];
+  });
+  const routesByName = new Map<string, AuthActionRouteKey[]>();
 
-  const ownersByRoute = new Map<string, string[]>();
-  for (const [key, route] of routes) {
-    const owners = ownersByRoute.get(route) ?? [];
-    owners.push(key);
-    ownersByRoute.set(route, owners);
+  for (const entry of actionRoutes) {
+    const keys = routesByName.get(entry.route) ?? [];
+    keys.push(entry.key);
+    routesByName.set(entry.route, keys);
   }
 
-  for (const [route, owners] of ownersByRoute) {
-    if (owners.length <= 1) continue;
-    const allowedUnauthorizedAlias =
-      route === flow.signInRoute &&
-      owners.length === 2 &&
-      owners.includes('signInRoute') &&
-      owners.includes('unauthorizedRoute');
-    if (allowedUnauthorizedAlias) continue;
+  for (const [route, keys] of routesByName) {
+    if (keys.length < 2) {
+      continue;
+    }
 
     diagnostics.push(
       createManifestDiagnostic({
         code: 'field-invalid',
-        message: `Auth action route ${route} is assigned to multiple flow actions: ${owners.join(', ')}.`,
+        message: `Auth action routes must be unique; ${keys.join(', ')} all resolve to "${route}".`,
         path: manifestPath,
         ruleId: 'manifest.auth.flow.route.unique',
       }),
     );
   }
 
-  if (routes.some(([, route]) => route === flow.postSignInRoute)) {
+  const postSignInRoute = normalizeRoute(flow.postSignInRoute);
+  const collidingAction = actionRoutes.find((entry) => entry.route === postSignInRoute);
+  if (collidingAction !== undefined) {
     diagnostics.push(
       createManifestDiagnostic({
         code: 'field-invalid',
-        message: 'infra.auth.flow.postSignInRoute must differ from every auth action route.',
+        message: `postSignInRoute must resolve outside the auth action routes; it collides with ${collidingAction.key}.`,
         path: manifestPath,
         ruleId: 'manifest.auth.flow.post-sign-in.distinct',
       }),
     );
   }
 
-  return diagnostics;
-}
+  if (flow.unauthorizedRoute === undefined) {
+    return;
+  }
 
-function analyzeAuthorization(
-  authorizationValue: unknown,
-  manifestPath: string,
-): DoctorDiagnostic[] {
-  if (authorizationValue === undefined) return [];
-  if (!isRecord(authorizationValue)) {
-    return [
+  const unauthorizedRoute = normalizeRoute(flow.unauthorizedRoute);
+  const signInRoute = normalizeRoute(flow.signInRoute);
+
+  if (unauthorizedRoute === postSignInRoute) {
+    diagnostics.push(
       createManifestDiagnostic({
         code: 'field-invalid',
-        message: 'infra.auth.authorization must be an object.',
+        message: 'unauthorizedRoute must not resolve to postSignInRoute.',
+        path: manifestPath,
+        ruleId: 'manifest.auth.flow.unauthorized-route.valid',
+      }),
+    );
+  }
+
+  if (unauthorizedRoute === signInRoute) {
+    return;
+  }
+
+  const collidingActionRoute = actionRoutes.find(
+    (entry) => entry.key !== 'signInRoute' && entry.route === unauthorizedRoute,
+  );
+  if (collidingActionRoute !== undefined) {
+    diagnostics.push(
+      createManifestDiagnostic({
+        code: 'field-invalid',
+        message: `unauthorizedRoute may alias signInRoute, but it must not collide with ${collidingActionRoute.key}.`,
+        path: manifestPath,
+        ruleId: 'manifest.auth.flow.unauthorized-route.valid',
+      }),
+    );
+  }
+}
+
+function validateAuthorization(
+  value: unknown,
+  manifestPath: string,
+  diagnostics: DoctorDiagnostic[],
+): void {
+  if (value === undefined) {
+    return;
+  }
+
+  if (!isRecord(value)) {
+    diagnostics.push(
+      createManifestDiagnostic({
+        code: 'field-invalid',
+        message:
+          'manifest.infra.auth.authorization must be a JSON object when explicitly configured.',
         path: manifestPath,
         ruleId: 'manifest.auth.authorization.valid-shape',
       }),
-    ];
+    );
+    return;
   }
 
-  const diagnostics: DoctorDiagnostic[] = [];
-  if (!AUTHZ_KINDS.some((kind) => kind === authorizationValue.kind)) {
-    diagnostics.push(
-      createManifestDiagnostic({
-        code: 'field-invalid',
-        message: `infra.auth.authorization.kind must be one of: ${AUTHZ_KINDS.join(', ')}.`,
-        path: manifestPath,
-        ruleId: 'manifest.auth.authorization.kind.valid',
-      }),
-    );
-  }
-  if (!AUTHZ_ENGINES.some((engine) => engine === authorizationValue.engine)) {
-    diagnostics.push(
-      createManifestDiagnostic({
-        code: 'field-invalid',
-        message: `infra.auth.authorization.engine must be one of: ${AUTHZ_ENGINES.join(', ')}.`,
-        path: manifestPath,
-        ruleId: 'manifest.auth.authorization.engine.valid',
-      }),
-    );
-  }
-  return diagnostics;
+  validateAuthorizationField({
+    allowed: AUTHZ_KINDS,
+    diagnostics,
+    fieldName: 'kind',
+    manifestPath,
+    value: value.kind,
+    ruleId: 'manifest.auth.authorization.kind.valid',
+  });
+  validateAuthorizationField({
+    allowed: AUTHZ_ENGINES,
+    diagnostics,
+    fieldName: 'engine',
+    manifestPath,
+    value: value.engine,
+    ruleId: 'manifest.auth.authorization.engine.valid',
+  });
 }
 
-function createManifestDiagnostic(input: {
+function validateAuthorizationField(request: {
+  readonly allowed: readonly string[];
+  readonly diagnostics: DoctorDiagnostic[];
+  readonly fieldName: 'engine' | 'kind';
+  readonly manifestPath: string;
+  readonly ruleId: DoctorRuleId;
+  readonly value: unknown;
+}): void {
+  if (typeof request.value === 'string' && request.allowed.includes(request.value)) {
+    return;
+  }
+
+  request.diagnostics.push(
+    createManifestDiagnostic({
+      code: request.value === undefined ? 'field-missing' : 'field-invalid',
+      message: `Explicit authorization.${request.fieldName} must be one of: ${request.allowed.join(', ')}.`,
+      path: request.manifestPath,
+      ruleId: request.ruleId,
+    }),
+  );
+}
+
+function createManifestDiagnostic(request: {
   readonly code: DoctorDiagnosticCode;
   readonly message: string;
   readonly path: string;
   readonly ruleId: DoctorRuleId;
 }): DoctorDiagnostic {
   return {
-    code: input.code,
-    message: input.message,
-    path: input.path,
+    ...request,
     profile: MANIFEST_PROFILE,
-    ruleId: input.ruleId,
     severity: 'error',
   };
 }
 
-function isValidAbsoluteRoute(value: string): boolean {
-  return value.startsWith('/') && !value.includes('://') && !value.includes('?') && !value.includes('#');
+function normalizeRoute(route: string): string {
+  const normalized = route.trim().replace(/^\/+/, '').replace(/\/+$/, '');
+  return normalized === '' ? 'index' : normalized;
 }
 
-function isNonEmptyString(value: unknown): value is string {
-  return typeof value === 'string' && value.trim().length > 0;
+function hasOwn(record: Record<string, unknown>, key: string): boolean {
+  return Object.prototype.hasOwnProperty.call(record, key);
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
