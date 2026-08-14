@@ -62,7 +62,7 @@ export function analyzeAuthReadiness(
       diagnostics.push(
         diagnostic(
           'field-invalid',
-          `OAuth backend "${String(auth?.provider ?? '<missing>')}" has no Doctor setup resolver.`,
+          'Configured OAuth backend has no Doctor setup resolver.',
           manifestPath,
           'manifest.auth.oauth.setup.supported',
         ),
