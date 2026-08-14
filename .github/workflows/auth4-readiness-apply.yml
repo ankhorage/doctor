@@ -1,0 +1,129 @@
+name: Auth4 Doctor readiness apply
+
+on:
+  push:
+    branches:
+      - agent/auth4-target-readiness
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/auth4-target-readiness
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.13'
+
+      - name: Wire readiness into Doctor
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def once(path, old, new):
+              file = Path(path)
+              text = file.read_text()
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{path}: expected one match, found {count}')
+              file.write_text(text.replace(old, new, 1))
+
+          once(
+              'src/analysis.ts',
+              "import type { DoctorDiagnostic, DoctorPolicyProfile, DoctorRuleId } from './diagnostics.js';",
+              "import type { DoctorDiagnostic, DoctorPolicyProfile, DoctorRuleId } from './diagnostics.js';\nimport type { DoctorReadiness } from './readiness.js';",
+          )
+          once(
+              'src/analysis.ts',
+              "  readonly profile: DoctorPolicyProfile;\n  readonly repoMarkers: readonly string[];",
+              "  readonly profile: DoctorPolicyProfile;\n  readonly readiness?: readonly DoctorReadiness[];\n  readonly repoMarkers: readonly string[];",
+          )
+          once(
+              'src/manifestAnalysis.ts',
+              "import { analyzeSecretStoreManifest } from './secretManifestAnalysis.js';",
+              "import { analyzeAuthReadinessFile } from './authReadinessAnalysis.js';\nimport { analyzeSecretStoreManifest } from './secretManifestAnalysis.js';",
+          )
+          once(
+              'src/manifestAnalysis.ts',
+              "  const diagnostics = await analyzeAppManifestFile(targetPath);\n  const plannedChanges: DoctorPlannedChange[] = [];",
+              "  const authReadiness = await analyzeAuthReadinessFile(targetPath);\n  const diagnostics = [\n    ...(await analyzeAppManifestFile(targetPath)),\n    ...authReadiness.diagnostics,\n  ];\n  const plannedChanges: DoctorPlannedChange[] = [];",
+          )
+          once(
+              'src/manifestAnalysis.ts',
+              "    profile: MANIFEST_PROFILE,\n    repoMarkers: [],",
+              "    profile: MANIFEST_PROFILE,\n    readiness: authReadiness.readiness,\n    repoMarkers: [],",
+          )
+          once(
+              'src/commands.ts',
+              "import { DOCTOR_CAPABILITIES, DOCTOR_COMMAND_CATEGORY } from './packageMetadata.js';",
+              "import { DOCTOR_CAPABILITIES, DOCTOR_COMMAND_CATEGORY } from './packageMetadata.js';\nimport type { DoctorReadiness } from './readiness.js';",
+          )
+          once(
+              'src/commands.ts',
+              "  if (commandName === 'fix') {",
+              "  const readiness = result.readiness ?? [];\n  lines.push('');\n  lines.push('Readiness:');\n  if (readiness.length === 0) {\n    lines.push('  none');\n  } else {\n    for (const item of readiness) {\n      lines.push(renderReadinessLine(item));\n    }\n  }\n\n  if (commandName === 'fix') {",
+          )
+          once(
+              'src/commands.ts',
+              "function renderPlannedChangeLine(change: DoctorPlannedChange): string {",
+              "function renderReadinessLine(item: DoctorReadiness): string {\n  return `  - ${item.target} ${item.environment} ${item.provider} ${item.transport}: ${item.status} — ${item.message}`;\n}\n\nfunction renderPlannedChangeLine(change: DoctorPlannedChange): string {",
+          )
+
+          path = Path('src/authReadinessAnalysis.ts')
+          text = path.read_text()
+          old = """  const targetResult = resolveTargets(manifest.deploy, manifestPath);\n  const diagnostics = [...targetResult.diagnostics];\n  if (targetResult.targets === null) return { diagnostics, readiness: [] };\n\n  const auth = isRecord(manifest.infra) && isRecord(manifest.infra.auth) ? manifest.infra.auth : null;\n  const oauth = auth !== null && isRecord(auth.oauth) ? auth.oauth : null;\n  if (oauth?.enabled !== true || !Array.isArray(oauth.providers)) {\n    return { diagnostics, readiness: [] };\n  }\n"""
+          new = """  const infra = isRecord(manifest.infra) ? manifest.infra : null;\n  const auth = infra !== null && isRecord(infra.auth) ? infra.auth : null;\n  const oauth = auth !== null && isRecord(auth.oauth) ? auth.oauth : null;\n  if (oauth?.enabled !== true || !Array.isArray(oauth.providers)) {\n    return { diagnostics: [], readiness: [] };\n  }\n\n  const targetResult = resolveTargets(manifest.deploy, manifestPath);\n  const diagnostics = [...targetResult.diagnostics];\n  if (targetResult.targets === null) return { diagnostics, readiness: [] };\n"""
+          if text.count(old) != 1:
+              raise SystemExit('authReadinessAnalysis.ts: readiness ordering anchor mismatch')
+          text = text.replace(old, new, 1)
+          text = text.replace(
+              "return typeof value === 'string' && value.trim().startsWith('/') && value.trim().length > 1;",
+              "return typeof value === 'string' && value.trim().startsWith('/') && value.trim().length > 0;",
+              1,
+          )
+          path.write_text(text)
+
+          path = Path('tests/authReadinessAnalysis.test.ts')
+          text = path.read_text()
+          old = """    const manifest = createManifest(['android']);\n    delete manifest.deploy.targets.android.scheme;\n    const result = analyzeAuthReadiness(manifest);\n"""
+          new = """    const manifest = createManifest(['android']);\n    const result = analyzeAuthReadiness({\n      ...manifest,\n      deploy: {\n        targets: {\n          ...manifest.deploy.targets,\n          android: { enabled: true, package: 'com.ankh.demo' },\n        },\n      },\n    });\n"""
+          if text.count(old) != 1:
+              raise SystemExit('authReadinessAnalysis.test.ts: native scheme anchor mismatch')
+          path.write_text(text.replace(old, new, 1))
+          PY
+
+      - name: Resolve dependencies
+        run: |
+          bun install --lockfile-only
+          bun install --frozen-lockfile
+
+      - name: Format and validate
+        run: |
+          bun run format
+          bun run lint:fix
+          bun run build
+          bunx @ankhorage/ankh doctor validate .
+          bun run lint
+          bun run format:check
+          bun run knip
+          bun run test
+          bun run typecheck
+
+      - name: Commit product changes
+        run: |
+          rm .github/workflows/auth4-readiness-apply.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --stat
+          git commit -m 'Add target-aware Auth readiness'
+          git push origin HEAD:agent/auth4-target-readiness
