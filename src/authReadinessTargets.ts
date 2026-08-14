@@ -8,9 +8,9 @@ export function resolveAuthReadinessTargets(
   deploy: unknown,
   manifestPath: string,
 ): AuthReadinessTargetResolution {
-  const fallback = resolveAuthReadinessTargetFallback(deploy, manifestPath);
-  if (fallback !== null) return fallback;
-  if (!isAppDeployManifest(deploy)) throw new Error('Canonical deploy narrowing failed.');
+  if (!isAppDeployManifest(deploy)) {
+    return resolveAuthReadinessTargetFallback(deploy, manifestPath);
+  }
 
   const enabledTargets = APP_DEPLOY_TARGET_IDS.filter(
     (target) => deploy.targets[target]?.enabled === true,
