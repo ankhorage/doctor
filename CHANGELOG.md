@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.0
+
+### Minor Changes
+
+- c2e3845: Surface exact native OAuth callback schemes and native app-build requirements in Doctor readiness without duplicating runtime host detection.
+
 ## 0.9.0
 
 ### Minor Changes
