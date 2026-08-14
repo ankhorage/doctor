@@ -77,7 +77,8 @@
     "version-packages": "changeset version"
   },
   "dependencies": {
-    "@ankhorage/contracts": "^2.1.0"
+    "@ankhorage/contracts": "^7.8.0",
+    "@ankhorage/supabase-auth": "^1.2.0"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.4.0",

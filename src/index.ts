@@ -7,6 +7,8 @@ export type {
   DoctorTargetCheck,
   DoctorTargetMode,
 } from './analysis.js';
+export { analyzeAuthReadiness, type DoctorAuthReadinessAnalysis } from './authReadinessAnalysis.js';
+export { analyzeAuthReadinessFile } from './authReadinessFileAnalysis.js';
 export {
   createDoctorRuntimeProvider,
   type CreateDoctorRuntimeProviderOptions,
@@ -37,3 +39,4 @@ export {
   DOCTOR_PACKAGE_NAME,
   DOCTOR_PACKAGE_VERSION,
 } from './packageMetadata.js';
+export type { DoctorReadiness, DoctorReadinessStatus } from './readiness.js';

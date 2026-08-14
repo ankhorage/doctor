@@ -10,6 +10,7 @@ import type {
   DoctorFixPlan,
   DoctorPlannedChange,
 } from './analysis.js';
+import { analyzeAuthReadinessFile } from './authReadinessFileAnalysis.js';
 import type {
   DoctorDiagnostic,
   DoctorDiagnosticCode,
@@ -52,7 +53,8 @@ export async function analyzeAppManifestTarget(
     return null;
   }
 
-  const diagnostics = await analyzeAppManifestFile(targetPath);
+  const authReadiness = await analyzeAuthReadinessFile(targetPath);
+  const diagnostics = [...(await analyzeAppManifestFile(targetPath)), ...authReadiness.diagnostics];
   const plannedChanges: DoctorPlannedChange[] = [];
   const fixPlan: DoctorFixPlan | null =
     request.mode === 'fix'
@@ -71,6 +73,7 @@ export async function analyzeAppManifestTarget(
     hasPackageJson: false,
     plannedChanges,
     profile: MANIFEST_PROFILE,
+    readiness: authReadiness.readiness,
     repoMarkers: [],
     targetPath,
   };

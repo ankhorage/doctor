@@ -9,6 +9,7 @@ import {
   type DoctorDiagnostic,
 } from './diagnostics.js';
 import { DOCTOR_CAPABILITIES, DOCTOR_COMMAND_CATEGORY } from './packageMetadata.js';
+import type { DoctorReadiness } from './readiness.js';
 
 type DoctorCommandName = 'fix' | 'package' | 'repo' | 'validate';
 
@@ -289,6 +290,17 @@ function renderAnalysisReport(
     }
   }
 
+  const readiness = result.readiness ?? [];
+  lines.push('');
+  lines.push('Readiness:');
+  if (readiness.length === 0) {
+    lines.push('  none');
+  } else {
+    for (const item of readiness) {
+      lines.push(renderReadinessLine(item));
+    }
+  }
+
   if (commandName === 'fix') {
     lines.push('');
     lines.push('Planned changes:');
@@ -314,6 +326,10 @@ function renderAnalysisReport(
 
 function renderDiagnosticLine(diagnostic: DoctorDiagnostic): string {
   return `  - ${diagnostic.severity.toUpperCase()} ${diagnostic.ruleId} (${diagnostic.code}): ${diagnostic.message}`;
+}
+
+function renderReadinessLine(item: DoctorReadiness): string {
+  return `  - ${item.target} ${item.environment} ${item.provider} ${item.transport}: ${item.status} — ${item.message}`;
 }
 
 function renderPlannedChangeLine(change: DoctorPlannedChange): string {
