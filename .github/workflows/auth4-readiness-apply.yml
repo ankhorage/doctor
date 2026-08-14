@@ -44,8 +44,8 @@ jobs:
           )
           once(
               'src/analysis.ts',
-              "  readonly profile: DoctorPolicyProfile;\n  readonly repoMarkers: readonly string[];",
-              "  readonly profile: DoctorPolicyProfile;\n  readonly readiness?: readonly DoctorReadiness[];\n  readonly repoMarkers: readonly string[];",
+              "  readonly plannedChanges: readonly DoctorPlannedChange[];\n  readonly profile: DoctorPolicyProfile;\n  readonly repoMarkers: readonly string[];\n  readonly targetPath: string;",
+              "  readonly plannedChanges: readonly DoctorPlannedChange[];\n  readonly profile: DoctorPolicyProfile;\n  readonly readiness?: readonly DoctorReadiness[];\n  readonly repoMarkers: readonly string[];\n  readonly targetPath: string;",
           )
           once(
               'src/manifestAnalysis.ts',
