@@ -31,6 +31,7 @@ export function createAuthReadinessMessage(input: {
       : `Missing ${input.missing.join(' and ')}.`;
   if (input.target === 'web') return base;
 
-  const scheme = input.callbackScheme === undefined ? '' : ` Callback scheme: ${input.callbackScheme}.`;
+  const scheme =
+    input.callbackScheme === undefined ? '' : ` Callback scheme: ${input.callbackScheme}.`;
   return `${base}${scheme} Native OAuth requires a development or standalone app build; runtime host compatibility remains runtime-owned.`;
 }
