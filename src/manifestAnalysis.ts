@@ -54,10 +54,7 @@ export async function analyzeAppManifestTarget(
   }
 
   const authReadiness = await analyzeAuthReadinessFile(targetPath);
-  const diagnostics = [
-    ...(await analyzeAppManifestFile(targetPath)),
-    ...authReadiness.diagnostics,
-  ];
+  const diagnostics = [...(await analyzeAppManifestFile(targetPath)), ...authReadiness.diagnostics];
   const plannedChanges: DoctorPlannedChange[] = [];
   const fixPlan: DoctorFixPlan | null =
     request.mode === 'fix'

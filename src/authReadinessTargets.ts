@@ -1,8 +1,8 @@
 import {
   APP_DEPLOY_TARGET_IDS,
-  isAppDeployManifest,
   type AppDeployTargetId,
   type AppDeployTargets,
+  isAppDeployManifest,
 } from '@ankhorage/contracts/deploy';
 
 import { createAuthReadinessDiagnostic } from './authReadinessDiagnostic.js';

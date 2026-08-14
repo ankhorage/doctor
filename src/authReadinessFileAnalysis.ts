@@ -1,9 +1,6 @@
 import { promises as fs } from 'node:fs';
 
-import {
-  analyzeAuthReadiness,
-  type DoctorAuthReadinessAnalysis,
-} from './authReadinessAnalysis.js';
+import { analyzeAuthReadiness, type DoctorAuthReadinessAnalysis } from './authReadinessAnalysis.js';
 
 export async function analyzeAuthReadinessFile(
   filePath: string,

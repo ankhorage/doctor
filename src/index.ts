@@ -7,10 +7,7 @@ export type {
   DoctorTargetCheck,
   DoctorTargetMode,
 } from './analysis.js';
-export {
-  analyzeAuthReadiness,
-  type DoctorAuthReadinessAnalysis,
-} from './authReadinessAnalysis.js';
+export { analyzeAuthReadiness, type DoctorAuthReadinessAnalysis } from './authReadinessAnalysis.js';
 export { analyzeAuthReadinessFile } from './authReadinessFileAnalysis.js';
 export {
   createDoctorRuntimeProvider,

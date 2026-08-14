@@ -1,5 +1,5 @@
-import { APP_DEPLOY_ENVIRONMENT_IDS } from '@ankhorage/contracts/deploy';
 import type { AppDeployTargetId, AppDeployTargets } from '@ankhorage/contracts/deploy';
+import { APP_DEPLOY_ENVIRONMENT_IDS } from '@ankhorage/contracts/deploy';
 import { resolveSupabaseOAuthSetupPlan } from '@ankhorage/supabase-auth';
 
 import { analyzeAuthReadinessEnvironment } from './authReadinessEnvironment.js';
