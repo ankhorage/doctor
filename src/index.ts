@@ -9,9 +9,9 @@ export type {
 } from './analysis.js';
 export {
   analyzeAuthReadiness,
-  analyzeAuthReadinessFile,
   type DoctorAuthReadinessAnalysis,
 } from './authReadinessAnalysis.js';
+export { analyzeAuthReadinessFile } from './authReadinessFileAnalysis.js';
 export {
   createDoctorRuntimeProvider,
   type CreateDoctorRuntimeProviderOptions,
