@@ -2,12 +2,14 @@ import { APP_DEPLOY_ENVIRONMENT_IDS } from '@ankhorage/contracts/deploy';
 import type { AppDeployTargetId, AppDeployTargets } from '@ankhorage/contracts/deploy';
 import { resolveSupabaseOAuthSetupPlan } from '@ankhorage/supabase-auth';
 
-import { createAuthReadinessDiagnostic } from './authReadinessDiagnostic.js';
-import { collectMissingAuthReadinessRequirements } from './authReadinessRequirements.js';
+import { analyzeAuthReadinessEnvironment } from './authReadinessEnvironment.js';
+import { createNativeAuthCallbackDiagnostic } from './authReadinessNativeDiagnostic.js';
+import {
+  createUnsupportedAuthDiagnostic,
+  createUnsupportedAuthReadiness,
+} from './authReadinessUnsupported.js';
 import type { DoctorDiagnostic } from './diagnostics.js';
 import type { DoctorReadiness } from './readiness.js';
-
-const TRANSPORT = 'brokeredRedirect' as const;
 
 export function analyzeAuthProviderReadiness(input: {
   readonly authProvider: unknown;
@@ -29,46 +31,46 @@ export function analyzeAuthProviderReadiness(input: {
   for (const environment of APP_DEPLOY_ENVIRONMENT_IDS) {
     const plan = resolveSupabaseOAuthSetupPlan({
       provider: providerId,
-      transport: TRANSPORT,
+      transport: 'brokeredRedirect',
       environment,
       targets: input.enabledTargets,
     });
     if (plan === null) {
       unsupported = true;
-      readiness.push(...unsupportedEnvironment(providerId, input.enabledTargets, environment));
+      readiness.push(
+        ...createUnsupportedAuthReadiness({
+          environment,
+          provider: providerId,
+          targets: input.enabledTargets,
+        }),
+      );
       continue;
     }
 
-    for (const target of input.enabledTargets) {
-      const missing = collectMissingAuthReadinessRequirements({
-        callbackRoute: input.callbackRoute,
-        credentialsRef: input.provider.credentialsRef,
-        plan,
-        target,
-        targets: input.targets,
-      });
-      if (target !== 'web' && missing.includes(`${target} deep-link scheme`)) {
-        missingNativeTargets.add(target);
-      }
-      readiness.push({
-        category: 'auth-oauth',
-        environment,
-        message:
-          missing.length === 0
-            ? 'Manifest and adapter setup requirements are satisfiable; concrete callback URLs remain Infra/runtime-owned.'
-            : `Missing ${missing.join(' and ')}.`,
-        provider: providerId,
-        status: missing.length === 0 ? 'ready' : 'missing',
-        target,
-        transport: TRANSPORT,
-      });
-    }
+    const result = analyzeAuthReadinessEnvironment({
+      callbackRoute: input.callbackRoute,
+      credentialsRef: input.provider.credentialsRef,
+      enabledTargets: input.enabledTargets,
+      environment,
+      plan,
+      provider: providerId,
+      targets: input.targets,
+    });
+    readiness.push(...result.readiness);
+    result.missingNativeTargets.forEach((target) => missingNativeTargets.add(target));
   }
 
-  if (unsupported) diagnostics.push(unsupportedProviderDiagnostic(providerId, input.manifestPath));
-  for (const target of missingNativeTargets) {
-    diagnostics.push(nativeCallbackDiagnostic(target, input.manifestPath));
+  if (unsupported) {
+    diagnostics.push(
+      createUnsupportedAuthDiagnostic({
+        message: `OAuth provider "${providerId}" is not supported by the Supabase brokeredRedirect setup resolver.`,
+        path: input.manifestPath,
+      }),
+    );
   }
+  missingNativeTargets.forEach((target) =>
+    diagnostics.push(createNativeAuthCallbackDiagnostic(target, input.manifestPath)),
+  );
   return { diagnostics, readiness };
 }
 
@@ -78,52 +80,17 @@ function unsupportedBackend(
 ) {
   return {
     diagnostics: [
-      createAuthReadinessDiagnostic({
-        code: 'field-invalid',
+      createUnsupportedAuthDiagnostic({
         message: 'Configured OAuth backend has no Doctor setup resolver.',
         path: input.manifestPath,
-        ruleId: 'manifest.auth.oauth.setup.supported',
-        severity: 'error',
       }),
     ],
     readiness: APP_DEPLOY_ENVIRONMENT_IDS.flatMap((environment) =>
-      unsupportedEnvironment(providerId, input.enabledTargets, environment),
+      createUnsupportedAuthReadiness({
+        environment,
+        provider: providerId,
+        targets: input.enabledTargets,
+      }),
     ),
   };
-}
-
-function unsupportedEnvironment(
-  provider: string,
-  targets: readonly AppDeployTargetId[],
-  environment: (typeof APP_DEPLOY_ENVIRONMENT_IDS)[number],
-): DoctorReadiness[] {
-  return targets.map((target) => ({
-    category: 'auth-oauth',
-    environment,
-    message: 'The selected backend/provider/transport combination has no setup capability.',
-    provider,
-    status: 'unsupported',
-    target,
-    transport: TRANSPORT,
-  }));
-}
-
-function unsupportedProviderDiagnostic(providerId: string, path: string): DoctorDiagnostic {
-  return createAuthReadinessDiagnostic({
-    code: 'field-invalid',
-    message: `OAuth provider "${providerId}" is not supported by the Supabase ${TRANSPORT} setup resolver.`,
-    path,
-    ruleId: 'manifest.auth.oauth.setup.supported',
-    severity: 'error',
-  });
-}
-
-function nativeCallbackDiagnostic(target: AppDeployTargetId, path: string): DoctorDiagnostic {
-  return createAuthReadinessDiagnostic({
-    code: 'field-missing',
-    message: `Enabled ${target} brokered OAuth requires deploy.targets.${target}.scheme for the app callback.`,
-    path,
-    ruleId: 'manifest.auth.oauth.callback-target.configured',
-    severity: 'error',
-  });
 }
