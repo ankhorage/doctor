@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.2
+
+### Patch Changes
+
+- 2620323: Accept the Devtools owner placement for its published Changesets runner dependency.
+
 ## 0.10.1
 
 ### Patch Changes
