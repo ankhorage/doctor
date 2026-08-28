@@ -62,7 +62,7 @@ async function createPublicPackage(name: string): Promise<string> {
           format: 'prettier --write .',
           'format:check': 'prettier --check .',
           test: 'bun test',
-          knip: 'knip',
+          'knip:check': 'knip',
           docs: 'bunx @ankhorage/paradox',
           changeset: 'changeset',
           'changeset:status': 'changeset status',

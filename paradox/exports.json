@@ -8,7 +8,7 @@
     "modulePath": "src/manifestAnalysis.ts",
     "sourceLocation": {
       "filePath": "src/manifestAnalysis.ts",
-      "line": 113,
+      "line": 116,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -46,7 +46,7 @@
     "modulePath": "src/manifestAnalysis.ts",
     "sourceLocation": {
       "filePath": "src/manifestAnalysis.ts",
-      "line": 79,
+      "line": 82,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -78,7 +78,7 @@
     "modulePath": "src/manifestAnalysis.ts",
     "sourceLocation": {
       "filePath": "src/manifestAnalysis.ts",
-      "line": 40,
+      "line": 41,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -102,6 +102,76 @@
     "structuredRows": []
   },
   {
+    "name": "analyzeAuthReadiness",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/authReadinessAnalysis.ts",
+    "sourceLocation": {
+      "filePath": "src/authReadinessAnalysis.ts",
+      "line": 11,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorAuthReadinessAnalysis"],
+    "signatures": [
+      {
+        "label": "(manifest: unknown, manifestPath?: string) => DoctorAuthReadinessAnalysis",
+        "parameters": [
+          {
+            "name": "manifest",
+            "type": "unknown",
+            "required": true,
+            "description": null
+          },
+          {
+            "name": "manifestPath",
+            "type": "string",
+            "required": false,
+            "description": null
+          }
+        ],
+        "returnType": "DoctorAuthReadinessAnalysis",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "analyzeAuthReadinessFile",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/authReadinessFileAnalysis.ts",
+    "sourceLocation": {
+      "filePath": "src/authReadinessFileAnalysis.ts",
+      "line": 5,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorAuthReadinessAnalysis"],
+    "signatures": [
+      {
+        "label": "(filePath: string) => Promise<DoctorAuthReadinessAnalysis>",
+        "parameters": [
+          {
+            "name": "filePath",
+            "type": "string",
+            "required": true,
+            "description": null
+          }
+        ],
+        "returnType": "Promise<DoctorAuthReadinessAnalysis>",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
     "name": "analyzeDoctorTarget",
     "description": null,
     "isReadme": false,
@@ -110,7 +180,7 @@
     "modulePath": "src/dependencyPolicyAnalysis.ts",
     "sourceLocation": {
       "filePath": "src/dependencyPolicyAnalysis.ts",
-      "line": 16,
+      "line": 17,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -142,7 +212,7 @@
     "modulePath": "src/dependencyPolicyAnalysis.ts",
     "sourceLocation": {
       "filePath": "src/dependencyPolicyAnalysis.ts",
-      "line": 22,
+      "line": 23,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -354,7 +424,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 12,
+      "line": 13,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -394,7 +464,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 33,
+      "line": 34,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -403,6 +473,7 @@
       "DoctorFixPlan",
       "DoctorPlannedChange",
       "DoctorPolicyProfile",
+      "DoctorReadiness",
       "DoctorTargetCheck"
     ],
     "signatures": [],
@@ -450,6 +521,13 @@
         "description": null
       },
       {
+        "name": "readiness",
+        "kind": "property",
+        "type": "readonly DoctorReadiness[] | undefined",
+        "required": false,
+        "description": null
+      },
+      {
         "name": "repoMarkers",
         "kind": "property",
         "type": "readonly string[]",
@@ -460,6 +538,39 @@
         "name": "targetPath",
         "kind": "property",
         "type": "string",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorAuthReadinessAnalysis",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/authReadinessAnalysis.ts",
+    "sourceLocation": {
+      "filePath": "src/authReadinessAnalysis.ts",
+      "line": 6,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorDiagnostic", "DoctorReadiness"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "diagnostics",
+        "kind": "property",
+        "type": "readonly DoctorDiagnostic[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "readiness",
+        "kind": "property",
+        "type": "readonly DoctorReadiness[]",
         "required": true,
         "description": null
       }
@@ -555,7 +666,7 @@
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
-      "line": 113,
+      "line": 122,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -657,7 +768,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 26,
+      "line": 27,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -704,7 +815,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 18,
+      "line": 19,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -758,7 +869,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 9,
+      "line": 10,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -777,6 +888,106 @@
     "sourceLocation": {
       "filePath": "src/diagnostics.ts",
       "line": 17,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorReadiness",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/readiness.ts",
+    "sourceLocation": {
+      "filePath": "src/readiness.ts",
+      "line": 6,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["DoctorReadinessStatus"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "callbackScheme",
+        "kind": "property",
+        "type": "string | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "category",
+        "kind": "property",
+        "type": "\"auth-oauth\"",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "environment",
+        "kind": "property",
+        "type": "\"local\" | \"preview\" | \"production\"",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "hostRequirement",
+        "kind": "property",
+        "type": "\"development-or-standalone-build\" | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "message",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "provider",
+        "kind": "property",
+        "type": "AuthOAuthProviderId",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "status",
+        "kind": "property",
+        "type": "DoctorReadinessStatus",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "target",
+        "kind": "property",
+        "type": "\"web\" | \"android\" | \"ios\"",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "transport",
+        "kind": "property",
+        "type": "AuthOAuthTransportId",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "DoctorReadinessStatus",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/readiness.ts",
+    "sourceLocation": {
+      "filePath": "src/readiness.ts",
+      "line": 4,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -812,7 +1023,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 7,
+      "line": 8,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -830,7 +1041,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 8,
+      "line": 9,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],

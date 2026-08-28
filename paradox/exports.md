@@ -4,7 +4,7 @@
 
 Kind: `function`
 Module: `src/manifestAnalysis.ts`
-Source: `src/manifestAnalysis.ts:113:1`
+Source: `src/manifestAnalysis.ts:116:1`
 
 ### Signatures
 
@@ -17,7 +17,7 @@ Source: `src/manifestAnalysis.ts:113:1`
 
 Kind: `function`
 Module: `src/manifestAnalysis.ts`
-Source: `src/manifestAnalysis.ts:79:1`
+Source: `src/manifestAnalysis.ts:82:1`
 
 ### Signatures
 
@@ -29,7 +29,7 @@ Source: `src/manifestAnalysis.ts:79:1`
 
 Kind: `function`
 Module: `src/manifestAnalysis.ts`
-Source: `src/manifestAnalysis.ts:40:1`
+Source: `src/manifestAnalysis.ts:41:1`
 
 ### Signatures
 
@@ -37,11 +37,36 @@ Source: `src/manifestAnalysis.ts:40:1`
   - request: `DoctorAnalysisRequest`
   - returns: `Promise<DoctorAnalysisResult | null>`
 
+## analyzeAuthReadiness
+
+Kind: `function`
+Module: `src/authReadinessAnalysis.ts`
+Source: `src/authReadinessAnalysis.ts:11:1`
+
+### Signatures
+
+- `(manifest: unknown, manifestPath?: string) => DoctorAuthReadinessAnalysis`
+  - manifest: `unknown`
+  - manifestPath: `string` (optional)
+  - returns: `DoctorAuthReadinessAnalysis`
+
+## analyzeAuthReadinessFile
+
+Kind: `function`
+Module: `src/authReadinessFileAnalysis.ts`
+Source: `src/authReadinessFileAnalysis.ts:5:1`
+
+### Signatures
+
+- `(filePath: string) => Promise<DoctorAuthReadinessAnalysis>`
+  - filePath: `string`
+  - returns: `Promise<DoctorAuthReadinessAnalysis>`
+
 ## analyzeDoctorTarget
 
 Kind: `function`
 Module: `src/dependencyPolicyAnalysis.ts`
-Source: `src/dependencyPolicyAnalysis.ts:16:1`
+Source: `src/dependencyPolicyAnalysis.ts:17:1`
 
 ### Signatures
 
@@ -53,7 +78,7 @@ Source: `src/dependencyPolicyAnalysis.ts:16:1`
 
 Kind: `function`
 Module: `src/dependencyPolicyAnalysis.ts`
-Source: `src/dependencyPolicyAnalysis.ts:22:1`
+Source: `src/dependencyPolicyAnalysis.ts:23:1`
 
 ### Signatures
 
@@ -131,7 +156,7 @@ Source: `src/packageMetadata.ts:10:14`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:12:1`
+Source: `src/analysis.ts:13:1`
 
 ### Members
 
@@ -145,20 +170,34 @@ Source: `src/analysis.ts:12:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:33:1`
+Source: `src/analysis.ts:34:1`
 
 ### Members
 
-| Name           | Kind     | Type                             | Required | Description |
-| -------------- | -------- | -------------------------------- | -------- | ----------- |
-| appliedChecks  | property | `readonly DoctorTargetCheck[]`   | yes      |             |
-| diagnostics    | property | `readonly DoctorDiagnostic[]`    | yes      |             |
-| fixPlan        | property | `DoctorFixPlan \| null`          | yes      |             |
-| hasPackageJson | property | `boolean`                        | yes      |             |
-| plannedChanges | property | `readonly DoctorPlannedChange[]` | yes      |             |
-| profile        | property | `DoctorPolicyProfile`            | yes      |             |
-| repoMarkers    | property | `readonly string[]`              | yes      |             |
-| targetPath     | property | `string`                         | yes      |             |
+| Name           | Kind     | Type                                      | Required | Description |
+| -------------- | -------- | ----------------------------------------- | -------- | ----------- |
+| appliedChecks  | property | `readonly DoctorTargetCheck[]`            | yes      |             |
+| diagnostics    | property | `readonly DoctorDiagnostic[]`             | yes      |             |
+| fixPlan        | property | `DoctorFixPlan \| null`                   | yes      |             |
+| hasPackageJson | property | `boolean`                                 | yes      |             |
+| plannedChanges | property | `readonly DoctorPlannedChange[]`          | yes      |             |
+| profile        | property | `DoctorPolicyProfile`                     | yes      |             |
+| readiness      | property | `readonly DoctorReadiness[] \| undefined` | no       |             |
+| repoMarkers    | property | `readonly string[]`                       | yes      |             |
+| targetPath     | property | `string`                                  | yes      |             |
+
+## DoctorAuthReadinessAnalysis
+
+Kind: `type`
+Module: `src/authReadinessAnalysis.ts`
+Source: `src/authReadinessAnalysis.ts:6:1`
+
+### Members
+
+| Name        | Kind     | Type                          | Required | Description |
+| ----------- | -------- | ----------------------------- | -------- | ----------- |
+| diagnostics | property | `readonly DoctorDiagnostic[]` | yes      |             |
+| readiness   | property | `readonly DoctorReadiness[]`  | yes      |             |
 
 ## DoctorCommandContext
 
@@ -192,7 +231,7 @@ Source: `src/commandContext.ts:11:1`
 
 Kind: `type`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:113:1`
+Source: `src/diagnostics.ts:122:1`
 
 ### Members
 
@@ -221,7 +260,7 @@ Source: `src/diagnostics.ts:16:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:26:1`
+Source: `src/analysis.ts:27:1`
 
 ### Members
 
@@ -236,7 +275,7 @@ Source: `src/analysis.ts:26:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:18:1`
+Source: `src/analysis.ts:19:1`
 
 ### Members
 
@@ -252,13 +291,39 @@ Source: `src/analysis.ts:18:1`
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:9:1`
+Source: `src/analysis.ts:10:1`
 
 ## DoctorPolicyProfile
 
 Kind: `unknown`
 Module: `src/diagnostics.ts`
 Source: `src/diagnostics.ts:17:1`
+
+## DoctorReadiness
+
+Kind: `type`
+Module: `src/readiness.ts`
+Source: `src/readiness.ts:6:1`
+
+### Members
+
+| Name            | Kind     | Type                                             | Required | Description |
+| --------------- | -------- | ------------------------------------------------ | -------- | ----------- |
+| callbackScheme  | property | `string \| undefined`                            | no       |             |
+| category        | property | `"auth-oauth"`                                   | yes      |             |
+| environment     | property | `"local" \| "preview" \| "production"`           | yes      |             |
+| hostRequirement | property | `"development-or-standalone-build" \| undefined` | no       |             |
+| message         | property | `string`                                         | yes      |             |
+| provider        | property | `AuthOAuthProviderId`                            | yes      |             |
+| status          | property | `DoctorReadinessStatus`                          | yes      |             |
+| target          | property | `"web" \| "android" \| "ios"`                    | yes      |             |
+| transport       | property | `AuthOAuthTransportId`                           | yes      |             |
+
+## DoctorReadinessStatus
+
+Kind: `unknown`
+Module: `src/readiness.ts`
+Source: `src/readiness.ts:4:1`
 
 ## DoctorRuleId
 
@@ -270,13 +335,13 @@ Source: `src/diagnostics.ts:19:1`
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:7:1`
+Source: `src/analysis.ts:8:1`
 
 ## DoctorTargetMode
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:8:1`
+Source: `src/analysis.ts:9:1`
 
 ## runCli
 
