@@ -201,7 +201,7 @@
             <li>
               <button class="nav-button" type="button" data-target="src/analysis.ts">
                 src/analysis.ts
-                <small>33 functions</small>
+                <small>34 functions</small>
               </button>
             </li>
             <li>
@@ -392,7 +392,7 @@
             <div class="summary">
               <div><strong>33</strong><span class="muted">public exports</span></div>
               <div><strong>0</strong><span class="muted">components</span></div>
-              <div><strong>44</strong><span class="muted">modules</span></div>
+              <div><strong>45</strong><span class="muted">modules</span></div>
               <div><strong>1</strong><span class="muted">entrypoints</span></div>
             </div>
             <h3>Entrypoints</h3>
@@ -836,6 +836,18 @@
               data-search="tests/bunPolicyAnalysis.test.ts src/index.ts tests/testSupport.ts"
             >
               <h3>tests/bunPolicyAnalysis.test.ts</h3>
+              <p class="muted">Referenced module</p>
+              <p>
+                <strong>Dependencies:</strong> <code>src/index.ts</code>,
+                <code>tests/testSupport.ts</code>
+              </p>
+              <p><strong>Exports:</strong> <span class="empty">None</span></p>
+            </article>
+            <article
+              class="item"
+              data-search="tests/changesetsDependencyPlacement.test.ts src/index.ts tests/testSupport.ts"
+            >
+              <h3>tests/changesetsDependencyPlacement.test.ts</h3>
               <p class="muted">Referenced module</p>
               <p>
                 <strong>Dependencies:</strong> <code>src/index.ts</code>,
@@ -2323,10 +2335,15 @@
                 package__ankhorage_doctor -.-&gt; module_tests_bunPolicyAnalysis_test_ts
                 module_tests_bunPolicyAnalysis_test_ts --&gt; module_src_index_ts
                 module_tests_bunPolicyAnalysis_test_ts --&gt; module_tests_testSupport_ts
-                module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;] package__ankhorage_doctor
-                -.-&gt; module_tests_cli_test_ts module_tests_cli_test_ts --&gt;
-                module_src_cli_index_ts module_tests_cli_test_ts --&gt; module_src_cli_standalone_ts
-                module_tests_cli_test_ts --&gt; module_tests_testSupport_ts
+                module_tests_changesetsDependencyPlacement_test_ts[&quot;tests/changesetsDependencyPlacement.test.ts&quot;]
+                package__ankhorage_doctor -.-&gt; module_tests_changesetsDependencyPlacement_test_ts
+                module_tests_changesetsDependencyPlacement_test_ts --&gt; module_src_index_ts
+                module_tests_changesetsDependencyPlacement_test_ts --&gt;
+                module_tests_testSupport_ts module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
+                package__ankhorage_doctor -.-&gt; module_tests_cli_test_ts module_tests_cli_test_ts
+                --&gt; module_src_cli_index_ts module_tests_cli_test_ts --&gt;
+                module_src_cli_standalone_ts module_tests_cli_test_ts --&gt;
+                module_tests_testSupport_ts
                 module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
                 package__ankhorage_doctor -.-&gt; module_tests_commands_test_ts
                 module_tests_commands_test_ts --&gt; module_src_commands_ts
@@ -2508,6 +2525,10 @@ graph TD
   package__ankhorage_doctor -.-&gt; module_tests_bunPolicyAnalysis_test_ts
   module_tests_bunPolicyAnalysis_test_ts --&gt; module_src_index_ts
   module_tests_bunPolicyAnalysis_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_changesetsDependencyPlacement_test_ts[&quot;tests/changesetsDependencyPlacement.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_changesetsDependencyPlacement_test_ts
+  module_tests_changesetsDependencyPlacement_test_ts --&gt; module_src_index_ts
+  module_tests_changesetsDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
   module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_cli_test_ts
   module_tests_cli_test_ts --&gt; module_src_cli_index_ts
@@ -2590,6 +2611,7 @@ graph TD
                 module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
                 module_tests_authReadinessCommand_test_ts[&quot;tests/authReadinessCommand.test.ts&quot;]
                 module_tests_bunPolicyAnalysis_test_ts[&quot;tests/bunPolicyAnalysis.test.ts&quot;]
+                module_tests_changesetsDependencyPlacement_test_ts[&quot;tests/changesetsDependencyPlacement.test.ts&quot;]
                 module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
                 module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
                 module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
@@ -2675,6 +2697,8 @@ graph TD
                 module_src_commands_ts module_tests_authReadinessCommand_test_ts --&gt;
                 module_tests_testSupport_ts module_tests_bunPolicyAnalysis_test_ts --&gt;
                 module_src_index_ts module_tests_bunPolicyAnalysis_test_ts --&gt;
+                module_tests_testSupport_ts module_tests_changesetsDependencyPlacement_test_ts
+                --&gt; module_src_index_ts module_tests_changesetsDependencyPlacement_test_ts --&gt;
                 module_tests_testSupport_ts module_tests_cli_test_ts --&gt; module_src_cli_index_ts
                 module_tests_cli_test_ts --&gt; module_src_cli_standalone_ts
                 module_tests_cli_test_ts --&gt; module_tests_testSupport_ts
@@ -2732,6 +2756,7 @@ graph LR
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
   module_tests_authReadinessCommand_test_ts[&quot;tests/authReadinessCommand.test.ts&quot;]
   module_tests_bunPolicyAnalysis_test_ts[&quot;tests/bunPolicyAnalysis.test.ts&quot;]
+  module_tests_changesetsDependencyPlacement_test_ts[&quot;tests/changesetsDependencyPlacement.test.ts&quot;]
   module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
   module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
   module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
@@ -2815,6 +2840,8 @@ graph LR
   module_tests_authReadinessCommand_test_ts --&gt; module_tests_testSupport_ts
   module_tests_bunPolicyAnalysis_test_ts --&gt; module_src_index_ts
   module_tests_bunPolicyAnalysis_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_changesetsDependencyPlacement_test_ts --&gt; module_src_index_ts
+  module_tests_changesetsDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
   module_tests_cli_test_ts --&gt; module_src_cli_index_ts
   module_tests_cli_test_ts --&gt; module_src_cli_standalone_ts
   module_tests_cli_test_ts --&gt; module_tests_testSupport_ts
@@ -2874,6 +2901,7 @@ graph LR
                 module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
                 module_tests_authReadinessCommand_test_ts[&quot;tests/authReadinessCommand.test.ts&quot;]
                 module_tests_bunPolicyAnalysis_test_ts[&quot;tests/bunPolicyAnalysis.test.ts&quot;]
+                module_tests_changesetsDependencyPlacement_test_ts[&quot;tests/changesetsDependencyPlacement.test.ts&quot;]
                 module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
                 module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
                 module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
@@ -3016,6 +3044,7 @@ graph LR
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
   module_tests_authReadinessCommand_test_ts[&quot;tests/authReadinessCommand.test.ts&quot;]
   module_tests_bunPolicyAnalysis_test_ts[&quot;tests/bunPolicyAnalysis.test.ts&quot;]
+  module_tests_changesetsDependencyPlacement_test_ts[&quot;tests/changesetsDependencyPlacement.test.ts&quot;]
   module_tests_cli_test_ts[&quot;tests/cli.test.ts&quot;]
   module_tests_commands_test_ts[&quot;tests/commands.test.ts&quot;]
   module_tests_devtoolsDependencyPlacement_test_ts[&quot;tests/devtoolsDependencyPlacement.test.ts&quot;]
@@ -3247,154 +3276,162 @@ sequenceDiagram
               <p class="muted"><code>src/analysis.ts:347:1</code></p>
               <p class="empty">No description available.</p>
             </article>
+            <article
+              class="item"
+              data-search="createChangesetsDependencyDiagnostic src/analysis.ts "
+            >
+              <h3>createChangesetsDependencyDiagnostic</h3>
+              <p class="muted"><code>src/analysis.ts:659:1</code></p>
+              <p class="empty">No description available.</p>
+            </article>
             <article class="item" data-search="validateAnkhMetadataAndProvider src/analysis.ts ">
               <h3>validateAnkhMetadataAndProvider</h3>
-              <p class="muted"><code>src/analysis.ts:660:1</code></p>
+              <p class="muted"><code>src/analysis.ts:689:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="inspectProviderSource src/analysis.ts ">
               <h3>inspectProviderSource</h3>
-              <p class="muted"><code>src/analysis.ts:796:1</code></p>
+              <p class="muted"><code>src/analysis.ts:825:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="resolveProviderSourcePath src/analysis.ts ">
               <h3>resolveProviderSourcePath</h3>
-              <p class="muted"><code>src/analysis.ts:885:1</code></p>
+              <p class="muted"><code>src/analysis.ts:914:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="findRepoMarkers src/analysis.ts ">
               <h3>findRepoMarkers</h3>
-              <p class="muted"><code>src/analysis.ts:913:1</code></p>
+              <p class="muted"><code>src/analysis.ts:942:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="readPackageJson src/analysis.ts ">
               <h3>readPackageJson</h3>
-              <p class="muted"><code>src/analysis.ts:923:1</code></p>
+              <p class="muted"><code>src/analysis.ts:952:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="detectProfile src/analysis.ts ">
               <h3>detectProfile</h3>
-              <p class="muted"><code>src/analysis.ts:965:1</code></p>
+              <p class="muted"><code>src/analysis.ts:994:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isProviderPackage src/analysis.ts ">
               <h3>isProviderPackage</h3>
-              <p class="muted"><code>src/analysis.ts:986:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1015:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="maybeRequirePath src/analysis.ts ">
               <h3>maybeRequirePath</h3>
-              <p class="muted"><code>src/analysis.ts:996:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1025:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="requireNonEmptyStringField src/analysis.ts ">
               <h3>requireNonEmptyStringField</h3>
-              <p class="muted"><code>src/analysis.ts:1034:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1063:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="requireRecordField src/analysis.ts ">
               <h3>requireRecordField</h3>
-              <p class="muted"><code>src/analysis.ts:1058:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1087:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="requireStringArrayField src/analysis.ts ">
               <h3>requireStringArrayField</h3>
-              <p class="muted"><code>src/analysis.ts:1082:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1111:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="expectsParadox src/analysis.ts ">
               <h3>expectsParadox</h3>
-              <p class="muted"><code>src/analysis.ts:1106:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1135:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="expectsDevtools src/analysis.ts ">
               <h3>expectsDevtools</h3>
-              <p class="muted"><code>src/analysis.ts:1125:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1154:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="hasDependency src/analysis.ts ">
               <h3>hasDependency</h3>
-              <p class="muted"><code>src/analysis.ts:1140:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1169:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="validateAnkhMetadataShape src/analysis.ts ">
               <h3>validateAnkhMetadataShape</h3>
-              <p class="muted"><code>src/analysis.ts:1147:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1176:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="mapScriptRule src/analysis.ts ">
               <h3>mapScriptRule</h3>
-              <p class="muted"><code>src/analysis.ts:1181:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1210:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createEarlyResult src/analysis.ts ">
               <h3>createEarlyResult</h3>
-              <p class="muted"><code>src/analysis.ts:1210:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1239:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createDiagnostic src/analysis.ts ">
               <h3>createDiagnostic</h3>
-              <p class="muted"><code>src/analysis.ts:1223:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1252:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createPlannedChange src/analysis.ts ">
               <h3>createPlannedChange</h3>
-              <p class="muted"><code>src/analysis.ts:1227:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1256:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="createInvalidPackageJsonMessage src/analysis.ts ">
               <h3>createInvalidPackageJsonMessage</h3>
-              <p class="muted"><code>src/analysis.ts:1234:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1263:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="pathExists src/analysis.ts ">
               <h3>pathExists</h3>
-              <p class="muted"><code>src/analysis.ts:1239:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1268:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="statOrNull src/analysis.ts ">
               <h3>statOrNull</h3>
-              <p class="muted"><code>src/analysis.ts:1243:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1272:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isMissingPathError src/analysis.ts ">
               <h3>isMissingPathError</h3>
-              <p class="muted"><code>src/analysis.ts:1255:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1284:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isNonEmptyString src/analysis.ts ">
               <h3>isNonEmptyString</h3>
-              <p class="muted"><code>src/analysis.ts:1264:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1293:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isPackageRelativeProviderPath src/analysis.ts ">
               <h3>isPackageRelativeProviderPath</h3>
-              <p class="muted"><code>src/analysis.ts:1268:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1297:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isRecord src/analysis.ts ">
               <h3>isRecord</h3>
-              <p class="muted"><code>src/analysis.ts:1272:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1301:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="isStringTuple src/analysis.ts ">
               <h3>isStringTuple</h3>
-              <p class="muted"><code>src/analysis.ts:1276:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1305:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="readStringArray src/analysis.ts ">
               <h3>readStringArray</h3>
-              <p class="muted"><code>src/analysis.ts:1280:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1309:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="sameStringSet src/analysis.ts ">
               <h3>sameStringSet</h3>
-              <p class="muted"><code>src/analysis.ts:1284:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1313:1</code></p>
               <p class="empty">No description available.</p>
             </article>
             <article class="item" data-search="uniqueSorted src/analysis.ts ">
               <h3>uniqueSorted</h3>
-              <p class="muted"><code>src/analysis.ts:1292:1</code></p>
+              <p class="muted"><code>src/analysis.ts:1321:1</code></p>
               <p class="empty">No description available.</p>
             </article>
           </section>
