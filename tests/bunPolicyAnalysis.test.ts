@@ -137,7 +137,7 @@ function createRequiredScripts(): Record<string, string> {
     format: 'ankhorage-prettier --write .',
     'format:check': 'ankhorage-prettier --check .',
     test: 'bun test',
-    knip: 'ankhorage-knip',
+    'knip:check': 'ankhorage-knip',
     docs: 'echo docs',
     changeset: 'changeset',
     'changeset:status': 'changeset status --since=origin/main',

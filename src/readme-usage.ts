@@ -24,6 +24,9 @@ import { runCli } from './cli/standalone.js';
  * - canonical app-manifest authentication validation for JSON file targets
  * - non-mutating `fix` plans for deterministic mechanical changes only
  *
+ * Public-package script validation follows the canonical Devtools contract. In particular,
+ * packages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.
+ *
  * Manifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects
  * `settings.authFlow` with a manual-migration diagnostic, and permits authentication without
  * an authorization block.

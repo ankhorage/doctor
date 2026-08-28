@@ -3,7 +3,7 @@
 
 # DOCTOR
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.7.2](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.10.0](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
 
 Executable doctor provider and standalone CLI for lightweight Ankhorage repo and package compliance diagnostics.
 
@@ -32,6 +32,9 @@ Current command surface:
 - canonical app-manifest authentication validation for JSON file targets
 - non-mutating `fix` plans for deterministic mechanical changes only
 
+Public-package script validation follows the canonical Devtools contract. In particular,
+packages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.
+
 Manifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects
 `settings.authFlow` with a manual-migration diagnostic, and permits authentication without
 an authorization block.
@@ -54,12 +57,6 @@ Source: `src/readme-usage.ts`
 import { runCli } from './cli/standalone.js';
 
 await runCli(['--help']);
-```
-
-## Installation
-
-```bash
-bunx @ankhorage/doctor
 ```
 
 ## Generated documentation
