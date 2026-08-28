@@ -600,7 +600,6 @@ function createValidPublicPackageJson(options: {
     },
     devDependencies: {
       '@ankhorage/devtools': '^1.0.6',
-      '@changesets/cli': '^2.31.0',
       '@types/bun': '^1.3.13',
       '@types/node': '^25.6.0',
       typescript: '^5.9.3',

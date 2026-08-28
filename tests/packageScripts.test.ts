@@ -77,7 +77,6 @@ function createPublicPackageJson(knipScript: Readonly<Record<string, string>>) {
     },
     devDependencies: {
       '@ankhorage/devtools': '^1.7.0',
-      '@changesets/cli': '^2.31.0',
       '@types/bun': '^1.3.14',
       '@types/node': '^25.6.0',
       typescript: '^5.9.3',

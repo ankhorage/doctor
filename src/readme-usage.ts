@@ -26,9 +26,9 @@ import { runCli } from './cli/standalone.js';
  *
  * Public-package script validation follows the canonical Devtools contract. In particular,
  * packages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.
- * During the Devtools-owned Changesets bootstrap, `@ankhorage/devtools` must publish
- * `@changesets/cli` from `dependencies`; current consumers keep it only in `devDependencies`
- * until the released Devtools synchronization contract can produce the final consumer state.
+ * Changesets dependency placement follows the same ownership boundary: `@ankhorage/devtools`
+ * publishes `@changesets/cli` from `dependencies`, while consumers use the Devtools-owned
+ * command without declaring the CLI directly.
  *
  * Manifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects
  * `settings.authFlow` with a manual-migration diagnostic, and permits authentication without

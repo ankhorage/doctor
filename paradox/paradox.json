@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.10.1",
+      "value": "v0.10.2",
       "color": "cb3837"
     },
     {
@@ -73,7 +73,7 @@
   "readmeUsage": [
     {
       "title": "Provider and CLI surface",
-      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#2` adds a profile-based policy engine:\n\n- strict `public-package` validation for extracted public package repos\n- light recognized `integration-monorepo` validation for `ankhorage4`\n- canonical app-manifest authentication validation for JSON file targets\n- non-mutating `fix` plans for deterministic mechanical changes only\n\nPublic-package script validation follows the canonical Devtools contract. In particular,\npackages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.\nDuring the Devtools-owned Changesets bootstrap, `@ankhorage/devtools` must publish\n`@changesets/cli` from `dependencies`; current consumers keep it only in `devDependencies`\nuntil the released Devtools synchronization contract can produce the final consumer state.\n\nManifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects\n`settings.authFlow` with a manual-migration diagnostic, and permits authentication without\nan authorization block.\n\nStill deferred:\n\n- GitHub checks\n- CI checks\n- on-disk `fix --apply`\n- deeper cross-repo policy enforcement\n\nPath handling:\n\n- pass a repo/package directory or app-manifest JSON file as `[path]`, or\n- omit it to inspect the current working directory",
+      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#2` adds a profile-based policy engine:\n\n- strict `public-package` validation for extracted public package repos\n- light recognized `integration-monorepo` validation for `ankhorage4`\n- canonical app-manifest authentication validation for JSON file targets\n- non-mutating `fix` plans for deterministic mechanical changes only\n\nPublic-package script validation follows the canonical Devtools contract. In particular,\npackages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.\nChangesets dependency placement follows the same ownership boundary: `@ankhorage/devtools`\npublishes `@changesets/cli` from `dependencies`, while consumers use the Devtools-owned\ncommand without declaring the CLI directly.\n\nManifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects\n`settings.authFlow` with a manual-migration diagnostic, and permits authentication without\nan authorization block.\n\nStill deferred:\n\n- GitHub checks\n- CI checks\n- on-disk `fix --apply`\n- deeper cross-repo policy enforcement\n\nPath handling:\n\n- pass a repo/package directory or app-manifest JSON file as `[path]`, or\n- omit it to inspect the current working directory",
       "language": "ts",
       "code": "import { runCli } from './cli/standalone.js';\n\nawait runCli(['--help']);",
       "sourcePath": "src/readme-usage.ts"

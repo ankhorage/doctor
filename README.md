@@ -3,7 +3,7 @@
 
 # DOCTOR
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.10.1](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.10.2](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
 
 Executable doctor provider and standalone CLI for lightweight Ankhorage repo and package compliance diagnostics.
 
@@ -34,9 +34,9 @@ Current command surface:
 
 Public-package script validation follows the canonical Devtools contract. In particular,
 packages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.
-During the Devtools-owned Changesets bootstrap, `@ankhorage/devtools` must publish
-`@changesets/cli` from `dependencies`; current consumers keep it only in `devDependencies`
-until the released Devtools synchronization contract can produce the final consumer state.
+Changesets dependency placement follows the same ownership boundary: `@ankhorage/devtools`
+publishes `@changesets/cli` from `dependencies`, while consumers use the Devtools-owned
+command without declaring the CLI directly.
 
 Manifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects
 `settings.authFlow` with a manual-migration diagnostic, and permits authentication without
