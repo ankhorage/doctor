@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.3
+
+### Patch Changes
+
+- 89dadc9: Enforce Devtools-owned Changesets execution by rejecting direct `@changesets/cli` declarations in consumer packages.
+
 ## 0.10.2
 
 ### Patch Changes
