@@ -4,7 +4,7 @@ import { analyzeDoctorTarget } from '../src/index.js';
 import { createDoctorFixture } from './testSupport.js';
 
 describe('public package script policy', () => {
-  test('accepts the Devtools 1.7.0 knip:check contract', async () => {
+  test('accepts the Devtools 1.8.0 knip:check contract', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createPublicPackageJson({
         'knip:check': 'ankhorage-knip',
@@ -42,7 +42,7 @@ function createPublicPackageJson(knipScript: Readonly<Record<string, string>>) {
   return {
     name: '@ankhorage/devtools-synchronized-fixture',
     version: '1.0.0',
-    description: 'Devtools 1.7.0 synchronized public package fixture.',
+    description: 'Devtools 1.8.0 synchronized public package fixture.',
     license: 'MIT',
     type: 'module',
     repository: {
@@ -76,11 +76,11 @@ function createPublicPackageJson(knipScript: Readonly<Record<string, string>>) {
       ...knipScript,
     },
     devDependencies: {
-      '@ankhorage/devtools': '^1.7.0',
-      '@types/bun': '^1.3.14',
+      '@ankhorage/devtools': '^1.8.0',
+      '@types/bun': '^1.4.0',
       '@types/node': '^25.6.0',
       typescript: '^5.9.3',
     },
-    packageManager: 'bun@1.3.14',
+    packageManager: 'bun@1.4.0',
   };
 }

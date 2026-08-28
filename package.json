@@ -71,9 +71,9 @@
     "format:check": "ankhorage-prettier --check .",
     "test": "bun test",
     "docs": "bunx @ankhorage/paradox && ankhorage-prettier --write README.md paradox",
-    "changeset": "changeset",
-    "changeset:status": "changeset status --since=origin/main",
-    "version-packages": "changeset version",
+    "changeset": "ankhorage-changeset",
+    "changeset:status": "ankhorage-changeset status --since=origin/main",
+    "version-packages": "ankhorage-changeset version",
     "knip:check": "ankhorage-knip"
   },
   "dependencies": {
@@ -82,13 +82,12 @@
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.8.2",
-    "@ankhorage/devtools": "^1.7.0",
+    "@ankhorage/devtools": "^1.8.0",
     "@ankhorage/paradox": "^0.1.24",
-    "@changesets/cli": "^2.31.0",
-    "@types/bun": "^1.3.14",
+    "@types/bun": "^1.4.0",
     "@types/node": "^25.6.0",
     "typescript": "^5.9.3"
   },
   "sideEffects": false,
-  "packageManager": "bun@1.3.14"
+  "packageManager": "bun@1.4.0"
 }
