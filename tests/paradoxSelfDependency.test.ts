@@ -70,7 +70,6 @@ async function createPublicPackage(name: string): Promise<string> {
         },
         devDependencies: {
           '@ankhorage/devtools': '1.0.0',
-          '@changesets/cli': '2.0.0',
           '@types/bun': '1.0.0',
           '@types/node': '1.0.0',
           typescript: '5.0.0',

@@ -4,10 +4,8 @@ import { analyzeDoctorTarget } from '../src/index.js';
 import { createDoctorFixture } from './testSupport.js';
 
 describe('Changesets dependency placement', () => {
-  test('accepts the current consumer devDependency placement', async () => {
-    const diagnostic = await getChangesetsDiagnostic(
-      createPublicPackageJson('@ankhorage/example', undefined, '^2.31.0'),
-    );
+  test('accepts consumers without a direct Changesets CLI dependency', async () => {
+    const diagnostic = await getChangesetsDiagnostic(createPublicPackageJson('@ankhorage/example'));
 
     expect(diagnostic).toBeUndefined();
   });
@@ -22,6 +20,7 @@ describe('Changesets dependency placement', () => {
 
   test('rejects Devtools missing or duplicating its published dependency', async () => {
     const fixtures = [
+      createPublicPackageJson('@ankhorage/devtools'),
       createPublicPackageJson('@ankhorage/devtools', undefined, '^2.31.1'),
       createPublicPackageJson('@ankhorage/devtools', '^2.31.1', '^2.31.1'),
     ];
@@ -34,14 +33,20 @@ describe('Changesets dependency placement', () => {
     }
   });
 
-  test('rejects consumer dependency placement outside devDependencies', async () => {
-    const diagnostic = await getChangesetsDiagnostic(
+  test('rejects every direct consumer Changesets CLI dependency placement', async () => {
+    const fixtures = [
       createPublicPackageJson('@ankhorage/example', '^2.31.1'),
-    );
+      createPublicPackageJson('@ankhorage/example', undefined, '^2.31.1'),
+      createPublicPackageJson('@ankhorage/example', '^2.31.1', '^2.31.1'),
+    ];
 
-    expect(diagnostic?.message).toBe(
-      'Public package repos must declare @changesets/cli only in devDependencies.',
-    );
+    for (const fixture of fixtures) {
+      const diagnostic = await getChangesetsDiagnostic(fixture);
+      expect(diagnostic?.code).toBe('field-invalid');
+      expect(diagnostic?.message).toBe(
+        'Public package repos must not declare @changesets/cli directly; @ankhorage/devtools owns Changesets execution.',
+      );
+    }
   });
 });
 

@@ -84,7 +84,6 @@ function createPublicPackageJson(options: {
     ...(options.dependencies === undefined ? {} : { dependencies: options.dependencies }),
     devDependencies: {
       typescript: '^5.9.3',
-      '@changesets/cli': '^2.31.0',
       '@types/bun': '^1.3.13',
       '@types/node': '^25.6.0',
       ...(options.devtoolsInDevDependencies ? { '@ankhorage/devtools': '^1.3.1' } : {}),

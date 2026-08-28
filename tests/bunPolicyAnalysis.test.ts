@@ -120,7 +120,6 @@ function createPublicPackageJson(
     scripts: createRequiredScripts(),
     devDependencies: {
       typescript: '^5.9.3',
-      '@changesets/cli': '^2.31.0',
       '@types/bun': bunTypes,
       '@types/node': '^25.6.0',
       '@ankhorage/devtools': '^1.4.1',

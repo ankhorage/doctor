@@ -668,17 +668,17 @@ function createChangesetsDependencyDiagnostic(request: {
   const isDevtoolsOwner = request.packageJson.name === '@ankhorage/devtools';
   const placementIsCurrent = isDevtoolsOwner
     ? dependencyDeclared && !devDependencyDeclared
-    : devDependencyDeclared && !dependencyDeclared;
+    : !dependencyDeclared && !devDependencyDeclared;
 
   if (placementIsCurrent) {
     return null;
   }
 
   return createDiagnostic({
-    code: 'missing-dependency',
+    code: isDevtoolsOwner ? 'missing-dependency' : 'field-invalid',
     message: isDevtoolsOwner
       ? '@ankhorage/devtools must publish @changesets/cli in dependencies, not devDependencies.'
-      : 'Public package repos must declare @changesets/cli only in devDependencies.',
+      : 'Public package repos must not declare @changesets/cli directly; @ankhorage/devtools owns Changesets execution.',
     path: request.packageJsonPath,
     profile: request.profile,
     ruleId: 'package.dependencies.changesets.required',
