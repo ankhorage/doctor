@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.10.0",
+      "value": "v0.10.1",
       "color": "cb3837"
     },
     {
@@ -73,7 +73,7 @@
   "readmeUsage": [
     {
       "title": "Provider and CLI surface",
-      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#2` adds a profile-based policy engine:\n\n- strict `public-package` validation for extracted public package repos\n- light recognized `integration-monorepo` validation for `ankhorage4`\n- canonical app-manifest authentication validation for JSON file targets\n- non-mutating `fix` plans for deterministic mechanical changes only\n\nPublic-package script validation follows the canonical Devtools contract. In particular,\npackages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.\n\nManifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects\n`settings.authFlow` with a manual-migration diagnostic, and permits authentication without\nan authorization block.\n\nStill deferred:\n\n- GitHub checks\n- CI checks\n- on-disk `fix --apply`\n- deeper cross-repo policy enforcement\n\nPath handling:\n\n- pass a repo/package directory or app-manifest JSON file as `[path]`, or\n- omit it to inspect the current working directory",
+      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#2` adds a profile-based policy engine:\n\n- strict `public-package` validation for extracted public package repos\n- light recognized `integration-monorepo` validation for `ankhorage4`\n- canonical app-manifest authentication validation for JSON file targets\n- non-mutating `fix` plans for deterministic mechanical changes only\n\nPublic-package script validation follows the canonical Devtools contract. In particular,\npackages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.\nDuring the Devtools-owned Changesets bootstrap, `@ankhorage/devtools` must publish\n`@changesets/cli` from `dependencies`; current consumers keep it only in `devDependencies`\nuntil the released Devtools synchronization contract can produce the final consumer state.\n\nManifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects\n`settings.authFlow` with a manual-migration diagnostic, and permits authentication without\nan authorization block.\n\nStill deferred:\n\n- GitHub checks\n- CI checks\n- on-disk `fix --apply`\n- deeper cross-repo policy enforcement\n\nPath handling:\n\n- pass a repo/package directory or app-manifest JSON file as `[path]`, or\n- omit it to inspect the current working directory",
       "language": "ts",
       "code": "import { runCli } from './cli/standalone.js';\n\nawait runCli(['--help']);",
       "sourcePath": "src/readme-usage.ts"
@@ -406,6 +406,12 @@
     },
     {
       "path": "tests/bunPolicyAnalysis.test.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/index.ts", "tests/testSupport.ts"],
+      "exports": []
+    },
+    {
+      "path": "tests/changesetsDependencyPlacement.test.ts",
       "isEntrypoint": false,
       "dependencies": ["src/index.ts", "tests/testSupport.ts"],
       "exports": []
@@ -1603,11 +1609,20 @@
       }
     },
     {
+      "name": "createChangesetsDependencyDiagnostic",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 659,
+        "column": 1
+      }
+    },
+    {
       "name": "validateAnkhMetadataAndProvider",
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 660,
+        "line": 689,
         "column": 1
       }
     },
@@ -1616,7 +1631,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 796,
+        "line": 825,
         "column": 1
       }
     },
@@ -1625,7 +1640,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 885,
+        "line": 914,
         "column": 1
       }
     },
@@ -1634,7 +1649,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 913,
+        "line": 942,
         "column": 1
       }
     },
@@ -1643,7 +1658,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 923,
+        "line": 952,
         "column": 1
       }
     },
@@ -1652,7 +1667,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 965,
+        "line": 994,
         "column": 1
       }
     },
@@ -1661,7 +1676,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 986,
+        "line": 1015,
         "column": 1
       }
     },
@@ -1670,7 +1685,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 996,
+        "line": 1025,
         "column": 1
       }
     },
@@ -1679,7 +1694,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1034,
+        "line": 1063,
         "column": 1
       }
     },
@@ -1688,7 +1703,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1058,
+        "line": 1087,
         "column": 1
       }
     },
@@ -1697,7 +1712,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1082,
+        "line": 1111,
         "column": 1
       }
     },
@@ -1706,7 +1721,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1106,
+        "line": 1135,
         "column": 1
       }
     },
@@ -1715,7 +1730,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1125,
+        "line": 1154,
         "column": 1
       }
     },
@@ -1724,7 +1739,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1140,
+        "line": 1169,
         "column": 1
       }
     },
@@ -1733,7 +1748,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1147,
+        "line": 1176,
         "column": 1
       }
     },
@@ -1742,7 +1757,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1181,
+        "line": 1210,
         "column": 1
       }
     },
@@ -1751,7 +1766,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1210,
+        "line": 1239,
         "column": 1
       }
     },
@@ -1760,7 +1775,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1223,
+        "line": 1252,
         "column": 1
       }
     },
@@ -1769,7 +1784,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1227,
+        "line": 1256,
         "column": 1
       }
     },
@@ -1778,7 +1793,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1234,
+        "line": 1263,
         "column": 1
       }
     },
@@ -1787,7 +1802,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1239,
+        "line": 1268,
         "column": 1
       }
     },
@@ -1796,7 +1811,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1243,
+        "line": 1272,
         "column": 1
       }
     },
@@ -1805,7 +1820,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1255,
+        "line": 1284,
         "column": 1
       }
     },
@@ -1814,7 +1829,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1264,
+        "line": 1293,
         "column": 1
       }
     },
@@ -1823,7 +1838,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1268,
+        "line": 1297,
         "column": 1
       }
     },
@@ -1832,7 +1847,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1272,
+        "line": 1301,
         "column": 1
       }
     },
@@ -1841,7 +1856,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1276,
+        "line": 1305,
         "column": 1
       }
     },
@@ -1850,7 +1865,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1280,
+        "line": 1309,
         "column": 1
       }
     },
@@ -1859,7 +1874,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1284,
+        "line": 1313,
         "column": 1
       }
     },
@@ -1868,7 +1883,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1292,
+        "line": 1321,
         "column": 1
       }
     },
@@ -3333,6 +3348,16 @@
         "sourcePath": "tests/bunPolicyAnalysis.test.ts"
       },
       {
+        "fromPath": "tests/changesetsDependencyPlacement.test.ts",
+        "toPath": "src/index.ts",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
+        "fromPath": "tests/changesetsDependencyPlacement.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
         "fromPath": "tests/cli.test.ts",
         "toPath": "src/cli/index.ts",
         "sourcePath": "tests/cli.test.ts"
@@ -3576,6 +3601,12 @@
       },
       {
         "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "createChangesetsDependencyDiagnostic",
+        "callExpression": "createChangesetsDependencyDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
         "toSymbol": "expectsDevtools",
         "callExpression": "expectsDevtools",
         "sourcePath": "src/analysis.ts"
@@ -3584,6 +3615,18 @@
         "fromSymbol": "analyzePackagePolicy",
         "toSymbol": "expectsParadox",
         "callExpression": "expectsParadox",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "createChangesetsDependencyDiagnostic",
+        "toSymbol": "hasDependency",
+        "callExpression": "hasDependency",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "createChangesetsDependencyDiagnostic",
+        "toSymbol": "createDiagnostic",
+        "callExpression": "createDiagnostic",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -5001,6 +5044,54 @@
         "toSymbol": "createRequiredScripts",
         "callExpression": "createRequiredScripts",
         "sourcePath": "tests/bunPolicyAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/changesetsDependencyPlacement.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "tests/changesetsDependencyPlacement.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "tests/changesetsDependencyPlacement.test.ts",
+        "toSymbol": "getChangesetsDiagnostic",
+        "callExpression": "getChangesetsDiagnostic",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "tests/changesetsDependencyPlacement.test.ts",
+        "toSymbol": "createPublicPackageJson",
+        "callExpression": "createPublicPackageJson",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "tests/changesetsDependencyPlacement.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "getChangesetsDiagnostic",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "getChangesetsDiagnostic",
+        "toSymbol": "analyzeDoctorTarget",
+        "callExpression": "analyzeDoctorTarget",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "createPublicPackageJson",
+        "toSymbol": "createRequiredScripts",
+        "callExpression": "createRequiredScripts",
+        "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
       },
       {
         "fromSymbol": "tests/cli.test.ts",

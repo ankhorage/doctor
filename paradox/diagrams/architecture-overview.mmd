@@ -142,6 +142,10 @@ graph TD
   package__ankhorage_doctor -.-> module_tests_bunPolicyAnalysis_test_ts
   module_tests_bunPolicyAnalysis_test_ts --> module_src_index_ts
   module_tests_bunPolicyAnalysis_test_ts --> module_tests_testSupport_ts
+  module_tests_changesetsDependencyPlacement_test_ts["tests/changesetsDependencyPlacement.test.ts"]
+  package__ankhorage_doctor -.-> module_tests_changesetsDependencyPlacement_test_ts
+  module_tests_changesetsDependencyPlacement_test_ts --> module_src_index_ts
+  module_tests_changesetsDependencyPlacement_test_ts --> module_tests_testSupport_ts
   module_tests_cli_test_ts["tests/cli.test.ts"]
   package__ankhorage_doctor -.-> module_tests_cli_test_ts
   module_tests_cli_test_ts --> module_src_cli_index_ts

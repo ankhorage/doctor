@@ -33,6 +33,7 @@ graph LR
   module_tests_authReadinessAnalysis_test_ts["tests/authReadinessAnalysis.test.ts"]
   module_tests_authReadinessCommand_test_ts["tests/authReadinessCommand.test.ts"]
   module_tests_bunPolicyAnalysis_test_ts["tests/bunPolicyAnalysis.test.ts"]
+  module_tests_changesetsDependencyPlacement_test_ts["tests/changesetsDependencyPlacement.test.ts"]
   module_tests_cli_test_ts["tests/cli.test.ts"]
   module_tests_commands_test_ts["tests/commands.test.ts"]
   module_tests_devtoolsDependencyPlacement_test_ts["tests/devtoolsDependencyPlacement.test.ts"]
@@ -116,6 +117,8 @@ graph LR
   module_tests_authReadinessCommand_test_ts --> module_tests_testSupport_ts
   module_tests_bunPolicyAnalysis_test_ts --> module_src_index_ts
   module_tests_bunPolicyAnalysis_test_ts --> module_tests_testSupport_ts
+  module_tests_changesetsDependencyPlacement_test_ts --> module_src_index_ts
+  module_tests_changesetsDependencyPlacement_test_ts --> module_tests_testSupport_ts
   module_tests_cli_test_ts --> module_src_cli_index_ts
   module_tests_cli_test_ts --> module_src_cli_standalone_ts
   module_tests_cli_test_ts --> module_tests_testSupport_ts

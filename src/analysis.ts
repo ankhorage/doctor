@@ -562,6 +562,7 @@ async function analyzePackagePolicy(request: {
   const devDependencies = isRecord(packageJson.devDependencies)
     ? packageJson.devDependencies
     : null;
+  const dependencies = isRecord(packageJson.dependencies) ? packageJson.dependencies : null;
   if (!hasDependency(devDependencies, 'typescript')) {
     diagnostics.push(
       createDiagnostic({
@@ -575,17 +576,15 @@ async function analyzePackagePolicy(request: {
     );
   }
 
-  if (!hasDependency(devDependencies, '@changesets/cli')) {
-    diagnostics.push(
-      createDiagnostic({
-        code: 'missing-dependency',
-        message: 'Public package repos must declare @changesets/cli in devDependencies.',
-        path: request.packageJsonPath,
-        profile: request.profile,
-        ruleId: 'package.dependencies.changesets.required',
-        severity: 'error',
-      }),
-    );
+  const changesetsDependencyDiagnostic = createChangesetsDependencyDiagnostic({
+    dependencies,
+    devDependencies,
+    packageJson,
+    packageJsonPath: request.packageJsonPath,
+    profile: request.profile,
+  });
+  if (changesetsDependencyDiagnostic !== null) {
+    diagnostics.push(changesetsDependencyDiagnostic);
   }
 
   if (!hasDependency(devDependencies, '@types/bun')) {
@@ -655,6 +654,36 @@ async function analyzePackagePolicy(request: {
       targetPath: request.targetPath,
     }),
   );
+}
+
+function createChangesetsDependencyDiagnostic(request: {
+  readonly dependencies: Record<string, unknown> | null;
+  readonly devDependencies: Record<string, unknown> | null;
+  readonly packageJson: Record<string, unknown>;
+  readonly packageJsonPath: string;
+  readonly profile: DoctorPolicyProfile;
+}): DoctorDiagnostic | null {
+  const dependencyDeclared = hasDependency(request.dependencies, '@changesets/cli');
+  const devDependencyDeclared = hasDependency(request.devDependencies, '@changesets/cli');
+  const isDevtoolsOwner = request.packageJson.name === '@ankhorage/devtools';
+  const placementIsCurrent = isDevtoolsOwner
+    ? dependencyDeclared && !devDependencyDeclared
+    : devDependencyDeclared && !dependencyDeclared;
+
+  if (placementIsCurrent) {
+    return null;
+  }
+
+  return createDiagnostic({
+    code: 'missing-dependency',
+    message: isDevtoolsOwner
+      ? '@ankhorage/devtools must publish @changesets/cli in dependencies, not devDependencies.'
+      : 'Public package repos must declare @changesets/cli only in devDependencies.',
+    path: request.packageJsonPath,
+    profile: request.profile,
+    ruleId: 'package.dependencies.changesets.required',
+    severity: 'error',
+  });
 }
 
 async function validateAnkhMetadataAndProvider(request: {
