@@ -1,27 +1,28 @@
 # AGENTS.md
 
-## Scope
+<!-- This file is managed by @ankhorage/devtools. -->
 
-This file applies to the whole `ankhorage/doctor` repository.
+## Repository
 
-`@ankhorage/doctor` owns executable repository, package, and application-manifest compliance diagnostics. Keep policy checks deterministic and non-mutating unless a command explicitly applies a safe fix. Shared tooling policy remains owned by `@ankhorage/devtools`.
+Package: `@ankhorage/doctor`
 
-## Devtools lint migration
+Executable Ankh provider and standalone CLI for lightweight repo and package compliance diagnostics.
 
-`eslint.local.config.mjs` contains exact-file exceptions for size, complexity, and object-injection findings that existed before the current Devtools profile was synchronized. Treat those exceptions as existing debt:
+## Current architecture only
 
-- new or materially modified code must satisfy the canonical Devtools rules;
-- do not broaden an exception to land unrelated work;
-- remove an exception when the owning file is brought within the canonical rule;
-- keep tests and `paradox.config.ts` covered by the shared TypeScript profile.
+Only the current Ankhorage architecture is valid. Do not add or retain deprecated APIs,
+compatibility aliases, shims, dual old/new paths, historical-state fallbacks, or migrations whose
+sole purpose is supporting obsolete states. Remove superseded implementations instead.
 
-## Package boundary
+When a canonical change affects another repository, update that repository to the latest released
+public API instead of preserving compatibility locally. Cross-package usage must go through
+published public APIs and declared dependencies, never sibling source files.
 
-- Keep Doctor policy behavior in `src/` and focused tests in `tests/`.
-- Do not duplicate Devtools-managed policy or generated configuration.
-- Do not add compatibility aliases or dual old/new policy paths.
-- Public behavior changes require tests, generated Paradox documentation where applicable, and a changeset.
+Current-runtime error handling and canonical database or infrastructure migrations remain valid
+when they support states that the current architecture can intentionally produce.
 
-## Validation
+## Project structure
 
-Run the repository scripts for build, lint, tests, Knip, typecheck, format, docs, and changeset status. Validate the built standalone CLI against the repository before handoff.
+For directory ownership, package boundaries, architectural profiles, ports and adapters, public
+entrypoints, or cross-repository structural work, load and follow
+`.agents/skills/ankhorage-project-structure/SKILL.md`.
