@@ -5,8 +5,8 @@
     "": {
       "name": "@ankhorage/doctor",
       "dependencies": {
-        "@ankhorage/contracts": "^8.0.1",
-        "@ankhorage/supabase-auth": "^1.2.7",
+        "@ankhorage/contracts": "^8.1.0",
+        "@ankhorage/supabase-auth": "^1.2.8",
       },
       "devDependencies": {
         "@ankhorage/ankh": "^0.8.8",
@@ -21,9 +21,9 @@
   "packages": {
     "@ankhorage/ankh": ["@ankhorage/ankh@0.8.8", "", { "dependencies": { "@ankhorage/contracts": "^8.0.1", "@ankhorage/devtools": "^1.9.3", "@ankhorage/doctor": "^0.10.6", "yaml": "^2.8.1" }, "bin": { "ankh": "dist/bin.js" } }, "sha512-3yyHMlihY2Hoq+4knthNuxWupdpuqucJKHeJlbN3+xlf/IXquuQb3pZ6lv4WO4Bl68cq6Re0XE4I5gw+Rgx8Ig=="],
 
-    "@ankhorage/color-theory": ["@ankhorage/color-theory@0.0.8", "", { "dependencies": { "culori": "^4.0.2" } }, "sha512-+JRLkvBUiPxFrRANyewRZxLv1sU5cKFOc3VBYB+b/eFngLFDIAqXf/a4e0A6gQE+lk6e3wb3FcGQYIyYB1Dqzg=="],
+    "@ankhorage/color-theory": ["@ankhorage/color-theory@0.3.0", "", { "dependencies": { "culori": "^4.0.2" } }, "sha512-M6McHR2obnslpPESe84xr1E/1PuGKlb1S6ypDzNhkVdwJXS9gL53GDALfqszi5QyQNxQHFNyCOVnnzaQlGn52g=="],
 
-    "@ankhorage/contracts": ["@ankhorage/contracts@8.0.1", "", { "dependencies": { "@ankhorage/color-theory": "^0.0.8" } }, "sha512-/Ik6n7wEep7xMCZkHja3kdISBn5Xlj/NxkxW97MQiI50QibYZ9XjajDKetwLJVj/l9JUHfvWQONWADSBUeo1ng=="],
+    "@ankhorage/contracts": ["@ankhorage/contracts@8.1.0", "", { "dependencies": { "@ankhorage/color-theory": "^0.3.0" } }, "sha512-V8AMIZgLoEGDnD17xKWufgarIgF/st2TJNMW44c6NL0MAyRodYgNuVKr9hmoBN7Ae2/UVsbk6ZGs86CcR/3gWA=="],
 
     "@ankhorage/devtools": ["@ankhorage/devtools@1.9.4", "", { "dependencies": { "@ankhorage/utility": "^0.2.0", "@changesets/cli": "^3.0.1", "@eslint/compat": "^2.1.0", "@eslint/js": "^10.0.1", "eslint": "^10.9.1", "eslint-config-prettier": "^10.1.8", "eslint-plugin-import": "^2.32.0", "eslint-plugin-prettier": "^5.5.6", "eslint-plugin-react": "^7.37.5", "eslint-plugin-react-hooks": "^7.1.1", "eslint-plugin-react-native": "^5.0.0", "eslint-plugin-security": "^4.0.1", "eslint-plugin-simple-import-sort": "^14.0.0", "eslint-plugin-unused-imports": "^4.4.1", "knip": "^6.34.0", "prettier": "^3.9.6", "typescript-eslint": "^8.69.0" }, "bin": { "ankhorage-changeset": "dist/cli/bin/changeset.js", "ankhorage-eslint": "dist/cli/bin/eslint.js", "ankhorage-knip": "dist/cli/bin/knip.js", "ankhorage-prettier": "dist/cli/bin/prettier.js" } }, "sha512-tA3Zm8tEGNlq8dVgoBTHz1qwXz1HblliqftXdLiTbhN6yo0yWIZ5uuv61sApQJqs6FZX1esDSMpJdU9fcO3J0w=="],
 
@@ -31,7 +31,7 @@
 
     "@ankhorage/paradox": ["@ankhorage/paradox@0.1.24", "", { "dependencies": { "ts-morph": "^28.0.0" }, "bin": { "paradox": "dist/cli/standalone.js" } }, "sha512-4fZOo8QFZuzQEVH+f2ekb8vEWUuiWxs45lwMBgR3yNgJ2lZdyr98sdN60Rn7bsKE9LUhr56gqaO2p1xtrI6Kyg=="],
 
-    "@ankhorage/supabase-auth": ["@ankhorage/supabase-auth@1.2.7", "", { "dependencies": { "@ankhorage/contracts": "^8.0.1", "@noble/hashes": "2.3.0" } }, "sha512-zkuWGO590VPnLIlEnmRQz9Rn3S5oPBGOje5PLbkioT/BYTUk5sGkChjh6WHwk3GOga6kiYbvtLnZEIDJ+ooDOA=="],
+    "@ankhorage/supabase-auth": ["@ankhorage/supabase-auth@1.2.8", "", { "dependencies": { "@ankhorage/contracts": "^8.0.2", "@noble/hashes": "2.3.0" } }, "sha512-S8hSWS7pTAokKSKPs3gtRG0A82NH6iyHeNyMEOi3btCxv9UKbdkesJCRXyT8tAvjkaqRCuSQKJqO91qpC1qMeQ=="],
 
     "@ankhorage/utility": ["@ankhorage/utility@0.2.0", "", {}, "sha512-IeIaXDrt1Icx+QtVBLgzBJPdApgpGdKM0WwDSko4Jg0nETGYL6UN/d0vSHBmL66m9bZ+PL3U7dEfn3FDT31kSQ=="],
 
