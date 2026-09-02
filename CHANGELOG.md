@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.7
+
+### Patch Changes
+
+- 3b6dcfc: Update Ankhorage dependencies: `@ankhorage/contracts`, `@ankhorage/supabase-auth`.
+
 ## 0.10.6
 
 ### Patch Changes
