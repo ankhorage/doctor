@@ -77,8 +77,8 @@
     "knip:check": "ankhorage-knip"
   },
   "dependencies": {
-    "@ankhorage/contracts": "^8.1.0",
-    "@ankhorage/supabase-auth": "^1.2.8"
+    "@ankhorage/contracts": "^8.2.0",
+    "@ankhorage/supabase-auth": "^1.2.9"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.8.10",
