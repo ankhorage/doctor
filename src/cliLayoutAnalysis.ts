@@ -10,7 +10,6 @@ import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
 import { analyzeAppManifestTarget } from './manifestAnalysis.js';
 
 const LEGACY_ROOT_CLI_SOURCE = path.join('src', 'cli.ts');
-const CANONICAL_CLI_INDEX_SOURCE = path.join('src', 'cli', 'index.ts');
 const ACTIVE_SOURCE_ROOTS = ['src', 'app', 'apps', 'packages', 'scripts'] as const;
 const ACTIVE_SOURCE_EXTENSIONS = new Set([
   '.cjs',
@@ -106,12 +105,8 @@ async function analyzeTargetArchitecture(request: {
 }): Promise<DoctorDiagnostic[]> {
   const diagnostics: DoctorDiagnostic[] = [];
   const legacyRootCliPath = path.join(request.targetPath, LEGACY_ROOT_CLI_SOURCE);
-  const canonicalCliIndexPath = path.join(request.targetPath, CANONICAL_CLI_INDEX_SOURCE);
   const exportsField = isRecord(request.packageJson.exports) ? request.packageJson.exports : null;
-  const cliCapable =
-    hasAnkhProvider(request.packageJson) ||
-    exportsField?.['./cli'] !== undefined ||
-    (await pathExists(canonicalCliIndexPath));
+  const cliCapable = hasAnkhProvider(request.packageJson) || exportsField?.['./cli'] !== undefined;
 
   if (await pathExists(legacyRootCliPath)) {
     diagnostics.push({
@@ -124,22 +119,11 @@ async function analyzeTargetArchitecture(request: {
     });
   }
 
-  if (cliCapable && !(await pathExists(canonicalCliIndexPath))) {
-    diagnostics.push({
-      code: 'missing-path',
-      message: 'CLI-capable packages must expose their provider from src/cli/index.ts.',
-      path: canonicalCliIndexPath,
-      profile: request.profile,
-      ruleId: 'package.cli.index.required',
-      severity: 'error',
-    });
-  }
-
   if (cliCapable && exportsField?.['./cli'] === undefined) {
     diagnostics.push({
       code: 'field-missing',
       message:
-        'CLI-capable packages must export "./cli" from package.json and point it at the owning src/cli/index.ts build output.',
+        'CLI-capable packages must export "./cli" from package.json and point it at the metadata-declared provider build output.',
       path: request.packageJsonPath,
       profile: request.profile,
       ruleId: 'package.cli.export.required',

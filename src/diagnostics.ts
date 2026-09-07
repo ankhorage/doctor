@@ -55,7 +55,6 @@ export type DoctorRuleId =
   | 'package.ankh.provider-path.required'
   | 'package.ankh.required-for-provider'
   | 'package.cli.export.required'
-  | 'package.cli.index.required'
   | 'package.cli.root-file.disallowed'
   | 'package.dependencies.ankh-workspace-alias.disallowed'
   | 'package.dependencies.ankhorage4-source.disallowed'

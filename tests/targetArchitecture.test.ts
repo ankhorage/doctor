@@ -17,21 +17,26 @@ describe('target package architecture policy', () => {
     expect(ruleIds).toContain('package.cli.root-file.disallowed');
   });
 
-  test('requires src/cli/index.ts for CLI-capable packages', async () => {
+  test('accepts the metadata-declared explicit provider source', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createCliPackageJson(),
+      extraFiles: {
+        'src/cli/createCliProvider.ts': 'export default {} as const;\n',
+      },
     });
 
     const ruleIds = await analyzeRuleIds(fixture);
 
-    expect(ruleIds).toContain('package.cli.index.required');
+    expect(ruleIds).not.toContain('package.cli.export.required');
+    expect(ruleIds).not.toContain('provider.source.required');
+    expect(ruleIds).not.toContain('provider.source.importable');
   });
 
   test('requires a package.json ./cli export for CLI-capable packages', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createCliPackageJson({ withCliExport: false }),
       extraFiles: {
-        'src/cli/index.ts': 'export default {};\n',
+        'src/cli/createCliProvider.ts': 'export default {} as const;\n',
       },
     });
 
@@ -40,18 +45,17 @@ describe('target package architecture policy', () => {
     expect(ruleIds).toContain('package.cli.export.required');
   });
 
-  test('accepts the canonical src/cli/index.ts provider and ./cli export layout', async () => {
+  test('accepts the explicit provider and matching ./cli export layout', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createCliPackageJson(),
       extraFiles: {
-        'src/cli/index.ts': 'export default {};\n',
+        'src/cli/createCliProvider.ts': 'export default {} as const;\n',
       },
     });
 
     const ruleIds = await analyzeRuleIds(fixture);
 
     expect(ruleIds).not.toContain('package.cli.export.required');
-    expect(ruleIds).not.toContain('package.cli.index.required');
     expect(ruleIds).not.toContain('package.cli.root-file.disallowed');
   });
 
@@ -111,7 +115,7 @@ describe('target package architecture policy', () => {
     const fixture = await createDoctorFixture({
       packageJson: createStudioPackageJson({ withOwnerDependencies: true }),
       extraFiles: {
-        'src/cli/index.ts': 'export default {};\n',
+        'src/cli/createCliProvider.ts': 'export default {} as const;\n',
         'src/dnd/primitives.ts': "export * from '@ankhorage/react-native-reanimated-dnd-web';\n",
         'src/runtime/registry.ts': "import { createRuntime } from '@ankhorage/runtime';\n",
       },
@@ -129,7 +133,7 @@ describe('target package architecture policy', () => {
     const fixture = await createDoctorFixture({
       packageJson: createStudioPackageJson({ withOwnerDependencies: false }),
       extraFiles: {
-        'src/cli/index.ts': 'export default {};\n',
+        'src/cli/createCliProvider.ts': 'export default {} as const;\n',
       },
     });
 
@@ -166,14 +170,14 @@ function createCliPackageJson(options: { withCliExport?: boolean } = {}) {
     ...createInternalPackageJson(),
     ankh: {
       category: 'example',
-      provider: './dist/cli/index.js',
+      provider: './dist/cli/createCliProvider.js',
       capabilities: [],
     },
   };
 
   if (options.withCliExport !== false) {
     packageJson.exports = {
-      './cli': './dist/cli/index.js',
+      './cli': './dist/cli/createCliProvider.js',
     };
   }
 
