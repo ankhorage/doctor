@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.10.2",
+      "value": "v0.10.8",
       "color": "cb3837"
     },
     {
@@ -1156,7 +1156,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 122,
+        "line": 121,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
@@ -2252,7 +2252,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 63,
+        "line": 62,
         "column": 1
       }
     },
@@ -2261,7 +2261,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 101,
+        "line": 100,
         "column": 1
       }
     },
@@ -2270,7 +2270,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 181,
+        "line": 165,
         "column": 1
       }
     },
@@ -2279,7 +2279,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 218,
+        "line": 202,
         "column": 1
       }
     },
@@ -2288,7 +2288,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 251,
+        "line": 235,
         "column": 1
       }
     },
@@ -2297,7 +2297,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 318,
+        "line": 302,
         "column": 1
       }
     },
@@ -2306,7 +2306,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 338,
+        "line": 322,
         "column": 1
       }
     },
@@ -2315,7 +2315,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 343,
+        "line": 327,
         "column": 3
       }
     },
@@ -2324,7 +2324,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 366,
+        "line": 350,
         "column": 1
       }
     },
@@ -2333,7 +2333,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 374,
+        "line": 358,
         "column": 1
       }
     },
@@ -2342,7 +2342,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 393,
+        "line": 377,
         "column": 1
       }
     },
@@ -2351,7 +2351,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 417,
+        "line": 401,
         "column": 1
       }
     },
@@ -2360,7 +2360,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 422,
+        "line": 406,
         "column": 1
       }
     },
@@ -2369,7 +2369,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 426,
+        "line": 410,
         "column": 1
       }
     },
@@ -2378,7 +2378,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 430,
+        "line": 414,
         "column": 1
       }
     },
@@ -2387,7 +2387,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 439,
+        "line": 423,
         "column": 1
       }
     },
@@ -2396,7 +2396,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 448,
+        "line": 432,
         "column": 1
       }
     },
@@ -2405,7 +2405,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 452,
+        "line": 436,
         "column": 1
       }
     },
@@ -2675,7 +2675,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 131,
+        "line": 130,
         "column": 1
       }
     },
@@ -2684,7 +2684,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 135,
+        "line": 134,
         "column": 1
       }
     },
