@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.9
+
+### Patch Changes
+
+- 1386b03: Validate CLI providers through their metadata-declared source instead of requiring a generic
+  `src/cli/index.ts` entrypoint.
+- 3f3017d: Update Ankhorage dependencies: `@ankhorage/contracts`.
+
 ## 0.10.8
 
 ### Patch Changes
