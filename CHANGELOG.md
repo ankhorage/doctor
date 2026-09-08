@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.11
+
+### Patch Changes
+
+- f3de500: Accept canonical Ankh package metadata with a nullable provider when the package does not implement a CLI provider.
+
 ## 0.10.10
 
 ### Patch Changes
