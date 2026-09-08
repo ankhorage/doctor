@@ -696,7 +696,9 @@ async function validateAnkhMetadataAndProvider(request: {
 }): Promise<DoctorDiagnostic[]> {
   const diagnostics: DoctorDiagnostic[] = [];
   const metadata = request.packageJson.ankh;
-  const providerPackage = metadata !== undefined || (await isProviderPackage(request.targetPath));
+  const providerPackage =
+    (isRecord(metadata) && isNonEmptyString(metadata.provider)) ||
+    (await isProviderPackage(request.targetPath));
 
   if (providerPackage && metadata === undefined) {
     diagnostics.push(
