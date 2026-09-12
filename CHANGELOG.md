@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.12
+
+### Patch Changes
+
+- b6113f0: Use package metadata as the default Paradox documentation title and description.
+
 ## 0.10.11
 
 ### Patch Changes
