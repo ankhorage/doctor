@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.13
+
+### Patch Changes
+
+- 204c66d: Consume the current shared application-environment contracts for Auth readiness diagnostics.
+
 ## 0.10.12
 
 ### Patch Changes
