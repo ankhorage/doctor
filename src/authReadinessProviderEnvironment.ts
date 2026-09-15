@@ -1,8 +1,5 @@
-import type {
-  AppDeployEnvironmentId,
-  AppDeployTargetId,
-  AppDeployTargets,
-} from '@ankhorage/contracts/deploy';
+import type { AppDeployTargetId, AppDeployTargets } from '@ankhorage/contracts/deploy';
+import type { AppEnvironmentId } from '@ankhorage/contracts/environments';
 import { resolveSupabaseOAuthSetupPlan } from '@ankhorage/supabase-auth';
 
 import { analyzeAuthReadinessEnvironment } from './authReadinessEnvironment.js';
@@ -13,7 +10,7 @@ export function analyzeAuthProviderEnvironment(input: {
   readonly callbackRoute: unknown;
   readonly credentialsRef: unknown;
   readonly enabledTargets: readonly AppDeployTargetId[];
-  readonly environment: AppDeployEnvironmentId;
+  readonly environment: AppEnvironmentId;
   readonly provider: string;
   readonly targets: AppDeployTargets;
 }): {
