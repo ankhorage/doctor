@@ -1,5 +1,5 @@
 import type { AppDeployTargetId } from '@ankhorage/contracts/deploy';
-import { APP_DEPLOY_ENVIRONMENT_IDS } from '@ankhorage/contracts/deploy';
+import { APP_ENVIRONMENT_IDS } from '@ankhorage/contracts/environments';
 
 import {
   createUnsupportedAuthDiagnostic,
@@ -23,7 +23,7 @@ export function analyzeUnsupportedAuthBackend(input: {
         path: input.manifestPath,
       }),
     ],
-    readiness: APP_DEPLOY_ENVIRONMENT_IDS.flatMap((environment) =>
+    readiness: APP_ENVIRONMENT_IDS.flatMap((environment) =>
       createUnsupportedAuthReadiness({
         environment,
         provider: input.provider,
