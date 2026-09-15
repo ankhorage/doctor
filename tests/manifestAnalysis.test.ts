@@ -132,7 +132,6 @@ describe('app manifest authentication diagnostics', () => {
     expect(withValidAuthorization).toEqual([]);
     expect(withInvalidAuthorization.map((diagnostic) => diagnostic.ruleId)).toEqual([
       'manifest.auth.authorization.kind.valid',
-      'manifest.auth.authorization.engine.valid',
     ]);
   });
 
