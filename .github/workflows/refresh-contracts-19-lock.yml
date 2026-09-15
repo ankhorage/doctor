@@ -24,6 +24,33 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.4.2'
+      - name: Remove superseded Authz engine contract
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('src/manifestAnalysis.ts')
+          text = path.read_text()
+          text = text.replace("import { AUTHZ_ENGINES, AUTHZ_KINDS } from '@ankhorage/contracts';\n", '')
+          marker = "const MANIFEST_PROFILE = 'app-manifest' satisfies DoctorPolicyProfile;\n"
+          if marker not in text:
+            raise SystemExit('manifest profile marker not found')
+          text = text.replace(marker, "const AUTHZ_KINDS = ['RBAC', 'ABAC'] as const;\n" + marker, 1)
+          engine_block = """  validateAuthorizationField({
+            allowed: AUTHZ_ENGINES,
+            diagnostics,
+            fieldName: 'engine',
+            manifestPath,
+            value: value.engine,
+            ruleId: 'manifest.auth.authorization.engine.valid',
+          });
+"""
+          if engine_block not in text:
+            raise SystemExit('legacy Authz engine validation block not found')
+          text = text.replace(engine_block, '', 1)
+          text = text.replace("  readonly fieldName: 'engine' | 'kind';\n", "  readonly fieldName: 'kind';\n", 1)
+          path.write_text(text)
+          PY
       - name: Update Contracts dependency and lockfile
         run: |
           bun --eval '
@@ -41,6 +68,6 @@ jobs:
           rm .github/workflows/refresh-contracts-19-lock.yml
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add package.json bun.lock .github/workflows/refresh-contracts-19-lock.yml
+          git add src/manifestAnalysis.ts package.json bun.lock .github/workflows/refresh-contracts-19-lock.yml
           git commit -m 'fix: consume current Contracts environments'
           git push origin HEAD:fix/contracts-19-environments
