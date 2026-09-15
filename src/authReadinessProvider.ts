@@ -1,5 +1,5 @@
 import type { AppDeployTargetId, AppDeployTargets } from '@ankhorage/contracts/deploy';
-import { APP_DEPLOY_ENVIRONMENT_IDS } from '@ankhorage/contracts/deploy';
+import { APP_ENVIRONMENT_IDS } from '@ankhorage/contracts/environments';
 
 import { createNativeAuthCallbackDiagnostic } from './authReadinessNativeDiagnostic.js';
 import { analyzeAuthProviderEnvironment } from './authReadinessProviderEnvironment.js';
@@ -32,7 +32,7 @@ export function analyzeAuthProviderReadiness(input: {
   const missingNativeTargets = new Set<AppDeployTargetId>();
   let unsupported = false;
 
-  for (const environment of APP_DEPLOY_ENVIRONMENT_IDS) {
+  for (const environment of APP_ENVIRONMENT_IDS) {
     const result = analyzeAuthProviderEnvironment({
       callbackRoute: input.callbackRoute,
       credentialsRef: input.provider.credentialsRef,
