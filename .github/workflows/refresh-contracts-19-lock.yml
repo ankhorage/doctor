@@ -26,31 +26,9 @@ jobs:
           bun-version: '1.4.2'
       - name: Remove superseded Authz engine contract
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path('src/manifestAnalysis.ts')
-          text = path.read_text()
-          text = text.replace("import { AUTHZ_ENGINES, AUTHZ_KINDS } from '@ankhorage/contracts';\n", '')
-          marker = "const MANIFEST_PROFILE = 'app-manifest' satisfies DoctorPolicyProfile;\n"
-          if marker not in text:
-            raise SystemExit('manifest profile marker not found')
-          text = text.replace(marker, "const AUTHZ_KINDS = ['RBAC', 'ABAC'] as const;\n" + marker, 1)
-          engine_block = """  validateAuthorizationField({
-            allowed: AUTHZ_ENGINES,
-            diagnostics,
-            fieldName: 'engine',
-            manifestPath,
-            value: value.engine,
-            ruleId: 'manifest.auth.authorization.engine.valid',
-          });
-"""
-          if engine_block not in text:
-            raise SystemExit('legacy Authz engine validation block not found')
-          text = text.replace(engine_block, '', 1)
-          text = text.replace("  readonly fieldName: 'engine' | 'kind';\n", "  readonly fieldName: 'kind';\n", 1)
-          path.write_text(text)
-          PY
+          perl -0pi -e "s/import \{ AUTHZ_ENGINES, AUTHZ_KINDS \} from '\@ankhorage\/contracts';\n//" src/manifestAnalysis.ts
+          perl -0pi -e "s/const MANIFEST_PROFILE =/const AUTHZ_KINDS = ['RBAC', 'ABAC'] as const;\nconst MANIFEST_PROFILE =/" src/manifestAnalysis.ts
+          perl -0pi -e "s/\n  validateAuthorizationField\(\{\n    allowed: AUTHZ_ENGINES,\n    diagnostics,\n    fieldName: 'engine',\n    manifestPath,\n    value: value\.engine,\n    ruleId: 'manifest\.auth\.authorization\.engine\.valid',\n  \}\);//s" src/manifestAnalysis.ts
       - name: Update Contracts dependency and lockfile
         run: |
           bun --eval '
