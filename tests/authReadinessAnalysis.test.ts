@@ -1,5 +1,5 @@
 import type { AppDeployTargetId } from '@ankhorage/contracts/deploy';
-import { APP_DEPLOY_ENVIRONMENT_IDS } from '@ankhorage/contracts/deploy';
+import { APP_ENVIRONMENT_IDS } from '@ankhorage/contracts/environments';
 import { describe, expect, test } from 'bun:test';
 
 import { analyzeAuthReadiness } from '../src/authReadinessAnalysis.js';
@@ -20,9 +20,9 @@ describe('Auth 4 target readiness', () => {
       const result = analyzeAuthReadiness(createManifest(targets));
 
       expect(result.diagnostics).toEqual([]);
-      expect(result.readiness).toHaveLength(targets.length * APP_DEPLOY_ENVIRONMENT_IDS.length);
+      expect(result.readiness).toHaveLength(targets.length * APP_ENVIRONMENT_IDS.length);
       expect(new Set(result.readiness.map((item) => item.environment))).toEqual(
-        new Set(APP_DEPLOY_ENVIRONMENT_IDS),
+        new Set(APP_ENVIRONMENT_IDS),
       );
       expect(new Set(result.readiness.map((item) => item.target))).toEqual(new Set(targets));
       expect(result.readiness.every((item) => item.status === 'ready')).toBe(true);

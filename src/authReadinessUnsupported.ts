@@ -1,11 +1,12 @@
-import type { AppDeployEnvironmentId, AppDeployTargetId } from '@ankhorage/contracts/deploy';
+import type { AppDeployTargetId } from '@ankhorage/contracts/deploy';
+import type { AppEnvironmentId } from '@ankhorage/contracts/environments';
 
 import { createAuthReadinessDiagnostic } from './authReadinessDiagnostic.js';
 import type { DoctorDiagnostic } from './diagnostics.js';
 import type { DoctorReadiness } from './readiness.js';
 
 export function createUnsupportedAuthReadiness(input: {
-  readonly environment: AppDeployEnvironmentId;
+  readonly environment: AppEnvironmentId;
   readonly provider: string;
   readonly targets: readonly AppDeployTargetId[];
 }): DoctorReadiness[] {

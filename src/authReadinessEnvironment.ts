@@ -1,9 +1,6 @@
 import type { AuthOAuthSetupPlan } from '@ankhorage/contracts/auth';
-import type {
-  AppDeployEnvironmentId,
-  AppDeployTargetId,
-  AppDeployTargets,
-} from '@ankhorage/contracts/deploy';
+import type { AppDeployTargetId, AppDeployTargets } from '@ankhorage/contracts/deploy';
+import type { AppEnvironmentId } from '@ankhorage/contracts/environments';
 
 import {
   createAuthReadinessMessage,
@@ -16,7 +13,7 @@ export function analyzeAuthReadinessEnvironment(input: {
   readonly callbackRoute: unknown;
   readonly credentialsRef: unknown;
   readonly enabledTargets: readonly AppDeployTargetId[];
-  readonly environment: AppDeployEnvironmentId;
+  readonly environment: AppEnvironmentId;
   readonly plan: AuthOAuthSetupPlan;
   readonly provider: string;
   readonly targets: AppDeployTargets;
