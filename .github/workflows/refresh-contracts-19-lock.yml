@@ -1,0 +1,46 @@
+name: Refresh Doctor Contracts 19 lockfile
+
+on:
+  push:
+    branches:
+      - fix/contracts-19-environments
+    paths:
+      - '.github/workflows/refresh-contracts-19-lock.yml'
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/contracts-19-environments
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - name: Update Contracts dependency and lockfile
+        run: |
+          bun --eval '
+          const path = "package.json";
+          const pkg = await Bun.file(path).json();
+          pkg.dependencies["@ankhorage/contracts"] = "^19.1.0";
+          await Bun.write(path, `${JSON.stringify(pkg, null, 2)}\n`);
+          '
+          bun update --lockfile-only @ankhorage/contracts
+          bun install --frozen-lockfile
+          bun run build
+          bun run typecheck
+      - name: Commit refreshed dependency state
+        run: |
+          rm .github/workflows/refresh-contracts-19-lock.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add package.json bun.lock .github/workflows/refresh-contracts-19-lock.yml
+          git commit -m 'fix: consume current Contracts environments'
+          git push origin HEAD:fix/contracts-19-environments
