@@ -1,7 +1,6 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-import { AUTHZ_ENGINES, AUTHZ_KINDS } from '@ankhorage/contracts';
 import { type AuthFlowConfig, resolveAuthFlow } from '@ankhorage/contracts/auth';
 
 import type {
@@ -19,6 +18,7 @@ import type {
 } from './diagnostics.js';
 import { analyzeSecretStoreManifest } from './secretManifestAnalysis.js';
 
+const AUTHZ_KINDS = ['RBAC', 'ABAC'] as const;
 const MANIFEST_PROFILE = 'app-manifest' satisfies DoctorPolicyProfile;
 const AUTH_ACTION_ROUTE_KEYS = [
   'signInRoute',
@@ -392,14 +392,6 @@ function validateAuthorization(
     manifestPath,
     value: value.kind,
     ruleId: 'manifest.auth.authorization.kind.valid',
-  });
-  validateAuthorizationField({
-    allowed: AUTHZ_ENGINES,
-    diagnostics,
-    fieldName: 'engine',
-    manifestPath,
-    value: value.engine,
-    ruleId: 'manifest.auth.authorization.engine.valid',
   });
 }
 
