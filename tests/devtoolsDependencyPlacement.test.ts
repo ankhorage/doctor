@@ -4,11 +4,11 @@ import { analyzeDoctorTarget } from '../src/index.js';
 import { createDoctorFixture } from './testSupport.js';
 
 describe('devtools dependency placement policy', () => {
-  test('accepts the runtime devtools dependency used by @ankhorage/ankh', async () => {
+  test('accepts devtools in devDependencies for @ankhorage/ankh', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createPublicPackageJson({
         name: '@ankhorage/ankh',
-        dependencies: { '@ankhorage/devtools': '^1.3.1' },
+        devtoolsInDevDependencies: true,
       }),
     });
 
@@ -17,11 +17,10 @@ describe('devtools dependency placement policy', () => {
     expect(ruleIds).not.toContain('package.dependencies.devtools.required');
   });
 
-  test('rejects devtools in devDependencies for @ankhorage/ankh', async () => {
+  test('still requires devtools when Ankhorage tooling is used but no dependency is declared', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createPublicPackageJson({
         name: '@ankhorage/ankh',
-        devtoolsInDevDependencies: true,
       }),
     });
 
@@ -51,7 +50,6 @@ async function analyzeRuleIds(fixture: string): Promise<readonly string[]> {
 
 function createPublicPackageJson(options: {
   readonly name: string;
-  readonly dependencies?: Readonly<Record<string, string>>;
   readonly devtoolsInDevDependencies?: boolean;
 }): Record<string, unknown> {
   return {
@@ -81,7 +79,6 @@ function createPublicPackageJson(options: {
       'changeset:status': 'changeset status --since=origin/main',
       'version-packages': 'changeset version',
     },
-    ...(options.dependencies === undefined ? {} : { dependencies: options.dependencies }),
     devDependencies: {
       typescript: '^5.9.3',
       '@types/bun': '^1.3.13',
