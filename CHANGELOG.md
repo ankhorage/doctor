@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.14
+
+### Patch Changes
+
+- e6c0f2d: Remove the obsolete Ankh-specific Devtools runtime dependency placement rule now that Ankh dynamically discovers providers instead of bundling core providers.
+
 ## 0.10.13
 
 ### Patch Changes
