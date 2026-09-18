@@ -77,13 +77,13 @@
     "knip:check": "ankhorage-knip"
   },
   "dependencies": {
-    "@ankhorage/contracts": "^19.1.0",
-    "@ankhorage/supabase-auth": "^1.2.11"
+    "@ankhorage/contracts": "^19.5.0",
+    "@ankhorage/supabase-auth": "^1.2.12"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.8.11",
     "@ankhorage/devtools": "^1.14.0",
-    "@ankhorage/paradox": "^0.1.24",
+    "@ankhorage/paradox": "^0.1.26",
     "@types/bun": "^1.4.1",
     "@types/node": "^25.6.0",
     "typescript": "^5.9.3"
