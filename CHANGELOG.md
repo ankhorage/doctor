@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.15
+
+### Patch Changes
+
+- 65d2fe5: Update Ankhorage dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`, `@ankhorage/supabase-auth`.
+
 ## 0.10.14
 
 ### Patch Changes
