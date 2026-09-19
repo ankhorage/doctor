@@ -187,3 +187,7 @@ graph TD
   module_tests_testSupport_ts["tests/testSupport.ts"]
   package__ankhorage_doctor -.-> module_tests_testSupport_ts
   module_tests_testSupport_ts --> module_src_commandContext_ts
+  module_tests_typescriptDependencyPlacement_test_ts["tests/typescriptDependencyPlacement.test.ts"]
+  package__ankhorage_doctor -.-> module_tests_typescriptDependencyPlacement_test_ts
+  module_tests_typescriptDependencyPlacement_test_ts --> module_src_index_ts
+  module_tests_typescriptDependencyPlacement_test_ts --> module_tests_testSupport_ts

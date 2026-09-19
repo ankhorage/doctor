@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.10.25",
+      "value": "v0.10.26",
       "color": "cb3837"
     },
     {
@@ -631,6 +631,15 @@
         "DoctorFixtureOptions",
         "snapshotDirectory"
       ]
+    },
+    {
+      "path": "tests/typescriptDependencyPlacement.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/index.ts",
+        "tests/testSupport.ts"
+      ],
+      "exports": []
     }
   ],
   "exports": [
@@ -3638,6 +3647,16 @@
         "sourcePath": "tests/testSupport.ts"
       },
       {
+        "fromPath": "tests/typescriptDependencyPlacement.test.ts",
+        "toPath": "src/index.ts",
+        "sourcePath": "tests/typescriptDependencyPlacement.test.ts"
+      },
+      {
+        "fromPath": "tests/typescriptDependencyPlacement.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/typescriptDependencyPlacement.test.ts"
+      },
+      {
         "fromPath": "src/cli/index.ts",
         "toPath": "src/commands.ts",
         "sourcePath": "src/cli/index.ts"
@@ -5750,6 +5769,42 @@
         "toSymbol": "walkDirectory",
         "callExpression": "walkDirectory",
         "sourcePath": "tests/testSupport.ts"
+      },
+      {
+        "fromSymbol": "tests/typescriptDependencyPlacement.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/typescriptDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "tests/typescriptDependencyPlacement.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/typescriptDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "tests/typescriptDependencyPlacement.test.ts",
+        "toSymbol": "analyzeRuleIds",
+        "callExpression": "analyzeRuleIds",
+        "sourcePath": "tests/typescriptDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "tests/typescriptDependencyPlacement.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/typescriptDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "analyzeRuleIds",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/typescriptDependencyPlacement.test.ts"
+      },
+      {
+        "fromSymbol": "analyzeRuleIds",
+        "toSymbol": "analyzeDoctorTarget",
+        "callExpression": "analyzeDoctorTarget",
+        "sourcePath": "tests/typescriptDependencyPlacement.test.ts"
       },
       {
         "fromSymbol": "createDoctorRuntimeProvider",

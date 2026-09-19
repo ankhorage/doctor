@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.26
+
+### Patch Changes
+
+- e82b91e: Allow public packages to declare TypeScript as either a runtime dependency or a development dependency.
+
 ## 0.10.25
 
 ### Patch Changes

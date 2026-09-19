@@ -258,7 +258,7 @@
       <div class="summary">
         <div><strong>33</strong><span class="muted">public exports</span></div>
         <div><strong>0</strong><span class="muted">components</span></div>
-        <div><strong>46</strong><span class="muted">modules</span></div>
+        <div><strong>47</strong><span class="muted">modules</span></div>
         <div><strong>1</strong><span class="muted">entrypoints</span></div>
       </div>
       <h3>Entrypoints</h3>
@@ -499,6 +499,11 @@
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/commandContext.ts</code></p>
     <p><strong>Exports:</strong> <code>CapturedCommandContext</code>, <code>createCapturedCommandContext</code>, <code>createDoctorFixture</code>, <code>createStandaloneFile</code>, <code>DoctorFixtureOptions</code>, <code>snapshotDirectory</code></p>
+  </article><article class="item" data-search="tests/typescriptDependencyPlacement.test.ts src/index.ts tests/testSupport.ts">
+    <h3>tests/typescriptDependencyPlacement.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/index.ts</code>, <code>tests/testSupport.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
   </article>
     </section>
     <section class="panel">
@@ -1492,6 +1497,10 @@
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_testSupport_ts
   module_tests_testSupport_ts --&gt; module_src_commandContext_ts
+  module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_typescriptDependencyPlacement_test_ts
+  module_tests_typescriptDependencyPlacement_test_ts --&gt; module_src_index_ts
+  module_tests_typescriptDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
 </div>
     <details>
       <summary>View Mermaid source</summary>
@@ -1684,6 +1693,10 @@
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_testSupport_ts
   module_tests_testSupport_ts --&gt; module_src_commandContext_ts
+  module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_typescriptDependencyPlacement_test_ts
+  module_tests_typescriptDependencyPlacement_test_ts --&gt; module_src_index_ts
+  module_tests_typescriptDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
 </pre>
     </details>
   </article><article class="item" data-search="Module relationships diagrams/module-relationships.mmd">
@@ -1736,6 +1749,7 @@
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
+  module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
   module_src_analysis_ts --&gt; module_src_readiness_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_authReadinessProvider_ts
@@ -1830,6 +1844,8 @@
   module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_targetArchitecture_test_ts --&gt; module_tests_testSupport_ts
   module_tests_testSupport_ts --&gt; module_src_commandContext_ts
+  module_tests_typescriptDependencyPlacement_test_ts --&gt; module_src_index_ts
+  module_tests_typescriptDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
 </div>
     <details>
       <summary>View Mermaid source</summary>
@@ -1880,6 +1896,7 @@
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
+  module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
   module_src_analysis_ts --&gt; module_src_readiness_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_authReadinessProvider_ts
@@ -1974,6 +1991,8 @@
   module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_targetArchitecture_test_ts --&gt; module_tests_testSupport_ts
   module_tests_testSupport_ts --&gt; module_src_commandContext_ts
+  module_tests_typescriptDependencyPlacement_test_ts --&gt; module_src_index_ts
+  module_tests_typescriptDependencyPlacement_test_ts --&gt; module_tests_testSupport_ts
 </pre>
     </details>
   </article><article class="item" data-search="Export graph diagrams/export-graph.mmd">
@@ -2026,6 +2045,7 @@
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
+  module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
   export_analyzeAppManifest[&quot;analyzeAppManifest&quot;]
   module_src_manifestAnalysis_ts --&gt; export_analyzeAppManifest
   export_analyzeAppManifest -.-&gt; export_DoctorDiagnostic
@@ -2174,6 +2194,7 @@
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
+  module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
   export_analyzeAppManifest[&quot;analyzeAppManifest&quot;]
   module_src_manifestAnalysis_ts --&gt; export_analyzeAppManifest
   export_analyzeAppManifest -.-&gt; export_DoctorDiagnostic
