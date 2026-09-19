@@ -11,8 +11,12 @@
       "line": 116,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorDiagnostic"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorDiagnostic"
+    ],
     "signatures": [
       {
         "label": "(manifest: unknown, manifestPath?: string) => DoctorDiagnostic[]",
@@ -49,8 +53,12 @@
       "line": 82,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorDiagnostic"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorDiagnostic"
+    ],
     "signatures": [
       {
         "label": "(filePath: string) => Promise<DoctorDiagnostic[]>",
@@ -81,8 +89,13 @@
       "line": 41,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorAnalysisRequest",
+      "DoctorAnalysisResult"
+    ],
     "signatures": [
       {
         "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult | null>",
@@ -113,8 +126,12 @@
       "line": 11,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorAuthReadinessAnalysis"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorAuthReadinessAnalysis"
+    ],
     "signatures": [
       {
         "label": "(manifest: unknown, manifestPath?: string) => DoctorAuthReadinessAnalysis",
@@ -151,8 +168,12 @@
       "line": 5,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorAuthReadinessAnalysis"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorAuthReadinessAnalysis"
+    ],
     "signatures": [
       {
         "label": "(filePath: string) => Promise<DoctorAuthReadinessAnalysis>",
@@ -173,18 +194,23 @@
   },
   {
     "name": "analyzeDoctorTarget",
-    "description": null,
+    "description": "Analyze a Doctor target and apply repository-level dependency and runtime policies.",
     "isReadme": false,
     "examples": [],
     "kind": "function",
     "modulePath": "src/dependencyPolicyAnalysis.ts",
     "sourceLocation": {
       "filePath": "src/dependencyPolicyAnalysis.ts",
-      "line": 17,
+      "line": 12,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorAnalysisRequest",
+      "DoctorAnalysisResult"
+    ],
     "signatures": [
       {
         "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult>",
@@ -205,18 +231,23 @@
   },
   {
     "name": "analyzeDoctorTargetWithCliLayout",
-    "description": null,
+    "description": "Analyze a Doctor target with CLI layout validation and repository-level policies.",
     "isReadme": false,
     "examples": [],
     "kind": "function",
     "modulePath": "src/dependencyPolicyAnalysis.ts",
     "sourceLocation": {
       "filePath": "src/dependencyPolicyAnalysis.ts",
-      "line": 23,
+      "line": 21,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorAnalysisRequest",
+      "DoctorAnalysisResult"
+    ],
     "signatures": [
       {
         "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult>",
@@ -247,8 +278,12 @@
       "line": 15,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorCommandContext"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorCommandContext"
+    ],
     "signatures": [
       {
         "label": "() => DoctorCommandContext",
@@ -272,8 +307,12 @@
       "line": 23,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["CreateDoctorRuntimeProviderOptions"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "CreateDoctorRuntimeProviderOptions"
+    ],
     "signatures": [
       {
         "label": "(options?: CreateDoctorRuntimeProviderOptions) => AnkhRuntimeCommandProvider",
@@ -304,7 +343,9 @@
       "line": 18,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [
@@ -337,7 +378,9 @@
       "line": 12,
       "column": 14
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -355,7 +398,9 @@
       "line": 11,
       "column": 14
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -373,7 +418,9 @@
       "line": 19,
       "column": 14
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -391,7 +438,9 @@
       "line": 9,
       "column": 14
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -409,7 +458,9 @@
       "line": 10,
       "column": 14
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -427,8 +478,12 @@
       "line": 13,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorTargetMode"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorTargetMode"
+    ],
     "signatures": [],
     "members": [
       {
@@ -467,7 +522,9 @@
       "line": 34,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [
       "DoctorDiagnostic",
       "DoctorFixPlan",
@@ -556,8 +613,13 @@
       "line": 6,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorDiagnostic", "DoctorReadiness"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorDiagnostic",
+      "DoctorReadiness"
+    ],
     "signatures": [],
     "members": [
       {
@@ -589,7 +651,9 @@
       "line": 3,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [
@@ -643,7 +707,9 @@
       "line": 11,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [
@@ -669,7 +735,9 @@
       "line": 121,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [
       "DoctorDiagnosticCode",
       "DoctorDiagnosticSeverity",
@@ -735,7 +803,9 @@
       "line": 1,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -753,7 +823,9 @@
       "line": 16,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -771,8 +843,14 @@
       "line": 27,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorDiagnostic", "DoctorPlannedChange", "DoctorPolicyProfile"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorDiagnostic",
+      "DoctorPlannedChange",
+      "DoctorPolicyProfile"
+    ],
     "signatures": [],
     "members": [
       {
@@ -818,8 +896,13 @@
       "line": 19,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorPlannedChangeKind", "DoctorRuleId"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorPlannedChangeKind",
+      "DoctorRuleId"
+    ],
     "signatures": [],
     "members": [
       {
@@ -872,7 +955,9 @@
       "line": 10,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -890,7 +975,9 @@
       "line": 17,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -905,11 +992,15 @@
     "modulePath": "src/readiness.ts",
     "sourceLocation": {
       "filePath": "src/readiness.ts",
-      "line": 6,
+      "line": 7,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorReadinessStatus"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorReadinessStatus"
+    ],
     "signatures": [],
     "members": [
       {
@@ -987,10 +1078,12 @@
     "modulePath": "src/readiness.ts",
     "sourceLocation": {
       "filePath": "src/readiness.ts",
-      "line": 4,
+      "line": 5,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -1008,7 +1101,9 @@
       "line": 19,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -1026,7 +1121,9 @@
       "line": 8,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -1044,7 +1141,9 @@
       "line": 9,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -1062,8 +1161,12 @@
       "line": 21,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["DoctorCommandRunResult"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "DoctorCommandRunResult"
+    ],
     "signatures": [
       {
         "label": "(argv: readonly string[], options?: DoctorCliOptions) => Promise<DoctorCommandRunResult>",

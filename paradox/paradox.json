@@ -1,7 +1,7 @@
 {
-  "packageName": "DOCTOR",
+  "packageName": "@ankhorage/doctor",
   "packageId": "@ankhorage/doctor",
-  "description": "Executable doctor provider and standalone CLI for lightweight Ankhorage repo and package compliance diagnostics.",
+  "description": "Executable Ankh provider and standalone CLI for lightweight repo and package compliance diagnostics.",
   "collaborators": null,
   "donation": null,
   "badges": [
@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.10.8",
+      "value": "v0.10.24",
       "color": "cb3837"
     },
     {
@@ -82,7 +82,9 @@
   "readmeCli": null,
   "readmeConfig": null,
   "config": null,
-  "entrypoints": ["src/index.ts"],
+  "entrypoints": [
+    "src/index.ts"
+  ],
   "modules": [
     {
       "path": "package.json",
@@ -93,7 +95,10 @@
     {
       "path": "src/analysis.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/diagnostics.ts", "src/readiness.ts"],
+      "dependencies": [
+        "src/diagnostics.ts",
+        "src/readiness.ts"
+      ],
       "exports": [
         "analyzeDoctorTarget",
         "DoctorAnalysisRequest",
@@ -114,13 +119,20 @@
         "src/diagnostics.ts",
         "src/readiness.ts"
       ],
-      "exports": ["analyzeAuthReadiness", "DoctorAuthReadinessAnalysis"]
+      "exports": [
+        "analyzeAuthReadiness",
+        "DoctorAuthReadinessAnalysis"
+      ]
     },
     {
       "path": "src/authReadinessDiagnostic.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/diagnostics.ts"],
-      "exports": ["createAuthReadinessDiagnostic"]
+      "dependencies": [
+        "src/diagnostics.ts"
+      ],
+      "exports": [
+        "createAuthReadinessDiagnostic"
+      ]
     },
     {
       "path": "src/authReadinessEnvironment.ts",
@@ -130,18 +142,26 @@
         "src/authReadinessRequirements.ts",
         "src/readiness.ts"
       ],
-      "exports": ["analyzeAuthReadinessEnvironment"]
+      "exports": [
+        "analyzeAuthReadinessEnvironment"
+      ]
     },
     {
       "path": "src/authReadinessFileAnalysis.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/authReadinessAnalysis.ts"],
-      "exports": ["analyzeAuthReadinessFile"]
+      "dependencies": [
+        "src/authReadinessAnalysis.ts"
+      ],
+      "exports": [
+        "analyzeAuthReadinessFile"
+      ]
     },
     {
       "path": "src/authReadinessNativeContext.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/readiness.ts"],
+      "dependencies": [
+        "src/readiness.ts"
+      ],
       "exports": [
         "createAuthReadinessMessage",
         "NativeAuthReadinessContext",
@@ -151,8 +171,13 @@
     {
       "path": "src/authReadinessNativeDiagnostic.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/authReadinessDiagnostic.ts", "src/diagnostics.ts"],
-      "exports": ["createNativeAuthCallbackDiagnostic"]
+      "dependencies": [
+        "src/authReadinessDiagnostic.ts",
+        "src/diagnostics.ts"
+      ],
+      "exports": [
+        "createNativeAuthCallbackDiagnostic"
+      ]
     },
     {
       "path": "src/authReadinessProvider.ts",
@@ -165,7 +190,9 @@
         "src/diagnostics.ts",
         "src/readiness.ts"
       ],
-      "exports": ["analyzeAuthProviderReadiness"]
+      "exports": [
+        "analyzeAuthProviderReadiness"
+      ]
     },
     {
       "path": "src/authReadinessProviderEnvironment.ts",
@@ -175,25 +202,38 @@
         "src/authReadinessUnsupported.ts",
         "src/readiness.ts"
       ],
-      "exports": ["analyzeAuthProviderEnvironment"]
+      "exports": [
+        "analyzeAuthProviderEnvironment"
+      ]
     },
     {
       "path": "src/authReadinessRequirements.ts",
       "isEntrypoint": false,
       "dependencies": [],
-      "exports": ["collectMissingAuthReadinessRequirements"]
+      "exports": [
+        "collectMissingAuthReadinessRequirements"
+      ]
     },
     {
       "path": "src/authReadinessTargetFallback.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/authReadinessDiagnostic.ts", "src/authReadinessTargetResolution.ts"],
-      "exports": ["resolveAuthReadinessTargetFallback"]
+      "dependencies": [
+        "src/authReadinessDiagnostic.ts",
+        "src/authReadinessTargetResolution.ts"
+      ],
+      "exports": [
+        "resolveAuthReadinessTargetFallback"
+      ]
     },
     {
       "path": "src/authReadinessTargetResolution.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/diagnostics.ts"],
-      "exports": ["AuthReadinessTargetResolution"]
+      "dependencies": [
+        "src/diagnostics.ts"
+      ],
+      "exports": [
+        "AuthReadinessTargetResolution"
+      ]
     },
     {
       "path": "src/authReadinessTargets.ts",
@@ -203,25 +243,45 @@
         "src/authReadinessTargetFallback.ts",
         "src/authReadinessTargetResolution.ts"
       ],
-      "exports": ["resolveAuthReadinessTargets"]
+      "exports": [
+        "resolveAuthReadinessTargets"
+      ]
     },
     {
       "path": "src/authReadinessUnsupported.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/authReadinessDiagnostic.ts", "src/diagnostics.ts", "src/readiness.ts"],
-      "exports": ["createUnsupportedAuthDiagnostic", "createUnsupportedAuthReadiness"]
+      "dependencies": [
+        "src/authReadinessDiagnostic.ts",
+        "src/diagnostics.ts",
+        "src/readiness.ts"
+      ],
+      "exports": [
+        "createUnsupportedAuthDiagnostic",
+        "createUnsupportedAuthReadiness"
+      ]
     },
     {
       "path": "src/authReadinessUnsupportedBackend.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/authReadinessUnsupported.ts", "src/diagnostics.ts", "src/readiness.ts"],
-      "exports": ["analyzeUnsupportedAuthBackend"]
+      "dependencies": [
+        "src/authReadinessUnsupported.ts",
+        "src/diagnostics.ts",
+        "src/readiness.ts"
+      ],
+      "exports": [
+        "analyzeUnsupportedAuthBackend"
+      ]
     },
     {
       "path": "src/bunPolicyAnalysis.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/analysis.ts", "src/diagnostics.ts"],
-      "exports": ["applyBunRuntimePolicy"]
+      "dependencies": [
+        "src/analysis.ts",
+        "src/diagnostics.ts"
+      ],
+      "exports": [
+        "applyBunRuntimePolicy"
+      ]
     },
     {
       "path": "src/cli/index.ts",
@@ -231,7 +291,11 @@
         "src/dependencyPolicyAnalysis.ts",
         "src/packageMetadata.ts"
       ],
-      "exports": ["createDoctorRuntimeProvider", "CreateDoctorRuntimeProviderOptions", "default"]
+      "exports": [
+        "createDoctorRuntimeProvider",
+        "CreateDoctorRuntimeProviderOptions",
+        "default"
+      ]
     },
     {
       "path": "src/cli/standalone.ts",
@@ -241,19 +305,34 @@
         "src/commands.ts",
         "src/dependencyPolicyAnalysis.ts"
       ],
-      "exports": ["DoctorCliOptions", "runCli"]
+      "exports": [
+        "DoctorCliOptions",
+        "runCli"
+      ]
     },
     {
       "path": "src/cliLayoutAnalysis.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/analysis.ts", "src/diagnostics.ts", "src/manifestAnalysis.ts"],
-      "exports": ["analyzeDoctorTargetWithCliLayout"]
+      "dependencies": [
+        "src/analysis.ts",
+        "src/diagnostics.ts",
+        "src/manifestAnalysis.ts"
+      ],
+      "exports": [
+        "analyzeDoctorTargetWithCliLayout"
+      ]
     },
     {
       "path": "src/commandContext.ts",
       "isEntrypoint": false,
-      "dependencies": ["package.json"],
-      "exports": ["createDefaultCommandContext", "DoctorCommandContext", "DoctorCommandRunResult"]
+      "dependencies": [
+        "package.json"
+      ],
+      "exports": [
+        "createDefaultCommandContext",
+        "DoctorCommandContext",
+        "DoctorCommandRunResult"
+      ]
     },
     {
       "path": "src/commands.ts",
@@ -286,10 +365,12 @@
       "dependencies": [
         "src/analysis.ts",
         "src/bunPolicyAnalysis.ts",
-        "src/cliLayoutAnalysis.ts",
-        "src/diagnostics.ts"
+        "src/cliLayoutAnalysis.ts"
       ],
-      "exports": ["analyzeDoctorTarget", "analyzeDoctorTargetWithCliLayout"]
+      "exports": [
+        "analyzeDoctorTarget",
+        "analyzeDoctorTargetWithCliLayout"
+      ]
     },
     {
       "path": "src/diagnostics.ts",
@@ -354,12 +435,18 @@
         "src/diagnostics.ts",
         "src/secretManifestAnalysis.ts"
       ],
-      "exports": ["analyzeAppManifest", "analyzeAppManifestFile", "analyzeAppManifestTarget"]
+      "exports": [
+        "analyzeAppManifest",
+        "analyzeAppManifestFile",
+        "analyzeAppManifestTarget"
+      ]
     },
     {
       "path": "src/packageMetadata.ts",
       "isEntrypoint": false,
-      "dependencies": ["package.json"],
+      "dependencies": [
+        "package.json"
+      ],
       "exports": [
         "DOCTOR_CAPABILITIES",
         "DOCTOR_COMMAND_CATEGORY",
@@ -372,66 +459,101 @@
       "path": "src/readiness.ts",
       "isEntrypoint": false,
       "dependencies": [],
-      "exports": ["DoctorReadiness", "DoctorReadinessStatus"]
+      "exports": [
+        "DoctorReadiness",
+        "DoctorReadinessStatus"
+      ]
     },
     {
       "path": "src/secretManifestAnalysis.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/diagnostics.ts"],
-      "exports": ["analyzeSecretStoreManifest"]
+      "dependencies": [
+        "src/diagnostics.ts"
+      ],
+      "exports": [
+        "analyzeSecretStoreManifest"
+      ]
     },
     {
       "path": "tests/ankh.provider.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/cli/index.ts", "src/commands.ts"],
+      "dependencies": [
+        "src/cli/index.ts",
+        "src/commands.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/auth5NativeReadiness.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/authReadinessAnalysis.ts", "src/commands.ts", "tests/testSupport.ts"],
+      "dependencies": [
+        "src/authReadinessAnalysis.ts",
+        "src/commands.ts",
+        "tests/testSupport.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/authReadinessAnalysis.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/authReadinessAnalysis.ts"],
+      "dependencies": [
+        "src/authReadinessAnalysis.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/authReadinessCommand.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/commands.ts", "tests/testSupport.ts"],
+      "dependencies": [
+        "src/commands.ts",
+        "tests/testSupport.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/bunPolicyAnalysis.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/index.ts", "tests/testSupport.ts"],
+      "dependencies": [
+        "src/index.ts",
+        "tests/testSupport.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/changesetsDependencyPlacement.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/index.ts", "tests/testSupport.ts"],
+      "dependencies": [
+        "src/index.ts",
+        "tests/testSupport.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/cli.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/cli/index.ts", "src/cli/standalone.ts", "tests/testSupport.ts"],
+      "dependencies": [
+        "src/cli/index.ts",
+        "src/cli/standalone.ts",
+        "tests/testSupport.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/commands.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/commands.ts", "tests/testSupport.ts"],
+      "dependencies": [
+        "src/commands.ts",
+        "tests/testSupport.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/devtoolsDependencyPlacement.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/index.ts", "tests/testSupport.ts"],
+      "dependencies": [
+        "src/index.ts",
+        "tests/testSupport.ts"
+      ],
       "exports": []
     },
     {
@@ -445,39 +567,62 @@
       "exports": []
     },
     {
+      "path": "tests/nonProviderAnkhMetadata.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/commands.ts",
+        "tests/testSupport.ts"
+      ],
+      "exports": []
+    },
+    {
       "path": "tests/package.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["package.json"],
+      "dependencies": [
+        "package.json"
+      ],
       "exports": []
     },
     {
       "path": "tests/packageScripts.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/index.ts", "tests/testSupport.ts"],
+      "dependencies": [
+        "src/index.ts",
+        "tests/testSupport.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/paradoxSelfDependency.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/analysis.ts"],
+      "dependencies": [
+        "src/analysis.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/secretManifestAnalysis.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/manifestAnalysis.ts"],
+      "dependencies": [
+        "src/manifestAnalysis.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/targetArchitecture.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/cliLayoutAnalysis.ts", "tests/testSupport.ts"],
+      "dependencies": [
+        "src/cliLayoutAnalysis.ts",
+        "tests/testSupport.ts"
+      ],
       "exports": []
     },
     {
       "path": "tests/testSupport.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/commandContext.ts"],
+      "dependencies": [
+        "src/commandContext.ts"
+      ],
       "exports": [
         "CapturedCommandContext",
         "createCapturedCommandContext",
@@ -501,8 +646,12 @@
         "line": 116,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorDiagnostic"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorDiagnostic"
+      ],
       "signatures": [
         {
           "label": "(manifest: unknown, manifestPath?: string) => DoctorDiagnostic[]",
@@ -539,8 +688,12 @@
         "line": 82,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorDiagnostic"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorDiagnostic"
+      ],
       "signatures": [
         {
           "label": "(filePath: string) => Promise<DoctorDiagnostic[]>",
@@ -571,8 +724,13 @@
         "line": 41,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorAnalysisRequest",
+        "DoctorAnalysisResult"
+      ],
       "signatures": [
         {
           "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult | null>",
@@ -603,8 +761,12 @@
         "line": 11,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorAuthReadinessAnalysis"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorAuthReadinessAnalysis"
+      ],
       "signatures": [
         {
           "label": "(manifest: unknown, manifestPath?: string) => DoctorAuthReadinessAnalysis",
@@ -641,8 +803,12 @@
         "line": 5,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorAuthReadinessAnalysis"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorAuthReadinessAnalysis"
+      ],
       "signatures": [
         {
           "label": "(filePath: string) => Promise<DoctorAuthReadinessAnalysis>",
@@ -663,18 +829,23 @@
     },
     {
       "name": "analyzeDoctorTarget",
-      "description": null,
+      "description": "Analyze a Doctor target and apply repository-level dependency and runtime policies.",
       "isReadme": false,
       "examples": [],
       "kind": "function",
       "modulePath": "src/dependencyPolicyAnalysis.ts",
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 17,
+        "line": 12,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorAnalysisRequest",
+        "DoctorAnalysisResult"
+      ],
       "signatures": [
         {
           "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult>",
@@ -695,18 +866,23 @@
     },
     {
       "name": "analyzeDoctorTargetWithCliLayout",
-      "description": null,
+      "description": "Analyze a Doctor target with CLI layout validation and repository-level policies.",
       "isReadme": false,
       "examples": [],
       "kind": "function",
       "modulePath": "src/dependencyPolicyAnalysis.ts",
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 23,
+        "line": 21,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorAnalysisRequest", "DoctorAnalysisResult"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorAnalysisRequest",
+        "DoctorAnalysisResult"
+      ],
       "signatures": [
         {
           "label": "(request: DoctorAnalysisRequest) => Promise<DoctorAnalysisResult>",
@@ -737,8 +913,12 @@
         "line": 15,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorCommandContext"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorCommandContext"
+      ],
       "signatures": [
         {
           "label": "() => DoctorCommandContext",
@@ -762,8 +942,12 @@
         "line": 23,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["CreateDoctorRuntimeProviderOptions"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "CreateDoctorRuntimeProviderOptions"
+      ],
       "signatures": [
         {
           "label": "(options?: CreateDoctorRuntimeProviderOptions) => AnkhRuntimeCommandProvider",
@@ -794,7 +978,9 @@
         "line": 18,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [
@@ -827,7 +1013,9 @@
         "line": 12,
         "column": 14
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -845,7 +1033,9 @@
         "line": 11,
         "column": 14
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -863,7 +1053,9 @@
         "line": 19,
         "column": 14
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -881,7 +1073,9 @@
         "line": 9,
         "column": 14
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -899,7 +1093,9 @@
         "line": 10,
         "column": 14
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -917,8 +1113,12 @@
         "line": 13,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorTargetMode"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorTargetMode"
+      ],
       "signatures": [],
       "members": [
         {
@@ -957,7 +1157,9 @@
         "line": 34,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [
         "DoctorDiagnostic",
         "DoctorFixPlan",
@@ -1046,8 +1248,13 @@
         "line": 6,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorDiagnostic", "DoctorReadiness"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorDiagnostic",
+        "DoctorReadiness"
+      ],
       "signatures": [],
       "members": [
         {
@@ -1079,7 +1286,9 @@
         "line": 3,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [
@@ -1133,7 +1342,9 @@
         "line": 11,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [
@@ -1159,7 +1370,9 @@
         "line": 121,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [
         "DoctorDiagnosticCode",
         "DoctorDiagnosticSeverity",
@@ -1225,7 +1438,9 @@
         "line": 1,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1243,7 +1458,9 @@
         "line": 16,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1261,8 +1478,14 @@
         "line": 27,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorDiagnostic", "DoctorPlannedChange", "DoctorPolicyProfile"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorDiagnostic",
+        "DoctorPlannedChange",
+        "DoctorPolicyProfile"
+      ],
       "signatures": [],
       "members": [
         {
@@ -1308,8 +1531,13 @@
         "line": 19,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorPlannedChangeKind", "DoctorRuleId"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorPlannedChangeKind",
+        "DoctorRuleId"
+      ],
       "signatures": [],
       "members": [
         {
@@ -1362,7 +1590,9 @@
         "line": 10,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1380,7 +1610,9 @@
         "line": 17,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1395,11 +1627,15 @@
       "modulePath": "src/readiness.ts",
       "sourceLocation": {
         "filePath": "src/readiness.ts",
-        "line": 6,
+        "line": 7,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorReadinessStatus"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorReadinessStatus"
+      ],
       "signatures": [],
       "members": [
         {
@@ -1477,10 +1713,12 @@
       "modulePath": "src/readiness.ts",
       "sourceLocation": {
         "filePath": "src/readiness.ts",
-        "line": 4,
+        "line": 5,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1498,7 +1736,9 @@
         "line": 19,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1516,7 +1756,9 @@
         "line": 8,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1534,7 +1776,9 @@
         "line": 9,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1552,8 +1796,12 @@
         "line": 21,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["DoctorCommandRunResult"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "DoctorCommandRunResult"
+      ],
       "signatures": [
         {
           "label": "(argv: readonly string[], options?: DoctorCliOptions) => Promise<DoctorCommandRunResult>",
@@ -1631,7 +1879,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 825,
+        "line": 827,
         "column": 1
       }
     },
@@ -1640,7 +1888,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 914,
+        "line": 916,
         "column": 1
       }
     },
@@ -1649,7 +1897,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 942,
+        "line": 944,
         "column": 1
       }
     },
@@ -1658,7 +1906,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 952,
+        "line": 954,
         "column": 1
       }
     },
@@ -1667,7 +1915,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 994,
+        "line": 996,
         "column": 1
       }
     },
@@ -1676,7 +1924,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1015,
+        "line": 1017,
         "column": 1
       }
     },
@@ -1685,7 +1933,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1025,
+        "line": 1027,
         "column": 1
       }
     },
@@ -1694,7 +1942,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1063,
+        "line": 1065,
         "column": 1
       }
     },
@@ -1703,7 +1951,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1087,
+        "line": 1089,
         "column": 1
       }
     },
@@ -1712,7 +1960,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1111,
+        "line": 1113,
         "column": 1
       }
     },
@@ -1721,7 +1969,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1135,
+        "line": 1137,
         "column": 1
       }
     },
@@ -1730,7 +1978,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1154,
+        "line": 1156,
         "column": 1
       }
     },
@@ -1739,7 +1987,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1169,
+        "line": 1171,
         "column": 1
       }
     },
@@ -1748,7 +1996,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1176,
+        "line": 1178,
         "column": 1
       }
     },
@@ -1757,7 +2005,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1210,
+        "line": 1212,
         "column": 1
       }
     },
@@ -1766,7 +2014,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1239,
+        "line": 1241,
         "column": 1
       }
     },
@@ -1775,7 +2023,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1252,
+        "line": 1254,
         "column": 1
       }
     },
@@ -1784,7 +2032,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1256,
+        "line": 1258,
         "column": 1
       }
     },
@@ -1793,7 +2041,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1263,
+        "line": 1265,
         "column": 1
       }
     },
@@ -1802,7 +2050,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1268,
+        "line": 1270,
         "column": 1
       }
     },
@@ -1811,7 +2059,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1272,
+        "line": 1274,
         "column": 1
       }
     },
@@ -1820,7 +2068,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1284,
+        "line": 1286,
         "column": 1
       }
     },
@@ -1829,7 +2077,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1293,
+        "line": 1295,
         "column": 1
       }
     },
@@ -1838,7 +2086,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1297,
+        "line": 1299,
         "column": 1
       }
     },
@@ -1847,7 +2095,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1301,
+        "line": 1303,
         "column": 1
       }
     },
@@ -1856,7 +2104,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1305,
+        "line": 1307,
         "column": 1
       }
     },
@@ -1865,7 +2113,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1309,
+        "line": 1311,
         "column": 1
       }
     },
@@ -1874,7 +2122,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1313,
+        "line": 1315,
         "column": 1
       }
     },
@@ -1883,7 +2131,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1321,
+        "line": 1323,
         "column": 1
       }
     },
@@ -1928,7 +2176,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/authReadinessEnvironment.ts",
-        "line": 15,
+        "line": 12,
         "column": 1
       }
     },
@@ -1982,7 +2230,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/authReadinessProviderEnvironment.ts",
-        "line": 12,
+        "line": 9,
         "column": 1
       }
     },
@@ -2045,7 +2293,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/authReadinessUnsupported.ts",
-        "line": 7,
+        "line": 8,
         "column": 1
       }
     },
@@ -2054,7 +2302,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/authReadinessUnsupported.ts",
-        "line": 23,
+        "line": 24,
         "column": 1
       }
     },
@@ -2582,91 +2830,28 @@
     },
     {
       "name": "analyzeDoctorTarget",
-      "description": null,
+      "description": "Analyze a Doctor target and apply repository-level dependency and runtime policies.",
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 17,
+        "line": 12,
         "column": 1
       }
     },
     {
       "name": "analyzeDoctorTargetWithCliLayout",
-      "description": null,
+      "description": "Analyze a Doctor target with CLI layout validation and repository-level policies.",
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 23,
+        "line": 21,
         "column": 1
       }
     },
     {
       "name": "applyRepositoryPolicies",
-      "description": null,
+      "description": "Apply repository policies that remain independent from concrete package identities.",
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 29,
-        "column": 1
-      }
-    },
-    {
-      "name": "applyDevtoolsDependencyPlacementPolicy",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 35,
-        "column": 1
-      }
-    },
-    {
-      "name": "readPackageJson",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 67,
-        "column": 1
-      }
-    },
-    {
-      "name": "createMissingRuntimeDevtoolsDiagnostic",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 76,
-        "column": 1
-      }
-    },
-    {
-      "name": "expectsDevtools",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 91,
-        "column": 1
-      }
-    },
-    {
-      "name": "hasDependency",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 106,
-        "column": 1
-      }
-    },
-    {
-      "name": "isNonEmptyString",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 113,
-        "column": 1
-      }
-    },
-    {
-      "name": "isRecord",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 117,
+        "line": 30,
         "column": 1
       }
     },
@@ -2765,7 +2950,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 406,
+        "line": 398,
         "column": 1
       }
     },
@@ -2774,7 +2959,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 428,
+        "line": 420,
         "column": 1
       }
     },
@@ -2783,7 +2968,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 441,
+        "line": 433,
         "column": 1
       }
     },
@@ -2792,7 +2977,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 446,
+        "line": 438,
         "column": 1
       }
     },
@@ -2801,7 +2986,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 450,
+        "line": 442,
         "column": 1
       }
     },
@@ -2810,7 +2995,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 454,
+        "line": 446,
         "column": 1
       }
     },
@@ -2819,7 +3004,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
-        "line": 462,
+        "line": 454,
         "column": 1
       }
     },
@@ -2906,7 +3091,7 @@
       "name": "analyzeDoctorTarget",
       "sourcePath": "src/dependencyPolicyAnalysis.ts",
       "symbolName": "analyzeDoctorTarget",
-      "description": null,
+      "description": "Analyze a Doctor target and apply repository-level dependency and runtime policies.",
       "isReadme": false
     },
     {
@@ -2914,7 +3099,7 @@
       "name": "analyzeDoctorTargetWithCliLayout",
       "sourcePath": "src/dependencyPolicyAnalysis.ts",
       "symbolName": "analyzeDoctorTargetWithCliLayout",
-      "description": null,
+      "description": "Analyze a Doctor target with CLI layout validation and repository-level policies.",
       "isReadme": false
     },
     {
@@ -3203,11 +3388,6 @@
         "sourcePath": "src/dependencyPolicyAnalysis.ts"
       },
       {
-        "fromPath": "src/dependencyPolicyAnalysis.ts",
-        "toPath": "src/diagnostics.ts",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
         "fromPath": "src/index.ts",
         "toPath": "src/analysis.ts",
         "sourcePath": "src/index.ts"
@@ -3406,6 +3586,16 @@
         "fromPath": "tests/manifestAnalysis.test.ts",
         "toPath": "tests/testSupport.ts",
         "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromPath": "tests/nonProviderAnkhMetadata.test.ts",
+        "toPath": "src/commands.ts",
+        "sourcePath": "tests/nonProviderAnkhMetadata.test.ts"
+      },
+      {
+        "fromPath": "tests/nonProviderAnkhMetadata.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/nonProviderAnkhMetadata.test.ts"
       },
       {
         "fromPath": "tests/package.test.ts",
@@ -3631,6 +3821,18 @@
       },
       {
         "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "isRecord",
+        "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "isNonEmptyString",
+        "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
         "toSymbol": "isProviderPackage",
         "callExpression": "isProviderPackage",
         "sourcePath": "src/analysis.ts"
@@ -3651,18 +3853,6 @@
         "fromSymbol": "validateAnkhMetadataAndProvider",
         "toSymbol": "validateAnkhMetadataShape",
         "callExpression": "validateAnkhMetadataShape",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "validateAnkhMetadataAndProvider",
-        "toSymbol": "isRecord",
-        "callExpression": "isRecord",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "validateAnkhMetadataAndProvider",
-        "toSymbol": "isNonEmptyString",
-        "callExpression": "isNonEmptyString",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4554,66 +4744,6 @@
         "sourcePath": "src/dependencyPolicyAnalysis.ts"
       },
       {
-        "fromSymbol": "applyRepositoryPolicies",
-        "toSymbol": "applyDevtoolsDependencyPlacementPolicy",
-        "callExpression": "applyDevtoolsDependencyPlacementPolicy",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "applyDevtoolsDependencyPlacementPolicy",
-        "toSymbol": "readPackageJson",
-        "callExpression": "readPackageJson",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "applyDevtoolsDependencyPlacementPolicy",
-        "toSymbol": "expectsDevtools",
-        "callExpression": "expectsDevtools",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "applyDevtoolsDependencyPlacementPolicy",
-        "toSymbol": "isRecord",
-        "callExpression": "isRecord",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "applyDevtoolsDependencyPlacementPolicy",
-        "toSymbol": "hasDependency",
-        "callExpression": "hasDependency",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "applyDevtoolsDependencyPlacementPolicy",
-        "toSymbol": "createMissingRuntimeDevtoolsDiagnostic",
-        "callExpression": "createMissingRuntimeDevtoolsDiagnostic",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "readPackageJson",
-        "toSymbol": "isRecord",
-        "callExpression": "isRecord",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "expectsDevtools",
-        "toSymbol": "isRecord",
-        "callExpression": "isRecord",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "src/dependencyPolicyAnalysis.ts",
-        "toSymbol": "isNonEmptyString",
-        "callExpression": "isNonEmptyString",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "hasDependency",
-        "toSymbol": "isNonEmptyString",
-        "callExpression": "isNonEmptyString",
-        "sourcePath": "src/dependencyPolicyAnalysis.ts"
-      },
-      {
         "fromSymbol": "analyzeAppManifestTarget",
         "toSymbol": "statOrNull",
         "callExpression": "statOrNull",
@@ -5344,6 +5474,48 @@
         "toSymbol": "analyzeDoctorTargetWithCliLayout",
         "callExpression": "analyzeDoctorTargetWithCliLayout",
         "sourcePath": "tests/manifestAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/nonProviderAnkhMetadata.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/nonProviderAnkhMetadata.test.ts"
+      },
+      {
+        "fromSymbol": "tests/nonProviderAnkhMetadata.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/nonProviderAnkhMetadata.test.ts"
+      },
+      {
+        "fromSymbol": "tests/nonProviderAnkhMetadata.test.ts",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/nonProviderAnkhMetadata.test.ts"
+      },
+      {
+        "fromSymbol": "tests/nonProviderAnkhMetadata.test.ts",
+        "toSymbol": "createCapturedCommandContext",
+        "callExpression": "createCapturedCommandContext",
+        "sourcePath": "tests/nonProviderAnkhMetadata.test.ts"
+      },
+      {
+        "fromSymbol": "tests/nonProviderAnkhMetadata.test.ts",
+        "toSymbol": "findDoctorCommandByStandaloneName",
+        "callExpression": "findDoctorCommandByStandaloneName",
+        "sourcePath": "tests/nonProviderAnkhMetadata.test.ts"
+      },
+      {
+        "fromSymbol": "tests/nonProviderAnkhMetadata.test.ts",
+        "toSymbol": "runDoctorCommand",
+        "callExpression": "runDoctorCommand",
+        "sourcePath": "tests/nonProviderAnkhMetadata.test.ts"
+      },
+      {
+        "fromSymbol": "tests/nonProviderAnkhMetadata.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/nonProviderAnkhMetadata.test.ts"
       },
       {
         "fromSymbol": "tests/package.test.ts",

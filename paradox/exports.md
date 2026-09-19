@@ -66,7 +66,9 @@ Source: `src/authReadinessFileAnalysis.ts:5:1`
 
 Kind: `function`
 Module: `src/dependencyPolicyAnalysis.ts`
-Source: `src/dependencyPolicyAnalysis.ts:17:1`
+Source: `src/dependencyPolicyAnalysis.ts:12:1`
+
+Analyze a Doctor target and apply repository-level dependency and runtime policies.
 
 ### Signatures
 
@@ -78,7 +80,9 @@ Source: `src/dependencyPolicyAnalysis.ts:17:1`
 
 Kind: `function`
 Module: `src/dependencyPolicyAnalysis.ts`
-Source: `src/dependencyPolicyAnalysis.ts:23:1`
+Source: `src/dependencyPolicyAnalysis.ts:21:1`
+
+Analyze a Doctor target with CLI layout validation and repository-level policies.
 
 ### Signatures
 
@@ -117,10 +121,10 @@ Source: `src/cli/index.ts:18:1`
 
 ### Members
 
-| Name           | Kind     | Type                                          | Required | Description |
-| -------------- | -------- | --------------------------------------------- | -------- | ----------- |
-| runCommandImpl | property | `RunDoctorCommandImpl \| undefined`           | no       |             |
-| services       | property | `Partial<DoctorCommandServices> \| undefined` | no       |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| runCommandImpl | property | `RunDoctorCommandImpl \| undefined` | no |  |
+| services | property | `Partial<DoctorCommandServices> \| undefined` | no |  |
 
 ## DOCTOR_CAPABILITIES
 
@@ -160,11 +164,11 @@ Source: `src/analysis.ts:13:1`
 
 ### Members
 
-| Name      | Kind     | Type                  | Required | Description |
-| --------- | -------- | --------------------- | -------- | ----------- |
-| cwd       | property | `string`              | yes      |             |
-| inputPath | property | `string \| undefined` | no       |             |
-| mode      | property | `DoctorTargetMode`    | yes      |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| cwd | property | `string` | yes |  |
+| inputPath | property | `string \| undefined` | no |  |
+| mode | property | `DoctorTargetMode` | yes |  |
 
 ## DoctorAnalysisResult
 
@@ -174,17 +178,17 @@ Source: `src/analysis.ts:34:1`
 
 ### Members
 
-| Name           | Kind     | Type                                      | Required | Description |
-| -------------- | -------- | ----------------------------------------- | -------- | ----------- |
-| appliedChecks  | property | `readonly DoctorTargetCheck[]`            | yes      |             |
-| diagnostics    | property | `readonly DoctorDiagnostic[]`             | yes      |             |
-| fixPlan        | property | `DoctorFixPlan \| null`                   | yes      |             |
-| hasPackageJson | property | `boolean`                                 | yes      |             |
-| plannedChanges | property | `readonly DoctorPlannedChange[]`          | yes      |             |
-| profile        | property | `DoctorPolicyProfile`                     | yes      |             |
-| readiness      | property | `readonly DoctorReadiness[] \| undefined` | no       |             |
-| repoMarkers    | property | `readonly string[]`                       | yes      |             |
-| targetPath     | property | `string`                                  | yes      |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| appliedChecks | property | `readonly DoctorTargetCheck[]` | yes |  |
+| diagnostics | property | `readonly DoctorDiagnostic[]` | yes |  |
+| fixPlan | property | `DoctorFixPlan \| null` | yes |  |
+| hasPackageJson | property | `boolean` | yes |  |
+| plannedChanges | property | `readonly DoctorPlannedChange[]` | yes |  |
+| profile | property | `DoctorPolicyProfile` | yes |  |
+| readiness | property | `readonly DoctorReadiness[] \| undefined` | no |  |
+| repoMarkers | property | `readonly string[]` | yes |  |
+| targetPath | property | `string` | yes |  |
 
 ## DoctorAuthReadinessAnalysis
 
@@ -194,10 +198,10 @@ Source: `src/authReadinessAnalysis.ts:6:1`
 
 ### Members
 
-| Name        | Kind     | Type                          | Required | Description |
-| ----------- | -------- | ----------------------------- | -------- | ----------- |
-| diagnostics | property | `readonly DoctorDiagnostic[]` | yes      |             |
-| readiness   | property | `readonly DoctorReadiness[]`  | yes      |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| diagnostics | property | `readonly DoctorDiagnostic[]` | yes |  |
+| readiness | property | `readonly DoctorReadiness[]` | yes |  |
 
 ## DoctorCommandContext
 
@@ -207,13 +211,13 @@ Source: `src/commandContext.ts:3:1`
 
 ### Members
 
-| Name        | Kind     | Type                     | Required | Description |
-| ----------- | -------- | ------------------------ | -------- | ----------- |
-| cwd         | property | `string`                 | yes      |             |
-| env         | property | `NodeJS.ProcessEnv`      | yes      |             |
-| version     | property | `string`                 | yes      |             |
-| writeStderr | method   | `(text: string) => void` | yes      |             |
-| writeStdout | method   | `(text: string) => void` | yes      |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| cwd | property | `string` | yes |  |
+| env | property | `NodeJS.ProcessEnv` | yes |  |
+| version | property | `string` | yes |  |
+| writeStderr | method | `(text: string) => void` | yes |  |
+| writeStdout | method | `(text: string) => void` | yes |  |
 
 ## DoctorCommandRunResult
 
@@ -223,9 +227,9 @@ Source: `src/commandContext.ts:11:1`
 
 ### Members
 
-| Name     | Kind     | Type     | Required | Description |
-| -------- | -------- | -------- | -------- | ----------- |
-| exitCode | property | `number` | yes      |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| exitCode | property | `number` | yes |  |
 
 ## DoctorDiagnostic
 
@@ -235,14 +239,14 @@ Source: `src/diagnostics.ts:121:1`
 
 ### Members
 
-| Name     | Kind     | Type                       | Required | Description |
-| -------- | -------- | -------------------------- | -------- | ----------- |
-| code     | property | `DoctorDiagnosticCode`     | yes      |             |
-| message  | property | `string`                   | yes      |             |
-| path     | property | `string`                   | yes      |             |
-| profile  | property | `DoctorPolicyProfile`      | yes      |             |
-| ruleId   | property | `DoctorRuleId`             | yes      |             |
-| severity | property | `DoctorDiagnosticSeverity` | yes      |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| code | property | `DoctorDiagnosticCode` | yes |  |
+| message | property | `string` | yes |  |
+| path | property | `string` | yes |  |
+| profile | property | `DoctorPolicyProfile` | yes |  |
+| ruleId | property | `DoctorRuleId` | yes |  |
+| severity | property | `DoctorDiagnosticSeverity` | yes |  |
 
 ## DoctorDiagnosticCode
 
@@ -264,12 +268,12 @@ Source: `src/analysis.ts:27:1`
 
 ### Members
 
-| Name        | Kind     | Type                             | Required | Description |
-| ----------- | -------- | -------------------------------- | -------- | ----------- |
-| changes     | property | `readonly DoctorPlannedChange[]` | yes      |             |
-| diagnostics | property | `readonly DoctorDiagnostic[]`    | yes      |             |
-| profile     | property | `DoctorPolicyProfile`            | yes      |             |
-| targetPath  | property | `string`                         | yes      |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| changes | property | `readonly DoctorPlannedChange[]` | yes |  |
+| diagnostics | property | `readonly DoctorDiagnostic[]` | yes |  |
+| profile | property | `DoctorPolicyProfile` | yes |  |
+| targetPath | property | `string` | yes |  |
 
 ## DoctorPlannedChange
 
@@ -279,13 +283,13 @@ Source: `src/analysis.ts:19:1`
 
 ### Members
 
-| Name        | Kind     | Type                      | Required | Description |
-| ----------- | -------- | ------------------------- | -------- | ----------- |
-| description | property | `string`                  | yes      |             |
-| filePath    | property | `string`                  | yes      |             |
-| kind        | property | `DoctorPlannedChangeKind` | yes      |             |
-| ruleId      | property | `DoctorRuleId`            | yes      |             |
-| safe        | property | `boolean`                 | yes      |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| description | property | `string` | yes |  |
+| filePath | property | `string` | yes |  |
+| kind | property | `DoctorPlannedChangeKind` | yes |  |
+| ruleId | property | `DoctorRuleId` | yes |  |
+| safe | property | `boolean` | yes |  |
 
 ## DoctorPlannedChangeKind
 
@@ -303,27 +307,27 @@ Source: `src/diagnostics.ts:17:1`
 
 Kind: `type`
 Module: `src/readiness.ts`
-Source: `src/readiness.ts:6:1`
+Source: `src/readiness.ts:7:1`
 
 ### Members
 
-| Name            | Kind     | Type                                             | Required | Description |
-| --------------- | -------- | ------------------------------------------------ | -------- | ----------- |
-| callbackScheme  | property | `string \| undefined`                            | no       |             |
-| category        | property | `"auth-oauth"`                                   | yes      |             |
-| environment     | property | `"local" \| "preview" \| "production"`           | yes      |             |
-| hostRequirement | property | `"development-or-standalone-build" \| undefined` | no       |             |
-| message         | property | `string`                                         | yes      |             |
-| provider        | property | `AuthOAuthProviderId`                            | yes      |             |
-| status          | property | `DoctorReadinessStatus`                          | yes      |             |
-| target          | property | `"web" \| "android" \| "ios"`                    | yes      |             |
-| transport       | property | `AuthOAuthTransportId`                           | yes      |             |
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| callbackScheme | property | `string \| undefined` | no |  |
+| category | property | `"auth-oauth"` | yes |  |
+| environment | property | `"local" \| "preview" \| "production"` | yes |  |
+| hostRequirement | property | `"development-or-standalone-build" \| undefined` | no |  |
+| message | property | `string` | yes |  |
+| provider | property | `AuthOAuthProviderId` | yes |  |
+| status | property | `DoctorReadinessStatus` | yes |  |
+| target | property | `"web" \| "android" \| "ios"` | yes |  |
+| transport | property | `AuthOAuthTransportId` | yes |  |
 
 ## DoctorReadinessStatus
 
 Kind: `unknown`
 Module: `src/readiness.ts`
-Source: `src/readiness.ts:4:1`
+Source: `src/readiness.ts:5:1`
 
 ## DoctorRuleId
 
