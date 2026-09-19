@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.18
+
+### Patch Changes
+
+- 3bcee1e: Update Ankhorage dependencies: `@ankhorage/supabase-auth`.
+
 ## 0.10.17
 
 ### Patch Changes
