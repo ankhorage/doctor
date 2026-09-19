@@ -563,10 +563,7 @@ async function analyzePackagePolicy(request: {
     ? packageJson.devDependencies
     : null;
   const dependencies = isRecord(packageJson.dependencies) ? packageJson.dependencies : null;
-  if (
-    !hasDependency(dependencies, 'typescript') &&
-    !hasDependency(devDependencies, 'typescript')
-  ) {
+  if (!hasDependency(dependencies, 'typescript') && !hasDependency(devDependencies, 'typescript')) {
     diagnostics.push(
       createDiagnostic({
         code: 'missing-dependency',
