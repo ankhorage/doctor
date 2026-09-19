@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.27
+
+### Patch Changes
+
+- 19f2201: Update Ankhorage dependencies: `@ankhorage/contracts`.
+
 ## 0.10.26
 
 ### Patch Changes
