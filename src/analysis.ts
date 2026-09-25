@@ -71,6 +71,7 @@ const REQUIRED_PUBLIC_PACKAGE_SCRIPTS = [
   'format',
   'format:check',
   'test',
+  'test:standalone',
   'knip:check',
   'docs',
   'changeset',
@@ -1225,6 +1226,8 @@ function mapScriptRule(scriptName: (typeof REQUIRED_PUBLIC_PACKAGE_SCRIPTS)[numb
       return 'package.scripts.format-check.required';
     case 'test':
       return 'package.scripts.test.required';
+    case 'test:standalone':
+      return 'package.scripts.standalone.required';
     case 'knip:check':
       return 'package.scripts.knip.required';
     case 'docs':

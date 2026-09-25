@@ -8,6 +8,7 @@ import {
 } from './analysis.js';
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
 import { analyzeAppManifestTarget } from './manifestAnalysis.js';
+import { analyzeSourceArchitecture } from './sourceArchitectureAnalysis.js';
 
 const LEGACY_ROOT_CLI_SOURCE = path.join('src', 'cli.ts');
 const ACTIVE_SOURCE_ROOTS = ['src', 'app', 'apps', 'packages', 'scripts'] as const;
@@ -147,6 +148,13 @@ async function analyzeTargetArchitecture(request: {
       profile: request.profile,
     }),
   );
+  diagnostics.push(
+    ...(await analyzeSourceArchitecture({
+      activeSourceImports,
+      profile: request.profile,
+      targetPath: request.targetPath,
+    })),
+  );
 
   if (request.packageJson.name === STUDIO_PACKAGE_NAME) {
     diagnostics.push(
@@ -177,6 +185,20 @@ function validateDependencyArchitecture(request: {
         path: request.packageJsonPath,
         profile: request.profile,
         ruleId: 'package.dependencies.ankh-workspace-alias.disallowed',
+        severity: 'error',
+      });
+    }
+
+    if (
+      request.profile === 'public-package' &&
+      /^(?:file:|link:|workspace:|github:|git(?:\+[^:]+)?:)/u.test(dependency.version)
+    ) {
+      diagnostics.push({
+        code: 'field-invalid',
+        message: `Published dependency "${dependency.packageName}" must resolve from a registry version, not "${dependency.version}". Standalone packages cannot rely on local/workspace/Git package state.`,
+        path: request.packageJsonPath,
+        profile: request.profile,
+        ruleId: 'package.dependencies.local-protocol.disallowed',
         severity: 'error',
       });
     }

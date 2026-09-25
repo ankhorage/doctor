@@ -41,6 +41,7 @@ const NON_PROVIDER_PACKAGE_JSON: Record<string, unknown> = {
     format: 'ankhorage-prettier --write .',
     'format:check': 'ankhorage-prettier --check .',
     test: 'bun test',
+    'test:standalone': 'bun test tests/standaloneContract.test.ts',
     'knip:check': 'ankhorage-knip',
     docs: 'echo docs',
     changeset: 'changeset',

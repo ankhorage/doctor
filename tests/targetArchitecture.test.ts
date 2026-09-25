@@ -144,6 +144,118 @@ describe('target package architecture policy', () => {
     expect(ruleIds).toContain('studio.imports.dnd.required');
     expect(ruleIds).toContain('studio.imports.runtime.required');
   });
+  test('rejects local package protocols for published standalone packages', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        name: '@ankhorage/example',
+        version: '1.0.0',
+        dependencies: {
+          '@ankhorage/runtime': 'workspace:*',
+          helper: 'file:../helper',
+        },
+      },
+    });
+
+    const ruleIds = await analyzeRuleIds(fixture);
+
+    expect(
+      ruleIds.filter((ruleId) => ruleId === 'package.dependencies.local-protocol.disallowed'),
+    ).toHaveLength(2);
+  });
+
+  test('rejects relative source imports that escape the repository root', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createInternalPackageJson(),
+      extraFiles: {
+        'src/domain/value.ts': "export { value } from '../../../sibling/value';\n",
+      },
+    });
+
+    const ruleIds = await analyzeRuleIds(fixture);
+
+    expect(ruleIds).toContain('package.imports.outside-root.disallowed');
+  });
+
+  test('accepts coherent feature-first roles without requiring empty layers', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createInternalPackageJson(),
+      extraFiles: {
+        'src/features/orders/domain/order.ts': 'export const order = 1;\n',
+        'src/features/orders/application/createOrder.ts':
+          "import { order } from '../domain/order'; export const createOrder = () => order;\n",
+        'src/features/orders/adapters/outbound/repository.ts':
+          "import { createOrder } from '../../application/createOrder'; export const repository = createOrder;\n",
+        'src/features/value/domain/value.ts': 'export const value = 1;\n',
+      },
+    });
+
+    const ruleIds = await analyzeRuleIds(fixture);
+
+    expect(ruleIds).not.toContain('package.architecture.role-combination.invalid');
+    expect(ruleIds).not.toContain('package.architecture.domain-outward-import.disallowed');
+    expect(ruleIds).not.toContain('package.architecture.application-outward-import.disallowed');
+  });
+
+  test('rejects feature adapters without an inward capability boundary', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createInternalPackageJson(),
+      extraFiles: {
+        'src/features/orders/adapters/http.ts': 'export const http = true;\n',
+      },
+    });
+
+    const ruleIds = await analyzeRuleIds(fixture);
+
+    expect(ruleIds).toContain('package.architecture.role-combination.invalid');
+  });
+
+  test('rejects domain and application imports that point outward', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createInternalPackageJson(),
+      extraFiles: {
+        'src/features/orders/domain/order.ts':
+          "import { repository } from '../adapters/repository'; export const order = repository;\n",
+        'src/features/orders/application/createOrder.ts':
+          "import { wire } from '../composition/wire'; export const createOrder = wire;\n",
+        'src/features/orders/adapters/repository.ts': 'export const repository = 1;\n',
+        'src/features/orders/composition/wire.ts': 'export const wire = 1;\n',
+      },
+    });
+
+    const ruleIds = await analyzeRuleIds(fixture);
+
+    expect(ruleIds).toContain('package.architecture.domain-outward-import.disallowed');
+    expect(ruleIds).toContain('package.architecture.application-outward-import.disallowed');
+  });
+
+  test('rejects CLI commands that wire concrete adapters directly', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createInternalPackageJson(),
+      extraFiles: {
+        'src/cli/commands/issue.ts':
+          "import { runtime } from '../../features/tls/adapters/outbound/docker/runtime'; export const issue = runtime;\n",
+        'src/features/tls/adapters/outbound/docker/runtime.ts': 'export const runtime = true;\n',
+        'src/features/tls/application/use-case.ts': 'export const useCase = true;\n',
+      },
+    });
+
+    const ruleIds = await analyzeRuleIds(fixture);
+
+    expect(ruleIds).toContain('package.architecture.delivery-concrete-adapter-import.disallowed');
+  });
+
+  test('rejects generic architectural catch-all directories', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createInternalPackageJson(),
+      extraFiles: {
+        'src/shared/value.ts': 'export const value = 1;\n',
+      },
+    });
+
+    const ruleIds = await analyzeRuleIds(fixture);
+
+    expect(ruleIds).toContain('package.architecture.catch-all-directory.disallowed');
+  });
 });
 
 async function analyze(fixture: string) {

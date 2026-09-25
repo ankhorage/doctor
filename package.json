@@ -74,7 +74,8 @@
     "changeset": "ankhorage-changeset",
     "changeset:status": "ankhorage-changeset status --since=origin/main",
     "version-packages": "ankhorage-changeset version",
-    "knip:check": "ankhorage-knip"
+    "knip:check": "ankhorage-knip",
+    "test:standalone": "bun test tests/standaloneContract.test.ts"
   },
   "dependencies": {
     "@ankhorage/contracts": "^22.8.1",
