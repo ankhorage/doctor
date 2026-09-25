@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.5
+
+### Patch Changes
+
+- a57516d: Update Ankhorage dependencies: `@ankhorage/paradox`, `@ankhorage/policy`.
+
 ## 0.11.4
 
 ### Patch Changes
