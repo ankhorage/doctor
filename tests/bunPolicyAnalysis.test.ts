@@ -20,7 +20,7 @@ test('reports every managed Bun drift location from canonical repository policy'
     [...BUN_POLICY_RULE_IDS].sort(),
   );
   for (const diagnostic of diagnostics) {
-    expect(diagnostic.message).toContain(BUN_POLICY.version);
+    expect(diagnostic.message).toContain(getExpectedPolicyValue(diagnostic.ruleId));
     expect(diagnostic.message).toContain('ankh devtools sync');
     expect(diagnostic.severity).toBe('error');
   }
@@ -67,6 +67,12 @@ test('reports missing managed workflow Bun state as repairable drift', async () 
     true,
   );
 });
+
+function getExpectedPolicyValue(ruleId: string): string {
+  if (ruleId === REPOSITORY_POLICY.rules.packageManager.id) return BUN_POLICY.packageManager;
+  if (ruleId === REPOSITORY_POLICY.rules.bunTypes.id) return BUN_POLICY.typesRange;
+  return BUN_POLICY.version;
+}
 
 function isBunPolicyDiagnostic(diagnostic: { readonly ruleId: string }): boolean {
   return BUN_POLICY_RULE_IDS.some((ruleId) => ruleId === diagnostic.ruleId);
