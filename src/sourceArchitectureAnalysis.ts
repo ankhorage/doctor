@@ -169,6 +169,17 @@ function analyzeRecognizedRoleDirection(
 ): DoctorDiagnostic[] {
   const sourceSegments = splitRelativePath(input.targetPath, sourceImport.filePath);
   const targetSegments = splitRelativePath(input.targetPath, targetPath);
+  if (isThinDeliveryAdapter(sourceSegments) && targetSegments.includes('adapters')) {
+    return [
+      createDiagnostic(
+        input,
+        sourceImport.filePath,
+        'package.architecture.delivery-concrete-adapter-import.disallowed',
+        `Thin delivery adapter must not wire concrete adapter implementation through "${sourceImport.specifier}". Import an application operation or composition boundary instead.`,
+      ),
+    ];
+  }
+
   const role = resolveSourceRole(sourceSegments);
   if (role === null) return [];
 
@@ -180,6 +191,12 @@ function analyzeRecognizedRoleDirection(
     role.ruleId,
     role.label,
   );
+}
+
+/*** Check whether a source file belongs to a thin CLI command delivery boundary. */
+function isThinDeliveryAdapter(sourceSegments: readonly string[]): boolean {
+  const cliIndex = sourceSegments.indexOf('cli');
+  return cliIndex >= 0 && sourceSegments[cliIndex + 1] === 'commands';
 }
 
 /*** Resolve the dependency rule owned by one recognized inner source role. */
