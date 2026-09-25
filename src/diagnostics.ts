@@ -59,6 +59,7 @@ export type DoctorRuleId =
   | 'package.architecture.application-outward-import.disallowed'
   | 'package.architecture.catch-all-directory.disallowed'
   | 'package.architecture.domain-outward-import.disallowed'
+  | 'package.architecture.delivery-concrete-adapter-import.disallowed'
   | 'package.architecture.port-outward-import.disallowed'
   | 'package.architecture.role-combination.invalid'
   | 'package.dependencies.ankh-workspace-alias.disallowed'
