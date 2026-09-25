@@ -146,7 +146,6 @@ async function analyzeTargetArchitecture(request: {
     ...validateActiveSourceImports({
       activeSourceImports,
       profile: request.profile,
-      targetPath: request.targetPath,
     }),
   );
   diagnostics.push(
@@ -225,26 +224,10 @@ function validateDependencyArchitecture(request: {
 function validateActiveSourceImports(request: {
   readonly activeSourceImports: readonly ActiveSourceImport[];
   readonly profile: DoctorPolicyProfile;
-  readonly targetPath: string;
 }): DoctorDiagnostic[] {
   const diagnostics: DoctorDiagnostic[] = [];
 
   for (const sourceImport of request.activeSourceImports) {
-    if (sourceImport.specifier.startsWith('.')) {
-      const resolvedImport = path.resolve(path.dirname(sourceImport.filePath), sourceImport.specifier);
-      const relativeImport = path.relative(request.targetPath, resolvedImport);
-      if (relativeImport.startsWith('..') || path.isAbsolute(relativeImport)) {
-        diagnostics.push({
-          code: 'field-invalid',
-          message: `Relative import "${sourceImport.specifier}" escapes the standalone repository root.`,
-          path: sourceImport.filePath,
-          profile: request.profile,
-          ruleId: 'package.imports.outside-root.disallowed',
-          severity: 'error',
-        });
-      }
-    }
-
     if (sourceImport.specifier.startsWith(COMPATIBILITY_PACKAGE_PREFIX)) {
       diagnostics.push({
         code: 'field-invalid',
