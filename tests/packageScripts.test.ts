@@ -21,6 +21,21 @@ describe('public package script policy', () => {
     expect(result.diagnostics).toEqual([]);
   });
 
+  test('requires an explicit standalone contract test', async () => {
+    const packageJson = createPublicPackageJson({
+      'knip:check': 'ankhorage-knip',
+    });
+    const scripts = packageJson.scripts as Record<string, string>;
+    delete scripts['test:standalone'];
+    const fixture = await createDoctorFixture({ packageJson });
+
+    const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'validate' });
+
+    expect(result.diagnostics.map(({ ruleId }) => ruleId)).toContain(
+      'package.scripts.standalone.required',
+    );
+  });
+
   test('rejects the obsolete knip script when knip:check is missing', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createPublicPackageJson({
@@ -69,6 +84,7 @@ function createPublicPackageJson(knipScript: Readonly<Record<string, string>>) {
       format: 'ankhorage-prettier --write .',
       'format:check': 'ankhorage-prettier --check .',
       test: 'bun test',
+      'test:standalone': 'bun test tests/standaloneContract.test.ts',
       docs: 'echo docs',
       changeset: 'changeset',
       'changeset:status': 'changeset status --since=origin/main',
