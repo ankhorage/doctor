@@ -592,6 +592,7 @@ function createValidPublicPackageJson(options: {
       format: 'ankhorage-prettier --write .',
       'format:check': 'ankhorage-prettier --check .',
       test: 'bun test',
+      'test:standalone': 'bun test tests/standaloneContract.test.ts',
       'knip:check': 'ankhorage-knip',
       docs: options.docsScript,
       changeset: 'changeset',
