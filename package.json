@@ -79,7 +79,8 @@
   },
   "dependencies": {
     "@ankhorage/contracts": "^22.8.2",
-    "@ankhorage/supabase-auth": "^1.2.27"
+    "@ankhorage/supabase-auth": "^1.2.27",
+    "@ankhorage/utility": "^1.8.0"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.10.4",

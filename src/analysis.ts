@@ -2,6 +2,8 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import { uniqueSortedStrings } from '@ankhorage/utility/array';
+
 import type { DoctorDiagnostic, DoctorPolicyProfile, DoctorRuleId } from './diagnostics.js';
 import type { DoctorReadiness } from './readiness.js';
 
@@ -779,8 +781,8 @@ async function validateAnkhMetadataAndProvider(request: {
   const metadataCapabilities = Array.isArray(metadata.capabilities)
     ? metadata.capabilities.filter(isNonEmptyString)
     : [];
-  const providerCapabilities = uniqueSorted(inspection.result.capabilities);
-  const commandCapabilities = uniqueSorted(inspection.result.commandCapabilities);
+  const providerCapabilities = uniqueSortedStrings(inspection.result.capabilities);
+  const commandCapabilities = uniqueSortedStrings(inspection.result.commandCapabilities);
 
   if (!sameStringSet(metadataCapabilities, commandCapabilities)) {
     diagnostics.push(
@@ -1316,13 +1318,9 @@ function readStringArray(value: unknown): string[] {
 }
 
 function sameStringSet(left: readonly string[], right: readonly string[]): boolean {
-  const leftSet = uniqueSorted(left);
-  const rightSet = uniqueSorted(right);
+  const leftSet = uniqueSortedStrings(left);
+  const rightSet = uniqueSortedStrings(right);
   return (
     leftSet.length === rightSet.length && leftSet.every((value, index) => value === rightSet[index])
   );
-}
-
-function uniqueSorted(values: readonly string[]): string[] {
-  return [...new Set(values)].sort((left, right) => left.localeCompare(right));
 }
