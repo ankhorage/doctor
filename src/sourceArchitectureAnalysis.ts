@@ -44,10 +44,7 @@ const INWARD_FEATURE_ROLES = ['application', 'contracts', 'domain', 'planning', 
 export async function analyzeSourceArchitecture(
   input: AnalyzeSourceArchitectureInput,
 ): Promise<DoctorDiagnostic[]> {
-  return [
-    ...(await analyzeDirectoryVocabularyAsync(input)),
-    ...analyzeImportDirection(input),
-  ];
+  return [...(await analyzeDirectoryVocabularyAsync(input)), ...analyzeImportDirection(input)];
 }
 
 /*** Validate architectural directory names only when a repository has introduced them. */
@@ -141,52 +138,83 @@ function analyzeOneImportDirection(
   if (!sourceImport.specifier.startsWith('.')) return [];
 
   const targetPath = path.resolve(path.dirname(sourceImport.filePath), sourceImport.specifier);
-  const relativeTarget = path.relative(input.targetPath, targetPath);
-  if (relativeTarget.startsWith('..') || path.isAbsolute(relativeTarget)) {
-    return [
-      createDiagnostic(
-        input,
-        sourceImport.filePath,
-        'package.imports.outside-root.disallowed',
-        `Relative import "${sourceImport.specifier}" escapes the standalone repository root.`,
-      ),
-    ];
-  }
+  const escaped = createEscapedRepositoryDiagnostic(input, sourceImport, targetPath);
+  if (escaped !== null) return [escaped];
 
+  return analyzeRecognizedRoleDirection(input, sourceImport, targetPath);
+}
+
+/*** Report a relative import that escapes the standalone repository boundary. */
+function createEscapedRepositoryDiagnostic(
+  input: AnalyzeSourceArchitectureInput,
+  sourceImport: SourceImport,
+  targetPath: string,
+): DoctorDiagnostic | null {
+  const relativeTarget = path.relative(input.targetPath, targetPath);
+  if (!relativeTarget.startsWith('..') && !path.isAbsolute(relativeTarget)) return null;
+
+  return createDiagnostic(
+    input,
+    sourceImport.filePath,
+    'package.imports.outside-root.disallowed',
+    `Relative import "${sourceImport.specifier}" escapes the standalone repository root.`,
+  );
+}
+
+/*** Apply inward dependency rules for recognized source architecture roles. */
+function analyzeRecognizedRoleDirection(
+  input: AnalyzeSourceArchitectureInput,
+  sourceImport: SourceImport,
+  targetPath: string,
+): DoctorDiagnostic[] {
   const sourceSegments = splitRelativePath(input.targetPath, sourceImport.filePath);
   const targetSegments = splitRelativePath(input.targetPath, targetPath);
+  const role = resolveSourceRole(sourceSegments);
+  if (role === null) return [];
+
+  return createOutwardImportDiagnostic(
+    input,
+    sourceImport,
+    targetSegments,
+    role.forbiddenSegments,
+    role.ruleId,
+    role.label,
+  );
+}
+
+/*** Resolve the dependency rule owned by one recognized inner source role. */
+function resolveSourceRole(sourceSegments: readonly string[]): SourceRoleRule | null {
   if (sourceSegments.some((segment) => INNER_ROLE_SEGMENTS.has(segment))) {
-    return createOutwardImportDiagnostic(
-      input,
-      sourceImport,
-      targetSegments,
-      DOMAIN_OUTWARD_SEGMENTS,
-      'package.architecture.domain-outward-import.disallowed',
-      'Domain/core policy',
-    );
+    return {
+      forbiddenSegments: DOMAIN_OUTWARD_SEGMENTS,
+      label: 'Domain/core policy',
+      ruleId: 'package.architecture.domain-outward-import.disallowed',
+    };
   }
   if (sourceSegments.some((segment) => APPLICATION_ROLE_SEGMENTS.has(segment))) {
-    return createOutwardImportDiagnostic(
-      input,
-      sourceImport,
-      targetSegments,
-      APPLICATION_OUTWARD_SEGMENTS,
-      'package.architecture.application-outward-import.disallowed',
-      'Application/use-case code',
-    );
+    return {
+      forbiddenSegments: APPLICATION_OUTWARD_SEGMENTS,
+      label: 'Application/use-case code',
+      ruleId: 'package.architecture.application-outward-import.disallowed',
+    };
   }
   if (sourceSegments.some((segment) => PORT_ROLE_SEGMENTS.has(segment))) {
-    return createOutwardImportDiagnostic(
-      input,
-      sourceImport,
-      targetSegments,
-      PORT_OUTWARD_SEGMENTS,
-      'package.architecture.port-outward-import.disallowed',
-      'Port contracts',
-    );
+    return {
+      forbiddenSegments: PORT_OUTWARD_SEGMENTS,
+      label: 'Port contracts',
+      ruleId: 'package.architecture.port-outward-import.disallowed',
+    };
   }
+  return null;
+}
 
-  return [];
+interface SourceRoleRule {
+  readonly forbiddenSegments: ReadonlySet<string>;
+  readonly label: string;
+  readonly ruleId:
+    | 'package.architecture.application-outward-import.disallowed'
+    | 'package.architecture.domain-outward-import.disallowed'
+    | 'package.architecture.port-outward-import.disallowed';
 }
 
 /*** Report one outward dependency when the imported path crosses a forbidden role. */
