@@ -54,6 +54,19 @@ describe('public package script policy', () => {
   });
 });
 
+
+function createCanonicalWorkflowFiles(): Readonly<Record<string, string>> {
+  const workflow = (name: string) =>
+    `name: ${name}\n\njobs:\n  validate:\n    steps:\n      - uses: oven-sh/setup-bun@v2\n        with:\n          bun-version: '${REPOSITORY_POLICY.runtime.bun.version}'\n`;
+
+  return Object.fromEntries(
+    REPOSITORY_POLICY.runtime.bun.workflowTargets.map(({ path }, index) => [
+      path,
+      workflow(index === 0 ? 'CI' : 'Release'),
+    ]),
+  );
+}
+
 function createPublicPackageJson(knipScript: Readonly<Record<string, string>>) {
   return {
     name: '@ankhorage/devtools-synchronized-fixture',
