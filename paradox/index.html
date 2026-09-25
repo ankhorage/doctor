@@ -246,6 +246,11 @@
       src/secretManifestAnalysis.ts
       <small>4 functions</small>
     </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/sourceArchitectureAnalysis.ts">
+      src/sourceArchitectureAnalysis.ts
+      <small>13 functions</small>
+    </button>
   </li>
           </ul>
         </nav>
@@ -258,7 +263,7 @@
       <div class="summary">
         <div><strong>33</strong><span class="muted">public exports</span></div>
         <div><strong>0</strong><span class="muted">components</span></div>
-        <div><strong>47</strong><span class="muted">modules</span></div>
+        <div><strong>49</strong><span class="muted">modules</span></div>
         <div><strong>1</strong><span class="muted">entrypoints</span></div>
       </div>
       <h3>Entrypoints</h3>
@@ -364,10 +369,10 @@
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/commandContext.ts</code>, <code>src/commands.ts</code>, <code>src/dependencyPolicyAnalysis.ts</code></p>
     <p><strong>Exports:</strong> <code>DoctorCliOptions</code>, <code>runCli</code></p>
-  </article><article class="item" data-search="src/cliLayoutAnalysis.ts src/analysis.ts src/diagnostics.ts src/manifestAnalysis.ts analyzeDoctorTargetWithCliLayout">
+  </article><article class="item" data-search="src/cliLayoutAnalysis.ts src/analysis.ts src/diagnostics.ts src/manifestAnalysis.ts src/sourceArchitectureAnalysis.ts analyzeDoctorTargetWithCliLayout">
     <h3>src/cliLayoutAnalysis.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/diagnostics.ts</code>, <code>src/manifestAnalysis.ts</code></p>
+    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/diagnostics.ts</code>, <code>src/manifestAnalysis.ts</code>, <code>src/sourceArchitectureAnalysis.ts</code></p>
     <p><strong>Exports:</strong> <code>analyzeDoctorTargetWithCliLayout</code></p>
   </article><article class="item" data-search="src/commandContext.ts package.json createDefaultCommandContext DoctorCommandContext DoctorCommandRunResult">
     <h3>src/commandContext.ts</h3>
@@ -414,6 +419,11 @@
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/diagnostics.ts</code></p>
     <p><strong>Exports:</strong> <code>analyzeSecretStoreManifest</code></p>
+  </article><article class="item" data-search="src/sourceArchitectureAnalysis.ts src/diagnostics.ts analyzeSourceArchitecture">
+    <h3>src/sourceArchitectureAnalysis.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/diagnostics.ts</code></p>
+    <p><strong>Exports:</strong> <code>analyzeSourceArchitecture</code></p>
   </article><article class="item" data-search="tests/ankh.provider.test.ts src/cli/index.ts src/commands.ts">
     <h3>tests/ankh.provider.test.ts</h3>
     <p class="muted">Referenced module</p>
@@ -488,6 +498,11 @@
     <h3>tests/secretManifestAnalysis.test.ts</h3>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/manifestAnalysis.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
+  </article><article class="item" data-search="tests/standaloneContract.test.ts src/index.ts tests/testSupport.ts">
+    <h3>tests/standaloneContract.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/index.ts</code>, <code>tests/testSupport.ts</code></p>
     <p><strong>Exports:</strong> <span class="empty">None</span></p>
   </article><article class="item" data-search="tests/targetArchitecture.test.ts src/cliLayoutAnalysis.ts tests/testSupport.ts">
     <h3>tests/targetArchitecture.test.ts</h3>
@@ -1016,7 +1031,7 @@
               <h3>src/diagnostics.ts</h3>
               <article class="item" id="symbol-doctordiagnostic" data-search="DoctorDiagnostic type src/diagnostics.ts  DoctorDiagnosticCode DoctorDiagnosticSeverity DoctorPolicyProfile DoctorRuleId">
     <h4>DoctorDiagnostic</h4>
-    <p class="muted">type • <code>src/diagnostics.ts:121:1</code></p>
+    <p class="muted">type • <code>src/diagnostics.ts:130:1</code></p>
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorDiagnosticCode</li><li class="chip">DoctorDiagnosticSeverity</li><li class="chip">DoctorPolicyProfile</li><li class="chip">DoctorRuleId</li></ul></div>
@@ -1398,6 +1413,7 @@
   module_src_cliLayoutAnalysis_ts --&gt; module_src_analysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_commandContext_ts
   module_src_commandContext_ts --&gt; module_package_json
@@ -1431,6 +1447,9 @@
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_secretManifestAnalysis_ts
   module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_sourceArchitectureAnalysis_ts
+  module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_ankh_provider_test_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
@@ -1490,6 +1509,10 @@
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_secretManifestAnalysis_test_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
+  module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_standaloneContract_test_ts
+  module_tests_standaloneContract_test_ts --&gt; module_src_index_ts
+  module_tests_standaloneContract_test_ts --&gt; module_tests_testSupport_ts
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_targetArchitecture_test_ts
   module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1594,6 +1617,7 @@
   module_src_cliLayoutAnalysis_ts --&gt; module_src_analysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_commandContext_ts
   module_src_commandContext_ts --&gt; module_package_json
@@ -1627,6 +1651,9 @@
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_secretManifestAnalysis_ts
   module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_sourceArchitectureAnalysis_ts
+  module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_ankh_provider_test_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
@@ -1686,6 +1713,10 @@
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_secretManifestAnalysis_test_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
+  module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_standaloneContract_test_ts
+  module_tests_standaloneContract_test_ts --&gt; module_src_index_ts
+  module_tests_standaloneContract_test_ts --&gt; module_tests_testSupport_ts
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_targetArchitecture_test_ts
   module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1732,6 +1763,7 @@
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
+  module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
@@ -1747,6 +1779,7 @@
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
+  module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
@@ -1796,6 +1829,7 @@
   module_src_cliLayoutAnalysis_ts --&gt; module_src_analysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_commandContext_ts --&gt; module_package_json
   module_src_commands_ts --&gt; module_src_analysis_ts
   module_src_commands_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1812,6 +1846,7 @@
   module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
   module_src_packageMetadata_ts --&gt; module_package_json
   module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_src_authReadinessAnalysis_ts
@@ -1841,6 +1876,8 @@
   module_tests_packageScripts_test_ts --&gt; module_tests_testSupport_ts
   module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
+  module_tests_standaloneContract_test_ts --&gt; module_src_index_ts
+  module_tests_standaloneContract_test_ts --&gt; module_tests_testSupport_ts
   module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_targetArchitecture_test_ts --&gt; module_tests_testSupport_ts
   module_tests_testSupport_ts --&gt; module_src_commandContext_ts
@@ -1879,6 +1916,7 @@
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
+  module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
@@ -1894,6 +1932,7 @@
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
+  module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
@@ -1943,6 +1982,7 @@
   module_src_cliLayoutAnalysis_ts --&gt; module_src_analysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_commandContext_ts --&gt; module_package_json
   module_src_commands_ts --&gt; module_src_analysis_ts
   module_src_commands_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1959,6 +1999,7 @@
   module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
   module_src_packageMetadata_ts --&gt; module_package_json
   module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_src_authReadinessAnalysis_ts
@@ -1988,6 +2029,8 @@
   module_tests_packageScripts_test_ts --&gt; module_tests_testSupport_ts
   module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
+  module_tests_standaloneContract_test_ts --&gt; module_src_index_ts
+  module_tests_standaloneContract_test_ts --&gt; module_tests_testSupport_ts
   module_tests_targetArchitecture_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_targetArchitecture_test_ts --&gt; module_tests_testSupport_ts
   module_tests_testSupport_ts --&gt; module_src_commandContext_ts
@@ -2028,6 +2071,7 @@
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
+  module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
@@ -2043,6 +2087,7 @@
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
+  module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
@@ -2177,6 +2222,7 @@
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
+  module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
@@ -2192,6 +2238,7 @@
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
+  module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
   module_tests_targetArchitecture_test_ts[&quot;tests/targetArchitecture.test.ts&quot;]
   module_tests_testSupport_ts[&quot;tests/testSupport.ts&quot;]
   module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
@@ -2387,139 +2434,139 @@
       <h2>src/analysis.ts</h2>
       <article class="item" data-search="analyzeDoctorTarget src/analysis.ts ">
     <h3>analyzeDoctorTarget</h3>
-    <p class="muted"><code>src/analysis.ts:88:1</code></p>
+    <p class="muted"><code>src/analysis.ts:89:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="analyzeRepoPolicy src/analysis.ts ">
     <h3>analyzeRepoPolicy</h3>
-    <p class="muted"><code>src/analysis.ts:235:1</code></p>
+    <p class="muted"><code>src/analysis.ts:236:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="analyzePackagePolicy src/analysis.ts ">
     <h3>analyzePackagePolicy</h3>
-    <p class="muted"><code>src/analysis.ts:347:1</code></p>
+    <p class="muted"><code>src/analysis.ts:348:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="createChangesetsDependencyDiagnostic src/analysis.ts ">
     <h3>createChangesetsDependencyDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:659:1</code></p>
+    <p class="muted"><code>src/analysis.ts:660:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="validateAnkhMetadataAndProvider src/analysis.ts ">
     <h3>validateAnkhMetadataAndProvider</h3>
-    <p class="muted"><code>src/analysis.ts:689:1</code></p>
+    <p class="muted"><code>src/analysis.ts:690:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="inspectProviderSource src/analysis.ts ">
     <h3>inspectProviderSource</h3>
-    <p class="muted"><code>src/analysis.ts:827:1</code></p>
+    <p class="muted"><code>src/analysis.ts:828:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="resolveProviderSourcePath src/analysis.ts ">
     <h3>resolveProviderSourcePath</h3>
-    <p class="muted"><code>src/analysis.ts:916:1</code></p>
+    <p class="muted"><code>src/analysis.ts:917:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="findRepoMarkers src/analysis.ts ">
     <h3>findRepoMarkers</h3>
-    <p class="muted"><code>src/analysis.ts:944:1</code></p>
+    <p class="muted"><code>src/analysis.ts:945:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="readPackageJson src/analysis.ts ">
     <h3>readPackageJson</h3>
-    <p class="muted"><code>src/analysis.ts:954:1</code></p>
+    <p class="muted"><code>src/analysis.ts:955:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="detectProfile src/analysis.ts ">
     <h3>detectProfile</h3>
-    <p class="muted"><code>src/analysis.ts:996:1</code></p>
+    <p class="muted"><code>src/analysis.ts:997:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isProviderPackage src/analysis.ts ">
     <h3>isProviderPackage</h3>
-    <p class="muted"><code>src/analysis.ts:1017:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1018:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="maybeRequirePath src/analysis.ts ">
     <h3>maybeRequirePath</h3>
-    <p class="muted"><code>src/analysis.ts:1027:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1028:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="requireNonEmptyStringField src/analysis.ts ">
     <h3>requireNonEmptyStringField</h3>
-    <p class="muted"><code>src/analysis.ts:1065:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1066:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="requireRecordField src/analysis.ts ">
     <h3>requireRecordField</h3>
-    <p class="muted"><code>src/analysis.ts:1089:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1090:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="requireStringArrayField src/analysis.ts ">
     <h3>requireStringArrayField</h3>
-    <p class="muted"><code>src/analysis.ts:1113:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1114:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="expectsParadox src/analysis.ts ">
     <h3>expectsParadox</h3>
-    <p class="muted"><code>src/analysis.ts:1137:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1138:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="expectsDevtools src/analysis.ts ">
     <h3>expectsDevtools</h3>
-    <p class="muted"><code>src/analysis.ts:1156:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1157:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="hasDependency src/analysis.ts ">
     <h3>hasDependency</h3>
-    <p class="muted"><code>src/analysis.ts:1171:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1172:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="validateAnkhMetadataShape src/analysis.ts ">
     <h3>validateAnkhMetadataShape</h3>
-    <p class="muted"><code>src/analysis.ts:1178:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1179:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="mapScriptRule src/analysis.ts ">
     <h3>mapScriptRule</h3>
-    <p class="muted"><code>src/analysis.ts:1212:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1213:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="createEarlyResult src/analysis.ts ">
     <h3>createEarlyResult</h3>
-    <p class="muted"><code>src/analysis.ts:1241:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1244:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="createDiagnostic src/analysis.ts ">
     <h3>createDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:1254:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1257:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="createPlannedChange src/analysis.ts ">
     <h3>createPlannedChange</h3>
-    <p class="muted"><code>src/analysis.ts:1258:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1261:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="createInvalidPackageJsonMessage src/analysis.ts ">
     <h3>createInvalidPackageJsonMessage</h3>
-    <p class="muted"><code>src/analysis.ts:1265:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1268:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="pathExists src/analysis.ts ">
     <h3>pathExists</h3>
-    <p class="muted"><code>src/analysis.ts:1270:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1273:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="statOrNull src/analysis.ts ">
     <h3>statOrNull</h3>
-    <p class="muted"><code>src/analysis.ts:1274:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1277:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isMissingPathError src/analysis.ts ">
     <h3>isMissingPathError</h3>
-    <p class="muted"><code>src/analysis.ts:1286:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1289:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isNonEmptyString src/analysis.ts ">
     <h3>isNonEmptyString</h3>
-    <p class="muted"><code>src/analysis.ts:1295:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1298:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isPackageRelativeProviderPath src/analysis.ts ">
     <h3>isPackageRelativeProviderPath</h3>
-    <p class="muted"><code>src/analysis.ts:1299:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1302:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isRecord src/analysis.ts ">
     <h3>isRecord</h3>
-    <p class="muted"><code>src/analysis.ts:1303:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1306:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isStringTuple src/analysis.ts ">
     <h3>isStringTuple</h3>
-    <p class="muted"><code>src/analysis.ts:1307:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1310:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="readStringArray src/analysis.ts ">
     <h3>readStringArray</h3>
-    <p class="muted"><code>src/analysis.ts:1311:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1314:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="sameStringSet src/analysis.ts ">
     <h3>sameStringSet</h3>
-    <p class="muted"><code>src/analysis.ts:1315:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1318:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="uniqueSorted src/analysis.ts ">
     <h3>uniqueSorted</h3>
-    <p class="muted"><code>src/analysis.ts:1323:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1326:1</code></p>
     <p class="empty">No description available.</p>
   </article>
     </section>
@@ -2768,75 +2815,75 @@
       <h2>src/cliLayoutAnalysis.ts</h2>
       <article class="item" data-search="analyzeDoctorTargetWithCliLayout src/cliLayoutAnalysis.ts ">
     <h3>analyzeDoctorTargetWithCliLayout</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:62:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:63:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="analyzeTargetArchitecture src/cliLayoutAnalysis.ts ">
     <h3>analyzeTargetArchitecture</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:100:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:101:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="validateDependencyArchitecture src/cliLayoutAnalysis.ts ">
     <h3>validateDependencyArchitecture</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:165:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:173:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="validateActiveSourceImports src/cliLayoutAnalysis.ts ">
     <h3>validateActiveSourceImports</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:202:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:224:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="validateStudioOwnership src/cliLayoutAnalysis.ts ">
     <h3>validateStudioOwnership</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:235:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:257:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="collectActiveSourceImports src/cliLayoutAnalysis.ts ">
     <h3>collectActiveSourceImports</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:302:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:324:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="listActiveSourceFiles src/cliLayoutAnalysis.ts ">
     <h3>listActiveSourceFiles</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:322:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:344:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="visit src/cliLayoutAnalysis.ts ">
     <h3>visit</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:327:3</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:349:3</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isActiveSourceFile src/cliLayoutAnalysis.ts ">
     <h3>isActiveSourceFile</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:350:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:372:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="extractImportSpecifiers src/cliLayoutAnalysis.ts ">
     <h3>extractImportSpecifiers</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:358:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:380:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="collectDependencyEntries src/cliLayoutAnalysis.ts ">
     <h3>collectDependencyEntries</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:377:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:399:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="hasAnkhProvider src/cliLayoutAnalysis.ts ">
     <h3>hasAnkhProvider</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:401:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:423:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isPackageImport src/cliLayoutAnalysis.ts ">
     <h3>isPackageImport</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:406:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:428:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="toOwningPackageSpecifier src/cliLayoutAnalysis.ts ">
     <h3>toOwningPackageSpecifier</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:410:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:432:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="readPackageJson src/cliLayoutAnalysis.ts ">
     <h3>readPackageJson</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:414:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:436:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="pathExists src/cliLayoutAnalysis.ts ">
     <h3>pathExists</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:423:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:445:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isNonEmptyString src/cliLayoutAnalysis.ts ">
     <h3>isNonEmptyString</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:432:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:454:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="isRecord src/cliLayoutAnalysis.ts ">
     <h3>isRecord</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:436:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:458:1</code></p>
     <p class="empty">No description available.</p>
   </article>
     </section>
@@ -2948,11 +2995,11 @@
       <h2>src/diagnostics.ts</h2>
       <article class="item" data-search="countErrorDiagnostics src/diagnostics.ts ">
     <h3>countErrorDiagnostics</h3>
-    <p class="muted"><code>src/diagnostics.ts:130:1</code></p>
+    <p class="muted"><code>src/diagnostics.ts:139:1</code></p>
     <p class="empty">No description available.</p>
   </article><article class="item" data-search="countWarningDiagnostics src/diagnostics.ts ">
     <h3>countWarningDiagnostics</h3>
-    <p class="muted"><code>src/diagnostics.ts:134:1</code></p>
+    <p class="muted"><code>src/diagnostics.ts:143:1</code></p>
     <p class="empty">No description available.</p>
   </article>
     </section>
@@ -3040,6 +3087,63 @@
     <h3>isRecord</h3>
     <p class="muted"><code>src/secretManifestAnalysis.ts:239:1</code></p>
     <p class="empty">No description available.</p>
+  </article>
+    </section>
+  </section><section id="view-src-sourcearchitectureanalysis-ts" class="view" data-view="src/sourceArchitectureAnalysis.ts" hidden>
+    <section class="panel">
+      <h2>src/sourceArchitectureAnalysis.ts</h2>
+      <article class="item" data-search="analyzeSourceArchitecture src/sourceArchitectureAnalysis.ts Validate folder-role combinations and inward source dependency direction.">
+    <h3>analyzeSourceArchitecture</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:44:1</code></p>
+    <p>Validate folder-role combinations and inward source dependency direction.</p>
+  </article><article class="item" data-search="analyzeDirectoryVocabularyAsync src/sourceArchitectureAnalysis.ts Validate architectural directory names only when a repository has introduced them.">
+    <h3>analyzeDirectoryVocabularyAsync</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:51:1</code></p>
+    <p>Validate architectural directory names only when a repository has introduced them.</p>
+  </article><article class="item" data-search="analyzeFeatureCombinationsAsync src/sourceArchitectureAnalysis.ts Validate feature-first role combinations without requiring unused ceremonial layers.">
+    <h3>analyzeFeatureCombinationsAsync</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:76:1</code></p>
+    <p>Validate feature-first role combinations without requiring unused ceremonial layers.</p>
+  </article><article class="item" data-search="analyzeImportDirection src/sourceArchitectureAnalysis.ts Validate that relative source imports point inward across recognized architecture roles.">
+    <h3>analyzeImportDirection</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:127:1</code></p>
+    <p>Validate that relative source imports point inward across recognized architecture roles.</p>
+  </article><article class="item" data-search="analyzeOneImportDirection src/sourceArchitectureAnalysis.ts Validate one relative import against repository and layer boundaries.">
+    <h3>analyzeOneImportDirection</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:134:1</code></p>
+    <p>Validate one relative import against repository and layer boundaries.</p>
+  </article><article class="item" data-search="createEscapedRepositoryDiagnostic src/sourceArchitectureAnalysis.ts Report a relative import that escapes the standalone repository boundary.">
+    <h3>createEscapedRepositoryDiagnostic</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:148:1</code></p>
+    <p>Report a relative import that escapes the standalone repository boundary.</p>
+  </article><article class="item" data-search="analyzeRecognizedRoleDirection src/sourceArchitectureAnalysis.ts Apply inward dependency rules for recognized source architecture roles.">
+    <h3>analyzeRecognizedRoleDirection</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:165:1</code></p>
+    <p>Apply inward dependency rules for recognized source architecture roles.</p>
+  </article><article class="item" data-search="isThinDeliveryAdapter src/sourceArchitectureAnalysis.ts Check whether a source file belongs to a thin CLI command delivery boundary.">
+    <h3>isThinDeliveryAdapter</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:197:1</code></p>
+    <p>Check whether a source file belongs to a thin CLI command delivery boundary.</p>
+  </article><article class="item" data-search="resolveSourceRole src/sourceArchitectureAnalysis.ts Resolve the dependency rule owned by one recognized inner source role.">
+    <h3>resolveSourceRole</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:203:1</code></p>
+    <p>Resolve the dependency rule owned by one recognized inner source role.</p>
+  </article><article class="item" data-search="createOutwardImportDiagnostic src/sourceArchitectureAnalysis.ts Report one outward dependency when the imported path crosses a forbidden role.">
+    <h3>createOutwardImportDiagnostic</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:238:1</code></p>
+    <p>Report one outward dependency when the imported path crosses a forbidden role.</p>
+  </article><article class="item" data-search="splitRelativePath src/sourceArchitectureAnalysis.ts Split one repository path into normalized architecture segments.">
+    <h3>splitRelativePath</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:263:1</code></p>
+    <p>Split one repository path into normalized architecture segments.</p>
+  </article><article class="item" data-search="createDiagnostic src/sourceArchitectureAnalysis.ts Build one deterministic architecture diagnostic.">
+    <h3>createDiagnostic</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:268:1</code></p>
+    <p>Build one deterministic architecture diagnostic.</p>
+  </article><article class="item" data-search="pathExistsAsync src/sourceArchitectureAnalysis.ts Check whether a filesystem path exists.">
+    <h3>pathExistsAsync</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:285:1</code></p>
+    <p>Check whether a filesystem path exists.</p>
   </article>
     </section>
   </section>

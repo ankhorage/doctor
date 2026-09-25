@@ -88,6 +88,7 @@ graph TD
   module_src_cliLayoutAnalysis_ts --> module_src_analysis_ts
   module_src_cliLayoutAnalysis_ts --> module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --> module_src_manifestAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --> module_src_sourceArchitectureAnalysis_ts
   module_src_commandContext_ts["src/commandContext.ts"]
   package__ankhorage_doctor -.-> module_src_commandContext_ts
   module_src_commandContext_ts --> module_package_json
@@ -121,6 +122,9 @@ graph TD
   module_src_secretManifestAnalysis_ts["src/secretManifestAnalysis.ts"]
   package__ankhorage_doctor -.-> module_src_secretManifestAnalysis_ts
   module_src_secretManifestAnalysis_ts --> module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts["src/sourceArchitectureAnalysis.ts"]
+  package__ankhorage_doctor -.-> module_src_sourceArchitectureAnalysis_ts
+  module_src_sourceArchitectureAnalysis_ts --> module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts["tests/ankh.provider.test.ts"]
   package__ankhorage_doctor -.-> module_tests_ankh_provider_test_ts
   module_tests_ankh_provider_test_ts --> module_src_cli_index_ts
@@ -180,6 +184,10 @@ graph TD
   module_tests_secretManifestAnalysis_test_ts["tests/secretManifestAnalysis.test.ts"]
   package__ankhorage_doctor -.-> module_tests_secretManifestAnalysis_test_ts
   module_tests_secretManifestAnalysis_test_ts --> module_src_manifestAnalysis_ts
+  module_tests_standaloneContract_test_ts["tests/standaloneContract.test.ts"]
+  package__ankhorage_doctor -.-> module_tests_standaloneContract_test_ts
+  module_tests_standaloneContract_test_ts --> module_src_index_ts
+  module_tests_standaloneContract_test_ts --> module_tests_testSupport_ts
   module_tests_targetArchitecture_test_ts["tests/targetArchitecture.test.ts"]
   package__ankhorage_doctor -.-> module_tests_targetArchitecture_test_ts
   module_tests_targetArchitecture_test_ts --> module_src_cliLayoutAnalysis_ts
