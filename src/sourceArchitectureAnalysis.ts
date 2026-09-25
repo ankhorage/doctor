@@ -1,6 +1,8 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
+import { ARCHITECTURE_POLICY } from '@ankhorage/policy/architecture';
+
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
 
 interface SourceImport {
@@ -14,31 +16,8 @@ interface AnalyzeSourceArchitectureInput {
   readonly targetPath: string;
 }
 
-const CATCH_ALL_DIRECTORIES = ['common', 'helpers', 'shared'] as const;
-const INNER_ROLE_SEGMENTS = new Set(['domain', 'core']);
-const APPLICATION_ROLE_SEGMENTS = new Set(['application']);
-const PORT_ROLE_SEGMENTS = new Set(['ports']);
-const DOMAIN_OUTWARD_SEGMENTS = new Set([
-  'adapters',
-  'app',
-  'application',
-  'cli',
-  'composition',
-  'host',
-  'infrastructure',
-  'platform',
-]);
-const APPLICATION_OUTWARD_SEGMENTS = new Set([
-  'adapters',
-  'app',
-  'cli',
-  'composition',
-  'host',
-  'infrastructure',
-  'platform',
-]);
-const PORT_OUTWARD_SEGMENTS = APPLICATION_OUTWARD_SEGMENTS;
-const INWARD_FEATURE_ROLES = ['application', 'contracts', 'domain', 'planning', 'ports'] as const;
+type ArchitectureRule =
+  (typeof ARCHITECTURE_POLICY.rules)[keyof typeof ARCHITECTURE_POLICY.rules];
 
 /*** Validate folder-role combinations and inward source dependency direction. */
 export async function analyzeSourceArchitecture(
@@ -54,14 +33,14 @@ async function analyzeDirectoryVocabularyAsync(
   const diagnostics: DoctorDiagnostic[] = [];
   const sourceRoot = path.join(input.targetPath, 'src');
 
-  for (const directoryName of CATCH_ALL_DIRECTORIES) {
+  for (const directoryName of ARCHITECTURE_POLICY.source.catchAllDirectories) {
     const directoryPath = path.join(sourceRoot, directoryName);
     if (await pathExistsAsync(directoryPath)) {
       diagnostics.push(
         createDiagnostic(
           input,
           directoryPath,
-          'package.architecture.catch-all-directory.disallowed',
+          ARCHITECTURE_POLICY.rules.catchAllDirectory,
           `src/${directoryName}/ is a generic catch-all. Move code to an owning domain, feature, package edge, or utils/ according to the repository profile.`,
         ),
       );
@@ -92,35 +71,59 @@ async function analyzeFeatureCombinationsAsync(
         .filter((child) => child.isDirectory())
         .map((child) => child.name),
     );
-    const hasInwardRole = INWARD_FEATURE_ROLES.some((role) => roleNames.has(role));
 
-    if (roleNames.has('adapters') && !hasInwardRole) {
-      diagnostics.push(
-        createDiagnostic(
-          input,
-          path.join(featureRoot, 'adapters'),
-          'package.architecture.role-combination.invalid',
-          `Feature "${entry.name}" declares adapters/ without domain, application, ports, contracts, or planning policy to adapt to.`,
-        ),
-      );
-    }
-
-    if (
-      roleNames.has('composition') &&
-      !['adapters', 'application', 'ports', 'planning'].some((role) => roleNames.has(role))
-    ) {
-      diagnostics.push(
-        createDiagnostic(
-          input,
-          path.join(featureRoot, 'composition'),
-          'package.architecture.role-combination.invalid',
-          `Feature "${entry.name}" declares composition/ without application, ports, planning, or adapters to wire.`,
-        ),
-      );
-    }
+    diagnostics.push(
+      ...validateFeatureRoleCombination({
+        entryName: entry.name,
+        featureRoot,
+        roleNames,
+        role: 'adapters',
+        policy: ARCHITECTURE_POLICY.source.featureCombinations.adapters,
+        message:
+          'declares adapters/ without domain, application, ports, contracts, or planning policy to adapt to.',
+        input,
+      }),
+      ...validateFeatureRoleCombination({
+        entryName: entry.name,
+        featureRoot,
+        roleNames,
+        role: 'composition',
+        policy: ARCHITECTURE_POLICY.source.featureCombinations.composition,
+        message: 'declares composition/ without application, ports, planning, or adapters to wire.',
+        input,
+      }),
+    );
   }
 
   return diagnostics;
+}
+
+interface FeatureCombinationPolicy {
+  readonly requiresAnyOf: readonly string[];
+  readonly ruleId: DoctorDiagnostic['ruleId'];
+}
+
+/*** Validate one optional feature role against its required companion roles. */
+function validateFeatureRoleCombination(request: {
+  readonly entryName: string;
+  readonly featureRoot: string;
+  readonly input: AnalyzeSourceArchitectureInput;
+  readonly message: string;
+  readonly policy: FeatureCombinationPolicy;
+  readonly role: string;
+  readonly roleNames: ReadonlySet<string>;
+}): DoctorDiagnostic[] {
+  if (!request.roleNames.has(request.role)) return [];
+  if (request.policy.requiresAnyOf.some((role) => request.roleNames.has(role))) return [];
+
+  return [
+    createDiagnostic(
+      request.input,
+      path.join(request.featureRoot, request.role),
+      findArchitectureRule(request.policy.ruleId),
+      `Feature "${request.entryName}" ${request.message}`,
+    ),
+  ];
 }
 
 /*** Validate that relative source imports point inward across recognized architecture roles. */
@@ -156,7 +159,7 @@ function createEscapedRepositoryDiagnostic(
   return createDiagnostic(
     input,
     sourceImport.filePath,
-    'package.imports.outside-root.disallowed',
+    findArchitectureRule(ARCHITECTURE_POLICY.source.repositoryBoundaryRuleId),
     `Relative import "${sourceImport.specifier}" escapes the standalone repository root.`,
   );
 }
@@ -169,12 +172,16 @@ function analyzeRecognizedRoleDirection(
 ): DoctorDiagnostic[] {
   const sourceSegments = splitRelativePath(input.targetPath, sourceImport.filePath);
   const targetSegments = splitRelativePath(input.targetPath, targetPath);
-  if (isThinDeliveryAdapter(sourceSegments) && targetSegments.includes('adapters')) {
+
+  if (
+    isThinDeliveryAdapter(sourceSegments) &&
+    targetSegments.includes(ARCHITECTURE_POLICY.source.thinDeliveryAdapter.concreteAdapterSegment)
+  ) {
     return [
       createDiagnostic(
         input,
         sourceImport.filePath,
-        'package.architecture.delivery-concrete-adapter-import.disallowed',
+        findArchitectureRule(ARCHITECTURE_POLICY.source.thinDeliveryAdapter.ruleId),
         `Thin delivery adapter must not wire concrete adapter implementation through "${sourceImport.specifier}". Import an application operation or composition boundary instead.`,
       ),
     ];
@@ -183,80 +190,44 @@ function analyzeRecognizedRoleDirection(
   const role = resolveSourceRole(sourceSegments);
   if (role === null) return [];
 
-  return createOutwardImportDiagnostic(
-    input,
-    sourceImport,
-    targetSegments,
-    role.forbiddenSegments,
-    role.ruleId,
-    role.label,
+  const outwardRole = targetSegments.find((segment) =>
+    role.forbiddenOutwardSegments.includes(segment as never),
   );
-}
-
-/*** Check whether a source file belongs to a thin CLI command delivery boundary. */
-function isThinDeliveryAdapter(sourceSegments: readonly string[]): boolean {
-  const cliIndex = sourceSegments.indexOf('cli');
-  return cliIndex >= 0 && sourceSegments[cliIndex + 1] === 'commands';
-}
-
-/*** Resolve the dependency rule owned by one recognized inner source role. */
-function resolveSourceRole(sourceSegments: readonly string[]): SourceRoleRule | null {
-  if (sourceSegments.some((segment) => INNER_ROLE_SEGMENTS.has(segment))) {
-    return {
-      forbiddenSegments: DOMAIN_OUTWARD_SEGMENTS,
-      label: 'Domain/core policy',
-      ruleId: 'package.architecture.domain-outward-import.disallowed',
-    };
-  }
-  if (sourceSegments.some((segment) => APPLICATION_ROLE_SEGMENTS.has(segment))) {
-    return {
-      forbiddenSegments: APPLICATION_OUTWARD_SEGMENTS,
-      label: 'Application/use-case code',
-      ruleId: 'package.architecture.application-outward-import.disallowed',
-    };
-  }
-  if (sourceSegments.some((segment) => PORT_ROLE_SEGMENTS.has(segment))) {
-    return {
-      forbiddenSegments: PORT_OUTWARD_SEGMENTS,
-      label: 'Port contracts',
-      ruleId: 'package.architecture.port-outward-import.disallowed',
-    };
-  }
-  return null;
-}
-
-interface SourceRoleRule {
-  readonly forbiddenSegments: ReadonlySet<string>;
-  readonly label: string;
-  readonly ruleId:
-    | 'package.architecture.application-outward-import.disallowed'
-    | 'package.architecture.domain-outward-import.disallowed'
-    | 'package.architecture.port-outward-import.disallowed';
-}
-
-/*** Report one outward dependency when the imported path crosses a forbidden role. */
-function createOutwardImportDiagnostic(
-  input: AnalyzeSourceArchitectureInput,
-  sourceImport: SourceImport,
-  targetSegments: readonly string[],
-  forbiddenSegments: ReadonlySet<string>,
-  ruleId:
-    | 'package.architecture.application-outward-import.disallowed'
-    | 'package.architecture.domain-outward-import.disallowed'
-    | 'package.architecture.port-outward-import.disallowed',
-  roleLabel: string,
-): DoctorDiagnostic[] {
-  const outwardRole = targetSegments.find((segment) => forbiddenSegments.has(segment));
   if (outwardRole === undefined) return [];
 
   return [
     createDiagnostic(
       input,
       sourceImport.filePath,
-      ruleId,
-      `${roleLabel} must not import outward ${outwardRole}/ implementation through "${sourceImport.specifier}".`,
+      findArchitectureRule(role.ruleId),
+      `${role.label} must not import outward ${outwardRole}/ implementation through "${sourceImport.specifier}".`,
     ),
   ];
+}
+
+/*** Check whether a source file belongs to a thin CLI command delivery boundary. */
+function isThinDeliveryAdapter(sourceSegments: readonly string[]): boolean {
+  const [cliSegment, commandSegment] = ARCHITECTURE_POLICY.source.thinDeliveryAdapter.pathSegments;
+  const cliIndex = sourceSegments.indexOf(cliSegment);
+  return cliIndex >= 0 && sourceSegments[cliIndex + 1] === commandSegment;
+}
+
+/*** Resolve the dependency rule owned by one recognized inner source role. */
+function resolveSourceRole(sourceSegments: readonly string[]) {
+  return (
+    Object.values(ARCHITECTURE_POLICY.source.roles).find((role) =>
+      role.segments.some((segment) => sourceSegments.includes(segment)),
+    ) ?? null
+  );
+}
+
+/*** Resolve one architecture rule descriptor by stable Policy id. */
+function findArchitectureRule(ruleId: DoctorDiagnostic['ruleId']): ArchitectureRule {
+  const rule = Object.values(ARCHITECTURE_POLICY.rules).find((entry) => entry.id === ruleId);
+  if (rule === undefined) {
+    throw new Error(`Unknown architecture policy rule: ${ruleId}`);
+  }
+  return rule;
 }
 
 /*** Split one repository path into normalized architecture segments. */
@@ -264,11 +235,11 @@ function splitRelativePath(targetPath: string, filePath: string): readonly strin
   return path.relative(targetPath, filePath).split(path.sep).filter(Boolean);
 }
 
-/*** Build one deterministic architecture diagnostic. */
+/*** Build one deterministic architecture diagnostic from Policy rule metadata. */
 function createDiagnostic(
   input: AnalyzeSourceArchitectureInput,
   diagnosticPath: string,
-  ruleId: DoctorDiagnostic['ruleId'],
+  rule: ArchitectureRule,
   message: string,
 ): DoctorDiagnostic {
   return {
@@ -276,8 +247,8 @@ function createDiagnostic(
     message,
     path: diagnosticPath,
     profile: input.profile,
-    ruleId,
-    severity: 'error',
+    ruleId: rule.id as DoctorDiagnostic['ruleId'],
+    severity: rule.severity,
   };
 }
 
