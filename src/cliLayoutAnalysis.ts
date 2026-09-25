@@ -8,6 +8,7 @@ import {
 } from './analysis.js';
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
 import { analyzeAppManifestTarget } from './manifestAnalysis.js';
+import { analyzeSourceArchitecture } from './sourceArchitectureAnalysis.js';
 
 const LEGACY_ROOT_CLI_SOURCE = path.join('src', 'cli.ts');
 const ACTIVE_SOURCE_ROOTS = ['src', 'app', 'apps', 'packages', 'scripts'] as const;
@@ -145,7 +146,15 @@ async function analyzeTargetArchitecture(request: {
     ...validateActiveSourceImports({
       activeSourceImports,
       profile: request.profile,
+      targetPath: request.targetPath,
     }),
+  );
+  diagnostics.push(
+    ...(await analyzeSourceArchitecture({
+      activeSourceImports,
+      profile: request.profile,
+      targetPath: request.targetPath,
+    })),
   );
 
   if (request.packageJson.name === STUDIO_PACKAGE_NAME) {
@@ -182,6 +191,20 @@ function validateDependencyArchitecture(request: {
     }
 
     if (
+      request.profile === 'public-package' &&
+      /^(?:file:|link:|workspace:|github:|git(?:\+[^:]+)?:)/u.test(dependency.version)
+    ) {
+      diagnostics.push({
+        code: 'field-invalid',
+        message: `Published dependency "${dependency.packageName}" must resolve from a registry version, not "${dependency.version}". Standalone packages cannot rely on local/workspace/Git package state.`,
+        path: request.packageJsonPath,
+        profile: request.profile,
+        ruleId: 'package.dependencies.local-protocol.disallowed',
+        severity: 'error',
+      });
+    }
+
+    if (
       dependency.packageName.includes('ankhorage4') ||
       dependency.version.includes('ankhorage4')
     ) {
@@ -202,10 +225,26 @@ function validateDependencyArchitecture(request: {
 function validateActiveSourceImports(request: {
   readonly activeSourceImports: readonly ActiveSourceImport[];
   readonly profile: DoctorPolicyProfile;
+  readonly targetPath: string;
 }): DoctorDiagnostic[] {
   const diagnostics: DoctorDiagnostic[] = [];
 
   for (const sourceImport of request.activeSourceImports) {
+    if (sourceImport.specifier.startsWith('.')) {
+      const resolvedImport = path.resolve(path.dirname(sourceImport.filePath), sourceImport.specifier);
+      const relativeImport = path.relative(request.targetPath, resolvedImport);
+      if (relativeImport.startsWith('..') || path.isAbsolute(relativeImport)) {
+        diagnostics.push({
+          code: 'field-invalid',
+          message: `Relative import "${sourceImport.specifier}" escapes the standalone repository root.`,
+          path: sourceImport.filePath,
+          profile: request.profile,
+          ruleId: 'package.imports.outside-root.disallowed',
+          severity: 'error',
+        });
+      }
+    }
+
     if (sourceImport.specifier.startsWith(COMPATIBILITY_PACKAGE_PREFIX)) {
       diagnostics.push({
         code: 'field-invalid',
