@@ -1,10 +1,11 @@
+import { REPOSITORY_POLICY } from '@ankhorage/policy/repository';
 import { describe, expect, test } from 'bun:test';
 
 import { analyzeDoctorTarget } from '../src/index.js';
 import { createDoctorFixture } from './testSupport.js';
 
 describe('public package script policy', () => {
-  test('accepts the Devtools 1.8.0 knip:check contract', async () => {
+  test('accepts the centrally synchronized knip:check contract', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createPublicPackageJson({
         'knip:check': 'ankhorage-knip',
@@ -13,7 +14,7 @@ describe('public package script policy', () => {
       withChangeset: true,
       withLicense: true,
       withReadme: true,
-      withWorkflows: true,
+      extraFiles: createCanonicalWorkflowFiles(),
     });
 
     const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'validate' });
@@ -93,10 +94,10 @@ function createPublicPackageJson(knipScript: Readonly<Record<string, string>>) {
     },
     devDependencies: {
       '@ankhorage/devtools': '^1.8.0',
-      '@types/bun': '^1.4.0',
+      '@types/bun': REPOSITORY_POLICY.runtime.bun.typesRange,
       '@types/node': '^25.6.0',
       typescript: '^5.9.3',
     },
-    packageManager: 'bun@1.4.0',
+    packageManager: REPOSITORY_POLICY.runtime.bun.packageManager,
   };
 }
