@@ -39,7 +39,7 @@ test('accepts repository state synchronized to central repository policy', async
 
 test('reports policy drift without requiring Devtools in the target repository', async () => {
   const fixture = await createDoctorFixture({
-    packageJson: createPublicPackageJson('bun@0.0.0', '^0.0.0', false),
+    packageJson: createPublicPackageJson('bun@0.0.0', '^0.0.0'),
     extraFiles: createWorkflowFiles('0.0.0'),
   });
 
@@ -83,7 +83,6 @@ function createWorkflowFiles(version: string): Readonly<Record<string, string>> 
 function createPublicPackageJson(
   packageManager: string,
   bunTypes: string,
-  includeDevtools = true,
 ): Record<string, unknown> {
   return {
     name: '@ankhorage/example',
@@ -104,7 +103,6 @@ function createPublicPackageJson(
       typescript: '^5.9.3',
       '@types/bun': bunTypes,
       '@types/node': '^25.6.0',
-      ...(includeDevtools ? { '@ankhorage/devtools': '^1.21.3' } : {}),
     },
   };
 }
