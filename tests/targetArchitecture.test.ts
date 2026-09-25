@@ -228,6 +228,24 @@ describe('target package architecture policy', () => {
     expect(ruleIds).toContain('package.architecture.application-outward-import.disallowed');
   });
 
+  test('rejects CLI commands that wire concrete adapters directly', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createInternalPackageJson(),
+      extraFiles: {
+        'src/cli/commands/issue.ts':
+          "import { runtime } from '../../features/tls/adapters/outbound/docker/runtime'; export const issue = runtime;\n",
+        'src/features/tls/adapters/outbound/docker/runtime.ts': 'export const runtime = true;\n',
+        'src/features/tls/application/use-case.ts': 'export const useCase = true;\n',
+      },
+    });
+
+    const ruleIds = await analyzeRuleIds(fixture);
+
+    expect(ruleIds).toContain(
+      'package.architecture.delivery-concrete-adapter-import.disallowed',
+    );
+  });
+
   test('rejects generic architectural catch-all directories', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createInternalPackageJson(),
