@@ -4,7 +4,7 @@ import path from 'node:path';
 import { REPOSITORY_POLICY } from '@ankhorage/policy/repository';
 
 import type { DoctorAnalysisResult } from './analysis.js';
-import type { DoctorDiagnostic, DoctorRuleId } from './diagnostics.js';
+import type { DoctorDiagnostic } from './diagnostics.js';
 
 const BUN_POLICY = REPOSITORY_POLICY.runtime.bun;
 const REPAIR_HINT = 'Run "ankh devtools sync" to repair the managed Bun state.';
@@ -78,13 +78,9 @@ function analyzePackageBunPolicy(
 /***
  * Reports managed workflow drift from the canonical Bun setup version.
  */
-async function analyzeWorkflowBunPolicy(
-  result: DoctorAnalysisResult,
-): Promise<DoctorDiagnostic[]> {
+async function analyzeWorkflowBunPolicy(result: DoctorAnalysisResult): Promise<DoctorDiagnostic[]> {
   const diagnostics = await Promise.all(
-    BUN_POLICY.workflowTargets.map(
-      async (workflow) => await analyzeWorkflow(result, workflow),
-    ),
+    BUN_POLICY.workflowTargets.map(async (workflow) => await analyzeWorkflow(result, workflow)),
   );
   return diagnostics.flat();
 }
