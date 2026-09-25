@@ -158,7 +158,9 @@ describe('target package architecture policy', () => {
 
     const ruleIds = await analyzeRuleIds(fixture);
 
-    expect(ruleIds.filter((ruleId) => ruleId === 'package.dependencies.local-protocol.disallowed')).toHaveLength(2);
+    expect(
+      ruleIds.filter((ruleId) => ruleId === 'package.dependencies.local-protocol.disallowed'),
+    ).toHaveLength(2);
   });
 
   test('rejects relative source imports that escape the repository root', async () => {
@@ -179,8 +181,10 @@ describe('target package architecture policy', () => {
       packageJson: createInternalPackageJson(),
       extraFiles: {
         'src/features/orders/domain/order.ts': 'export const order = 1;\n',
-        'src/features/orders/application/createOrder.ts': "import { order } from '../domain/order'; export const createOrder = () => order;\n",
-        'src/features/orders/adapters/outbound/repository.ts': "import { createOrder } from '../../application/createOrder'; export const repository = createOrder;\n",
+        'src/features/orders/application/createOrder.ts':
+          "import { order } from '../domain/order'; export const createOrder = () => order;\n",
+        'src/features/orders/adapters/outbound/repository.ts':
+          "import { createOrder } from '../../application/createOrder'; export const repository = createOrder;\n",
         'src/features/value/domain/value.ts': 'export const value = 1;\n',
       },
     });
@@ -209,8 +213,10 @@ describe('target package architecture policy', () => {
     const fixture = await createDoctorFixture({
       packageJson: createInternalPackageJson(),
       extraFiles: {
-        'src/features/orders/domain/order.ts': "import { repository } from '../adapters/repository'; export const order = repository;\n",
-        'src/features/orders/application/createOrder.ts': "import { wire } from '../composition/wire'; export const createOrder = wire;\n",
+        'src/features/orders/domain/order.ts':
+          "import { repository } from '../adapters/repository'; export const order = repository;\n",
+        'src/features/orders/application/createOrder.ts':
+          "import { wire } from '../composition/wire'; export const createOrder = wire;\n",
         'src/features/orders/adapters/repository.ts': 'export const repository = 1;\n',
         'src/features/orders/composition/wire.ts': 'export const wire = 1;\n',
       },
@@ -234,7 +240,6 @@ describe('target package architecture policy', () => {
 
     expect(ruleIds).toContain('package.architecture.catch-all-directory.disallowed');
   });
-
 });
 
 async function analyze(fixture: string) {
