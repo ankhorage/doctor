@@ -80,13 +80,13 @@
   "dependencies": {
     "@ankhorage/contracts": "^22.8.2",
     "@ankhorage/supabase-auth": "^1.2.27",
-    "@ankhorage/utility": "^1.8.0",
+    "@ankhorage/utility": "^1.8.1",
     "@ankhorage/policy": "^0.3.1"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.10.4",
     "@ankhorage/devtools": "^1.18.5",
-    "@ankhorage/paradox": "^0.2.2",
+    "@ankhorage/paradox": "^0.2.3",
     "@types/bun": "^1.4.1",
     "@types/node": "^25.6.0",
     "typescript": "^5.9.3"
