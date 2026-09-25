@@ -1324,4 +1324,3 @@ function sameStringSet(left: readonly string[], right: readonly string[]): boole
     leftSet.length === rightSet.length && leftSet.every((value, index) => value === rightSet[index])
   );
 }
-
