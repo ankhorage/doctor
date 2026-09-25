@@ -241,9 +241,7 @@ describe('target package architecture policy', () => {
 
     const ruleIds = await analyzeRuleIds(fixture);
 
-    expect(ruleIds).toContain(
-      'package.architecture.delivery-concrete-adapter-import.disallowed',
-    );
+    expect(ruleIds).toContain('package.architecture.delivery-concrete-adapter-import.disallowed');
   });
 
   test('rejects generic architectural catch-all directories', async () => {
