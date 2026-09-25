@@ -129,7 +129,7 @@
             <li>
     <button class="nav-button" type="button" data-target="src/analysis.ts">
       src/analysis.ts
-      <small>34 functions</small>
+      <small>33 functions</small>
     </button>
   </li><li>
     <button class="nav-button" type="button" data-target="src/authReadinessAnalysis.ts">
@@ -199,7 +199,7 @@
   </li><li>
     <button class="nav-button" type="button" data-target="src/bunPolicyAnalysis.ts">
       src/bunPolicyAnalysis.ts
-      <small>15 functions</small>
+      <small>13 functions</small>
     </button>
   </li><li>
     <button class="nav-button" type="button" data-target="src/cli/index.ts">
@@ -271,7 +271,60 @@
         <li><code>src/index.ts</code></li>
       </ul>
     </section>
+    <section class="panel" data-search="usage ankh doctor --help Basic Usage `@ankhorage/doctor` validates Ankhorage repositories, packages, and app manifests through the&#10;same command implementation exposed by both `ankh doctor ...` and the standalone package CLI.&#10;&#10;Use `validate` for the canonical read-only checks, or target the narrower `repo` and `package`&#10;surfaces when only one policy area should be inspected. examples/basic-usage/index.ts">
+    <h2>Usage</h2>
+    <article class="item">
+      <h3>CLI</h3>
+      <pre>ankh doctor --help</pre>
+    </article>
+    <article class="item" data-search="Basic Usage `@ankhorage/doctor` validates Ankhorage repositories, packages, and app manifests through the&#10;same command implementation exposed by both `ankh doctor ...` and the standalone package CLI.&#10;&#10;Use `validate` for the canonical read-only checks, or target the narrower `repo` and `package`&#10;surfaces when only one policy area should be inspected. examples/basic-usage/index.ts">
+    <h3>Basic Usage</h3>
+    <p class="muted"><code>examples/basic-usage/index.ts</code></p>
+    <p>`@ankhorage/doctor` validates Ankhorage repositories, packages, and app manifests through the
+same command implementation exposed by both `ankh doctor ...` and the standalone package CLI.
+
+Use `validate` for the canonical read-only checks, or target the narrower `repo` and `package`
+surfaces when only one policy area should be inspected.</p>
     
+    <pre>await runCli([&#39;--help&#39;]);</pre>
+  </article>
+  </section>
+    <section class="panel">
+    <h2>Policy findings</h2>
+    <article class="item" data-search="documentation.public-function.description warning Public function analyzeAuthReadiness has no Paradox description. src/authReadinessAnalysis.ts">
+          <h3>documentation.public-function.description</h3>
+          <p><strong>warning</strong> — Public function analyzeAuthReadiness has no Paradox description.</p>
+          <p class="muted"><code>src/authReadinessAnalysis.ts:11</code></p>
+        </article><article class="item" data-search="documentation.public-function.description warning Public function analyzeAuthReadinessFile has no Paradox description. src/authReadinessFileAnalysis.ts">
+          <h3>documentation.public-function.description</h3>
+          <p><strong>warning</strong> — Public function analyzeAuthReadinessFile has no Paradox description.</p>
+          <p class="muted"><code>src/authReadinessFileAnalysis.ts:5</code></p>
+        </article><article class="item" data-search="documentation.public-function.description warning Public function createDoctorRuntimeProvider has no Paradox description. src/cli/index.ts">
+          <h3>documentation.public-function.description</h3>
+          <p><strong>warning</strong> — Public function createDoctorRuntimeProvider has no Paradox description.</p>
+          <p class="muted"><code>src/cli/index.ts:23</code></p>
+        </article><article class="item" data-search="documentation.public-function.description warning Public function runCli has no Paradox description. src/cli/standalone.ts">
+          <h3>documentation.public-function.description</h3>
+          <p><strong>warning</strong> — Public function runCli has no Paradox description.</p>
+          <p class="muted"><code>src/cli/standalone.ts:21</code></p>
+        </article><article class="item" data-search="documentation.public-function.description warning Public function createDefaultCommandContext has no Paradox description. src/commandContext.ts">
+          <h3>documentation.public-function.description</h3>
+          <p><strong>warning</strong> — Public function createDefaultCommandContext has no Paradox description.</p>
+          <p class="muted"><code>src/commandContext.ts:15</code></p>
+        </article><article class="item" data-search="documentation.public-function.description warning Public function analyzeAppManifest has no Paradox description. src/manifestAnalysis.ts">
+          <h3>documentation.public-function.description</h3>
+          <p><strong>warning</strong> — Public function analyzeAppManifest has no Paradox description.</p>
+          <p class="muted"><code>src/manifestAnalysis.ts:116</code></p>
+        </article><article class="item" data-search="documentation.public-function.description warning Public function analyzeAppManifestFile has no Paradox description. src/manifestAnalysis.ts">
+          <h3>documentation.public-function.description</h3>
+          <p><strong>warning</strong> — Public function analyzeAppManifestFile has no Paradox description.</p>
+          <p class="muted"><code>src/manifestAnalysis.ts:82</code></p>
+        </article><article class="item" data-search="documentation.public-function.description warning Public function analyzeAppManifestTarget has no Paradox description. src/manifestAnalysis.ts">
+          <h3>documentation.public-function.description</h3>
+          <p><strong>warning</strong> — Public function analyzeAppManifestTarget has no Paradox description.</p>
+          <p class="muted"><code>src/manifestAnalysis.ts:41</code></p>
+        </article>
+  </section>
     <section class="panel">
       <h2>Modules</h2>
       <article class="item" data-search="package.json">
@@ -526,9 +579,11 @@
       
             <section>
               <h3>src/analysis.ts</h3>
-              <article class="item" id="symbol-doctoranalysisrequest" data-search="DoctorAnalysisRequest type src/analysis.ts  DoctorTargetMode">
+              <article class="item" id="symbol-doctoranalysisrequest" data-search="DoctorAnalysisRequest  type src/analysis.ts  DoctorTargetMode">
     <h4>DoctorAnalysisRequest</h4>
-    <p class="muted">type • <code>src/analysis.ts:13:1</code></p>
+    
+    <p class="muted">type • <code>src/analysis.ts:15:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorTargetMode</li></ul></div>
@@ -557,9 +612,11 @@
           </tr>
     </tbody>
   </table>
-  </article><article class="item" id="symbol-doctoranalysisresult" data-search="DoctorAnalysisResult type src/analysis.ts  DoctorDiagnostic DoctorFixPlan DoctorPlannedChange DoctorPolicyProfile DoctorReadiness DoctorTargetCheck">
+  </article><article class="item" id="symbol-doctoranalysisresult" data-search="DoctorAnalysisResult  type src/analysis.ts  DoctorDiagnostic DoctorFixPlan DoctorPlannedChange DoctorPolicyProfile DoctorReadiness DoctorTargetCheck">
     <h4>DoctorAnalysisResult</h4>
-    <p class="muted">type • <code>src/analysis.ts:34:1</code></p>
+    
+    <p class="muted">type • <code>src/analysis.ts:36:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorDiagnostic</li><li class="chip">DoctorFixPlan</li><li class="chip">DoctorPlannedChange</li><li class="chip">DoctorPolicyProfile</li><li class="chip">DoctorReadiness</li><li class="chip">DoctorTargetCheck</li></ul></div>
@@ -624,9 +681,11 @@
           </tr>
     </tbody>
   </table>
-  </article><article class="item" id="symbol-doctorfixplan" data-search="DoctorFixPlan type src/analysis.ts  DoctorDiagnostic DoctorPlannedChange DoctorPolicyProfile">
+  </article><article class="item" id="symbol-doctorfixplan" data-search="DoctorFixPlan  type src/analysis.ts  DoctorDiagnostic DoctorPlannedChange DoctorPolicyProfile">
     <h4>DoctorFixPlan</h4>
-    <p class="muted">type • <code>src/analysis.ts:27:1</code></p>
+    
+    <p class="muted">type • <code>src/analysis.ts:29:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorDiagnostic</li><li class="chip">DoctorPlannedChange</li><li class="chip">DoctorPolicyProfile</li></ul></div>
@@ -661,9 +720,11 @@
           </tr>
     </tbody>
   </table>
-  </article><article class="item" id="symbol-doctorplannedchange" data-search="DoctorPlannedChange type src/analysis.ts  DoctorPlannedChangeKind DoctorRuleId">
+  </article><article class="item" id="symbol-doctorplannedchange" data-search="DoctorPlannedChange  type src/analysis.ts  DoctorPlannedChangeKind DoctorRuleId">
     <h4>DoctorPlannedChange</h4>
-    <p class="muted">type • <code>src/analysis.ts:19:1</code></p>
+    
+    <p class="muted">type • <code>src/analysis.ts:21:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorPlannedChangeKind</li><li class="chip">DoctorRuleId</li></ul></div>
@@ -704,25 +765,31 @@
           </tr>
     </tbody>
   </table>
-  </article><article class="item" id="symbol-doctorplannedchangekind" data-search="DoctorPlannedChangeKind unknown src/analysis.ts ">
+  </article><article class="item" id="symbol-doctorplannedchangekind" data-search="DoctorPlannedChangeKind  unknown src/analysis.ts ">
     <h4>DoctorPlannedChangeKind</h4>
+    
+    <p class="muted">unknown • <code>src/analysis.ts:12:1</code></p>
+    
+    
+    <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
+    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+    
+    
+  </article><article class="item" id="symbol-doctortargetcheck" data-search="DoctorTargetCheck  unknown src/analysis.ts ">
+    <h4>DoctorTargetCheck</h4>
+    
     <p class="muted">unknown • <code>src/analysis.ts:10:1</code></p>
     
-    <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
-    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
-    
-    
-  </article><article class="item" id="symbol-doctortargetcheck" data-search="DoctorTargetCheck unknown src/analysis.ts ">
-    <h4>DoctorTargetCheck</h4>
-    <p class="muted">unknown • <code>src/analysis.ts:8:1</code></p>
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
     
     
-  </article><article class="item" id="symbol-doctortargetmode" data-search="DoctorTargetMode unknown src/analysis.ts ">
+  </article><article class="item" id="symbol-doctortargetmode" data-search="DoctorTargetMode  unknown src/analysis.ts ">
     <h4>DoctorTargetMode</h4>
-    <p class="muted">unknown • <code>src/analysis.ts:9:1</code></p>
+    
+    <p class="muted">unknown • <code>src/analysis.ts:11:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
@@ -732,9 +799,11 @@
             </section>
             <section>
               <h3>src/authReadinessAnalysis.ts</h3>
-              <article class="item" id="symbol-analyzeauthreadiness" data-search="analyzeAuthReadiness function src/authReadinessAnalysis.ts  DoctorAuthReadinessAnalysis (manifest: unknown, manifestPath?: string) =&gt; DoctorAuthReadinessAnalysis">
+              <article class="item" id="symbol-analyzeauthreadiness" data-search="analyzeAuthReadiness  function src/authReadinessAnalysis.ts  DoctorAuthReadinessAnalysis (manifest: unknown, manifestPath?: string) =&gt; DoctorAuthReadinessAnalysis">
     <h4>analyzeAuthReadiness</h4>
+    
     <p class="muted">function • <code>src/authReadinessAnalysis.ts:11:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorAuthReadinessAnalysis</li></ul></div>
@@ -760,9 +829,11 @@
         <p><strong>Returns:</strong> <code>DoctorAuthReadinessAnalysis</code></p>
       </div>
     
-  </article><article class="item" id="symbol-doctorauthreadinessanalysis" data-search="DoctorAuthReadinessAnalysis type src/authReadinessAnalysis.ts  DoctorDiagnostic DoctorReadiness">
+  </article><article class="item" id="symbol-doctorauthreadinessanalysis" data-search="DoctorAuthReadinessAnalysis  type src/authReadinessAnalysis.ts  DoctorDiagnostic DoctorReadiness">
     <h4>DoctorAuthReadinessAnalysis</h4>
+    
     <p class="muted">type • <code>src/authReadinessAnalysis.ts:6:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorDiagnostic</li><li class="chip">DoctorReadiness</li></ul></div>
@@ -789,9 +860,11 @@
             </section>
             <section>
               <h3>src/authReadinessFileAnalysis.ts</h3>
-              <article class="item" id="symbol-analyzeauthreadinessfile" data-search="analyzeAuthReadinessFile function src/authReadinessFileAnalysis.ts  DoctorAuthReadinessAnalysis (filePath: string) =&gt; Promise&lt;DoctorAuthReadinessAnalysis&gt;">
+              <article class="item" id="symbol-analyzeauthreadinessfile" data-search="analyzeAuthReadinessFile  function src/authReadinessFileAnalysis.ts  DoctorAuthReadinessAnalysis (filePath: string) =&gt; Promise&lt;DoctorAuthReadinessAnalysis&gt;">
     <h4>analyzeAuthReadinessFile</h4>
+    
     <p class="muted">function • <code>src/authReadinessFileAnalysis.ts:5:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorAuthReadinessAnalysis</li></ul></div>
@@ -816,9 +889,11 @@
             </section>
             <section>
               <h3>src/cli/index.ts</h3>
-              <article class="item" id="symbol-createdoctorruntimeprovider" data-search="createDoctorRuntimeProvider function src/cli/index.ts  CreateDoctorRuntimeProviderOptions (options?: CreateDoctorRuntimeProviderOptions) =&gt; AnkhRuntimeCommandProvider">
+              <article class="item" id="symbol-createdoctorruntimeprovider" data-search="createDoctorRuntimeProvider  function src/cli/index.ts  CreateDoctorRuntimeProviderOptions (options?: CreateDoctorRuntimeProviderOptions) =&gt; AnkhRuntimeCommandProvider">
     <h4>createDoctorRuntimeProvider</h4>
+    
     <p class="muted">function • <code>src/cli/index.ts:23:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">CreateDoctorRuntimeProviderOptions</li></ul></div>
@@ -839,9 +914,11 @@
         <p><strong>Returns:</strong> <code>AnkhRuntimeCommandProvider</code></p>
       </div>
     
-  </article><article class="item" id="symbol-createdoctorruntimeprovideroptions" data-search="CreateDoctorRuntimeProviderOptions type src/cli/index.ts ">
+  </article><article class="item" id="symbol-createdoctorruntimeprovideroptions" data-search="CreateDoctorRuntimeProviderOptions  type src/cli/index.ts ">
     <h4>CreateDoctorRuntimeProviderOptions</h4>
+    
     <p class="muted">type • <code>src/cli/index.ts:18:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
@@ -868,9 +945,11 @@
             </section>
             <section>
               <h3>src/cli/standalone.ts</h3>
-              <article class="item" id="symbol-runcli" data-search="runCli function src/cli/standalone.ts  DoctorCommandRunResult (argv: readonly string[], options?: DoctorCliOptions) =&gt; Promise&lt;DoctorCommandRunResult&gt;">
+              <article class="item" id="symbol-runcli" data-search="runCli  function src/cli/standalone.ts  DoctorCommandRunResult (argv: readonly string[], options?: DoctorCliOptions) =&gt; Promise&lt;DoctorCommandRunResult&gt;">
     <h4>runCli</h4>
+    
     <p class="muted">function • <code>src/cli/standalone.ts:21:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorCommandRunResult</li></ul></div>
@@ -900,9 +979,11 @@
             </section>
             <section>
               <h3>src/commandContext.ts</h3>
-              <article class="item" id="symbol-createdefaultcommandcontext" data-search="createDefaultCommandContext function src/commandContext.ts  DoctorCommandContext () =&gt; DoctorCommandContext">
+              <article class="item" id="symbol-createdefaultcommandcontext" data-search="createDefaultCommandContext  function src/commandContext.ts  DoctorCommandContext () =&gt; DoctorCommandContext">
     <h4>createDefaultCommandContext</h4>
+    
     <p class="muted">function • <code>src/commandContext.ts:15:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorCommandContext</li></ul></div>
@@ -913,9 +994,11 @@
         <p><strong>Returns:</strong> <code>DoctorCommandContext</code></p>
       </div>
     
-  </article><article class="item" id="symbol-doctorcommandcontext" data-search="DoctorCommandContext type src/commandContext.ts ">
+  </article><article class="item" id="symbol-doctorcommandcontext" data-search="DoctorCommandContext  type src/commandContext.ts ">
     <h4>DoctorCommandContext</h4>
+    
     <p class="muted">type • <code>src/commandContext.ts:3:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
@@ -956,9 +1039,11 @@
           </tr>
     </tbody>
   </table>
-  </article><article class="item" id="symbol-doctorcommandrunresult" data-search="DoctorCommandRunResult type src/commandContext.ts ">
+  </article><article class="item" id="symbol-doctorcommandrunresult" data-search="DoctorCommandRunResult  type src/commandContext.ts ">
     <h4>DoctorCommandRunResult</h4>
+    
     <p class="muted">type • <code>src/commandContext.ts:11:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
@@ -979,10 +1064,12 @@
             </section>
             <section>
               <h3>src/dependencyPolicyAnalysis.ts</h3>
-              <article class="item" id="symbol-analyzedoctortarget" data-search="analyzeDoctorTarget function src/dependencyPolicyAnalysis.ts Analyze a Doctor target and apply repository-level dependency and runtime policies. DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;">
+              <article class="item" id="symbol-analyzedoctortarget" data-search="analyzeDoctorTarget  function src/dependencyPolicyAnalysis.ts Analyze a Doctor target and apply repository-level dependency and runtime policies. DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;">
     <h4>analyzeDoctorTarget</h4>
+    
     <p class="muted">function • <code>src/dependencyPolicyAnalysis.ts:12:1</code></p>
     <p>Analyze a Doctor target and apply repository-level dependency and runtime policies.</p>
+    
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorAnalysisRequest</li><li class="chip">DoctorAnalysisResult</li></ul></div>
     <div>
@@ -1002,10 +1089,12 @@
         <p><strong>Returns:</strong> <code>Promise&lt;DoctorAnalysisResult&gt;</code></p>
       </div>
     
-  </article><article class="item" id="symbol-analyzedoctortargetwithclilayout" data-search="analyzeDoctorTargetWithCliLayout function src/dependencyPolicyAnalysis.ts Analyze a Doctor target with CLI layout validation and repository-level policies. DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;">
+  </article><article class="item" id="symbol-analyzedoctortargetwithclilayout" data-search="analyzeDoctorTargetWithCliLayout  function src/dependencyPolicyAnalysis.ts Analyze a Doctor target with CLI layout validation and repository-level policies. DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;">
     <h4>analyzeDoctorTargetWithCliLayout</h4>
+    
     <p class="muted">function • <code>src/dependencyPolicyAnalysis.ts:21:1</code></p>
     <p>Analyze a Doctor target with CLI layout validation and repository-level policies.</p>
+    
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorAnalysisRequest</li><li class="chip">DoctorAnalysisResult</li></ul></div>
     <div>
@@ -1029,9 +1118,11 @@
             </section>
             <section>
               <h3>src/diagnostics.ts</h3>
-              <article class="item" id="symbol-doctordiagnostic" data-search="DoctorDiagnostic type src/diagnostics.ts  DoctorDiagnosticCode DoctorDiagnosticSeverity DoctorPolicyProfile DoctorRuleId">
+              <article class="item" id="symbol-doctordiagnostic" data-search="DoctorDiagnostic  type src/diagnostics.ts  DoctorDiagnosticCode DoctorDiagnosticSeverity DoctorPolicyProfile DoctorRuleId">
     <h4>DoctorDiagnostic</h4>
+    
     <p class="muted">type • <code>src/diagnostics.ts:130:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorDiagnosticCode</li><li class="chip">DoctorDiagnosticSeverity</li><li class="chip">DoctorPolicyProfile</li><li class="chip">DoctorRuleId</li></ul></div>
@@ -1078,33 +1169,41 @@
           </tr>
     </tbody>
   </table>
-  </article><article class="item" id="symbol-doctordiagnosticcode" data-search="DoctorDiagnosticCode unknown src/diagnostics.ts ">
+  </article><article class="item" id="symbol-doctordiagnosticcode" data-search="DoctorDiagnosticCode  unknown src/diagnostics.ts ">
     <h4>DoctorDiagnosticCode</h4>
+    
     <p class="muted">unknown • <code>src/diagnostics.ts:1:1</code></p>
     
+    
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
     
     
-  </article><article class="item" id="symbol-doctordiagnosticseverity" data-search="DoctorDiagnosticSeverity unknown src/diagnostics.ts ">
+  </article><article class="item" id="symbol-doctordiagnosticseverity" data-search="DoctorDiagnosticSeverity  unknown src/diagnostics.ts ">
     <h4>DoctorDiagnosticSeverity</h4>
+    
     <p class="muted">unknown • <code>src/diagnostics.ts:16:1</code></p>
     
+    
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
     
     
-  </article><article class="item" id="symbol-doctorpolicyprofile" data-search="DoctorPolicyProfile unknown src/diagnostics.ts ">
+  </article><article class="item" id="symbol-doctorpolicyprofile" data-search="DoctorPolicyProfile  unknown src/diagnostics.ts ">
     <h4>DoctorPolicyProfile</h4>
+    
     <p class="muted">unknown • <code>src/diagnostics.ts:17:1</code></p>
     
+    
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
     
     
-  </article><article class="item" id="symbol-doctorruleid" data-search="DoctorRuleId unknown src/diagnostics.ts ">
+  </article><article class="item" id="symbol-doctorruleid" data-search="DoctorRuleId  unknown src/diagnostics.ts ">
     <h4>DoctorRuleId</h4>
+    
     <p class="muted">unknown • <code>src/diagnostics.ts:19:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
@@ -1114,9 +1213,11 @@
             </section>
             <section>
               <h3>src/manifestAnalysis.ts</h3>
-              <article class="item" id="symbol-analyzeappmanifest" data-search="analyzeAppManifest function src/manifestAnalysis.ts  DoctorDiagnostic (manifest: unknown, manifestPath?: string) =&gt; DoctorDiagnostic[]">
+              <article class="item" id="symbol-analyzeappmanifest" data-search="analyzeAppManifest  function src/manifestAnalysis.ts  DoctorDiagnostic (manifest: unknown, manifestPath?: string) =&gt; DoctorDiagnostic[]">
     <h4>analyzeAppManifest</h4>
+    
     <p class="muted">function • <code>src/manifestAnalysis.ts:116:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorDiagnostic</li></ul></div>
@@ -1142,9 +1243,11 @@
         <p><strong>Returns:</strong> <code>DoctorDiagnostic[]</code></p>
       </div>
     
-  </article><article class="item" id="symbol-analyzeappmanifestfile" data-search="analyzeAppManifestFile function src/manifestAnalysis.ts  DoctorDiagnostic (filePath: string) =&gt; Promise&lt;DoctorDiagnostic[]&gt;">
+  </article><article class="item" id="symbol-analyzeappmanifestfile" data-search="analyzeAppManifestFile  function src/manifestAnalysis.ts  DoctorDiagnostic (filePath: string) =&gt; Promise&lt;DoctorDiagnostic[]&gt;">
     <h4>analyzeAppManifestFile</h4>
+    
     <p class="muted">function • <code>src/manifestAnalysis.ts:82:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorDiagnostic</li></ul></div>
@@ -1165,9 +1268,11 @@
         <p><strong>Returns:</strong> <code>Promise&lt;DoctorDiagnostic[]&gt;</code></p>
       </div>
     
-  </article><article class="item" id="symbol-analyzeappmanifesttarget" data-search="analyzeAppManifestTarget function src/manifestAnalysis.ts  DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult | null&gt;">
+  </article><article class="item" id="symbol-analyzeappmanifesttarget" data-search="analyzeAppManifestTarget  function src/manifestAnalysis.ts  DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult | null&gt;">
     <h4>analyzeAppManifestTarget</h4>
+    
     <p class="muted">function • <code>src/manifestAnalysis.ts:41:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorAnalysisRequest</li><li class="chip">DoctorAnalysisResult</li></ul></div>
@@ -1192,41 +1297,51 @@
             </section>
             <section>
               <h3>src/packageMetadata.ts</h3>
-              <article class="item" id="symbol-doctor-capabilities" data-search="DOCTOR_CAPABILITIES value src/packageMetadata.ts ">
+              <article class="item" id="symbol-doctor-capabilities" data-search="DOCTOR_CAPABILITIES  value src/packageMetadata.ts ">
     <h4>DOCTOR_CAPABILITIES</h4>
+    
     <p class="muted">value • <code>src/packageMetadata.ts:12:14</code></p>
     
+    
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
     
     
-  </article><article class="item" id="symbol-doctor-command-category" data-search="DOCTOR_COMMAND_CATEGORY value src/packageMetadata.ts ">
+  </article><article class="item" id="symbol-doctor-command-category" data-search="DOCTOR_COMMAND_CATEGORY  value src/packageMetadata.ts ">
     <h4>DOCTOR_COMMAND_CATEGORY</h4>
+    
     <p class="muted">value • <code>src/packageMetadata.ts:11:14</code></p>
     
+    
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
     
     
-  </article><article class="item" id="symbol-doctor-package-metadata" data-search="DOCTOR_PACKAGE_METADATA value src/packageMetadata.ts ">
+  </article><article class="item" id="symbol-doctor-package-metadata" data-search="DOCTOR_PACKAGE_METADATA  value src/packageMetadata.ts ">
     <h4>DOCTOR_PACKAGE_METADATA</h4>
+    
     <p class="muted">value • <code>src/packageMetadata.ts:19:14</code></p>
     
+    
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
     
     
-  </article><article class="item" id="symbol-doctor-package-name" data-search="DOCTOR_PACKAGE_NAME value src/packageMetadata.ts ">
+  </article><article class="item" id="symbol-doctor-package-name" data-search="DOCTOR_PACKAGE_NAME  value src/packageMetadata.ts ">
     <h4>DOCTOR_PACKAGE_NAME</h4>
+    
     <p class="muted">value • <code>src/packageMetadata.ts:9:14</code></p>
     
+    
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
     
     
-  </article><article class="item" id="symbol-doctor-package-version" data-search="DOCTOR_PACKAGE_VERSION value src/packageMetadata.ts ">
+  </article><article class="item" id="symbol-doctor-package-version" data-search="DOCTOR_PACKAGE_VERSION  value src/packageMetadata.ts ">
     <h4>DOCTOR_PACKAGE_VERSION</h4>
+    
     <p class="muted">value • <code>src/packageMetadata.ts:10:14</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
@@ -1236,9 +1351,11 @@
             </section>
             <section>
               <h3>src/readiness.ts</h3>
-              <article class="item" id="symbol-doctorreadiness" data-search="DoctorReadiness type src/readiness.ts  DoctorReadinessStatus">
+              <article class="item" id="symbol-doctorreadiness" data-search="DoctorReadiness  type src/readiness.ts  DoctorReadinessStatus">
     <h4>DoctorReadiness</h4>
+    
     <p class="muted">type • <code>src/readiness.ts:7:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorReadinessStatus</li></ul></div>
@@ -1303,9 +1420,11 @@
           </tr>
     </tbody>
   </table>
-  </article><article class="item" id="symbol-doctorreadinessstatus" data-search="DoctorReadinessStatus unknown src/readiness.ts ">
+  </article><article class="item" id="symbol-doctorreadinessstatus" data-search="DoctorReadinessStatus  unknown src/readiness.ts ">
     <h4>DoctorReadinessStatus</h4>
+    
     <p class="muted">unknown • <code>src/readiness.ts:5:1</code></p>
+    
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
@@ -2434,140 +2553,169 @@
       <h2>src/analysis.ts</h2>
       <article class="item" data-search="analyzeDoctorTarget src/analysis.ts ">
     <h3>analyzeDoctorTarget</h3>
-    <p class="muted"><code>src/analysis.ts:89:1</code></p>
+    <p class="muted"><code>src/analysis.ts:91:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="analyzeRepoPolicy src/analysis.ts ">
     <h3>analyzeRepoPolicy</h3>
-    <p class="muted"><code>src/analysis.ts:236:1</code></p>
+    <p class="muted"><code>src/analysis.ts:238:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="analyzePackagePolicy src/analysis.ts ">
     <h3>analyzePackagePolicy</h3>
-    <p class="muted"><code>src/analysis.ts:348:1</code></p>
+    <p class="muted"><code>src/analysis.ts:350:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createChangesetsDependencyDiagnostic src/analysis.ts ">
     <h3>createChangesetsDependencyDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:660:1</code></p>
+    <p class="muted"><code>src/analysis.ts:662:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="validateAnkhMetadataAndProvider src/analysis.ts ">
     <h3>validateAnkhMetadataAndProvider</h3>
-    <p class="muted"><code>src/analysis.ts:690:1</code></p>
+    <p class="muted"><code>src/analysis.ts:692:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="inspectProviderSource src/analysis.ts ">
     <h3>inspectProviderSource</h3>
-    <p class="muted"><code>src/analysis.ts:828:1</code></p>
+    <p class="muted"><code>src/analysis.ts:830:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="resolveProviderSourcePath src/analysis.ts ">
     <h3>resolveProviderSourcePath</h3>
-    <p class="muted"><code>src/analysis.ts:917:1</code></p>
+    <p class="muted"><code>src/analysis.ts:919:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="findRepoMarkers src/analysis.ts ">
     <h3>findRepoMarkers</h3>
-    <p class="muted"><code>src/analysis.ts:945:1</code></p>
+    <p class="muted"><code>src/analysis.ts:947:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="readPackageJson src/analysis.ts ">
     <h3>readPackageJson</h3>
-    <p class="muted"><code>src/analysis.ts:955:1</code></p>
+    <p class="muted"><code>src/analysis.ts:957:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="detectProfile src/analysis.ts ">
     <h3>detectProfile</h3>
-    <p class="muted"><code>src/analysis.ts:997:1</code></p>
+    <p class="muted"><code>src/analysis.ts:999:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isProviderPackage src/analysis.ts ">
     <h3>isProviderPackage</h3>
-    <p class="muted"><code>src/analysis.ts:1018:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1020:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="maybeRequirePath src/analysis.ts ">
     <h3>maybeRequirePath</h3>
-    <p class="muted"><code>src/analysis.ts:1028:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1030:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="requireNonEmptyStringField src/analysis.ts ">
     <h3>requireNonEmptyStringField</h3>
-    <p class="muted"><code>src/analysis.ts:1066:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1068:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="requireRecordField src/analysis.ts ">
     <h3>requireRecordField</h3>
-    <p class="muted"><code>src/analysis.ts:1090:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1092:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="requireStringArrayField src/analysis.ts ">
     <h3>requireStringArrayField</h3>
-    <p class="muted"><code>src/analysis.ts:1114:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1116:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="expectsParadox src/analysis.ts ">
     <h3>expectsParadox</h3>
-    <p class="muted"><code>src/analysis.ts:1138:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1140:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="expectsDevtools src/analysis.ts ">
     <h3>expectsDevtools</h3>
-    <p class="muted"><code>src/analysis.ts:1157:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1159:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="hasDependency src/analysis.ts ">
     <h3>hasDependency</h3>
-    <p class="muted"><code>src/analysis.ts:1172:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1174:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="validateAnkhMetadataShape src/analysis.ts ">
     <h3>validateAnkhMetadataShape</h3>
-    <p class="muted"><code>src/analysis.ts:1179:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1181:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="mapScriptRule src/analysis.ts ">
     <h3>mapScriptRule</h3>
-    <p class="muted"><code>src/analysis.ts:1213:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1215:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createEarlyResult src/analysis.ts ">
     <h3>createEarlyResult</h3>
-    <p class="muted"><code>src/analysis.ts:1244:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1246:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createDiagnostic src/analysis.ts ">
     <h3>createDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:1257:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1259:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createPlannedChange src/analysis.ts ">
     <h3>createPlannedChange</h3>
-    <p class="muted"><code>src/analysis.ts:1261:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1263:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createInvalidPackageJsonMessage src/analysis.ts ">
     <h3>createInvalidPackageJsonMessage</h3>
-    <p class="muted"><code>src/analysis.ts:1268:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1270:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="pathExists src/analysis.ts ">
     <h3>pathExists</h3>
-    <p class="muted"><code>src/analysis.ts:1273:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1275:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="statOrNull src/analysis.ts ">
     <h3>statOrNull</h3>
-    <p class="muted"><code>src/analysis.ts:1277:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1279:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isMissingPathError src/analysis.ts ">
     <h3>isMissingPathError</h3>
-    <p class="muted"><code>src/analysis.ts:1289:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1291:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isNonEmptyString src/analysis.ts ">
     <h3>isNonEmptyString</h3>
-    <p class="muted"><code>src/analysis.ts:1298:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1300:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isPackageRelativeProviderPath src/analysis.ts ">
     <h3>isPackageRelativeProviderPath</h3>
-    <p class="muted"><code>src/analysis.ts:1302:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1304:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isRecord src/analysis.ts ">
     <h3>isRecord</h3>
-    <p class="muted"><code>src/analysis.ts:1306:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1308:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isStringTuple src/analysis.ts ">
     <h3>isStringTuple</h3>
-    <p class="muted"><code>src/analysis.ts:1310:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1312:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="readStringArray src/analysis.ts ">
     <h3>readStringArray</h3>
-    <p class="muted"><code>src/analysis.ts:1314:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1316:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="sameStringSet src/analysis.ts ">
     <h3>sameStringSet</h3>
-    <p class="muted"><code>src/analysis.ts:1318:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1320:1</code></p>
     <p class="empty">No description available.</p>
-  </article><article class="item" data-search="uniqueSorted src/analysis.ts ">
-    <h3>uniqueSorted</h3>
-    <p class="muted"><code>src/analysis.ts:1326:1</code></p>
-    <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessanalysis-ts" class="view" data-view="src/authReadinessAnalysis.ts" hidden>
@@ -2577,14 +2725,17 @@
     <h3>analyzeAuthReadiness</h3>
     <p class="muted"><code>src/authReadinessAnalysis.ts:11:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="emptyAnalysis src/authReadinessAnalysis.ts ">
     <h3>emptyAnalysis</h3>
     <p class="muted"><code>src/authReadinessAnalysis.ts:44:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isRecord src/authReadinessAnalysis.ts ">
     <h3>isRecord</h3>
     <p class="muted"><code>src/authReadinessAnalysis.ts:48:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessdiagnostic-ts" class="view" data-view="src/authReadinessDiagnostic.ts" hidden>
@@ -2594,6 +2745,7 @@
     <h3>createAuthReadinessDiagnostic</h3>
     <p class="muted"><code>src/authReadinessDiagnostic.ts:3:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessenvironment-ts" class="view" data-view="src/authReadinessEnvironment.ts" hidden>
@@ -2603,6 +2755,7 @@
     <h3>analyzeAuthReadinessEnvironment</h3>
     <p class="muted"><code>src/authReadinessEnvironment.ts:12:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessfileanalysis-ts" class="view" data-view="src/authReadinessFileAnalysis.ts" hidden>
@@ -2612,6 +2765,7 @@
     <h3>analyzeAuthReadinessFile</h3>
     <p class="muted"><code>src/authReadinessFileAnalysis.ts:5:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessnativecontext-ts" class="view" data-view="src/authReadinessNativeContext.ts" hidden>
@@ -2621,10 +2775,12 @@
     <h3>resolveNativeAuthReadinessContext</h3>
     <p class="muted"><code>src/authReadinessNativeContext.ts:10:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createAuthReadinessMessage src/authReadinessNativeContext.ts ">
     <h3>createAuthReadinessMessage</h3>
     <p class="muted"><code>src/authReadinessNativeContext.ts:23:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessnativediagnostic-ts" class="view" data-view="src/authReadinessNativeDiagnostic.ts" hidden>
@@ -2634,6 +2790,7 @@
     <h3>createNativeAuthCallbackDiagnostic</h3>
     <p class="muted"><code>src/authReadinessNativeDiagnostic.ts:6:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessprovider-ts" class="view" data-view="src/authReadinessProvider.ts" hidden>
@@ -2643,6 +2800,7 @@
     <h3>analyzeAuthProviderReadiness</h3>
     <p class="muted"><code>src/authReadinessProvider.ts:11:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessproviderenvironment-ts" class="view" data-view="src/authReadinessProviderEnvironment.ts" hidden>
@@ -2652,6 +2810,7 @@
     <h3>analyzeAuthProviderEnvironment</h3>
     <p class="muted"><code>src/authReadinessProviderEnvironment.ts:9:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessrequirements-ts" class="view" data-view="src/authReadinessRequirements.ts" hidden>
@@ -2661,18 +2820,22 @@
     <h3>collectMissingAuthReadinessRequirements</h3>
     <p class="muted"><code>src/authReadinessRequirements.ts:5:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="requiresTrustedCredential src/authReadinessRequirements.ts ">
     <h3>requiresTrustedCredential</h3>
     <p class="muted"><code>src/authReadinessRequirements.ts:33:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="hasCanonicalCredentialRef src/authReadinessRequirements.ts ">
     <h3>hasCanonicalCredentialRef</h3>
     <p class="muted"><code>src/authReadinessRequirements.ts:42:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isAbsoluteRoute src/authReadinessRequirements.ts ">
     <h3>isAbsoluteRoute</h3>
     <p class="muted"><code>src/authReadinessRequirements.ts:48:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinesstargetfallback-ts" class="view" data-view="src/authReadinessTargetFallback.ts" hidden>
@@ -2682,6 +2845,7 @@
     <h3>resolveAuthReadinessTargetFallback</h3>
     <p class="muted"><code>src/authReadinessTargetFallback.ts:4:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinesstargets-ts" class="view" data-view="src/authReadinessTargets.ts" hidden>
@@ -2691,6 +2855,7 @@
     <h3>resolveAuthReadinessTargets</h3>
     <p class="muted"><code>src/authReadinessTargets.ts:7:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessunsupported-ts" class="view" data-view="src/authReadinessUnsupported.ts" hidden>
@@ -2700,10 +2865,12 @@
     <h3>createUnsupportedAuthReadiness</h3>
     <p class="muted"><code>src/authReadinessUnsupported.ts:8:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createUnsupportedAuthDiagnostic src/authReadinessUnsupported.ts ">
     <h3>createUnsupportedAuthDiagnostic</h3>
     <p class="muted"><code>src/authReadinessUnsupported.ts:24:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-authreadinessunsupportedbackend-ts" class="view" data-view="src/authReadinessUnsupportedBackend.ts" hidden>
@@ -2713,71 +2880,77 @@
     <h3>analyzeUnsupportedAuthBackend</h3>
     <p class="muted"><code>src/authReadinessUnsupportedBackend.ts:11:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-bunpolicyanalysis-ts" class="view" data-view="src/bunPolicyAnalysis.ts" hidden>
     <section class="panel">
       <h2>src/bunPolicyAnalysis.ts</h2>
-      <article class="item" data-search="applyBunRuntimePolicy src/bunPolicyAnalysis.ts ">
+      <article class="item" data-search="applyBunRuntimePolicy src/bunPolicyAnalysis.ts Applies canonical repository Bun-policy diagnostics to a Doctor analysis result.">
     <h3>applyBunRuntimePolicy</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:29:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="loadTargetBunRuntimePolicy src/bunPolicyAnalysis.ts ">
-    <h3>loadTargetBunRuntimePolicy</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:52:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="analyzePackageBunPolicy src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:19:1</code></p>
+    <p>Applies canonical repository Bun-policy diagnostics to a Doctor analysis result.</p>
+    
+  </article><article class="item" data-search="analyzePackageBunPolicy src/bunPolicyAnalysis.ts Reports package-manifest drift from the canonical Bun runtime contract.">
     <h3>analyzePackageBunPolicy</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:68:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="analyzeWorkflowBunPolicy src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:42:1</code></p>
+    <p>Reports package-manifest drift from the canonical Bun runtime contract.</p>
+    
+  </article><article class="item" data-search="analyzeWorkflowBunPolicy src/bunPolicyAnalysis.ts Reports managed workflow drift from the canonical Bun setup version.">
     <h3>analyzeWorkflowBunPolicy</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:105:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="analyzeWorkflow src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:81:1</code></p>
+    <p>Reports managed workflow drift from the canonical Bun setup version.</p>
+    
+  </article><article class="item" data-search="analyzeWorkflow src/bunPolicyAnalysis.ts Checks one managed workflow for the canonical Bun setup version.">
     <h3>analyzeWorkflow</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:115:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="createWorkflowDiagnostic src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:91:1</code></p>
+    <p>Checks one managed workflow for the canonical Bun setup version.</p>
+    
+  </article><article class="item" data-search="createWorkflowDiagnostic src/bunPolicyAnalysis.ts Creates a missing or malformed managed-workflow diagnostic from central rule metadata.">
     <h3>createWorkflowDiagnostic</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:144:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="pushMismatch src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:122:1</code></p>
+    <p>Creates a missing or malformed managed-workflow diagnostic from central rule metadata.</p>
+    
+  </article><article class="item" data-search="pushMismatch src/bunPolicyAnalysis.ts Adds one value-mismatch diagnostic using the owning Policy rule metadata.">
     <h3>pushMismatch</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:165:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="parseBunRuntimePolicy src/bunPolicyAnalysis.ts ">
-    <h3>parseBunRuntimePolicy</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:189:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="withDiagnostics src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:147:1</code></p>
+    <p>Adds one value-mismatch diagnostic using the owning Policy rule metadata.</p>
+    
+  </article><article class="item" data-search="getRepositoryRule src/bunPolicyAnalysis.ts Resolves one stable repository rule by its Policy-owned id.">
+    <h3>getRepositoryRule</h3>
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:173:1</code></p>
+    <p>Resolves one stable repository rule by its Policy-owned id.</p>
+    
+  </article><article class="item" data-search="withDiagnostics src/bunPolicyAnalysis.ts Copies updated diagnostics into the analysis result and optional fix plan.">
     <h3>withDiagnostics</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:201:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="readPackageJson src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:184:1</code></p>
+    <p>Copies updated diagnostics into the analysis result and optional fix plan.</p>
+    
+  </article><article class="item" data-search="readPackageJson src/bunPolicyAnalysis.ts Reads a package manifest when it contains a JSON object.">
     <h3>readPackageJson</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:212:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="readTextOrNull src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:198:1</code></p>
+    <p>Reads a package manifest when it contains a JSON object.</p>
+    
+  </article><article class="item" data-search="readTextOrNull src/bunPolicyAnalysis.ts Reads a UTF-8 file while treating a missing managed path as absent.">
     <h3>readTextOrNull</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:221:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="isUnavailablePolicyError src/bunPolicyAnalysis.ts ">
-    <h3>isUnavailablePolicyError</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:232:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="isNonEmptyString src/bunPolicyAnalysis.ts ">
-    <h3>isNonEmptyString</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:251:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="isRecord src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:210:1</code></p>
+    <p>Reads a UTF-8 file while treating a missing managed path as absent.</p>
+    
+  </article><article class="item" data-search="isRecord src/bunPolicyAnalysis.ts Narrows unknown JSON data to a non-array record.">
     <h3>isRecord</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:255:1</code></p>
-    <p class="empty">No description available.</p>
-  </article><article class="item" data-search="isNodeError src/bunPolicyAnalysis.ts ">
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:222:1</code></p>
+    <p>Narrows unknown JSON data to a non-array record.</p>
+    
+  </article><article class="item" data-search="isNonEmptyString src/bunPolicyAnalysis.ts Narrows a value to a non-empty string.">
+    <h3>isNonEmptyString</h3>
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:229:1</code></p>
+    <p>Narrows a value to a non-empty string.</p>
+    
+  </article><article class="item" data-search="isNodeError src/bunPolicyAnalysis.ts Narrows unknown failures to Node errors with stable error codes.">
     <h3>isNodeError</h3>
-    <p class="muted"><code>src/bunPolicyAnalysis.ts:259:1</code></p>
-    <p class="empty">No description available.</p>
+    <p class="muted"><code>src/bunPolicyAnalysis.ts:236:1</code></p>
+    <p>Narrows unknown failures to Node errors with stable error codes.</p>
+    
   </article>
     </section>
   </section><section id="view-src-cli-index-ts" class="view" data-view="src/cli/index.ts" hidden>
@@ -2787,10 +2960,12 @@
     <h3>createDoctorRuntimeProvider</h3>
     <p class="muted"><code>src/cli/index.ts:23:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="handler src/cli/index.ts ">
     <h3>handler</h3>
     <p class="muted"><code>src/cli/index.ts:39:13</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-cli-standalone-ts" class="view" data-view="src/cli/standalone.ts" hidden>
@@ -2800,14 +2975,17 @@
     <h3>runCli</h3>
     <p class="muted"><code>src/cli/standalone.ts:21:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isHelpToken src/cli/standalone.ts ">
     <h3>isHelpToken</h3>
     <p class="muted"><code>src/cli/standalone.ts:60:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isVersionToken src/cli/standalone.ts ">
     <h3>isVersionToken</h3>
     <p class="muted"><code>src/cli/standalone.ts:64:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-clilayoutanalysis-ts" class="view" data-view="src/cliLayoutAnalysis.ts" hidden>
@@ -2817,74 +2995,92 @@
     <h3>analyzeDoctorTargetWithCliLayout</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:63:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="analyzeTargetArchitecture src/cliLayoutAnalysis.ts ">
     <h3>analyzeTargetArchitecture</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:101:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="validateDependencyArchitecture src/cliLayoutAnalysis.ts ">
     <h3>validateDependencyArchitecture</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:173:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="validateActiveSourceImports src/cliLayoutAnalysis.ts ">
     <h3>validateActiveSourceImports</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:224:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="validateStudioOwnership src/cliLayoutAnalysis.ts ">
     <h3>validateStudioOwnership</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:257:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="collectActiveSourceImports src/cliLayoutAnalysis.ts ">
     <h3>collectActiveSourceImports</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:324:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="listActiveSourceFiles src/cliLayoutAnalysis.ts ">
     <h3>listActiveSourceFiles</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:344:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="visit src/cliLayoutAnalysis.ts ">
     <h3>visit</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:349:3</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isActiveSourceFile src/cliLayoutAnalysis.ts ">
     <h3>isActiveSourceFile</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:372:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="extractImportSpecifiers src/cliLayoutAnalysis.ts ">
     <h3>extractImportSpecifiers</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:380:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="collectDependencyEntries src/cliLayoutAnalysis.ts ">
     <h3>collectDependencyEntries</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:399:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="hasAnkhProvider src/cliLayoutAnalysis.ts ">
     <h3>hasAnkhProvider</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:423:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isPackageImport src/cliLayoutAnalysis.ts ">
     <h3>isPackageImport</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:428:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="toOwningPackageSpecifier src/cliLayoutAnalysis.ts ">
     <h3>toOwningPackageSpecifier</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:432:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="readPackageJson src/cliLayoutAnalysis.ts ">
     <h3>readPackageJson</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:436:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="pathExists src/cliLayoutAnalysis.ts ">
     <h3>pathExists</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:445:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isNonEmptyString src/cliLayoutAnalysis.ts ">
     <h3>isNonEmptyString</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:454:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isRecord src/cliLayoutAnalysis.ts ">
     <h3>isRecord</h3>
     <p class="muted"><code>src/cliLayoutAnalysis.ts:458:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-commandcontext-ts" class="view" data-view="src/commandContext.ts" hidden>
@@ -2894,6 +3090,7 @@
     <h3>createDefaultCommandContext</h3>
     <p class="muted"><code>src/commandContext.ts:15:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-commands-ts" class="view" data-view="src/commands.ts" hidden>
@@ -2903,74 +3100,92 @@
     <h3>runDoctorCommand</h3>
     <p class="muted"><code>src/commands.ts:98:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createProviderCommandDescriptors src/commands.ts ">
     <h3>createProviderCommandDescriptors</h3>
     <p class="muted"><code>src/commands.ts:124:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="findDoctorCommandByStandaloneName src/commands.ts ">
     <h3>findDoctorCommandByStandaloneName</h3>
     <p class="muted"><code>src/commands.ts:132:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="renderRootHelp src/commands.ts ">
     <h3>renderRootHelp</h3>
     <p class="muted"><code>src/commands.ts:136:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="renderUnknownCommand src/commands.ts ">
     <h3>renderUnknownCommand</h3>
     <p class="muted"><code>src/commands.ts:157:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="renderCommandHelp src/commands.ts ">
     <h3>renderCommandHelp</h3>
     <p class="muted"><code>src/commands.ts:161:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createDoctorCommandServices src/commands.ts ">
     <h3>createDoctorCommandServices</h3>
     <p class="muted"><code>src/commands.ts:175:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="parseCommandArguments src/commands.ts ">
     <h3>parseCommandArguments</h3>
     <p class="muted"><code>src/commands.ts:183:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="runValidateCommand src/commands.ts ">
     <h3>runValidateCommand</h3>
     <p class="muted"><code>src/commands.ts:203:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="runFixCommand src/commands.ts ">
     <h3>runFixCommand</h3>
     <p class="muted"><code>src/commands.ts:220:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="runRepoCommand src/commands.ts ">
     <h3>runRepoCommand</h3>
     <p class="muted"><code>src/commands.ts:237:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="runPackageCommand src/commands.ts ">
     <h3>runPackageCommand</h3>
     <p class="muted"><code>src/commands.ts:254:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="renderAnalysisReport src/commands.ts ">
     <h3>renderAnalysisReport</h3>
     <p class="muted"><code>src/commands.ts:271:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="renderDiagnosticLine src/commands.ts ">
     <h3>renderDiagnosticLine</h3>
     <p class="muted"><code>src/commands.ts:327:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="renderReadinessLine src/commands.ts ">
     <h3>renderReadinessLine</h3>
     <p class="muted"><code>src/commands.ts:331:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="renderPlannedChangeLine src/commands.ts ">
     <h3>renderPlannedChangeLine</h3>
     <p class="muted"><code>src/commands.ts:335:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="renderCommandFailure src/commands.ts ">
     <h3>renderCommandFailure</h3>
     <p class="muted"><code>src/commands.ts:339:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isHelpToken src/commands.ts ">
     <h3>isHelpToken</h3>
     <p class="muted"><code>src/commands.ts:344:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-dependencypolicyanalysis-ts" class="view" data-view="src/dependencyPolicyAnalysis.ts" hidden>
@@ -2980,14 +3195,17 @@
     <h3>analyzeDoctorTarget</h3>
     <p class="muted"><code>src/dependencyPolicyAnalysis.ts:12:1</code></p>
     <p>Analyze a Doctor target and apply repository-level dependency and runtime policies.</p>
+    
   </article><article class="item" data-search="analyzeDoctorTargetWithCliLayout src/dependencyPolicyAnalysis.ts Analyze a Doctor target with CLI layout validation and repository-level policies.">
     <h3>analyzeDoctorTargetWithCliLayout</h3>
     <p class="muted"><code>src/dependencyPolicyAnalysis.ts:21:1</code></p>
     <p>Analyze a Doctor target with CLI layout validation and repository-level policies.</p>
+    
   </article><article class="item" data-search="applyRepositoryPolicies src/dependencyPolicyAnalysis.ts Apply repository policies that remain independent from concrete package identities.">
     <h3>applyRepositoryPolicies</h3>
     <p class="muted"><code>src/dependencyPolicyAnalysis.ts:30:1</code></p>
     <p>Apply repository policies that remain independent from concrete package identities.</p>
+    
   </article>
     </section>
   </section><section id="view-src-diagnostics-ts" class="view" data-view="src/diagnostics.ts" hidden>
@@ -2997,10 +3215,12 @@
     <h3>countErrorDiagnostics</h3>
     <p class="muted"><code>src/diagnostics.ts:139:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="countWarningDiagnostics src/diagnostics.ts ">
     <h3>countWarningDiagnostics</h3>
     <p class="muted"><code>src/diagnostics.ts:143:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-manifestanalysis-ts" class="view" data-view="src/manifestAnalysis.ts" hidden>
@@ -3010,62 +3230,77 @@
     <h3>analyzeAppManifestTarget</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:41:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="analyzeAppManifestFile src/manifestAnalysis.ts ">
     <h3>analyzeAppManifestFile</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:82:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="analyzeAppManifest src/manifestAnalysis.ts ">
     <h3>analyzeAppManifest</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:116:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="parseAuthFlow src/manifestAnalysis.ts ">
     <h3>parseAuthFlow</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:192:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="readRequiredRoute src/manifestAnalysis.ts ">
     <h3>readRequiredRoute</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:228:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="readOptionalRoutes src/manifestAnalysis.ts ">
     <h3>readOptionalRoutes</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:251:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="validateAuthFlowRelationships src/manifestAnalysis.ts ">
     <h3>validateAuthFlowRelationships</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:284:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="validateAuthorization src/manifestAnalysis.ts ">
     <h3>validateAuthorization</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:366:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="validateAuthorizationField src/manifestAnalysis.ts ">
     <h3>validateAuthorizationField</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:398:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="createManifestDiagnostic src/manifestAnalysis.ts ">
     <h3>createManifestDiagnostic</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:420:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="normalizeRoute src/manifestAnalysis.ts ">
     <h3>normalizeRoute</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:433:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="hasOwn src/manifestAnalysis.ts ">
     <h3>hasOwn</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:438:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isRecord src/manifestAnalysis.ts ">
     <h3>isRecord</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:442:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="statOrNull src/manifestAnalysis.ts ">
     <h3>statOrNull</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:446:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="toErrorMessage src/manifestAnalysis.ts ">
     <h3>toErrorMessage</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:454:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-secretmanifestanalysis-ts" class="view" data-view="src/secretManifestAnalysis.ts" hidden>
@@ -3075,18 +3310,22 @@
     <h3>analyzeSecretStoreManifest</h3>
     <p class="muted"><code>src/secretManifestAnalysis.ts:11:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="validateSecretStore src/secretManifestAnalysis.ts ">
     <h3>validateSecretStore</h3>
     <p class="muted"><code>src/secretManifestAnalysis.ts:177:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="diagnostic src/secretManifestAnalysis.ts ">
     <h3>diagnostic</h3>
     <p class="muted"><code>src/secretManifestAnalysis.ts:223:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article><article class="item" data-search="isRecord src/secretManifestAnalysis.ts ">
     <h3>isRecord</h3>
     <p class="muted"><code>src/secretManifestAnalysis.ts:239:1</code></p>
     <p class="empty">No description available.</p>
+    
   </article>
     </section>
   </section><section id="view-src-sourcearchitectureanalysis-ts" class="view" data-view="src/sourceArchitectureAnalysis.ts" hidden>
@@ -3096,54 +3335,67 @@
     <h3>analyzeSourceArchitecture</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:44:1</code></p>
     <p>Validate folder-role combinations and inward source dependency direction.</p>
+    
   </article><article class="item" data-search="analyzeDirectoryVocabularyAsync src/sourceArchitectureAnalysis.ts Validate architectural directory names only when a repository has introduced them.">
     <h3>analyzeDirectoryVocabularyAsync</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:51:1</code></p>
     <p>Validate architectural directory names only when a repository has introduced them.</p>
+    
   </article><article class="item" data-search="analyzeFeatureCombinationsAsync src/sourceArchitectureAnalysis.ts Validate feature-first role combinations without requiring unused ceremonial layers.">
     <h3>analyzeFeatureCombinationsAsync</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:76:1</code></p>
     <p>Validate feature-first role combinations without requiring unused ceremonial layers.</p>
+    
   </article><article class="item" data-search="analyzeImportDirection src/sourceArchitectureAnalysis.ts Validate that relative source imports point inward across recognized architecture roles.">
     <h3>analyzeImportDirection</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:127:1</code></p>
     <p>Validate that relative source imports point inward across recognized architecture roles.</p>
+    
   </article><article class="item" data-search="analyzeOneImportDirection src/sourceArchitectureAnalysis.ts Validate one relative import against repository and layer boundaries.">
     <h3>analyzeOneImportDirection</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:134:1</code></p>
     <p>Validate one relative import against repository and layer boundaries.</p>
+    
   </article><article class="item" data-search="createEscapedRepositoryDiagnostic src/sourceArchitectureAnalysis.ts Report a relative import that escapes the standalone repository boundary.">
     <h3>createEscapedRepositoryDiagnostic</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:148:1</code></p>
     <p>Report a relative import that escapes the standalone repository boundary.</p>
+    
   </article><article class="item" data-search="analyzeRecognizedRoleDirection src/sourceArchitectureAnalysis.ts Apply inward dependency rules for recognized source architecture roles.">
     <h3>analyzeRecognizedRoleDirection</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:165:1</code></p>
     <p>Apply inward dependency rules for recognized source architecture roles.</p>
+    
   </article><article class="item" data-search="isThinDeliveryAdapter src/sourceArchitectureAnalysis.ts Check whether a source file belongs to a thin CLI command delivery boundary.">
     <h3>isThinDeliveryAdapter</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:197:1</code></p>
     <p>Check whether a source file belongs to a thin CLI command delivery boundary.</p>
+    
   </article><article class="item" data-search="resolveSourceRole src/sourceArchitectureAnalysis.ts Resolve the dependency rule owned by one recognized inner source role.">
     <h3>resolveSourceRole</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:203:1</code></p>
     <p>Resolve the dependency rule owned by one recognized inner source role.</p>
+    
   </article><article class="item" data-search="createOutwardImportDiagnostic src/sourceArchitectureAnalysis.ts Report one outward dependency when the imported path crosses a forbidden role.">
     <h3>createOutwardImportDiagnostic</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:238:1</code></p>
     <p>Report one outward dependency when the imported path crosses a forbidden role.</p>
+    
   </article><article class="item" data-search="splitRelativePath src/sourceArchitectureAnalysis.ts Split one repository path into normalized architecture segments.">
     <h3>splitRelativePath</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:263:1</code></p>
     <p>Split one repository path into normalized architecture segments.</p>
+    
   </article><article class="item" data-search="createDiagnostic src/sourceArchitectureAnalysis.ts Build one deterministic architecture diagnostic.">
     <h3>createDiagnostic</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:268:1</code></p>
     <p>Build one deterministic architecture diagnostic.</p>
+    
   </article><article class="item" data-search="pathExistsAsync src/sourceArchitectureAnalysis.ts Check whether a filesystem path exists.">
     <h3>pathExistsAsync</h3>
     <p class="muted"><code>src/sourceArchitectureAnalysis.ts:285:1</code></p>
     <p>Check whether a filesystem path exists.</p>
+    
   </article>
     </section>
   </section>

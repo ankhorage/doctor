@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.11.2",
+      "value": "v0.11.3",
       "color": "cb3837"
     },
     {
@@ -55,32 +55,92 @@
     },
     {
       "id": "docs",
-      "label": "docs",
-      "value": "paradox",
-      "color": "0f766e"
+      "label": "paradox",
+      "value": "warnings",
+      "color": "ca8a04"
     }
   ],
   "usage": {
     "packageName": "@ankhorage/doctor",
-    "commands": [
-      {
-        "name": "ankhorage-doctor",
-        "command": "bunx @ankhorage/doctor"
-      }
-    ]
+    "command": "ankh doctor --help"
   },
-  "readmeUsageDescription": null,
-  "readmeUsage": [
+  "usageEntries": [
     {
-      "title": "Provider and CLI surface",
-      "description": "Provider and CLI surface\n\n`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.\n\nThe same shared command implementation backs both:\n\n- `ankh doctor ...`\n- `bunx @ankhorage/doctor ...`\n\nCurrent command surface:\n\n- `validate`\n- `fix`\n- `repo`\n- `package`\n\n`doctor#2` adds a profile-based policy engine:\n\n- strict `public-package` validation for extracted public package repos\n- light recognized `integration-monorepo` validation for `ankhorage4`\n- canonical app-manifest authentication validation for JSON file targets\n- non-mutating `fix` plans for deterministic mechanical changes only\n\nPublic-package script validation follows the canonical Devtools contract. In particular,\npackages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.\nChangesets dependency placement follows the same ownership boundary: `@ankhorage/devtools`\npublishes `@changesets/cli` from `dependencies`, while consumers use the Devtools-owned\ncommand without declaring the CLI directly.\n\nManifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects\n`settings.authFlow` with a manual-migration diagnostic, and permits authentication without\nan authorization block.\n\nStill deferred:\n\n- GitHub checks\n- CI checks\n- on-disk `fix --apply`\n- deeper cross-repo policy enforcement\n\nPath handling:\n\n- pass a repo/package directory or app-manifest JSON file as `[path]`, or\n- omit it to inspect the current working directory",
+      "area": "examples",
+      "title": "Basic Usage",
+      "description": "`@ankhorage/doctor` validates Ankhorage repositories, packages, and app manifests through the\nsame command implementation exposed by both `ankh doctor ...` and the standalone package CLI.\n\nUse `validate` for the canonical read-only checks, or target the narrower `repo` and `package`\nsurfaces when only one policy area should be inspected.",
       "language": "ts",
-      "code": "import { runCli } from './cli/standalone.js';\n\nawait runCli(['--help']);",
-      "sourcePath": "src/readme-usage.ts"
+      "code": "await runCli(['--help']);",
+      "sourcePath": "examples/basic-usage/index.ts",
+      "isReadme": true,
+      "see": [],
+      "security": []
     }
   ],
-  "readmeCli": null,
-  "readmeConfig": null,
+  "exampleCount": 1,
+  "findings": [
+    {
+      "ruleId": "documentation.public-function.description",
+      "severity": "warning",
+      "message": "Public function analyzeAuthReadiness has no Paradox description.",
+      "sourcePath": "src/authReadinessAnalysis.ts",
+      "line": 11
+    },
+    {
+      "ruleId": "documentation.public-function.description",
+      "severity": "warning",
+      "message": "Public function analyzeAuthReadinessFile has no Paradox description.",
+      "sourcePath": "src/authReadinessFileAnalysis.ts",
+      "line": 5
+    },
+    {
+      "ruleId": "documentation.public-function.description",
+      "severity": "warning",
+      "message": "Public function createDoctorRuntimeProvider has no Paradox description.",
+      "sourcePath": "src/cli/index.ts",
+      "line": 23
+    },
+    {
+      "ruleId": "documentation.public-function.description",
+      "severity": "warning",
+      "message": "Public function runCli has no Paradox description.",
+      "sourcePath": "src/cli/standalone.ts",
+      "line": 21
+    },
+    {
+      "ruleId": "documentation.public-function.description",
+      "severity": "warning",
+      "message": "Public function createDefaultCommandContext has no Paradox description.",
+      "sourcePath": "src/commandContext.ts",
+      "line": 15
+    },
+    {
+      "ruleId": "documentation.public-function.description",
+      "severity": "warning",
+      "message": "Public function analyzeAppManifest has no Paradox description.",
+      "sourcePath": "src/manifestAnalysis.ts",
+      "line": 116
+    },
+    {
+      "ruleId": "documentation.public-function.description",
+      "severity": "warning",
+      "message": "Public function analyzeAppManifestFile has no Paradox description.",
+      "sourcePath": "src/manifestAnalysis.ts",
+      "line": 82
+    },
+    {
+      "ruleId": "documentation.public-function.description",
+      "severity": "warning",
+      "message": "Public function analyzeAppManifestTarget has no Paradox description.",
+      "sourcePath": "src/manifestAnalysis.ts",
+      "line": 41
+    }
+  ],
+  "readmeConfig": {
+    "language": "ts",
+    "code": "import { defineParadoxConfig } from '@ankhorage/paradox';\n\nexport default defineParadoxConfig({\n  mode: 'write',\n  package: {\n    root: '.',\n    entrypoints: ['src/index.ts'],\n  },\n  output: {\n    dir: './paradox',\n  },\n});",
+    "sourcePath": "paradox.config.ts"
+  },
   "config": null,
   "entrypoints": [
     "src/index.ts"
@@ -665,9 +725,11 @@
   "exports": [
     {
       "name": "analyzeAppManifest",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/manifestAnalysis.ts",
       "sourceLocation": {
@@ -707,9 +769,11 @@
     },
     {
       "name": "analyzeAppManifestFile",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/manifestAnalysis.ts",
       "sourceLocation": {
@@ -743,9 +807,11 @@
     },
     {
       "name": "analyzeAppManifestTarget",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/manifestAnalysis.ts",
       "sourceLocation": {
@@ -780,9 +846,11 @@
     },
     {
       "name": "analyzeAuthReadiness",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/authReadinessAnalysis.ts",
       "sourceLocation": {
@@ -822,9 +890,11 @@
     },
     {
       "name": "analyzeAuthReadinessFile",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/authReadinessFileAnalysis.ts",
       "sourceLocation": {
@@ -858,9 +928,11 @@
     },
     {
       "name": "analyzeDoctorTarget",
+      "title": null,
       "description": "Analyze a Doctor target and apply repository-level dependency and runtime policies.",
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/dependencyPolicyAnalysis.ts",
       "sourceLocation": {
@@ -895,9 +967,11 @@
     },
     {
       "name": "analyzeDoctorTargetWithCliLayout",
+      "title": null,
       "description": "Analyze a Doctor target with CLI layout validation and repository-level policies.",
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/dependencyPolicyAnalysis.ts",
       "sourceLocation": {
@@ -932,9 +1006,11 @@
     },
     {
       "name": "createDefaultCommandContext",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/commandContext.ts",
       "sourceLocation": {
@@ -961,9 +1037,11 @@
     },
     {
       "name": "createDoctorRuntimeProvider",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/cli/index.ts",
       "sourceLocation": {
@@ -997,9 +1075,11 @@
     },
     {
       "name": "CreateDoctorRuntimeProviderOptions",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/cli/index.ts",
       "sourceLocation": {
@@ -1032,9 +1112,11 @@
     },
     {
       "name": "DOCTOR_CAPABILITIES",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "value",
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
@@ -1052,9 +1134,11 @@
     },
     {
       "name": "DOCTOR_COMMAND_CATEGORY",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "value",
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
@@ -1072,9 +1156,11 @@
     },
     {
       "name": "DOCTOR_PACKAGE_METADATA",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "value",
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
@@ -1092,9 +1178,11 @@
     },
     {
       "name": "DOCTOR_PACKAGE_NAME",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "value",
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
@@ -1112,9 +1200,11 @@
     },
     {
       "name": "DOCTOR_PACKAGE_VERSION",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "value",
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
@@ -1132,14 +1222,16 @@
     },
     {
       "name": "DoctorAnalysisRequest",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 13,
+        "line": 15,
         "column": 1
       },
       "exportPaths": [
@@ -1176,14 +1268,16 @@
     },
     {
       "name": "DoctorAnalysisResult",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 34,
+        "line": 36,
         "column": 1
       },
       "exportPaths": [
@@ -1267,9 +1361,11 @@
     },
     {
       "name": "DoctorAuthReadinessAnalysis",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/authReadinessAnalysis.ts",
       "sourceLocation": {
@@ -1305,9 +1401,11 @@
     },
     {
       "name": "DoctorCommandContext",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/commandContext.ts",
       "sourceLocation": {
@@ -1361,9 +1459,11 @@
     },
     {
       "name": "DoctorCommandRunResult",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/commandContext.ts",
       "sourceLocation": {
@@ -1389,9 +1489,11 @@
     },
     {
       "name": "DoctorDiagnostic",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
@@ -1457,9 +1559,11 @@
     },
     {
       "name": "DoctorDiagnosticCode",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
@@ -1477,9 +1581,11 @@
     },
     {
       "name": "DoctorDiagnosticSeverity",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
@@ -1497,14 +1603,16 @@
     },
     {
       "name": "DoctorFixPlan",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 27,
+        "line": 29,
         "column": 1
       },
       "exportPaths": [
@@ -1550,14 +1658,16 @@
     },
     {
       "name": "DoctorPlannedChange",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 19,
+        "line": 21,
         "column": 1
       },
       "exportPaths": [
@@ -1609,14 +1719,16 @@
     },
     {
       "name": "DoctorPlannedChangeKind",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 10,
+        "line": 12,
         "column": 1
       },
       "exportPaths": [
@@ -1629,9 +1741,11 @@
     },
     {
       "name": "DoctorPolicyProfile",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
@@ -1649,9 +1763,11 @@
     },
     {
       "name": "DoctorReadiness",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/readiness.ts",
       "sourceLocation": {
@@ -1735,9 +1851,11 @@
     },
     {
       "name": "DoctorReadinessStatus",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/readiness.ts",
       "sourceLocation": {
@@ -1755,9 +1873,11 @@
     },
     {
       "name": "DoctorRuleId",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
@@ -1775,14 +1895,16 @@
     },
     {
       "name": "DoctorTargetCheck",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 8,
+        "line": 10,
         "column": 1
       },
       "exportPaths": [
@@ -1795,14 +1917,16 @@
     },
     {
       "name": "DoctorTargetMode",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 9,
+        "line": 11,
         "column": 1
       },
       "exportPaths": [
@@ -1815,9 +1939,11 @@
     },
     {
       "name": "runCli",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/cli/standalone.ts",
       "sourceLocation": {
@@ -1861,312 +1987,371 @@
     {
       "name": "analyzeDoctorTarget",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 89,
+        "line": 91,
         "column": 1
       }
     },
     {
       "name": "analyzeRepoPolicy",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 236,
+        "line": 238,
         "column": 1
       }
     },
     {
       "name": "analyzePackagePolicy",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 348,
+        "line": 350,
         "column": 1
       }
     },
     {
       "name": "createChangesetsDependencyDiagnostic",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 660,
+        "line": 662,
         "column": 1
       }
     },
     {
       "name": "validateAnkhMetadataAndProvider",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 690,
+        "line": 692,
         "column": 1
       }
     },
     {
       "name": "inspectProviderSource",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 828,
+        "line": 830,
         "column": 1
       }
     },
     {
       "name": "resolveProviderSourcePath",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 917,
+        "line": 919,
         "column": 1
       }
     },
     {
       "name": "findRepoMarkers",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 945,
+        "line": 947,
         "column": 1
       }
     },
     {
       "name": "readPackageJson",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 955,
+        "line": 957,
         "column": 1
       }
     },
     {
       "name": "detectProfile",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 997,
+        "line": 999,
         "column": 1
       }
     },
     {
       "name": "isProviderPackage",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1018,
+        "line": 1020,
         "column": 1
       }
     },
     {
       "name": "maybeRequirePath",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1028,
+        "line": 1030,
         "column": 1
       }
     },
     {
       "name": "requireNonEmptyStringField",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1066,
+        "line": 1068,
         "column": 1
       }
     },
     {
       "name": "requireRecordField",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1090,
+        "line": 1092,
         "column": 1
       }
     },
     {
       "name": "requireStringArrayField",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1114,
+        "line": 1116,
         "column": 1
       }
     },
     {
       "name": "expectsParadox",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1138,
+        "line": 1140,
         "column": 1
       }
     },
     {
       "name": "expectsDevtools",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1157,
+        "line": 1159,
         "column": 1
       }
     },
     {
       "name": "hasDependency",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1172,
+        "line": 1174,
         "column": 1
       }
     },
     {
       "name": "validateAnkhMetadataShape",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1179,
+        "line": 1181,
         "column": 1
       }
     },
     {
       "name": "mapScriptRule",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1213,
+        "line": 1215,
         "column": 1
       }
     },
     {
       "name": "createEarlyResult",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1244,
+        "line": 1246,
         "column": 1
       }
     },
     {
       "name": "createDiagnostic",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1257,
+        "line": 1259,
         "column": 1
       }
     },
     {
       "name": "createPlannedChange",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1261,
+        "line": 1263,
         "column": 1
       }
     },
     {
       "name": "createInvalidPackageJsonMessage",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1268,
+        "line": 1270,
         "column": 1
       }
     },
     {
       "name": "pathExists",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1273,
+        "line": 1275,
         "column": 1
       }
     },
     {
       "name": "statOrNull",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1277,
+        "line": 1279,
         "column": 1
       }
     },
     {
       "name": "isMissingPathError",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1289,
+        "line": 1291,
         "column": 1
       }
     },
     {
       "name": "isNonEmptyString",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1298,
+        "line": 1300,
         "column": 1
       }
     },
     {
       "name": "isPackageRelativeProviderPath",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1302,
+        "line": 1304,
         "column": 1
       }
     },
     {
       "name": "isRecord",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1306,
+        "line": 1308,
         "column": 1
       }
     },
     {
       "name": "isStringTuple",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1310,
+        "line": 1312,
         "column": 1
       }
     },
     {
       "name": "readStringArray",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1314,
+        "line": 1316,
         "column": 1
       }
     },
     {
       "name": "sameStringSet",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1318,
-        "column": 1
-      }
-    },
-    {
-      "name": "uniqueSorted",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/analysis.ts",
-        "line": 1326,
+        "line": 1320,
         "column": 1
       }
     },
     {
       "name": "analyzeAuthReadiness",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessAnalysis.ts",
         "line": 11,
@@ -2176,6 +2361,8 @@
     {
       "name": "emptyAnalysis",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessAnalysis.ts",
         "line": 44,
@@ -2185,6 +2372,8 @@
     {
       "name": "isRecord",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessAnalysis.ts",
         "line": 48,
@@ -2194,6 +2383,8 @@
     {
       "name": "createAuthReadinessDiagnostic",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessDiagnostic.ts",
         "line": 3,
@@ -2203,6 +2394,8 @@
     {
       "name": "analyzeAuthReadinessEnvironment",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessEnvironment.ts",
         "line": 12,
@@ -2212,6 +2405,8 @@
     {
       "name": "analyzeAuthReadinessFile",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessFileAnalysis.ts",
         "line": 5,
@@ -2221,6 +2416,8 @@
     {
       "name": "resolveNativeAuthReadinessContext",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessNativeContext.ts",
         "line": 10,
@@ -2230,6 +2427,8 @@
     {
       "name": "createAuthReadinessMessage",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessNativeContext.ts",
         "line": 23,
@@ -2239,6 +2438,8 @@
     {
       "name": "createNativeAuthCallbackDiagnostic",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessNativeDiagnostic.ts",
         "line": 6,
@@ -2248,6 +2449,8 @@
     {
       "name": "analyzeAuthProviderReadiness",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessProvider.ts",
         "line": 11,
@@ -2257,6 +2460,8 @@
     {
       "name": "analyzeAuthProviderEnvironment",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessProviderEnvironment.ts",
         "line": 9,
@@ -2266,6 +2471,8 @@
     {
       "name": "collectMissingAuthReadinessRequirements",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessRequirements.ts",
         "line": 5,
@@ -2275,6 +2482,8 @@
     {
       "name": "requiresTrustedCredential",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessRequirements.ts",
         "line": 33,
@@ -2284,6 +2493,8 @@
     {
       "name": "hasCanonicalCredentialRef",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessRequirements.ts",
         "line": 42,
@@ -2293,6 +2504,8 @@
     {
       "name": "isAbsoluteRoute",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessRequirements.ts",
         "line": 48,
@@ -2302,6 +2515,8 @@
     {
       "name": "resolveAuthReadinessTargetFallback",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessTargetFallback.ts",
         "line": 4,
@@ -2311,6 +2526,8 @@
     {
       "name": "resolveAuthReadinessTargets",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessTargets.ts",
         "line": 7,
@@ -2320,6 +2537,8 @@
     {
       "name": "createUnsupportedAuthReadiness",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessUnsupported.ts",
         "line": 8,
@@ -2329,6 +2548,8 @@
     {
       "name": "createUnsupportedAuthDiagnostic",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessUnsupported.ts",
         "line": 24,
@@ -2338,6 +2559,8 @@
     {
       "name": "analyzeUnsupportedAuthBackend",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/authReadinessUnsupportedBackend.ts",
         "line": 11,
@@ -2346,142 +2569,152 @@
     },
     {
       "name": "applyBunRuntimePolicy",
-      "description": null,
+      "description": "Applies canonical repository Bun-policy diagnostics to a Doctor analysis result.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 29,
-        "column": 1
-      }
-    },
-    {
-      "name": "loadTargetBunRuntimePolicy",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 52,
+        "line": 19,
         "column": 1
       }
     },
     {
       "name": "analyzePackageBunPolicy",
-      "description": null,
+      "description": "Reports package-manifest drift from the canonical Bun runtime contract.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 68,
+        "line": 42,
         "column": 1
       }
     },
     {
       "name": "analyzeWorkflowBunPolicy",
-      "description": null,
+      "description": "Reports managed workflow drift from the canonical Bun setup version.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 105,
+        "line": 81,
         "column": 1
       }
     },
     {
       "name": "analyzeWorkflow",
-      "description": null,
+      "description": "Checks one managed workflow for the canonical Bun setup version.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 115,
+        "line": 91,
         "column": 1
       }
     },
     {
       "name": "createWorkflowDiagnostic",
-      "description": null,
+      "description": "Creates a missing or malformed managed-workflow diagnostic from central rule metadata.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 144,
+        "line": 122,
         "column": 1
       }
     },
     {
       "name": "pushMismatch",
-      "description": null,
+      "description": "Adds one value-mismatch diagnostic using the owning Policy rule metadata.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 165,
+        "line": 147,
         "column": 1
       }
     },
     {
-      "name": "parseBunRuntimePolicy",
-      "description": null,
+      "name": "getRepositoryRule",
+      "description": "Resolves one stable repository rule by its Policy-owned id.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 189,
+        "line": 173,
         "column": 1
       }
     },
     {
       "name": "withDiagnostics",
-      "description": null,
+      "description": "Copies updated diagnostics into the analysis result and optional fix plan.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 201,
+        "line": 184,
         "column": 1
       }
     },
     {
       "name": "readPackageJson",
-      "description": null,
+      "description": "Reads a package manifest when it contains a JSON object.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 212,
+        "line": 198,
         "column": 1
       }
     },
     {
       "name": "readTextOrNull",
-      "description": null,
+      "description": "Reads a UTF-8 file while treating a missing managed path as absent.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 221,
-        "column": 1
-      }
-    },
-    {
-      "name": "isUnavailablePolicyError",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 232,
-        "column": 1
-      }
-    },
-    {
-      "name": "isNonEmptyString",
-      "description": null,
-      "sourceLocation": {
-        "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 251,
+        "line": 210,
         "column": 1
       }
     },
     {
       "name": "isRecord",
-      "description": null,
+      "description": "Narrows unknown JSON data to a non-array record.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 255,
+        "line": 222,
+        "column": 1
+      }
+    },
+    {
+      "name": "isNonEmptyString",
+      "description": "Narrows a value to a non-empty string.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/bunPolicyAnalysis.ts",
+        "line": 229,
         "column": 1
       }
     },
     {
       "name": "isNodeError",
-      "description": null,
+      "description": "Narrows unknown failures to Node errors with stable error codes.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/bunPolicyAnalysis.ts",
-        "line": 259,
+        "line": 236,
         "column": 1
       }
     },
     {
       "name": "createDoctorRuntimeProvider",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cli/index.ts",
         "line": 23,
@@ -2491,6 +2724,8 @@
     {
       "name": "handler",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cli/index.ts",
         "line": 39,
@@ -2500,6 +2735,8 @@
     {
       "name": "runCli",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cli/standalone.ts",
         "line": 21,
@@ -2509,6 +2746,8 @@
     {
       "name": "isHelpToken",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cli/standalone.ts",
         "line": 60,
@@ -2518,6 +2757,8 @@
     {
       "name": "isVersionToken",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cli/standalone.ts",
         "line": 64,
@@ -2527,6 +2768,8 @@
     {
       "name": "analyzeDoctorTargetWithCliLayout",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 63,
@@ -2536,6 +2779,8 @@
     {
       "name": "analyzeTargetArchitecture",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 101,
@@ -2545,6 +2790,8 @@
     {
       "name": "validateDependencyArchitecture",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 173,
@@ -2554,6 +2801,8 @@
     {
       "name": "validateActiveSourceImports",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 224,
@@ -2563,6 +2812,8 @@
     {
       "name": "validateStudioOwnership",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 257,
@@ -2572,6 +2823,8 @@
     {
       "name": "collectActiveSourceImports",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 324,
@@ -2581,6 +2834,8 @@
     {
       "name": "listActiveSourceFiles",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 344,
@@ -2590,6 +2845,8 @@
     {
       "name": "visit",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 349,
@@ -2599,6 +2856,8 @@
     {
       "name": "isActiveSourceFile",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 372,
@@ -2608,6 +2867,8 @@
     {
       "name": "extractImportSpecifiers",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 380,
@@ -2617,6 +2878,8 @@
     {
       "name": "collectDependencyEntries",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 399,
@@ -2626,6 +2889,8 @@
     {
       "name": "hasAnkhProvider",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 423,
@@ -2635,6 +2900,8 @@
     {
       "name": "isPackageImport",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 428,
@@ -2644,6 +2911,8 @@
     {
       "name": "toOwningPackageSpecifier",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 432,
@@ -2653,6 +2922,8 @@
     {
       "name": "readPackageJson",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 436,
@@ -2662,6 +2933,8 @@
     {
       "name": "pathExists",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 445,
@@ -2671,6 +2944,8 @@
     {
       "name": "isNonEmptyString",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 454,
@@ -2680,6 +2955,8 @@
     {
       "name": "isRecord",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
         "line": 458,
@@ -2689,6 +2966,8 @@
     {
       "name": "createDefaultCommandContext",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commandContext.ts",
         "line": 15,
@@ -2698,6 +2977,8 @@
     {
       "name": "runDoctorCommand",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 98,
@@ -2707,6 +2988,8 @@
     {
       "name": "createProviderCommandDescriptors",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 124,
@@ -2716,6 +2999,8 @@
     {
       "name": "findDoctorCommandByStandaloneName",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 132,
@@ -2725,6 +3010,8 @@
     {
       "name": "renderRootHelp",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 136,
@@ -2734,6 +3021,8 @@
     {
       "name": "renderUnknownCommand",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 157,
@@ -2743,6 +3032,8 @@
     {
       "name": "renderCommandHelp",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 161,
@@ -2752,6 +3043,8 @@
     {
       "name": "createDoctorCommandServices",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 175,
@@ -2761,6 +3054,8 @@
     {
       "name": "parseCommandArguments",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 183,
@@ -2770,6 +3065,8 @@
     {
       "name": "runValidateCommand",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 203,
@@ -2779,6 +3076,8 @@
     {
       "name": "runFixCommand",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 220,
@@ -2788,6 +3087,8 @@
     {
       "name": "runRepoCommand",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 237,
@@ -2797,6 +3098,8 @@
     {
       "name": "runPackageCommand",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 254,
@@ -2806,6 +3109,8 @@
     {
       "name": "renderAnalysisReport",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 271,
@@ -2815,6 +3120,8 @@
     {
       "name": "renderDiagnosticLine",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 327,
@@ -2824,6 +3131,8 @@
     {
       "name": "renderReadinessLine",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 331,
@@ -2833,6 +3142,8 @@
     {
       "name": "renderPlannedChangeLine",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 335,
@@ -2842,6 +3153,8 @@
     {
       "name": "renderCommandFailure",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 339,
@@ -2851,6 +3164,8 @@
     {
       "name": "isHelpToken",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
         "line": 344,
@@ -2860,6 +3175,8 @@
     {
       "name": "analyzeDoctorTarget",
       "description": "Analyze a Doctor target and apply repository-level dependency and runtime policies.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
         "line": 12,
@@ -2869,6 +3186,8 @@
     {
       "name": "analyzeDoctorTargetWithCliLayout",
       "description": "Analyze a Doctor target with CLI layout validation and repository-level policies.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
         "line": 21,
@@ -2878,6 +3197,8 @@
     {
       "name": "applyRepositoryPolicies",
       "description": "Apply repository policies that remain independent from concrete package identities.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
         "line": 30,
@@ -2887,6 +3208,8 @@
     {
       "name": "countErrorDiagnostics",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
         "line": 139,
@@ -2896,6 +3219,8 @@
     {
       "name": "countWarningDiagnostics",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
         "line": 143,
@@ -2905,6 +3230,8 @@
     {
       "name": "analyzeAppManifestTarget",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 41,
@@ -2914,6 +3241,8 @@
     {
       "name": "analyzeAppManifestFile",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 82,
@@ -2923,6 +3252,8 @@
     {
       "name": "analyzeAppManifest",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 116,
@@ -2932,6 +3263,8 @@
     {
       "name": "parseAuthFlow",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 192,
@@ -2941,6 +3274,8 @@
     {
       "name": "readRequiredRoute",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 228,
@@ -2950,6 +3285,8 @@
     {
       "name": "readOptionalRoutes",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 251,
@@ -2959,6 +3296,8 @@
     {
       "name": "validateAuthFlowRelationships",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 284,
@@ -2968,6 +3307,8 @@
     {
       "name": "validateAuthorization",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 366,
@@ -2977,6 +3318,8 @@
     {
       "name": "validateAuthorizationField",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 398,
@@ -2986,6 +3329,8 @@
     {
       "name": "createManifestDiagnostic",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 420,
@@ -2995,6 +3340,8 @@
     {
       "name": "normalizeRoute",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 433,
@@ -3004,6 +3351,8 @@
     {
       "name": "hasOwn",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 438,
@@ -3013,6 +3362,8 @@
     {
       "name": "isRecord",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 442,
@@ -3022,6 +3373,8 @@
     {
       "name": "statOrNull",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 446,
@@ -3031,6 +3384,8 @@
     {
       "name": "toErrorMessage",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 454,
@@ -3040,6 +3395,8 @@
     {
       "name": "analyzeSecretStoreManifest",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/secretManifestAnalysis.ts",
         "line": 11,
@@ -3049,6 +3406,8 @@
     {
       "name": "validateSecretStore",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/secretManifestAnalysis.ts",
         "line": 177,
@@ -3058,6 +3417,8 @@
     {
       "name": "diagnostic",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/secretManifestAnalysis.ts",
         "line": 223,
@@ -3067,6 +3428,8 @@
     {
       "name": "isRecord",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/secretManifestAnalysis.ts",
         "line": 239,
@@ -3076,6 +3439,8 @@
     {
       "name": "analyzeSourceArchitecture",
       "description": "Validate folder-role combinations and inward source dependency direction.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 44,
@@ -3085,6 +3450,8 @@
     {
       "name": "analyzeDirectoryVocabularyAsync",
       "description": "Validate architectural directory names only when a repository has introduced them.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 51,
@@ -3094,6 +3461,8 @@
     {
       "name": "analyzeFeatureCombinationsAsync",
       "description": "Validate feature-first role combinations without requiring unused ceremonial layers.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 76,
@@ -3103,6 +3472,8 @@
     {
       "name": "analyzeImportDirection",
       "description": "Validate that relative source imports point inward across recognized architecture roles.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 127,
@@ -3112,6 +3483,8 @@
     {
       "name": "analyzeOneImportDirection",
       "description": "Validate one relative import against repository and layer boundaries.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 134,
@@ -3121,6 +3494,8 @@
     {
       "name": "createEscapedRepositoryDiagnostic",
       "description": "Report a relative import that escapes the standalone repository boundary.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 148,
@@ -3130,6 +3505,8 @@
     {
       "name": "analyzeRecognizedRoleDirection",
       "description": "Apply inward dependency rules for recognized source architecture roles.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 165,
@@ -3139,6 +3516,8 @@
     {
       "name": "isThinDeliveryAdapter",
       "description": "Check whether a source file belongs to a thin CLI command delivery boundary.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 197,
@@ -3148,6 +3527,8 @@
     {
       "name": "resolveSourceRole",
       "description": "Resolve the dependency rule owned by one recognized inner source role.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 203,
@@ -3157,6 +3538,8 @@
     {
       "name": "createOutwardImportDiagnostic",
       "description": "Report one outward dependency when the imported path crosses a forbidden role.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 238,
@@ -3166,6 +3549,8 @@
     {
       "name": "splitRelativePath",
       "description": "Split one repository path into normalized architecture segments.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 263,
@@ -3175,6 +3560,8 @@
     {
       "name": "createDiagnostic",
       "description": "Build one deterministic architecture diagnostic.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 268,
@@ -3184,6 +3571,8 @@
     {
       "name": "pathExistsAsync",
       "description": "Check whether a filesystem path exists.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
         "line": 285,
@@ -3619,11 +4008,6 @@
         "sourcePath": "src/packageMetadata.ts"
       },
       {
-        "fromPath": "src/readme-usage.ts",
-        "toPath": "src/cli/standalone.ts",
-        "sourcePath": "src/readme-usage.ts"
-      },
-      {
         "fromPath": "src/secretManifestAnalysis.ts",
         "toPath": "src/diagnostics.ts",
         "sourcePath": "src/secretManifestAnalysis.ts"
@@ -4039,8 +4423,8 @@
       },
       {
         "fromSymbol": "validateAnkhMetadataAndProvider",
-        "toSymbol": "uniqueSorted",
-        "callExpression": "uniqueSorted",
+        "toSymbol": "uniqueSortedStrings",
+        "callExpression": "uniqueSortedStrings",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4261,8 +4645,8 @@
       },
       {
         "fromSymbol": "sameStringSet",
-        "toSymbol": "uniqueSorted",
-        "callExpression": "uniqueSorted",
+        "toSymbol": "uniqueSortedStrings",
+        "callExpression": "uniqueSortedStrings",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4429,12 +4813,6 @@
       },
       {
         "fromSymbol": "applyBunRuntimePolicy",
-        "toSymbol": "loadTargetBunRuntimePolicy",
-        "callExpression": "loadTargetBunRuntimePolicy",
-        "sourcePath": "src/bunPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "applyBunRuntimePolicy",
         "toSymbol": "readPackageJson",
         "callExpression": "readPackageJson",
         "sourcePath": "src/bunPolicyAnalysis.ts"
@@ -4455,30 +4833,6 @@
         "fromSymbol": "applyBunRuntimePolicy",
         "toSymbol": "withDiagnostics",
         "callExpression": "withDiagnostics",
-        "sourcePath": "src/bunPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "loadTargetBunRuntimePolicy",
-        "toSymbol": "createRequire",
-        "callExpression": "createRequire",
-        "sourcePath": "src/bunPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "loadTargetBunRuntimePolicy",
-        "toSymbol": "pathToFileURL",
-        "callExpression": "pathToFileURL",
-        "sourcePath": "src/bunPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "loadTargetBunRuntimePolicy",
-        "toSymbol": "parseBunRuntimePolicy",
-        "callExpression": "parseBunRuntimePolicy",
-        "sourcePath": "src/bunPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "loadTargetBunRuntimePolicy",
-        "toSymbol": "isUnavailablePolicyError",
-        "callExpression": "isUnavailablePolicyError",
         "sourcePath": "src/bunPolicyAnalysis.ts"
       },
       {
@@ -4530,15 +4884,15 @@
         "sourcePath": "src/bunPolicyAnalysis.ts"
       },
       {
-        "fromSymbol": "parseBunRuntimePolicy",
-        "toSymbol": "isRecord",
-        "callExpression": "isRecord",
+        "fromSymbol": "analyzeWorkflow",
+        "toSymbol": "getRepositoryRule",
+        "callExpression": "getRepositoryRule",
         "sourcePath": "src/bunPolicyAnalysis.ts"
       },
       {
-        "fromSymbol": "parseBunRuntimePolicy",
-        "toSymbol": "isNonEmptyString",
-        "callExpression": "isNonEmptyString",
+        "fromSymbol": "createWorkflowDiagnostic",
+        "toSymbol": "getRepositoryRule",
+        "callExpression": "getRepositoryRule",
         "sourcePath": "src/bunPolicyAnalysis.ts"
       },
       {
@@ -4549,12 +4903,6 @@
       },
       {
         "fromSymbol": "readTextOrNull",
-        "toSymbol": "isNodeError",
-        "callExpression": "isNodeError",
-        "sourcePath": "src/bunPolicyAnalysis.ts"
-      },
-      {
-        "fromSymbol": "isUnavailablePolicyError",
         "toSymbol": "isNodeError",
         "callExpression": "isNodeError",
         "sourcePath": "src/bunPolicyAnalysis.ts"
@@ -5088,12 +5436,6 @@
         "sourcePath": "src/manifestAnalysis.ts"
       },
       {
-        "fromSymbol": "src/readme-usage.ts",
-        "toSymbol": "runCli",
-        "callExpression": "runCli",
-        "sourcePath": "src/readme-usage.ts"
-      },
-      {
         "fromSymbol": "analyzeSecretStoreManifest",
         "toSymbol": "validateSecretStore",
         "callExpression": "validateSecretStore",
@@ -5413,8 +5755,8 @@
       },
       {
         "fromSymbol": "tests/bunPolicyAnalysis.test.ts",
-        "toSymbol": "createPolicyFixtureFiles",
-        "callExpression": "createPolicyFixtureFiles",
+        "toSymbol": "createWorkflowFiles",
+        "callExpression": "createWorkflowFiles",
         "sourcePath": "tests/bunPolicyAnalysis.test.ts"
       },
       {
@@ -5431,24 +5773,12 @@
       },
       {
         "fromSymbol": "tests/bunPolicyAnalysis.test.ts",
-        "toSymbol": "createDevtoolsPolicyFiles",
-        "callExpression": "createDevtoolsPolicyFiles",
+        "toSymbol": "getExpectedPolicyValue",
+        "callExpression": "getExpectedPolicyValue",
         "sourcePath": "tests/bunPolicyAnalysis.test.ts"
       },
       {
-        "fromSymbol": "createPolicyFixtureFiles",
-        "toSymbol": "createDevtoolsPolicyFiles",
-        "callExpression": "createDevtoolsPolicyFiles",
-        "sourcePath": "tests/bunPolicyAnalysis.test.ts"
-      },
-      {
-        "fromSymbol": "createPolicyFixtureFiles",
-        "toSymbol": "createWorkflowFiles",
-        "callExpression": "createWorkflowFiles",
-        "sourcePath": "tests/bunPolicyAnalysis.test.ts"
-      },
-      {
-        "fromSymbol": "createWorkflowFiles",
+        "fromSymbol": "tests/bunPolicyAnalysis.test.ts",
         "toSymbol": "workflow",
         "callExpression": "workflow",
         "sourcePath": "tests/bunPolicyAnalysis.test.ts"
@@ -5845,6 +6175,12 @@
       },
       {
         "fromSymbol": "tests/packageScripts.test.ts",
+        "toSymbol": "createCanonicalWorkflowFiles",
+        "callExpression": "createCanonicalWorkflowFiles",
+        "sourcePath": "tests/packageScripts.test.ts"
+      },
+      {
+        "fromSymbol": "tests/packageScripts.test.ts",
         "toSymbol": "analyzeDoctorTarget",
         "callExpression": "analyzeDoctorTarget",
         "sourcePath": "tests/packageScripts.test.ts"
@@ -5853,6 +6189,12 @@
         "fromSymbol": "tests/packageScripts.test.ts",
         "toSymbol": "expect",
         "callExpression": "expect",
+        "sourcePath": "tests/packageScripts.test.ts"
+      },
+      {
+        "fromSymbol": "tests/packageScripts.test.ts",
+        "toSymbol": "workflow",
+        "callExpression": "workflow",
         "sourcePath": "tests/packageScripts.test.ts"
       },
       {

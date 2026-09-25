@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.11.3
+
+### Patch Changes
+
+- 3279c1e: Reuse the canonical Utility unique-string sorting helper.
+- 58ba9dd: Consume the canonical repository runtime policy from @ankhorage/policy instead of resolving
+  @ankhorage/devtools/policy from the inspected target repository. Move README usage documentation to
+  the canonical examples surface and consume capability-aware Paradox validation so packages without
+  configuration do not require fake config schemas.
+- 858d45d: Update Ankhorage dependencies: `@ankhorage/paradox`, `@ankhorage/utility`.
+
 ## 0.11.2
 
 ### Patch Changes

@@ -3,63 +3,53 @@
 
 # @ankhorage/doctor
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.11.2](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.11.3](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![paradox: warnings](././paradox/badges/docs.svg)
 
 Executable Ankh provider and standalone CLI for lightweight repo and package compliance diagnostics.
 
 ## Usage
 
-### Provider and CLI surface
+### CLI
 
-`@ankhorage/doctor` is the repo/package compliance provider for Ankhorage.
+Ankhorage packages expose their command-line interface through `ankh`. Use `ankh --help` to discover available package commands, or run a package command with `--help` for package-specific usage.
 
-The same shared command implementation backs both:
+```zsh
+# Install the Ankhorage CLI
+bun add --global @ankhorage/ankh
 
-- `ankh doctor ...`
-- `bunx @ankhorage/doctor ...`
+# Show usage information for doctor
+ankh doctor --help
+```
 
-Current command surface:
+### Basic Usage
 
-- `validate`
-- `fix`
-- `repo`
-- `package`
+`@ankhorage/doctor` validates Ankhorage repositories, packages, and app manifests through the
+same command implementation exposed by both `ankh doctor ...` and the standalone package CLI.
 
-`doctor#2` adds a profile-based policy engine:
-
-- strict `public-package` validation for extracted public package repos
-- light recognized `integration-monorepo` validation for `ankhorage4`
-- canonical app-manifest authentication validation for JSON file targets
-- non-mutating `fix` plans for deterministic mechanical changes only
-
-Public-package script validation follows the canonical Devtools contract. In particular,
-packages must expose `knip:check`; the obsolete `knip` script does not satisfy that policy.
-Changesets dependency placement follows the same ownership boundary: `@ankhorage/devtools`
-publishes `@changesets/cli` from `dependencies`, while consumers use the Devtools-owned
-command without declaring the CLI directly.
-
-Manifest validation accepts `infra.auth.flow` as the only auth-flow location, rejects
-`settings.authFlow` with a manual-migration diagnostic, and permits authentication without
-an authorization block.
-
-Still deferred:
-
-- GitHub checks
-- CI checks
-- on-disk `fix --apply`
-- deeper cross-repo policy enforcement
-
-Path handling:
-
-- pass a repo/package directory or app-manifest JSON file as `[path]`, or
-- omit it to inspect the current working directory
-
-Source: `src/readme-usage.ts`
+Use `validate` for the canonical read-only checks, or target the narrower `repo` and `package`
+surfaces when only one policy area should be inspected.
 
 ```ts
-import { runCli } from './cli/standalone.js';
-
 await runCli(['--help']);
+```
+
+## Configuration
+
+### Example
+
+```ts
+import { defineParadoxConfig } from '@ankhorage/paradox';
+
+export default defineParadoxConfig({
+  mode: 'write',
+  package: {
+    root: '.',
+    entrypoints: ['src/index.ts'],
+  },
+  output: {
+    dir: './paradox',
+  },
+});
 ```
 
 ## Generated documentation

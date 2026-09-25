@@ -1,9 +1,11 @@
 [
   {
     "name": "analyzeAppManifest",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/manifestAnalysis.ts",
     "sourceLocation": {
@@ -43,9 +45,11 @@
   },
   {
     "name": "analyzeAppManifestFile",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/manifestAnalysis.ts",
     "sourceLocation": {
@@ -79,9 +83,11 @@
   },
   {
     "name": "analyzeAppManifestTarget",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/manifestAnalysis.ts",
     "sourceLocation": {
@@ -116,9 +122,11 @@
   },
   {
     "name": "analyzeAuthReadiness",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/authReadinessAnalysis.ts",
     "sourceLocation": {
@@ -158,9 +166,11 @@
   },
   {
     "name": "analyzeAuthReadinessFile",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/authReadinessFileAnalysis.ts",
     "sourceLocation": {
@@ -194,9 +204,11 @@
   },
   {
     "name": "analyzeDoctorTarget",
+    "title": null,
     "description": "Analyze a Doctor target and apply repository-level dependency and runtime policies.",
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/dependencyPolicyAnalysis.ts",
     "sourceLocation": {
@@ -231,9 +243,11 @@
   },
   {
     "name": "analyzeDoctorTargetWithCliLayout",
+    "title": null,
     "description": "Analyze a Doctor target with CLI layout validation and repository-level policies.",
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/dependencyPolicyAnalysis.ts",
     "sourceLocation": {
@@ -268,9 +282,11 @@
   },
   {
     "name": "createDefaultCommandContext",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/commandContext.ts",
     "sourceLocation": {
@@ -297,9 +313,11 @@
   },
   {
     "name": "createDoctorRuntimeProvider",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/cli/index.ts",
     "sourceLocation": {
@@ -333,9 +351,11 @@
   },
   {
     "name": "CreateDoctorRuntimeProviderOptions",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/cli/index.ts",
     "sourceLocation": {
@@ -368,9 +388,11 @@
   },
   {
     "name": "DOCTOR_CAPABILITIES",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "value",
     "modulePath": "src/packageMetadata.ts",
     "sourceLocation": {
@@ -388,9 +410,11 @@
   },
   {
     "name": "DOCTOR_COMMAND_CATEGORY",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "value",
     "modulePath": "src/packageMetadata.ts",
     "sourceLocation": {
@@ -408,9 +432,11 @@
   },
   {
     "name": "DOCTOR_PACKAGE_METADATA",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "value",
     "modulePath": "src/packageMetadata.ts",
     "sourceLocation": {
@@ -428,9 +454,11 @@
   },
   {
     "name": "DOCTOR_PACKAGE_NAME",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "value",
     "modulePath": "src/packageMetadata.ts",
     "sourceLocation": {
@@ -448,9 +476,11 @@
   },
   {
     "name": "DOCTOR_PACKAGE_VERSION",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "value",
     "modulePath": "src/packageMetadata.ts",
     "sourceLocation": {
@@ -468,14 +498,16 @@
   },
   {
     "name": "DoctorAnalysisRequest",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 13,
+      "line": 15,
       "column": 1
     },
     "exportPaths": [
@@ -512,14 +544,16 @@
   },
   {
     "name": "DoctorAnalysisResult",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 34,
+      "line": 36,
       "column": 1
     },
     "exportPaths": [
@@ -603,9 +637,11 @@
   },
   {
     "name": "DoctorAuthReadinessAnalysis",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/authReadinessAnalysis.ts",
     "sourceLocation": {
@@ -641,9 +677,11 @@
   },
   {
     "name": "DoctorCommandContext",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/commandContext.ts",
     "sourceLocation": {
@@ -697,9 +735,11 @@
   },
   {
     "name": "DoctorCommandRunResult",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/commandContext.ts",
     "sourceLocation": {
@@ -725,9 +765,11 @@
   },
   {
     "name": "DoctorDiagnostic",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
@@ -793,9 +835,11 @@
   },
   {
     "name": "DoctorDiagnosticCode",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
@@ -813,9 +857,11 @@
   },
   {
     "name": "DoctorDiagnosticSeverity",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
@@ -833,14 +879,16 @@
   },
   {
     "name": "DoctorFixPlan",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 27,
+      "line": 29,
       "column": 1
     },
     "exportPaths": [
@@ -886,14 +934,16 @@
   },
   {
     "name": "DoctorPlannedChange",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 19,
+      "line": 21,
       "column": 1
     },
     "exportPaths": [
@@ -945,14 +995,16 @@
   },
   {
     "name": "DoctorPlannedChangeKind",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 10,
+      "line": 12,
       "column": 1
     },
     "exportPaths": [
@@ -965,9 +1017,11 @@
   },
   {
     "name": "DoctorPolicyProfile",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
@@ -985,9 +1039,11 @@
   },
   {
     "name": "DoctorReadiness",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/readiness.ts",
     "sourceLocation": {
@@ -1071,9 +1127,11 @@
   },
   {
     "name": "DoctorReadinessStatus",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/readiness.ts",
     "sourceLocation": {
@@ -1091,9 +1149,11 @@
   },
   {
     "name": "DoctorRuleId",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/diagnostics.ts",
     "sourceLocation": {
@@ -1111,14 +1171,16 @@
   },
   {
     "name": "DoctorTargetCheck",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 8,
+      "line": 10,
       "column": 1
     },
     "exportPaths": [
@@ -1131,14 +1193,16 @@
   },
   {
     "name": "DoctorTargetMode",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 9,
+      "line": 11,
       "column": 1
     },
     "exportPaths": [
@@ -1151,9 +1215,11 @@
   },
   {
     "name": "runCli",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/cli/standalone.ts",
     "sourceLocation": {
