@@ -18,6 +18,7 @@ interface AnalyzeSourceArchitectureInput {
 
 type ArchitectureRule =
   (typeof ARCHITECTURE_POLICY.rules)[keyof typeof ARCHITECTURE_POLICY.rules];
+type ArchitectureRuleId = ArchitectureRule['id'];
 
 /*** Validate folder-role combinations and inward source dependency direction. */
 export async function analyzeSourceArchitecture(
@@ -100,7 +101,7 @@ async function analyzeFeatureCombinationsAsync(
 
 interface FeatureCombinationPolicy {
   readonly requiresAnyOf: readonly string[];
-  readonly ruleId: DoctorDiagnostic['ruleId'];
+  readonly ruleId: ArchitectureRuleId;
 }
 
 /*** Validate one optional feature role against its required companion roles. */
@@ -190,8 +191,8 @@ function analyzeRecognizedRoleDirection(
   const role = resolveSourceRole(sourceSegments);
   if (role === null) return [];
 
-  const outwardRole = targetSegments.find((segment) =>
-    role.forbiddenOutwardSegments.includes(segment as never),
+  const outwardRole = role.forbiddenOutwardSegments.find((segment) =>
+    targetSegments.includes(segment),
   );
   if (outwardRole === undefined) return [];
 
@@ -222,7 +223,7 @@ function resolveSourceRole(sourceSegments: readonly string[]) {
 }
 
 /*** Resolve one architecture rule descriptor by stable Policy id. */
-function findArchitectureRule(ruleId: DoctorDiagnostic['ruleId']): ArchitectureRule {
+function findArchitectureRule(ruleId: ArchitectureRuleId): ArchitectureRule {
   const rule = Object.values(ARCHITECTURE_POLICY.rules).find((entry) => entry.id === ruleId);
   if (rule === undefined) {
     throw new Error(`Unknown architecture policy rule: ${ruleId}`);
@@ -247,7 +248,7 @@ function createDiagnostic(
     message,
     path: diagnosticPath,
     profile: input.profile,
-    ruleId: rule.id as DoctorDiagnostic['ruleId'],
+    ruleId: rule.id,
     severity: rule.severity,
   };
 }
