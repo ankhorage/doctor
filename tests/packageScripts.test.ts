@@ -1,10 +1,11 @@
+import { REPOSITORY_POLICY } from '@ankhorage/policy/repository';
 import { describe, expect, test } from 'bun:test';
 
 import { analyzeDoctorTarget } from '../src/index.js';
 import { createDoctorFixture } from './testSupport.js';
 
 describe('public package script policy', () => {
-  test('accepts the Devtools 1.8.0 knip:check contract', async () => {
+  test('accepts the centrally synchronized knip:check contract', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createPublicPackageJson({
         'knip:check': 'ankhorage-knip',
@@ -13,7 +14,7 @@ describe('public package script policy', () => {
       withChangeset: true,
       withLicense: true,
       withReadme: true,
-      withWorkflows: true,
+      extraFiles: createCanonicalWorkflowFiles(),
     });
 
     const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'validate' });
@@ -52,6 +53,18 @@ describe('public package script policy', () => {
     expect(result.fixPlan?.diagnostics).toContainEqual(diagnostic);
   });
 });
+
+function createCanonicalWorkflowFiles(): Readonly<Record<string, string>> {
+  const workflow = (name: string) =>
+    `name: ${name}\n\njobs:\n  validate:\n    steps:\n      - uses: oven-sh/setup-bun@v2\n        with:\n          bun-version: '${REPOSITORY_POLICY.runtime.bun.version}'\n`;
+
+  return Object.fromEntries(
+    REPOSITORY_POLICY.runtime.bun.workflowTargets.map(({ path }, index) => [
+      path,
+      workflow(index === 0 ? 'CI' : 'Release'),
+    ]),
+  );
+}
 
 function createPublicPackageJson(knipScript: Readonly<Record<string, string>>) {
   return {
@@ -93,10 +106,10 @@ function createPublicPackageJson(knipScript: Readonly<Record<string, string>>) {
     },
     devDependencies: {
       '@ankhorage/devtools': '^1.8.0',
-      '@types/bun': '^1.4.0',
+      '@types/bun': REPOSITORY_POLICY.runtime.bun.typesRange,
       '@types/node': '^25.6.0',
       typescript: '^5.9.3',
     },
-    packageManager: 'bun@1.4.0',
+    packageManager: REPOSITORY_POLICY.runtime.bun.packageManager,
   };
 }
