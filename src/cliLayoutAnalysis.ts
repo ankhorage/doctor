@@ -112,27 +112,25 @@ async function analyzeTargetArchitecture(request: {
     exportsField?.[ARCHITECTURE_POLICY.cli.packageExport] !== undefined;
 
   if (await pathExists(legacyRootCliPath)) {
-    diagnostics.push(
-      createPolicyDiagnostic({
-        code: 'field-invalid',
-        message: `Package CLI code must live under ${ARCHITECTURE_POLICY.cli.sourceRoot}/; root ${ARCHITECTURE_POLICY.cli.legacyRootFile} is not allowed.`,
-        path: legacyRootCliPath,
-        profile: request.profile,
-        rule: ARCHITECTURE_POLICY.rules.cliRootFile,
-      }),
-    );
+    diagnostics.push({
+      code: 'field-invalid',
+      message: `Package CLI code must live under ${ARCHITECTURE_POLICY.cli.sourceRoot}/; root ${ARCHITECTURE_POLICY.cli.legacyRootFile} is not allowed.`,
+      path: legacyRootCliPath,
+      profile: request.profile,
+      ruleId: ARCHITECTURE_POLICY.rules.cliRootFile.id,
+      severity: ARCHITECTURE_POLICY.rules.cliRootFile.severity,
+    });
   }
 
   if (cliCapable && exportsField?.[ARCHITECTURE_POLICY.cli.packageExport] === undefined) {
-    diagnostics.push(
-      createPolicyDiagnostic({
-        code: 'field-missing',
-        message: `CLI-capable packages must export "${ARCHITECTURE_POLICY.cli.packageExport}" from package.json and point it at the metadata-declared provider build output.`,
-        path: request.packageJsonPath,
-        profile: request.profile,
-        rule: ARCHITECTURE_POLICY.rules.cliExport,
-      }),
-    );
+    diagnostics.push({
+      code: 'field-missing',
+      message: `CLI-capable packages must export "${ARCHITECTURE_POLICY.cli.packageExport}" from package.json and point it at the metadata-declared provider build output.`,
+      path: request.packageJsonPath,
+      profile: request.profile,
+      ruleId: ARCHITECTURE_POLICY.rules.cliExport.id,
+      severity: ARCHITECTURE_POLICY.rules.cliExport.severity,
+    });
   }
 
   const dependencyEntries = collectDependencyEntries(request.packageJson);
