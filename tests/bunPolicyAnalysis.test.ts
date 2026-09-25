@@ -1,25 +1,16 @@
+import { REPOSITORY_POLICY } from '@ankhorage/policy/repository';
 import { expect, test } from 'bun:test';
 
 import { analyzeDoctorTarget } from '../src/index.js';
 import { createDoctorFixture } from './testSupport.js';
 
-const MOCK_POLICY = {
-  packageManager: 'bun@9.9.9',
-  typesRange: '^9.9.9',
-  version: '9.9.9',
-} as const;
+const BUN_POLICY = REPOSITORY_POLICY.runtime.bun;
+const BUN_POLICY_RULE_IDS = Object.values(REPOSITORY_POLICY.rules).map((rule) => rule.id);
 
-const BUN_POLICY_RULE_IDS = [
-  'package.json.package-manager.policy',
-  'package.dependencies.types-bun.policy',
-  'repo.workflows.ci.bun-policy',
-  'repo.workflows.release.bun-policy',
-] as const;
-
-test('reports every managed Bun drift location from the target Devtools policy', async () => {
+test('reports every managed Bun drift location from central repository policy', async () => {
   const fixture = await createDoctorFixture({
     packageJson: createPublicPackageJson('bun@0.0.0', '^0.0.0'),
-    extraFiles: createPolicyFixtureFiles('0.0.0'),
+    extraFiles: createWorkflowFiles('0.0.0'),
   });
 
   const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'validate' });
@@ -29,15 +20,16 @@ test('reports every managed Bun drift location from the target Devtools policy',
     [...BUN_POLICY_RULE_IDS].sort(),
   );
   for (const diagnostic of diagnostics) {
-    expect(diagnostic.message).toContain('9.9.9');
+    expect(diagnostic.message).toContain(BUN_POLICY.version);
     expect(diagnostic.message).toContain('ankh devtools sync');
+    expect(diagnostic.severity).toBe('error');
   }
 });
 
-test('accepts repository state synchronized to the target Devtools policy', async () => {
+test('accepts repository state synchronized to central repository policy', async () => {
   const fixture = await createDoctorFixture({
-    packageJson: createPublicPackageJson(MOCK_POLICY.packageManager, MOCK_POLICY.typesRange),
-    extraFiles: createPolicyFixtureFiles(MOCK_POLICY.version),
+    packageJson: createPublicPackageJson(BUN_POLICY.packageManager, BUN_POLICY.typesRange),
+    extraFiles: createWorkflowFiles(BUN_POLICY.version),
   });
 
   const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'validate' });
@@ -45,11 +37,21 @@ test('accepts repository state synchronized to the target Devtools policy', asyn
   expect(result.diagnostics.filter(isBunPolicyDiagnostic)).toEqual([]);
 });
 
+test('reports policy drift without requiring Devtools in the target repository', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: createPublicPackageJson('bun@0.0.0', '^0.0.0', false),
+    extraFiles: createWorkflowFiles('0.0.0'),
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'validate' });
+
+  expect(result.diagnostics.filter(isBunPolicyDiagnostic)).toHaveLength(4);
+});
+
 test('reports missing managed workflow Bun state as repairable drift', async () => {
   const fixture = await createDoctorFixture({
-    packageJson: createPublicPackageJson(MOCK_POLICY.packageManager, MOCK_POLICY.typesRange),
+    packageJson: createPublicPackageJson(BUN_POLICY.packageManager, BUN_POLICY.typesRange),
     extraFiles: {
-      ...createDevtoolsPolicyFiles(),
       '.github/workflows/ci.yml': 'name: CI\n',
     },
   });
@@ -69,27 +71,6 @@ function isBunPolicyDiagnostic(diagnostic: { readonly ruleId: string }): boolean
   return BUN_POLICY_RULE_IDS.some((ruleId) => ruleId === diagnostic.ruleId);
 }
 
-function createPolicyFixtureFiles(version: string): Readonly<Record<string, string>> {
-  return {
-    ...createDevtoolsPolicyFiles(),
-    ...createWorkflowFiles(version),
-  };
-}
-
-function createDevtoolsPolicyFiles(): Readonly<Record<string, string>> {
-  return {
-    'node_modules/@ankhorage/devtools/package.json': `${JSON.stringify({
-      name: '@ankhorage/devtools',
-      version: '1.4.1',
-      type: 'module',
-      exports: { './policy': './policy.js' },
-    })}\n`,
-    'node_modules/@ankhorage/devtools/policy.js': `export const bunRuntimePolicy = ${JSON.stringify(
-      MOCK_POLICY,
-    )};\n`,
-  };
-}
-
 function createWorkflowFiles(version: string): Readonly<Record<string, string>> {
   const workflow = (name: string) =>
     `name: ${name}\n\njobs:\n  validate:\n    steps:\n      - uses: oven-sh/setup-bun@v2\n        with:\n          bun-version: '${version}'\n`;
@@ -102,6 +83,7 @@ function createWorkflowFiles(version: string): Readonly<Record<string, string>> 
 function createPublicPackageJson(
   packageManager: string,
   bunTypes: string,
+  includeDevtools = true,
 ): Record<string, unknown> {
   return {
     name: '@ankhorage/example',
@@ -122,7 +104,7 @@ function createPublicPackageJson(
       typescript: '^5.9.3',
       '@types/bun': bunTypes,
       '@types/node': '^25.6.0',
-      '@ankhorage/devtools': '^1.4.1',
+      ...(includeDevtools ? { '@ankhorage/devtools': '^1.21.3' } : {}),
     },
   };
 }
