@@ -4,19 +4,41 @@ import { describe, expect, test } from 'bun:test';
 import { analyzeDoctorTargetWithCliLayout } from '../src/cliLayoutAnalysis.js';
 import { createDoctorFixture } from './testSupport.js';
 
+function firstPolicyValue<T>(values: readonly T[], label: string): T {
+  const [value] = values;
+  if (value === undefined) throw new Error(`Policy must define ${label}.`);
+  return value;
+}
+
+function requiredPublicPackageField(name: string) {
+  const field = ARCHITECTURE_POLICY.publicPackage.requiredFields.find(
+    (candidate) => candidate.name === name,
+  );
+  if (field === undefined) throw new Error(`Policy must define the ${name} field.`);
+  return field;
+}
+
 describe('canonical architecture policy consumption', () => {
   test('uses Policy-owned CLI, dependency, repo, script, and field requirements', async () => {
-    const catchAllDirectory = ARCHITECTURE_POLICY.source.catchAllDirectories[0];
-    const localProtocol = ARCHITECTURE_POLICY.dependencies.localProtocolPrefixes[0];
+    const catchAllDirectory = firstPolicyValue(
+      ARCHITECTURE_POLICY.source.catchAllDirectories,
+      'a catch-all directory',
+    );
+    const localProtocol = firstPolicyValue(
+      ARCHITECTURE_POLICY.dependencies.localProtocolPrefixes,
+      'a local dependency protocol',
+    );
     const compatibilityPackage =
       `${ARCHITECTURE_POLICY.dependencies.compatibilityPackagePrefix}runtime`;
-    const missingField = ARCHITECTURE_POLICY.publicPackage.requiredFields.find(
-      ({ name }) => name === 'description',
+    const missingField = requiredPublicPackageField('description');
+    const requiredRepoPath = firstPolicyValue(
+      ARCHITECTURE_POLICY.publicPackage.requiredRepoPaths,
+      'a required repository path',
     );
-    const requiredRepoPath = ARCHITECTURE_POLICY.publicPackage.requiredRepoPaths[0];
-    const requiredScript = ARCHITECTURE_POLICY.publicPackage.requiredScripts[0];
-
-    if (missingField === undefined) throw new Error('Policy must define the description field.');
+    const requiredScript = firstPolicyValue(
+      ARCHITECTURE_POLICY.publicPackage.requiredScripts,
+      'a required package script',
+    );
 
     const fixture = await createDoctorFixture({
       packageJson: {
@@ -49,8 +71,11 @@ describe('canonical architecture policy consumption', () => {
 
   test('uses Policy-owned role, feature-combination, and thin-delivery rules', async () => {
     const domainPolicy = ARCHITECTURE_POLICY.source.roles.domain;
-    const domainSegment = domainPolicy.segments[0];
-    const outwardSegment = domainPolicy.forbiddenOutwardSegments[0];
+    const domainSegment = firstPolicyValue(domainPolicy.segments, 'a domain segment');
+    const outwardSegment = firstPolicyValue(
+      domainPolicy.forbiddenOutwardSegments,
+      'an outward domain segment',
+    );
     const compositionPolicy = ARCHITECTURE_POLICY.source.featureCombinations.composition;
     const deliveryPolicy = ARCHITECTURE_POLICY.source.thinDeliveryAdapter;
     const commandPath = ['src', ...deliveryPolicy.pathSegments, 'issue.ts'].join('/');
