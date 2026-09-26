@@ -2,10 +2,12 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import { ARCHITECTURE_POLICY } from '@ankhorage/policy/architecture';
 import { uniqueSortedStrings } from '@ankhorage/utility/array';
 
 import type { DoctorDiagnostic, DoctorPolicyProfile, DoctorRuleId } from './diagnostics.js';
 import type { DoctorReadiness } from './readiness.js';
+import { getArchitecturePolicyRule } from './utils/getArchitecturePolicyRule.js';
 
 export type DoctorTargetCheck = 'manifest' | 'package' | 'repo';
 export type DoctorTargetMode = 'fix' | 'package' | 'repo' | 'validate';
@@ -65,21 +67,7 @@ const REPO_MARKERS = [
   { label: 'yarn.lock', relativePath: 'yarn.lock' },
 ] as const;
 
-const REQUIRED_PUBLIC_PACKAGE_SCRIPTS = [
-  'build',
-  'typecheck',
-  'lint',
-  'lint:fix',
-  'format',
-  'format:check',
-  'test',
-  'test:standalone',
-  'knip:check',
-  'docs',
-  'changeset',
-  'changeset:status',
-  'version-packages',
-] as const;
+const PUBLIC_PACKAGE_POLICY = ARCHITECTURE_POLICY.publicPackage;
 
 const PROVIDER_SOURCE_CANDIDATES = [
   path.join('src', 'ankh.provider.ts'),
@@ -245,46 +233,16 @@ async function analyzeRepoPolicy(request: {
   const diagnostics: DoctorDiagnostic[] = [];
 
   if (request.profile === 'public-package') {
-    await maybeRequirePath(
-      diagnostics,
-      request.plannedChanges,
-      request.targetPath,
-      'README.md',
-      'repo.readme.required',
-      'create-file',
-    );
-    await maybeRequirePath(
-      diagnostics,
-      request.plannedChanges,
-      request.targetPath,
-      'CHANGELOG.md',
-      'repo.changelog.required',
-      'create-file',
-    );
-    await maybeRequirePath(
-      diagnostics,
-      request.plannedChanges,
-      request.targetPath,
-      'LICENSE',
-      'repo.license.required',
-      'create-file',
-    );
-    await maybeRequirePath(
-      diagnostics,
-      request.plannedChanges,
-      request.targetPath,
-      '.changeset',
-      'repo.changeset.required',
-      'create-directory',
-    );
-    await maybeRequirePath(
-      diagnostics,
-      request.plannedChanges,
-      request.targetPath,
-      path.join('.github', 'workflows'),
-      'repo.workflows.required',
-      'create-directory',
-    );
+    for (const artifact of PUBLIC_PACKAGE_POLICY.requiredRepoPaths) {
+      await maybeRequirePath(
+        diagnostics,
+        request.plannedChanges,
+        request.targetPath,
+        artifact.path,
+        artifact.ruleId,
+        artifact.kind === 'file' ? 'create-file' : 'create-directory',
+      );
+    }
   }
 
   if (request.profile === 'integration-monorepo') {
@@ -362,29 +320,11 @@ async function analyzePackagePolicy(request: {
   const { packageJson } = request;
 
   if (request.profile === 'public-package') {
-    requireNonEmptyStringField({
+    requirePublicPackageFields({
       diagnostics,
       packageJson,
       packageJsonPath: request.packageJsonPath,
       profile: request.profile,
-      ruleId: 'package.json.name.required',
-      fieldName: 'name',
-    });
-    requireNonEmptyStringField({
-      diagnostics,
-      packageJson,
-      packageJsonPath: request.packageJsonPath,
-      profile: request.profile,
-      ruleId: 'package.json.version.required',
-      fieldName: 'version',
-    });
-    requireNonEmptyStringField({
-      diagnostics,
-      packageJson,
-      packageJsonPath: request.packageJsonPath,
-      profile: request.profile,
-      ruleId: 'package.json.type.required',
-      fieldName: 'type',
     });
   }
 
@@ -401,78 +341,7 @@ async function analyzePackagePolicy(request: {
     );
   }
 
-  requireNonEmptyStringField({
-    diagnostics,
-    packageJson,
-    packageJsonPath: request.packageJsonPath,
-    profile: request.profile,
-    ruleId: 'package.json.description.required',
-    fieldName: 'description',
-  });
-  requireRecordField({
-    diagnostics,
-    packageJson,
-    packageJsonPath: request.packageJsonPath,
-    profile: request.profile,
-    ruleId: 'package.json.repository.required',
-    fieldName: 'repository',
-  });
-  requireNonEmptyStringField({
-    diagnostics,
-    packageJson,
-    packageJsonPath: request.packageJsonPath,
-    profile: request.profile,
-    ruleId: 'package.json.homepage.required',
-    fieldName: 'homepage',
-  });
-  requireRecordField({
-    diagnostics,
-    packageJson,
-    packageJsonPath: request.packageJsonPath,
-    profile: request.profile,
-    ruleId: 'package.json.bugs.required',
-    fieldName: 'bugs',
-  });
-  requireNonEmptyStringField({
-    diagnostics,
-    packageJson,
-    packageJsonPath: request.packageJsonPath,
-    profile: request.profile,
-    ruleId: 'package.json.license.required',
-    fieldName: 'license',
-  });
-  requireStringArrayField({
-    diagnostics,
-    packageJson,
-    packageJsonPath: request.packageJsonPath,
-    profile: request.profile,
-    ruleId: 'package.json.keywords.required',
-    fieldName: 'keywords',
-  });
-  requireStringArrayField({
-    diagnostics,
-    packageJson,
-    packageJsonPath: request.packageJsonPath,
-    profile: request.profile,
-    ruleId: 'package.json.files.required',
-    fieldName: 'files',
-  });
-  requireRecordField({
-    diagnostics,
-    packageJson,
-    packageJsonPath: request.packageJsonPath,
-    profile: request.profile,
-    ruleId: 'package.json.exports.required',
-    fieldName: 'exports',
-  });
-  requireRecordField({
-    diagnostics,
-    packageJson,
-    packageJsonPath: request.packageJsonPath,
-    profile: request.profile,
-    ruleId: 'package.json.publish-config.required',
-    fieldName: 'publishConfig',
-  });
+
 
   if (packageJson.private === true) {
     diagnostics.push(
@@ -481,35 +350,38 @@ async function analyzePackagePolicy(request: {
         message: 'Public package profiles must not set private: true.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.json.private.public-package-disallowed',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.privateDisallowedRuleId),
       }),
     );
   }
 
-  if (packageJson.type !== undefined && packageJson.type !== 'module') {
+  if (
+    packageJson.type !== undefined &&
+    packageJson.type !== PUBLIC_PACKAGE_POLICY.packageType.value
+  ) {
     diagnostics.push(
       createDiagnostic({
         code: 'field-invalid',
-        message: 'package.json "type" must be "module".',
+        message: `package.json "type" must be "${PUBLIC_PACKAGE_POLICY.packageType.value}".`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.json.type.module',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.packageType.ruleId),
       }),
     );
   }
 
   const { publishConfig } = packageJson;
-  if (isRecord(publishConfig) && publishConfig.access !== 'public') {
+  if (
+    isRecord(publishConfig) &&
+    publishConfig.access !== PUBLIC_PACKAGE_POLICY.publishAccess.value
+  ) {
     diagnostics.push(
       createDiagnostic({
         code: isNonEmptyString(publishConfig.access) ? 'field-invalid' : 'field-missing',
-        message: 'package.json publishConfig.access must exist and equal "public".',
+        message: `package.json publishConfig.access must exist and equal "${PUBLIC_PACKAGE_POLICY.publishAccess.value}".`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.json.publish-config.public',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.publishAccess.ruleId),
       }),
     );
   }
@@ -521,8 +393,7 @@ async function analyzePackagePolicy(request: {
         message: 'package.json must define a Bun-aligned packageManager field.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.json.package-manager.required',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.packageManager.requiredRuleId),
       }),
     );
     request.plannedChanges.push(
@@ -530,7 +401,7 @@ async function analyzePackagePolicy(request: {
         description: `Add packageManager: "bun@${Bun.version}" to package.json.`,
         filePath: request.packageJsonPath,
         kind: 'update-json',
-        ruleId: 'package.json.package-manager.required',
+        ruleId: PUBLIC_PACKAGE_POLICY.packageManager.requiredRuleId,
       }),
     );
   } else if (!packageJson.packageManager.startsWith('bun@')) {
@@ -540,23 +411,21 @@ async function analyzePackagePolicy(request: {
         message: 'package.json packageManager must be Bun-aligned, for example "bun@1.x".',
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.json.package-manager.bun',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.packageManager.bunRuleId),
       }),
     );
   }
 
   const scripts = isRecord(packageJson.scripts) ? packageJson.scripts : null;
-  for (const scriptName of REQUIRED_PUBLIC_PACKAGE_SCRIPTS) {
-    if (scripts === null || !isNonEmptyString(scripts[scriptName])) {
+  for (const requirement of PUBLIC_PACKAGE_POLICY.requiredScripts) {
+    if (scripts === null || !isNonEmptyString(scripts[requirement.name])) {
       diagnostics.push(
         createDiagnostic({
           code: 'missing-script',
-          message: `Missing required package script: ${scriptName}`,
+          message: `Missing required package script: ${requirement.name}`,
           path: request.packageJsonPath,
           profile: request.profile,
-          ruleId: mapScriptRule(scriptName),
-          severity: 'error',
+          ...architecturePolicyRuleFields(requirement.ruleId),
         }),
       );
     }
@@ -573,8 +442,7 @@ async function analyzePackagePolicy(request: {
         message: 'Public package repos must declare TypeScript in dependencies or devDependencies.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.dependencies.typescript.required',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.typescript),
       }),
     );
   }
@@ -597,8 +465,7 @@ async function analyzePackagePolicy(request: {
         message: 'Public package repos must declare @types/bun in devDependencies.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.dependencies.types-bun.required',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.bunTypes),
       }),
     );
   }
@@ -610,8 +477,7 @@ async function analyzePackagePolicy(request: {
         message: 'Public package repos must declare @types/node in devDependencies.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.dependencies.types-node.required',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.nodeTypes),
       }),
     );
   }
@@ -624,8 +490,7 @@ async function analyzePackagePolicy(request: {
           'This package consumes shared Ankhorage lint/format/knip tooling and must declare @ankhorage/devtools.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.dependencies.devtools.required',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.devtools),
       }),
     );
   }
@@ -641,8 +506,7 @@ async function analyzePackagePolicy(request: {
         message: 'This package owns Paradox docs generation and must declare @ankhorage/paradox.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.dependencies.paradox.required',
-        severity: 'error',
+        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.paradox),
       }),
     );
   }
@@ -684,8 +548,7 @@ function createChangesetsDependencyDiagnostic(request: {
       : 'Public package repos must not declare @changesets/cli directly; @ankhorage/devtools owns Changesets execution.',
     path: request.packageJsonPath,
     profile: request.profile,
-    ruleId: 'package.dependencies.changesets.required',
-    severity: 'error',
+    ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.changesets),
   });
 }
 
@@ -1027,6 +890,37 @@ async function isProviderPackage(targetPath: string): Promise<boolean> {
   return false;
 }
 
+/*** Validate every generic public-package metadata field from canonical Policy. */
+function requirePublicPackageFields(request: {
+  readonly diagnostics: DoctorDiagnostic[];
+  readonly packageJson: Record<string, unknown>;
+  readonly packageJsonPath: string;
+  readonly profile: DoctorPolicyProfile;
+}): void {
+  for (const requirement of PUBLIC_PACKAGE_POLICY.requiredFields) {
+    const input = {
+      diagnostics: request.diagnostics,
+      fieldName: requirement.name,
+      packageJson: request.packageJson,
+      packageJsonPath: request.packageJsonPath,
+      profile: request.profile,
+      ruleId: requirement.ruleId,
+    };
+
+    switch (requirement.kind) {
+      case 'non-empty-string':
+        requireNonEmptyStringField(input);
+        break;
+      case 'record':
+        requireRecordField(input);
+        break;
+      case 'string-array':
+        requireStringArrayField(input);
+        break;
+    }
+  }
+}
+
 async function maybeRequirePath(
   diagnostics: DoctorDiagnostic[],
   plannedChanges: DoctorPlannedChange[],
@@ -1051,8 +945,7 @@ async function maybeRequirePath(
       message: `Missing expected repo artifact: ${relativePath}`,
       path: absolutePath,
       profile: 'public-package',
-      ruleId,
-      severity: 'error',
+      ...architecturePolicyRuleFields(ruleId),
     }),
   );
   plannedChanges.push(
@@ -1083,8 +976,7 @@ function requireNonEmptyStringField(request: {
       message: `package.json must define a non-empty "${request.fieldName}" field.`,
       path: request.packageJsonPath,
       profile: request.profile,
-      ruleId: request.ruleId,
-      severity: 'error',
+      ...architecturePolicyRuleFields(request.ruleId),
     }),
   );
 }
@@ -1212,37 +1104,6 @@ function validateAnkhMetadataShape(value: unknown, providerPackage: boolean): st
   return null;
 }
 
-function mapScriptRule(scriptName: (typeof REQUIRED_PUBLIC_PACKAGE_SCRIPTS)[number]): DoctorRuleId {
-  switch (scriptName) {
-    case 'build':
-      return 'package.scripts.build.required';
-    case 'typecheck':
-      return 'package.scripts.typecheck.required';
-    case 'lint':
-      return 'package.scripts.lint.required';
-    case 'lint:fix':
-      return 'package.scripts.lint-fix.required';
-    case 'format':
-      return 'package.scripts.format.required';
-    case 'format:check':
-      return 'package.scripts.format-check.required';
-    case 'test':
-      return 'package.scripts.test.required';
-    case 'test:standalone':
-      return 'package.scripts.standalone.required';
-    case 'knip:check':
-      return 'package.scripts.knip.required';
-    case 'docs':
-      return 'package.scripts.docs.required';
-    case 'changeset':
-      return 'package.scripts.changeset.required';
-    case 'changeset:status':
-      return 'package.scripts.changeset-status.required';
-    case 'version-packages':
-      return 'package.scripts.version-packages.required';
-  }
-}
-
 function createEarlyResult(targetPath: string, diagnostic: DoctorDiagnostic): DoctorAnalysisResult {
   return {
     appliedChecks: [],
@@ -1254,6 +1115,14 @@ function createEarlyResult(targetPath: string, diagnostic: DoctorDiagnostic): Do
     repoMarkers: [],
     targetPath,
   };
+}
+
+/*** Return canonical rule id and severity for a Policy-owned generic package rule. */
+function architecturePolicyRuleFields(
+  ruleId: DoctorRuleId,
+): Pick<DoctorDiagnostic, 'ruleId' | 'severity'> {
+  const rule = getArchitecturePolicyRule(ruleId);
+  return { ruleId: rule.id, severity: rule.severity };
 }
 
 function createDiagnostic(diagnostic: DoctorDiagnostic): DoctorDiagnostic {
