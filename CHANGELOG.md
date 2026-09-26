@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.7
+
+### Patch Changes
+
+- caf0f19: Update Ankhorage dependencies: `@ankhorage/policy`.
+- caf0f19: Update `@ankhorage/policy` to 0.5.1 so Doctor can consume literal architecture rule ids without casts.
+
 ## 0.11.6
 
 ### Patch Changes
