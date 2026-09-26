@@ -11,6 +11,7 @@ import {
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
 import { analyzeAppManifestTarget } from './manifestAnalysis.js';
 import { analyzeSourceArchitecture } from './sourceArchitectureAnalysis.js';
+import { getArchitecturePolicyRule } from './utils/getArchitecturePolicyRule.js';
 
 const CLI_POLICY = ARCHITECTURE_POLICY.cli;
 const DEPENDENCY_POLICY = ARCHITECTURE_POLICY.dependencies;
@@ -425,18 +426,11 @@ function isPackageImport(specifier: string, packageName: string): boolean {
   return specifier === packageName || specifier.startsWith(`${packageName}/`);
 }
 
-type ArchitecturePolicyRule =
-  (typeof ARCHITECTURE_POLICY.rules)[keyof typeof ARCHITECTURE_POLICY.rules];
-
 /*** Resolve Policy-owned rule metadata for generic architecture diagnostics. */
 function architectureRuleFields(
-  ruleId: ArchitecturePolicyRule['id'],
+  ruleId: DoctorDiagnostic['ruleId'],
 ): Pick<DoctorDiagnostic, 'ruleId' | 'severity'> {
-  const rule = Object.values(ARCHITECTURE_POLICY.rules).find((entry) => entry.id === ruleId);
-  if (rule === undefined) {
-    throw new Error(`Unknown architecture policy rule: ${ruleId}`);
-  }
-
+  const rule = getArchitecturePolicyRule(ruleId);
   return { ruleId: rule.id, severity: rule.severity };
 }
 
