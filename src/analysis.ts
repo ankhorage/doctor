@@ -341,7 +341,6 @@ async function analyzePackagePolicy(request: {
     );
   }
 
-
   if (packageJson.private === true) {
     diagnostics.push(
       createDiagnostic({
