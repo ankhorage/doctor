@@ -29,7 +29,9 @@ graph LR
   module_src_readiness_ts["src/readiness.ts"]
   module_src_secretManifestAnalysis_ts["src/secretManifestAnalysis.ts"]
   module_src_sourceArchitectureAnalysis_ts["src/sourceArchitectureAnalysis.ts"]
+  module_src_utils_getArchitecturePolicyRule_ts["src/utils/getArchitecturePolicyRule.ts"]
   module_tests_ankh_provider_test_ts["tests/ankh.provider.test.ts"]
+  module_tests_architecturePolicyConsumption_test_ts["tests/architecturePolicyConsumption.test.ts"]
   module_tests_auth5NativeReadiness_test_ts["tests/auth5NativeReadiness.test.ts"]
   module_tests_authReadinessAnalysis_test_ts["tests/authReadinessAnalysis.test.ts"]
   module_tests_authReadinessCommand_test_ts["tests/authReadinessCommand.test.ts"]
@@ -50,6 +52,7 @@ graph LR
   module_tests_typescriptDependencyPlacement_test_ts["tests/typescriptDependencyPlacement.test.ts"]
   module_src_analysis_ts --> module_src_diagnostics_ts
   module_src_analysis_ts --> module_src_readiness_ts
+  module_src_analysis_ts --> module_src_utils_getArchitecturePolicyRule_ts
   module_src_authReadinessAnalysis_ts --> module_src_authReadinessProvider_ts
   module_src_authReadinessAnalysis_ts --> module_src_authReadinessTargets_ts
   module_src_authReadinessAnalysis_ts --> module_src_diagnostics_ts
@@ -95,6 +98,7 @@ graph LR
   module_src_cliLayoutAnalysis_ts --> module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --> module_src_manifestAnalysis_ts
   module_src_cliLayoutAnalysis_ts --> module_src_sourceArchitectureAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --> module_src_utils_getArchitecturePolicyRule_ts
   module_src_commandContext_ts --> module_package_json
   module_src_commands_ts --> module_src_analysis_ts
   module_src_commands_ts --> module_src_cliLayoutAnalysis_ts
@@ -112,8 +116,12 @@ graph LR
   module_src_packageMetadata_ts --> module_package_json
   module_src_secretManifestAnalysis_ts --> module_src_diagnostics_ts
   module_src_sourceArchitectureAnalysis_ts --> module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts --> module_src_utils_getArchitecturePolicyRule_ts
+  module_src_utils_getArchitecturePolicyRule_ts --> module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts --> module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --> module_src_commands_ts
+  module_tests_architecturePolicyConsumption_test_ts --> module_src_cliLayoutAnalysis_ts
+  module_tests_architecturePolicyConsumption_test_ts --> module_tests_testSupport_ts
   module_tests_auth5NativeReadiness_test_ts --> module_src_authReadinessAnalysis_ts
   module_tests_auth5NativeReadiness_test_ts --> module_src_commands_ts
   module_tests_auth5NativeReadiness_test_ts --> module_tests_testSupport_ts

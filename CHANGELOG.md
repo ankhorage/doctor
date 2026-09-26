@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.8
+
+### Patch Changes
+
+- 53a39da: Consume canonical source-architecture and public-package profile rules from `@ankhorage/policy/architecture` instead of duplicating them in Doctor.
+
 ## 0.11.7
 
 ### Patch Changes

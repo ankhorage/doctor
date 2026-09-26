@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.11.7",
+      "value": "v0.11.8",
       "color": "cb3837"
     },
     {
@@ -157,7 +157,8 @@
       "isEntrypoint": false,
       "dependencies": [
         "src/diagnostics.ts",
-        "src/readiness.ts"
+        "src/readiness.ts",
+        "src/utils/getArchitecturePolicyRule.ts"
       ],
       "exports": [
         "analyzeDoctorTarget",
@@ -377,7 +378,8 @@
         "src/analysis.ts",
         "src/diagnostics.ts",
         "src/manifestAnalysis.ts",
-        "src/sourceArchitectureAnalysis.ts"
+        "src/sourceArchitectureAnalysis.ts",
+        "src/utils/getArchitecturePolicyRule.ts"
       ],
       "exports": [
         "analyzeDoctorTargetWithCliLayout"
@@ -539,10 +541,21 @@
       "path": "src/sourceArchitectureAnalysis.ts",
       "isEntrypoint": false,
       "dependencies": [
-        "src/diagnostics.ts"
+        "src/diagnostics.ts",
+        "src/utils/getArchitecturePolicyRule.ts"
       ],
       "exports": [
         "analyzeSourceArchitecture"
+      ]
+    },
+    {
+      "path": "src/utils/getArchitecturePolicyRule.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/diagnostics.ts"
+      ],
+      "exports": [
+        "getArchitecturePolicyRule"
       ]
     },
     {
@@ -551,6 +564,15 @@
       "dependencies": [
         "src/cli/index.ts",
         "src/commands.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "tests/architecturePolicyConsumption.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/cliLayoutAnalysis.ts",
+        "tests/testSupport.ts"
       ],
       "exports": []
     },
@@ -1231,7 +1253,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 15,
+        "line": 17,
         "column": 1
       },
       "exportPaths": [
@@ -1277,7 +1299,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 36,
+        "line": 38,
         "column": 1
       },
       "exportPaths": [
@@ -1612,7 +1634,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 29,
+        "line": 31,
         "column": 1
       },
       "exportPaths": [
@@ -1667,7 +1689,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 21,
+        "line": 23,
         "column": 1
       },
       "exportPaths": [
@@ -1728,7 +1750,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 12,
+        "line": 14,
         "column": 1
       },
       "exportPaths": [
@@ -1904,7 +1926,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 10,
+        "line": 12,
         "column": 1
       },
       "exportPaths": [
@@ -1926,7 +1948,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 11,
+        "line": 13,
         "column": 1
       },
       "exportPaths": [
@@ -1991,7 +2013,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 91,
+        "line": 79,
         "column": 1
       }
     },
@@ -2002,7 +2024,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 238,
+        "line": 226,
         "column": 1
       }
     },
@@ -2013,7 +2035,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 350,
+        "line": 308,
         "column": 1
       }
     },
@@ -2024,7 +2046,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 662,
+        "line": 524,
         "column": 1
       }
     },
@@ -2035,7 +2057,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 692,
+        "line": 553,
         "column": 1
       }
     },
@@ -2046,7 +2068,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 830,
+        "line": 691,
         "column": 1
       }
     },
@@ -2057,7 +2079,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 919,
+        "line": 780,
         "column": 1
       }
     },
@@ -2068,7 +2090,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 947,
+        "line": 808,
         "column": 1
       }
     },
@@ -2079,7 +2101,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 957,
+        "line": 818,
         "column": 1
       }
     },
@@ -2090,7 +2112,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 999,
+        "line": 860,
         "column": 1
       }
     },
@@ -2101,7 +2123,18 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1020,
+        "line": 881,
+        "column": 1
+      }
+    },
+    {
+      "name": "requirePublicPackageFields",
+      "description": "Validate every generic public-package metadata field from canonical Policy.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 892,
         "column": 1
       }
     },
@@ -2112,7 +2145,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1030,
+        "line": 922,
         "column": 1
       }
     },
@@ -2123,7 +2156,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1068,
+        "line": 959,
         "column": 1
       }
     },
@@ -2134,7 +2167,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1092,
+        "line": 982,
         "column": 1
       }
     },
@@ -2145,7 +2178,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1116,
+        "line": 1005,
         "column": 1
       }
     },
@@ -2156,7 +2189,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1140,
+        "line": 1028,
         "column": 1
       }
     },
@@ -2167,7 +2200,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1159,
+        "line": 1047,
         "column": 1
       }
     },
@@ -2178,7 +2211,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1174,
+        "line": 1062,
         "column": 1
       }
     },
@@ -2189,18 +2222,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1181,
-        "column": 1
-      }
-    },
-    {
-      "name": "mapScriptRule",
-      "description": null,
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/analysis.ts",
-        "line": 1215,
+        "line": 1069,
         "column": 1
       }
     },
@@ -2211,7 +2233,18 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1246,
+        "line": 1103,
+        "column": 1
+      }
+    },
+    {
+      "name": "architecturePolicyRuleFields",
+      "description": "Return canonical rule id and severity for a Policy-owned generic package rule.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1117,
         "column": 1
       }
     },
@@ -2222,7 +2255,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1259,
+        "line": 1124,
         "column": 1
       }
     },
@@ -2233,7 +2266,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1263,
+        "line": 1128,
         "column": 1
       }
     },
@@ -2244,7 +2277,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1270,
+        "line": 1135,
         "column": 1
       }
     },
@@ -2255,7 +2288,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1275,
+        "line": 1140,
         "column": 1
       }
     },
@@ -2266,7 +2299,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1279,
+        "line": 1144,
         "column": 1
       }
     },
@@ -2277,7 +2310,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1291,
+        "line": 1156,
         "column": 1
       }
     },
@@ -2288,7 +2321,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1300,
+        "line": 1165,
         "column": 1
       }
     },
@@ -2299,7 +2332,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1304,
+        "line": 1169,
         "column": 1
       }
     },
@@ -2310,7 +2343,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1308,
+        "line": 1173,
         "column": 1
       }
     },
@@ -2321,7 +2354,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1312,
+        "line": 1177,
         "column": 1
       }
     },
@@ -2332,7 +2365,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1316,
+        "line": 1181,
         "column": 1
       }
     },
@@ -2343,7 +2376,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1320,
+        "line": 1185,
         "column": 1
       }
     },
@@ -2772,7 +2805,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 63,
+        "line": 66,
         "column": 1
       }
     },
@@ -2783,7 +2816,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 101,
+        "line": 104,
         "column": 1
       }
     },
@@ -2794,7 +2827,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 173,
+        "line": 175,
         "column": 1
       }
     },
@@ -2805,7 +2838,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 224,
+        "line": 225,
         "column": 1
       }
     },
@@ -2816,7 +2849,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 257,
+        "line": 256,
         "column": 1
       }
     },
@@ -2827,7 +2860,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 324,
+        "line": 323,
         "column": 1
       }
     },
@@ -2838,7 +2871,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 344,
+        "line": 343,
         "column": 1
       }
     },
@@ -2849,7 +2882,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 349,
+        "line": 348,
         "column": 3
       }
     },
@@ -2860,7 +2893,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 372,
+        "line": 371,
         "column": 1
       }
     },
@@ -2871,7 +2904,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 380,
+        "line": 379,
         "column": 1
       }
     },
@@ -2882,7 +2915,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 399,
+        "line": 398,
         "column": 1
       }
     },
@@ -2893,7 +2926,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 423,
+        "line": 422,
         "column": 1
       }
     },
@@ -2904,7 +2937,18 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 428,
+        "line": 427,
+        "column": 1
+      }
+    },
+    {
+      "name": "architectureRuleFields",
+      "description": "Resolve Policy-owned rule metadata for generic architecture diagnostics.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/cliLayoutAnalysis.ts",
+        "line": 432,
         "column": 1
       }
     },
@@ -2915,7 +2959,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 432,
+        "line": 439,
         "column": 1
       }
     },
@@ -2926,7 +2970,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 436,
+        "line": 443,
         "column": 1
       }
     },
@@ -2937,7 +2981,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 445,
+        "line": 452,
         "column": 1
       }
     },
@@ -2948,7 +2992,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 454,
+        "line": 461,
         "column": 1
       }
     },
@@ -2959,7 +3003,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/cliLayoutAnalysis.ts",
-        "line": 458,
+        "line": 465,
         "column": 1
       }
     },
@@ -3443,7 +3487,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 44,
+        "line": 23,
         "column": 1
       }
     },
@@ -3454,7 +3498,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 51,
+        "line": 30,
         "column": 1
       }
     },
@@ -3465,7 +3509,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 76,
+        "line": 55,
         "column": 1
       }
     },
@@ -3476,7 +3520,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 127,
+        "line": 96,
         "column": 1
       }
     },
@@ -3487,7 +3531,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 134,
+        "line": 103,
         "column": 1
       }
     },
@@ -3498,7 +3542,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 148,
+        "line": 117,
         "column": 1
       }
     },
@@ -3509,18 +3553,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 165,
-        "column": 1
-      }
-    },
-    {
-      "name": "isThinDeliveryAdapter",
-      "description": "Check whether a source file belongs to a thin CLI command delivery boundary.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 197,
+        "line": 134,
         "column": 1
       }
     },
@@ -3531,7 +3564,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 203,
+        "line": 164,
         "column": 1
       }
     },
@@ -3542,7 +3575,18 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 238,
+        "line": 187,
+        "column": 1
+      }
+    },
+    {
+      "name": "includesSegmentSequence",
+      "description": "Check whether one path segment sequence occurs contiguously in another.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/sourceArchitectureAnalysis.ts",
+        "line": 207,
         "column": 1
       }
     },
@@ -3553,18 +3597,18 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 263,
+        "line": 217,
         "column": 1
       }
     },
     {
       "name": "createDiagnostic",
-      "description": "Build one deterministic architecture diagnostic.",
+      "description": "Build one deterministic architecture diagnostic from Policy-owned metadata.",
       "see": [],
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 268,
+        "line": 222,
         "column": 1
       }
     },
@@ -3575,7 +3619,18 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 285,
+        "line": 239,
+        "column": 1
+      }
+    },
+    {
+      "name": "getArchitecturePolicyRule",
+      "description": "Resolves one canonical architecture/profile Policy rule by its stable Doctor rule id.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/utils/getArchitecturePolicyRule.ts",
+        "line": 8,
         "column": 1
       }
     }
@@ -3680,6 +3735,11 @@
       {
         "fromPath": "src/analysis.ts",
         "toPath": "src/readiness.ts",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromPath": "src/analysis.ts",
+        "toPath": "src/utils/getArchitecturePolicyRule.ts",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -3878,6 +3938,11 @@
         "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
+        "fromPath": "src/cliLayoutAnalysis.ts",
+        "toPath": "src/utils/getArchitecturePolicyRule.ts",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
         "fromPath": "src/commandContext.ts",
         "toPath": "package.json",
         "sourcePath": "src/commandContext.ts"
@@ -4018,6 +4083,11 @@
         "sourcePath": "src/sourceArchitectureAnalysis.ts"
       },
       {
+        "fromPath": "src/sourceArchitectureAnalysis.ts",
+        "toPath": "src/utils/getArchitecturePolicyRule.ts",
+        "sourcePath": "src/sourceArchitectureAnalysis.ts"
+      },
+      {
         "fromPath": "tests/ankh.provider.test.ts",
         "toPath": "src/cli/index.ts",
         "sourcePath": "tests/ankh.provider.test.ts"
@@ -4026,6 +4096,16 @@
         "fromPath": "tests/ankh.provider.test.ts",
         "toPath": "src/commands.ts",
         "sourcePath": "tests/ankh.provider.test.ts"
+      },
+      {
+        "fromPath": "tests/architecturePolicyConsumption.test.ts",
+        "toPath": "src/cliLayoutAnalysis.ts",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromPath": "tests/architecturePolicyConsumption.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
       },
       {
         "fromPath": "tests/auth5NativeReadiness.test.ts",
@@ -4226,6 +4306,11 @@
         "fromPath": "src/cli/standalone.ts",
         "toPath": "src/dependencyPolicyAnalysis.ts",
         "sourcePath": "src/cli/standalone.ts"
+      },
+      {
+        "fromPath": "src/utils/getArchitecturePolicyRule.ts",
+        "toPath": "src/diagnostics.ts",
+        "sourcePath": "src/utils/getArchitecturePolicyRule.ts"
       }
     ],
     "calls": [
@@ -4291,8 +4376,8 @@
       },
       {
         "fromSymbol": "analyzePackagePolicy",
-        "toSymbol": "requireNonEmptyStringField",
-        "callExpression": "requireNonEmptyStringField",
+        "toSymbol": "requirePublicPackageFields",
+        "callExpression": "requirePublicPackageFields",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4303,20 +4388,14 @@
       },
       {
         "fromSymbol": "analyzePackagePolicy",
-        "toSymbol": "requireRecordField",
-        "callExpression": "requireRecordField",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "analyzePackagePolicy",
-        "toSymbol": "requireStringArrayField",
-        "callExpression": "requireStringArrayField",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "analyzePackagePolicy",
         "toSymbol": "createDiagnostic",
         "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzePackagePolicy",
+        "toSymbol": "architecturePolicyRuleFields",
+        "callExpression": "architecturePolicyRuleFields",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4335,12 +4414,6 @@
         "fromSymbol": "analyzePackagePolicy",
         "toSymbol": "createPlannedChange",
         "callExpression": "createPlannedChange",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "analyzePackagePolicy",
-        "toSymbol": "mapScriptRule",
-        "callExpression": "mapScriptRule",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4377,6 +4450,12 @@
         "fromSymbol": "createChangesetsDependencyDiagnostic",
         "toSymbol": "createDiagnostic",
         "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "createChangesetsDependencyDiagnostic",
+        "toSymbol": "architecturePolicyRuleFields",
+        "callExpression": "architecturePolicyRuleFields",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4524,6 +4603,24 @@
         "sourcePath": "src/analysis.ts"
       },
       {
+        "fromSymbol": "requirePublicPackageFields",
+        "toSymbol": "requireNonEmptyStringField",
+        "callExpression": "requireNonEmptyStringField",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "requirePublicPackageFields",
+        "toSymbol": "requireRecordField",
+        "callExpression": "requireRecordField",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "requirePublicPackageFields",
+        "toSymbol": "requireStringArrayField",
+        "callExpression": "requireStringArrayField",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
         "fromSymbol": "maybeRequirePath",
         "toSymbol": "pathExists",
         "callExpression": "pathExists",
@@ -4533,6 +4630,12 @@
         "fromSymbol": "maybeRequirePath",
         "toSymbol": "createDiagnostic",
         "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "maybeRequirePath",
+        "toSymbol": "architecturePolicyRuleFields",
+        "callExpression": "architecturePolicyRuleFields",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4554,6 +4657,12 @@
         "sourcePath": "src/analysis.ts"
       },
       {
+        "fromSymbol": "requireNonEmptyStringField",
+        "toSymbol": "architecturePolicyRuleFields",
+        "callExpression": "architecturePolicyRuleFields",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
         "fromSymbol": "requireRecordField",
         "toSymbol": "isRecord",
         "callExpression": "isRecord",
@@ -4566,6 +4675,12 @@
         "sourcePath": "src/analysis.ts"
       },
       {
+        "fromSymbol": "requireRecordField",
+        "toSymbol": "architecturePolicyRuleFields",
+        "callExpression": "architecturePolicyRuleFields",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
         "fromSymbol": "requireStringArrayField",
         "toSymbol": "readStringArray",
         "callExpression": "readStringArray",
@@ -4575,6 +4690,12 @@
         "fromSymbol": "requireStringArrayField",
         "toSymbol": "createDiagnostic",
         "callExpression": "createDiagnostic",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "requireStringArrayField",
+        "toSymbol": "architecturePolicyRuleFields",
+        "callExpression": "architecturePolicyRuleFields",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4623,6 +4744,12 @@
         "fromSymbol": "validateAnkhMetadataShape",
         "toSymbol": "isPackageRelativeProviderPath",
         "callExpression": "isPackageRelativeProviderPath",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "architecturePolicyRuleFields",
+        "toSymbol": "getArchitecturePolicyRule",
+        "callExpression": "getArchitecturePolicyRule",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4951,6 +5078,12 @@
       },
       {
         "fromSymbol": "analyzeTargetArchitecture",
+        "toSymbol": "architectureRuleFields",
+        "callExpression": "architectureRuleFields",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeTargetArchitecture",
         "toSymbol": "collectDependencyEntries",
         "callExpression": "collectDependencyEntries",
         "sourcePath": "src/cliLayoutAnalysis.ts"
@@ -4992,9 +5125,21 @@
         "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
+        "fromSymbol": "validateDependencyArchitecture",
+        "toSymbol": "architectureRuleFields",
+        "callExpression": "architectureRuleFields",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
         "fromSymbol": "validateActiveSourceImports",
         "toSymbol": "toOwningPackageSpecifier",
         "callExpression": "toOwningPackageSpecifier",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "validateActiveSourceImports",
+        "toSymbol": "architectureRuleFields",
+        "callExpression": "architectureRuleFields",
         "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
@@ -5061,6 +5206,12 @@
         "fromSymbol": "hasAnkhProvider",
         "toSymbol": "isNonEmptyString",
         "callExpression": "isNonEmptyString",
+        "sourcePath": "src/cliLayoutAnalysis.ts"
+      },
+      {
+        "fromSymbol": "architectureRuleFields",
+        "toSymbol": "getArchitecturePolicyRule",
+        "callExpression": "getArchitecturePolicyRule",
         "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
@@ -5526,6 +5677,12 @@
         "sourcePath": "src/sourceArchitectureAnalysis.ts"
       },
       {
+        "fromSymbol": "analyzeFeatureCombinationsAsync",
+        "toSymbol": "getArchitecturePolicyRule",
+        "callExpression": "getArchitecturePolicyRule",
+        "sourcePath": "src/sourceArchitectureAnalysis.ts"
+      },
+      {
         "fromSymbol": "src/sourceArchitectureAnalysis.ts",
         "toSymbol": "analyzeOneImportDirection",
         "callExpression": "analyzeOneImportDirection",
@@ -5550,6 +5707,12 @@
         "sourcePath": "src/sourceArchitectureAnalysis.ts"
       },
       {
+        "fromSymbol": "createEscapedRepositoryDiagnostic",
+        "toSymbol": "getArchitecturePolicyRule",
+        "callExpression": "getArchitecturePolicyRule",
+        "sourcePath": "src/sourceArchitectureAnalysis.ts"
+      },
+      {
         "fromSymbol": "analyzeRecognizedRoleDirection",
         "toSymbol": "splitRelativePath",
         "callExpression": "splitRelativePath",
@@ -5557,14 +5720,20 @@
       },
       {
         "fromSymbol": "analyzeRecognizedRoleDirection",
-        "toSymbol": "isThinDeliveryAdapter",
-        "callExpression": "isThinDeliveryAdapter",
+        "toSymbol": "includesSegmentSequence",
+        "callExpression": "includesSegmentSequence",
         "sourcePath": "src/sourceArchitectureAnalysis.ts"
       },
       {
         "fromSymbol": "analyzeRecognizedRoleDirection",
         "toSymbol": "createDiagnostic",
         "callExpression": "createDiagnostic",
+        "sourcePath": "src/sourceArchitectureAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeRecognizedRoleDirection",
+        "toSymbol": "getArchitecturePolicyRule",
+        "callExpression": "getArchitecturePolicyRule",
         "sourcePath": "src/sourceArchitectureAnalysis.ts"
       },
       {
@@ -5577,6 +5746,12 @@
         "fromSymbol": "analyzeRecognizedRoleDirection",
         "toSymbol": "createOutwardImportDiagnostic",
         "callExpression": "createOutwardImportDiagnostic",
+        "sourcePath": "src/sourceArchitectureAnalysis.ts"
+      },
+      {
+        "fromSymbol": "resolveSourceRole",
+        "toSymbol": "getArchitecturePolicyRule",
+        "callExpression": "getArchitecturePolicyRule",
         "sourcePath": "src/sourceArchitectureAnalysis.ts"
       },
       {
@@ -5614,6 +5789,72 @@
         "toSymbol": "createProviderCommandDescriptors",
         "callExpression": "createProviderCommandDescriptors",
         "sourcePath": "tests/ankh.provider.test.ts"
+      },
+      {
+        "fromSymbol": "createPublicPackagePolicyFixture",
+        "toSymbol": "firstPolicyValue",
+        "callExpression": "firstPolicyValue",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "createPublicPackagePolicyFixture",
+        "toSymbol": "requiredPublicPackageField",
+        "callExpression": "requiredPublicPackageField",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "createPublicPackagePolicyFixture",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "createSourceArchitecturePolicyFixture",
+        "toSymbol": "firstPolicyValue",
+        "callExpression": "firstPolicyValue",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "createSourceArchitecturePolicyFixture",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "tests/architecturePolicyConsumption.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "tests/architecturePolicyConsumption.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "tests/architecturePolicyConsumption.test.ts",
+        "toSymbol": "createPublicPackagePolicyFixture",
+        "callExpression": "createPublicPackagePolicyFixture",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "tests/architecturePolicyConsumption.test.ts",
+        "toSymbol": "analyzeDoctorTargetWithCliLayout",
+        "callExpression": "analyzeDoctorTargetWithCliLayout",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "tests/architecturePolicyConsumption.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
+      },
+      {
+        "fromSymbol": "tests/architecturePolicyConsumption.test.ts",
+        "toSymbol": "createSourceArchitecturePolicyFixture",
+        "callExpression": "createSourceArchitecturePolicyFixture",
+        "sourcePath": "tests/architecturePolicyConsumption.test.ts"
       },
       {
         "fromSymbol": "tests/auth5NativeReadiness.test.ts",

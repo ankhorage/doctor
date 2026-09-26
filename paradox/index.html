@@ -129,7 +129,7 @@
             <li>
     <button class="nav-button" type="button" data-target="src/analysis.ts">
       src/analysis.ts
-      <small>33 functions</small>
+      <small>34 functions</small>
     </button>
   </li><li>
     <button class="nav-button" type="button" data-target="src/authReadinessAnalysis.ts">
@@ -214,7 +214,7 @@
   </li><li>
     <button class="nav-button" type="button" data-target="src/cliLayoutAnalysis.ts">
       src/cliLayoutAnalysis.ts
-      <small>18 functions</small>
+      <small>19 functions</small>
     </button>
   </li><li>
     <button class="nav-button" type="button" data-target="src/commandContext.ts">
@@ -251,6 +251,11 @@
       src/sourceArchitectureAnalysis.ts
       <small>13 functions</small>
     </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/utils/getArchitecturePolicyRule.ts">
+      src/utils/getArchitecturePolicyRule.ts
+      <small>1 function</small>
+    </button>
   </li>
           </ul>
         </nav>
@@ -263,7 +268,7 @@
       <div class="summary">
         <div><strong>33</strong><span class="muted">public exports</span></div>
         <div><strong>0</strong><span class="muted">components</span></div>
-        <div><strong>49</strong><span class="muted">modules</span></div>
+        <div><strong>51</strong><span class="muted">modules</span></div>
         <div><strong>1</strong><span class="muted">entrypoints</span></div>
       </div>
       <h3>Entrypoints</h3>
@@ -332,10 +337,10 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
     <p><strong>Exports:</strong> <span class="empty">None</span></p>
-  </article><article class="item" data-search="src/analysis.ts src/diagnostics.ts src/readiness.ts analyzeDoctorTarget DoctorAnalysisRequest DoctorAnalysisResult DoctorFixPlan DoctorPlannedChange DoctorPlannedChangeKind DoctorTargetCheck DoctorTargetMode">
+  </article><article class="item" data-search="src/analysis.ts src/diagnostics.ts src/readiness.ts src/utils/getArchitecturePolicyRule.ts analyzeDoctorTarget DoctorAnalysisRequest DoctorAnalysisResult DoctorFixPlan DoctorPlannedChange DoctorPlannedChangeKind DoctorTargetCheck DoctorTargetMode">
     <h3>src/analysis.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>src/diagnostics.ts</code>, <code>src/readiness.ts</code></p>
+    <p><strong>Dependencies:</strong> <code>src/diagnostics.ts</code>, <code>src/readiness.ts</code>, <code>src/utils/getArchitecturePolicyRule.ts</code></p>
     <p><strong>Exports:</strong> <code>analyzeDoctorTarget</code>, <code>DoctorAnalysisRequest</code>, <code>DoctorAnalysisResult</code>, <code>DoctorFixPlan</code>, <code>DoctorPlannedChange</code>, <code>DoctorPlannedChangeKind</code>, <code>DoctorTargetCheck</code>, <code>DoctorTargetMode</code></p>
   </article><article class="item" data-search="src/authReadinessAnalysis.ts src/authReadinessProvider.ts src/authReadinessTargets.ts src/diagnostics.ts src/readiness.ts analyzeAuthReadiness DoctorAuthReadinessAnalysis">
     <h3>src/authReadinessAnalysis.ts</h3>
@@ -422,10 +427,10 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/commandContext.ts</code>, <code>src/commands.ts</code>, <code>src/dependencyPolicyAnalysis.ts</code></p>
     <p><strong>Exports:</strong> <code>DoctorCliOptions</code>, <code>runCli</code></p>
-  </article><article class="item" data-search="src/cliLayoutAnalysis.ts src/analysis.ts src/diagnostics.ts src/manifestAnalysis.ts src/sourceArchitectureAnalysis.ts analyzeDoctorTargetWithCliLayout">
+  </article><article class="item" data-search="src/cliLayoutAnalysis.ts src/analysis.ts src/diagnostics.ts src/manifestAnalysis.ts src/sourceArchitectureAnalysis.ts src/utils/getArchitecturePolicyRule.ts analyzeDoctorTargetWithCliLayout">
     <h3>src/cliLayoutAnalysis.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/diagnostics.ts</code>, <code>src/manifestAnalysis.ts</code>, <code>src/sourceArchitectureAnalysis.ts</code></p>
+    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/diagnostics.ts</code>, <code>src/manifestAnalysis.ts</code>, <code>src/sourceArchitectureAnalysis.ts</code>, <code>src/utils/getArchitecturePolicyRule.ts</code></p>
     <p><strong>Exports:</strong> <code>analyzeDoctorTargetWithCliLayout</code></p>
   </article><article class="item" data-search="src/commandContext.ts package.json createDefaultCommandContext DoctorCommandContext DoctorCommandRunResult">
     <h3>src/commandContext.ts</h3>
@@ -472,15 +477,25 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/diagnostics.ts</code></p>
     <p><strong>Exports:</strong> <code>analyzeSecretStoreManifest</code></p>
-  </article><article class="item" data-search="src/sourceArchitectureAnalysis.ts src/diagnostics.ts analyzeSourceArchitecture">
+  </article><article class="item" data-search="src/sourceArchitectureAnalysis.ts src/diagnostics.ts src/utils/getArchitecturePolicyRule.ts analyzeSourceArchitecture">
     <h3>src/sourceArchitectureAnalysis.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>src/diagnostics.ts</code></p>
+    <p><strong>Dependencies:</strong> <code>src/diagnostics.ts</code>, <code>src/utils/getArchitecturePolicyRule.ts</code></p>
     <p><strong>Exports:</strong> <code>analyzeSourceArchitecture</code></p>
+  </article><article class="item" data-search="src/utils/getArchitecturePolicyRule.ts src/diagnostics.ts getArchitecturePolicyRule">
+    <h3>src/utils/getArchitecturePolicyRule.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/diagnostics.ts</code></p>
+    <p><strong>Exports:</strong> <code>getArchitecturePolicyRule</code></p>
   </article><article class="item" data-search="tests/ankh.provider.test.ts src/cli/index.ts src/commands.ts">
     <h3>tests/ankh.provider.test.ts</h3>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/cli/index.ts</code>, <code>src/commands.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
+  </article><article class="item" data-search="tests/architecturePolicyConsumption.test.ts src/cliLayoutAnalysis.ts tests/testSupport.ts">
+    <h3>tests/architecturePolicyConsumption.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/cliLayoutAnalysis.ts</code>, <code>tests/testSupport.ts</code></p>
     <p><strong>Exports:</strong> <span class="empty">None</span></p>
   </article><article class="item" data-search="tests/auth5NativeReadiness.test.ts src/authReadinessAnalysis.ts src/commands.ts tests/testSupport.ts">
     <h3>tests/auth5NativeReadiness.test.ts</h3>
@@ -582,7 +597,7 @@ surfaces when only one policy area should be inspected.</p>
               <article class="item" id="symbol-doctoranalysisrequest" data-search="DoctorAnalysisRequest  type src/analysis.ts  DoctorTargetMode">
     <h4>DoctorAnalysisRequest</h4>
     
-    <p class="muted">type • <code>src/analysis.ts:15:1</code></p>
+    <p class="muted">type • <code>src/analysis.ts:17:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -615,7 +630,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctoranalysisresult" data-search="DoctorAnalysisResult  type src/analysis.ts  DoctorDiagnostic DoctorFixPlan DoctorPlannedChange DoctorPolicyProfile DoctorReadiness DoctorTargetCheck">
     <h4>DoctorAnalysisResult</h4>
     
-    <p class="muted">type • <code>src/analysis.ts:36:1</code></p>
+    <p class="muted">type • <code>src/analysis.ts:38:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -684,7 +699,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctorfixplan" data-search="DoctorFixPlan  type src/analysis.ts  DoctorDiagnostic DoctorPlannedChange DoctorPolicyProfile">
     <h4>DoctorFixPlan</h4>
     
-    <p class="muted">type • <code>src/analysis.ts:29:1</code></p>
+    <p class="muted">type • <code>src/analysis.ts:31:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -723,7 +738,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctorplannedchange" data-search="DoctorPlannedChange  type src/analysis.ts  DoctorPlannedChangeKind DoctorRuleId">
     <h4>DoctorPlannedChange</h4>
     
-    <p class="muted">type • <code>src/analysis.ts:21:1</code></p>
+    <p class="muted">type • <code>src/analysis.ts:23:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -768,7 +783,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctorplannedchangekind" data-search="DoctorPlannedChangeKind  unknown src/analysis.ts ">
     <h4>DoctorPlannedChangeKind</h4>
     
-    <p class="muted">unknown • <code>src/analysis.ts:12:1</code></p>
+    <p class="muted">unknown • <code>src/analysis.ts:14:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -778,7 +793,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctortargetcheck" data-search="DoctorTargetCheck  unknown src/analysis.ts ">
     <h4>DoctorTargetCheck</h4>
     
-    <p class="muted">unknown • <code>src/analysis.ts:10:1</code></p>
+    <p class="muted">unknown • <code>src/analysis.ts:12:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -788,7 +803,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctortargetmode" data-search="DoctorTargetMode  unknown src/analysis.ts ">
     <h4>DoctorTargetMode</h4>
     
-    <p class="muted">unknown • <code>src/analysis.ts:11:1</code></p>
+    <p class="muted">unknown • <code>src/analysis.ts:13:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1452,6 +1467,7 @@ surfaces when only one policy area should be inspected.</p>
   package__ankhorage_doctor -.-&gt; module_src_analysis_ts
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
   module_src_analysis_ts --&gt; module_src_readiness_ts
+  module_src_analysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
   module_src_authReadinessAnalysis_ts[&quot;src/authReadinessAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_authReadinessAnalysis_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_authReadinessProvider_ts
@@ -1533,6 +1549,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_commandContext_ts
   module_src_commandContext_ts --&gt; module_package_json
@@ -1569,10 +1586,18 @@ surfaces when only one policy area should be inspected.</p>
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
+  module_src_utils_getArchitecturePolicyRule_ts[&quot;src/utils/getArchitecturePolicyRule.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_utils_getArchitecturePolicyRule_ts
+  module_src_utils_getArchitecturePolicyRule_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_ankh_provider_test_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
+  module_tests_architecturePolicyConsumption_test_ts[&quot;tests/architecturePolicyConsumption.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_architecturePolicyConsumption_test_ts
+  module_tests_architecturePolicyConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_tests_architecturePolicyConsumption_test_ts --&gt; module_tests_testSupport_ts
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_auth5NativeReadiness_test_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_src_authReadinessAnalysis_ts
@@ -1656,6 +1681,7 @@ surfaces when only one policy area should be inspected.</p>
   package__ankhorage_doctor -.-&gt; module_src_analysis_ts
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
   module_src_analysis_ts --&gt; module_src_readiness_ts
+  module_src_analysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
   module_src_authReadinessAnalysis_ts[&quot;src/authReadinessAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_authReadinessAnalysis_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_authReadinessProvider_ts
@@ -1737,6 +1763,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_commandContext_ts
   module_src_commandContext_ts --&gt; module_package_json
@@ -1773,10 +1800,18 @@ surfaces when only one policy area should be inspected.</p>
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
+  module_src_utils_getArchitecturePolicyRule_ts[&quot;src/utils/getArchitecturePolicyRule.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_utils_getArchitecturePolicyRule_ts
+  module_src_utils_getArchitecturePolicyRule_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_ankh_provider_test_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
+  module_tests_architecturePolicyConsumption_test_ts[&quot;tests/architecturePolicyConsumption.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_architecturePolicyConsumption_test_ts
+  module_tests_architecturePolicyConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_tests_architecturePolicyConsumption_test_ts --&gt; module_tests_testSupport_ts
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_auth5NativeReadiness_test_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_src_authReadinessAnalysis_ts
@@ -1883,7 +1918,9 @@ surfaces when only one policy area should be inspected.</p>
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
+  module_src_utils_getArchitecturePolicyRule_ts[&quot;src/utils/getArchitecturePolicyRule.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
+  module_tests_architecturePolicyConsumption_test_ts[&quot;tests/architecturePolicyConsumption.test.ts&quot;]
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
   module_tests_authReadinessCommand_test_ts[&quot;tests/authReadinessCommand.test.ts&quot;]
@@ -1904,6 +1941,7 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
   module_src_analysis_ts --&gt; module_src_readiness_ts
+  module_src_analysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_authReadinessProvider_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_authReadinessTargets_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_diagnostics_ts
@@ -1949,6 +1987,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
   module_src_commandContext_ts --&gt; module_package_json
   module_src_commands_ts --&gt; module_src_analysis_ts
   module_src_commands_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1966,8 +2005,12 @@ surfaces when only one policy area should be inspected.</p>
   module_src_packageMetadata_ts --&gt; module_package_json
   module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
+  module_src_utils_getArchitecturePolicyRule_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
+  module_tests_architecturePolicyConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_tests_architecturePolicyConsumption_test_ts --&gt; module_tests_testSupport_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_src_authReadinessAnalysis_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_src_commands_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_tests_testSupport_ts
@@ -2036,7 +2079,9 @@ surfaces when only one policy area should be inspected.</p>
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
+  module_src_utils_getArchitecturePolicyRule_ts[&quot;src/utils/getArchitecturePolicyRule.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
+  module_tests_architecturePolicyConsumption_test_ts[&quot;tests/architecturePolicyConsumption.test.ts&quot;]
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
   module_tests_authReadinessCommand_test_ts[&quot;tests/authReadinessCommand.test.ts&quot;]
@@ -2057,6 +2102,7 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_typescriptDependencyPlacement_test_ts[&quot;tests/typescriptDependencyPlacement.test.ts&quot;]
   module_src_analysis_ts --&gt; module_src_diagnostics_ts
   module_src_analysis_ts --&gt; module_src_readiness_ts
+  module_src_analysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_authReadinessProvider_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_authReadinessTargets_ts
   module_src_authReadinessAnalysis_ts --&gt; module_src_diagnostics_ts
@@ -2102,6 +2148,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cliLayoutAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_manifestAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
+  module_src_cliLayoutAnalysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
   module_src_commandContext_ts --&gt; module_package_json
   module_src_commands_ts --&gt; module_src_analysis_ts
   module_src_commands_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -2119,8 +2166,12 @@ surfaces when only one policy area should be inspected.</p>
   module_src_packageMetadata_ts --&gt; module_package_json
   module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_sourceArchitectureAnalysis_ts --&gt; module_src_utils_getArchitecturePolicyRule_ts
+  module_src_utils_getArchitecturePolicyRule_ts --&gt; module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --&gt; module_src_commands_ts
+  module_tests_architecturePolicyConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_tests_architecturePolicyConsumption_test_ts --&gt; module_tests_testSupport_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_src_authReadinessAnalysis_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_src_commands_ts
   module_tests_auth5NativeReadiness_test_ts --&gt; module_tests_testSupport_ts
@@ -2191,7 +2242,9 @@ surfaces when only one policy area should be inspected.</p>
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
+  module_src_utils_getArchitecturePolicyRule_ts[&quot;src/utils/getArchitecturePolicyRule.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
+  module_tests_architecturePolicyConsumption_test_ts[&quot;tests/architecturePolicyConsumption.test.ts&quot;]
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
   module_tests_authReadinessCommand_test_ts[&quot;tests/authReadinessCommand.test.ts&quot;]
@@ -2342,7 +2395,9 @@ surfaces when only one policy area should be inspected.</p>
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
+  module_src_utils_getArchitecturePolicyRule_ts[&quot;src/utils/getArchitecturePolicyRule.ts&quot;]
   module_tests_ankh_provider_test_ts[&quot;tests/ankh.provider.test.ts&quot;]
+  module_tests_architecturePolicyConsumption_test_ts[&quot;tests/architecturePolicyConsumption.test.ts&quot;]
   module_tests_auth5NativeReadiness_test_ts[&quot;tests/auth5NativeReadiness.test.ts&quot;]
   module_tests_authReadinessAnalysis_test_ts[&quot;tests/authReadinessAnalysis.test.ts&quot;]
   module_tests_authReadinessCommand_test_ts[&quot;tests/authReadinessCommand.test.ts&quot;]
@@ -2553,167 +2608,172 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/analysis.ts</h2>
       <article class="item" data-search="analyzeDoctorTarget src/analysis.ts ">
     <h3>analyzeDoctorTarget</h3>
-    <p class="muted"><code>src/analysis.ts:91:1</code></p>
+    <p class="muted"><code>src/analysis.ts:79:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="analyzeRepoPolicy src/analysis.ts ">
     <h3>analyzeRepoPolicy</h3>
-    <p class="muted"><code>src/analysis.ts:238:1</code></p>
+    <p class="muted"><code>src/analysis.ts:226:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="analyzePackagePolicy src/analysis.ts ">
     <h3>analyzePackagePolicy</h3>
-    <p class="muted"><code>src/analysis.ts:350:1</code></p>
+    <p class="muted"><code>src/analysis.ts:308:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createChangesetsDependencyDiagnostic src/analysis.ts ">
     <h3>createChangesetsDependencyDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:662:1</code></p>
+    <p class="muted"><code>src/analysis.ts:524:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateAnkhMetadataAndProvider src/analysis.ts ">
     <h3>validateAnkhMetadataAndProvider</h3>
-    <p class="muted"><code>src/analysis.ts:692:1</code></p>
+    <p class="muted"><code>src/analysis.ts:553:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="inspectProviderSource src/analysis.ts ">
     <h3>inspectProviderSource</h3>
-    <p class="muted"><code>src/analysis.ts:830:1</code></p>
+    <p class="muted"><code>src/analysis.ts:691:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="resolveProviderSourcePath src/analysis.ts ">
     <h3>resolveProviderSourcePath</h3>
-    <p class="muted"><code>src/analysis.ts:919:1</code></p>
+    <p class="muted"><code>src/analysis.ts:780:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="findRepoMarkers src/analysis.ts ">
     <h3>findRepoMarkers</h3>
-    <p class="muted"><code>src/analysis.ts:947:1</code></p>
+    <p class="muted"><code>src/analysis.ts:808:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readPackageJson src/analysis.ts ">
     <h3>readPackageJson</h3>
-    <p class="muted"><code>src/analysis.ts:957:1</code></p>
+    <p class="muted"><code>src/analysis.ts:818:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="detectProfile src/analysis.ts ">
     <h3>detectProfile</h3>
-    <p class="muted"><code>src/analysis.ts:999:1</code></p>
+    <p class="muted"><code>src/analysis.ts:860:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isProviderPackage src/analysis.ts ">
     <h3>isProviderPackage</h3>
-    <p class="muted"><code>src/analysis.ts:1020:1</code></p>
+    <p class="muted"><code>src/analysis.ts:881:1</code></p>
     <p class="empty">No description available.</p>
+    
+  </article><article class="item" data-search="requirePublicPackageFields src/analysis.ts Validate every generic public-package metadata field from canonical Policy.">
+    <h3>requirePublicPackageFields</h3>
+    <p class="muted"><code>src/analysis.ts:892:1</code></p>
+    <p>Validate every generic public-package metadata field from canonical Policy.</p>
     
   </article><article class="item" data-search="maybeRequirePath src/analysis.ts ">
     <h3>maybeRequirePath</h3>
-    <p class="muted"><code>src/analysis.ts:1030:1</code></p>
+    <p class="muted"><code>src/analysis.ts:922:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireNonEmptyStringField src/analysis.ts ">
     <h3>requireNonEmptyStringField</h3>
-    <p class="muted"><code>src/analysis.ts:1068:1</code></p>
+    <p class="muted"><code>src/analysis.ts:959:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireRecordField src/analysis.ts ">
     <h3>requireRecordField</h3>
-    <p class="muted"><code>src/analysis.ts:1092:1</code></p>
+    <p class="muted"><code>src/analysis.ts:982:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireStringArrayField src/analysis.ts ">
     <h3>requireStringArrayField</h3>
-    <p class="muted"><code>src/analysis.ts:1116:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1005:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="expectsParadox src/analysis.ts ">
     <h3>expectsParadox</h3>
-    <p class="muted"><code>src/analysis.ts:1140:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1028:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="expectsDevtools src/analysis.ts ">
     <h3>expectsDevtools</h3>
-    <p class="muted"><code>src/analysis.ts:1159:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1047:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="hasDependency src/analysis.ts ">
     <h3>hasDependency</h3>
-    <p class="muted"><code>src/analysis.ts:1174:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1062:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateAnkhMetadataShape src/analysis.ts ">
     <h3>validateAnkhMetadataShape</h3>
-    <p class="muted"><code>src/analysis.ts:1181:1</code></p>
-    <p class="empty">No description available.</p>
-    
-  </article><article class="item" data-search="mapScriptRule src/analysis.ts ">
-    <h3>mapScriptRule</h3>
-    <p class="muted"><code>src/analysis.ts:1215:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1069:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createEarlyResult src/analysis.ts ">
     <h3>createEarlyResult</h3>
-    <p class="muted"><code>src/analysis.ts:1246:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1103:1</code></p>
     <p class="empty">No description available.</p>
+    
+  </article><article class="item" data-search="architecturePolicyRuleFields src/analysis.ts Return canonical rule id and severity for a Policy-owned generic package rule.">
+    <h3>architecturePolicyRuleFields</h3>
+    <p class="muted"><code>src/analysis.ts:1117:1</code></p>
+    <p>Return canonical rule id and severity for a Policy-owned generic package rule.</p>
     
   </article><article class="item" data-search="createDiagnostic src/analysis.ts ">
     <h3>createDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:1259:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1124:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createPlannedChange src/analysis.ts ">
     <h3>createPlannedChange</h3>
-    <p class="muted"><code>src/analysis.ts:1263:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1128:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createInvalidPackageJsonMessage src/analysis.ts ">
     <h3>createInvalidPackageJsonMessage</h3>
-    <p class="muted"><code>src/analysis.ts:1270:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1135:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="pathExists src/analysis.ts ">
     <h3>pathExists</h3>
-    <p class="muted"><code>src/analysis.ts:1275:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1140:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="statOrNull src/analysis.ts ">
     <h3>statOrNull</h3>
-    <p class="muted"><code>src/analysis.ts:1279:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1144:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isMissingPathError src/analysis.ts ">
     <h3>isMissingPathError</h3>
-    <p class="muted"><code>src/analysis.ts:1291:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1156:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isNonEmptyString src/analysis.ts ">
     <h3>isNonEmptyString</h3>
-    <p class="muted"><code>src/analysis.ts:1300:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1165:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isPackageRelativeProviderPath src/analysis.ts ">
     <h3>isPackageRelativeProviderPath</h3>
-    <p class="muted"><code>src/analysis.ts:1304:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1169:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isRecord src/analysis.ts ">
     <h3>isRecord</h3>
-    <p class="muted"><code>src/analysis.ts:1308:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1173:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isStringTuple src/analysis.ts ">
     <h3>isStringTuple</h3>
-    <p class="muted"><code>src/analysis.ts:1312:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1177:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readStringArray src/analysis.ts ">
     <h3>readStringArray</h3>
-    <p class="muted"><code>src/analysis.ts:1316:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1181:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="sameStringSet src/analysis.ts ">
     <h3>sameStringSet</h3>
-    <p class="muted"><code>src/analysis.ts:1320:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1185:1</code></p>
     <p class="empty">No description available.</p>
     
   </article>
@@ -2993,92 +3053,97 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/cliLayoutAnalysis.ts</h2>
       <article class="item" data-search="analyzeDoctorTargetWithCliLayout src/cliLayoutAnalysis.ts ">
     <h3>analyzeDoctorTargetWithCliLayout</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:63:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:66:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="analyzeTargetArchitecture src/cliLayoutAnalysis.ts ">
     <h3>analyzeTargetArchitecture</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:101:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:104:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateDependencyArchitecture src/cliLayoutAnalysis.ts ">
     <h3>validateDependencyArchitecture</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:173:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:175:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateActiveSourceImports src/cliLayoutAnalysis.ts ">
     <h3>validateActiveSourceImports</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:224:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:225:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateStudioOwnership src/cliLayoutAnalysis.ts ">
     <h3>validateStudioOwnership</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:257:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:256:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="collectActiveSourceImports src/cliLayoutAnalysis.ts ">
     <h3>collectActiveSourceImports</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:324:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:323:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="listActiveSourceFiles src/cliLayoutAnalysis.ts ">
     <h3>listActiveSourceFiles</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:344:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:343:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="visit src/cliLayoutAnalysis.ts ">
     <h3>visit</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:349:3</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:348:3</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isActiveSourceFile src/cliLayoutAnalysis.ts ">
     <h3>isActiveSourceFile</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:372:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:371:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="extractImportSpecifiers src/cliLayoutAnalysis.ts ">
     <h3>extractImportSpecifiers</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:380:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:379:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="collectDependencyEntries src/cliLayoutAnalysis.ts ">
     <h3>collectDependencyEntries</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:399:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:398:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="hasAnkhProvider src/cliLayoutAnalysis.ts ">
     <h3>hasAnkhProvider</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:423:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:422:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isPackageImport src/cliLayoutAnalysis.ts ">
     <h3>isPackageImport</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:428:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:427:1</code></p>
     <p class="empty">No description available.</p>
+    
+  </article><article class="item" data-search="architectureRuleFields src/cliLayoutAnalysis.ts Resolve Policy-owned rule metadata for generic architecture diagnostics.">
+    <h3>architectureRuleFields</h3>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:432:1</code></p>
+    <p>Resolve Policy-owned rule metadata for generic architecture diagnostics.</p>
     
   </article><article class="item" data-search="toOwningPackageSpecifier src/cliLayoutAnalysis.ts ">
     <h3>toOwningPackageSpecifier</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:432:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:439:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readPackageJson src/cliLayoutAnalysis.ts ">
     <h3>readPackageJson</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:436:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:443:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="pathExists src/cliLayoutAnalysis.ts ">
     <h3>pathExists</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:445:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:452:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isNonEmptyString src/cliLayoutAnalysis.ts ">
     <h3>isNonEmptyString</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:454:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:461:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isRecord src/cliLayoutAnalysis.ts ">
     <h3>isRecord</h3>
-    <p class="muted"><code>src/cliLayoutAnalysis.ts:458:1</code></p>
+    <p class="muted"><code>src/cliLayoutAnalysis.ts:465:1</code></p>
     <p class="empty">No description available.</p>
     
   </article>
@@ -3333,68 +3398,78 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/sourceArchitectureAnalysis.ts</h2>
       <article class="item" data-search="analyzeSourceArchitecture src/sourceArchitectureAnalysis.ts Validate folder-role combinations and inward source dependency direction.">
     <h3>analyzeSourceArchitecture</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:44:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:23:1</code></p>
     <p>Validate folder-role combinations and inward source dependency direction.</p>
     
   </article><article class="item" data-search="analyzeDirectoryVocabularyAsync src/sourceArchitectureAnalysis.ts Validate architectural directory names only when a repository has introduced them.">
     <h3>analyzeDirectoryVocabularyAsync</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:51:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:30:1</code></p>
     <p>Validate architectural directory names only when a repository has introduced them.</p>
     
   </article><article class="item" data-search="analyzeFeatureCombinationsAsync src/sourceArchitectureAnalysis.ts Validate feature-first role combinations without requiring unused ceremonial layers.">
     <h3>analyzeFeatureCombinationsAsync</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:76:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:55:1</code></p>
     <p>Validate feature-first role combinations without requiring unused ceremonial layers.</p>
     
   </article><article class="item" data-search="analyzeImportDirection src/sourceArchitectureAnalysis.ts Validate that relative source imports point inward across recognized architecture roles.">
     <h3>analyzeImportDirection</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:127:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:96:1</code></p>
     <p>Validate that relative source imports point inward across recognized architecture roles.</p>
     
   </article><article class="item" data-search="analyzeOneImportDirection src/sourceArchitectureAnalysis.ts Validate one relative import against repository and layer boundaries.">
     <h3>analyzeOneImportDirection</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:134:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:103:1</code></p>
     <p>Validate one relative import against repository and layer boundaries.</p>
     
   </article><article class="item" data-search="createEscapedRepositoryDiagnostic src/sourceArchitectureAnalysis.ts Report a relative import that escapes the standalone repository boundary.">
     <h3>createEscapedRepositoryDiagnostic</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:148:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:117:1</code></p>
     <p>Report a relative import that escapes the standalone repository boundary.</p>
     
   </article><article class="item" data-search="analyzeRecognizedRoleDirection src/sourceArchitectureAnalysis.ts Apply inward dependency rules for recognized source architecture roles.">
     <h3>analyzeRecognizedRoleDirection</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:165:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:134:1</code></p>
     <p>Apply inward dependency rules for recognized source architecture roles.</p>
-    
-  </article><article class="item" data-search="isThinDeliveryAdapter src/sourceArchitectureAnalysis.ts Check whether a source file belongs to a thin CLI command delivery boundary.">
-    <h3>isThinDeliveryAdapter</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:197:1</code></p>
-    <p>Check whether a source file belongs to a thin CLI command delivery boundary.</p>
     
   </article><article class="item" data-search="resolveSourceRole src/sourceArchitectureAnalysis.ts Resolve the dependency rule owned by one recognized inner source role.">
     <h3>resolveSourceRole</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:203:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:164:1</code></p>
     <p>Resolve the dependency rule owned by one recognized inner source role.</p>
     
   </article><article class="item" data-search="createOutwardImportDiagnostic src/sourceArchitectureAnalysis.ts Report one outward dependency when the imported path crosses a forbidden role.">
     <h3>createOutwardImportDiagnostic</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:238:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:187:1</code></p>
     <p>Report one outward dependency when the imported path crosses a forbidden role.</p>
+    
+  </article><article class="item" data-search="includesSegmentSequence src/sourceArchitectureAnalysis.ts Check whether one path segment sequence occurs contiguously in another.">
+    <h3>includesSegmentSequence</h3>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:207:1</code></p>
+    <p>Check whether one path segment sequence occurs contiguously in another.</p>
     
   </article><article class="item" data-search="splitRelativePath src/sourceArchitectureAnalysis.ts Split one repository path into normalized architecture segments.">
     <h3>splitRelativePath</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:263:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:217:1</code></p>
     <p>Split one repository path into normalized architecture segments.</p>
     
-  </article><article class="item" data-search="createDiagnostic src/sourceArchitectureAnalysis.ts Build one deterministic architecture diagnostic.">
+  </article><article class="item" data-search="createDiagnostic src/sourceArchitectureAnalysis.ts Build one deterministic architecture diagnostic from Policy-owned metadata.">
     <h3>createDiagnostic</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:268:1</code></p>
-    <p>Build one deterministic architecture diagnostic.</p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:222:1</code></p>
+    <p>Build one deterministic architecture diagnostic from Policy-owned metadata.</p>
     
   </article><article class="item" data-search="pathExistsAsync src/sourceArchitectureAnalysis.ts Check whether a filesystem path exists.">
     <h3>pathExistsAsync</h3>
-    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:285:1</code></p>
+    <p class="muted"><code>src/sourceArchitectureAnalysis.ts:239:1</code></p>
     <p>Check whether a filesystem path exists.</p>
+    
+  </article>
+    </section>
+  </section><section id="view-src-utils-getarchitecturepolicyrule-ts" class="view" data-view="src/utils/getArchitecturePolicyRule.ts" hidden>
+    <section class="panel">
+      <h2>src/utils/getArchitecturePolicyRule.ts</h2>
+      <article class="item" data-search="getArchitecturePolicyRule src/utils/getArchitecturePolicyRule.ts Resolves one canonical architecture/profile Policy rule by its stable Doctor rule id.">
+    <h3>getArchitecturePolicyRule</h3>
+    <p class="muted"><code>src/utils/getArchitecturePolicyRule.ts:8:1</code></p>
+    <p>Resolves one canonical architecture/profile Policy rule by its stable Doctor rule id.</p>
     
   </article>
     </section>
