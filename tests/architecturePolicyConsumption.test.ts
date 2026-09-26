@@ -84,12 +84,10 @@ async function createSourceArchitecturePolicyFixture() {
       private: true,
     },
     extraFiles: {
-      [`src/features/orders/${domainSegment}/order.ts`]:
-        `import { repository } from '../${outwardSegment}/repository'; export const order = repository;\n`,
+      [`src/features/orders/${domainSegment}/order.ts`]: `import { repository } from '../${outwardSegment}/repository'; export const order = repository;\n`,
       [`src/features/orders/${outwardSegment}/repository.ts`]: 'export const repository = true;\n',
       'src/features/orphan/composition/wire.ts': 'export const wire = true;\n',
-      [commandPath]:
-        `import { repository } from '../../features/orders/${deliveryPolicy.concreteAdapterSegment}/repository'; export const issue = repository;\n`,
+      [commandPath]: `import { repository } from '../../features/orders/${deliveryPolicy.concreteAdapterSegment}/repository'; export const issue = repository;\n`,
     },
   });
 
