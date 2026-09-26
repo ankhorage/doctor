@@ -1,6 +1,6 @@
 {
   "name": "@ankhorage/doctor",
-  "version": "0.11.5",
+  "version": "0.11.7",
   "description": "Executable Ankh provider and standalone CLI for lightweight repo and package compliance diagnostics.",
   "license": "MIT",
   "publishConfig": {
@@ -81,12 +81,12 @@
     "@ankhorage/contracts": "^22.8.2",
     "@ankhorage/supabase-auth": "^1.2.27",
     "@ankhorage/utility": "^1.8.1",
-    "@ankhorage/policy": "^0.5.0"
+    "@ankhorage/policy": "^0.5.1"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.10.4",
-    "@ankhorage/devtools": "^1.18.5",
-    "@ankhorage/paradox": "^0.2.5",
+    "@ankhorage/devtools": "^2.0.0",
+    "@ankhorage/paradox": "^0.2.6",
     "@types/bun": "^1.4.1",
     "@types/node": "^25.6.0",
     "typescript": "^5.9.3"
