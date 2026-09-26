@@ -163,7 +163,11 @@ function analyzeRecognizedRoleDirection(
 /*** Resolve the dependency rule owned by one recognized inner source role. */
 function resolveSourceRole(sourceSegments: readonly string[]): SourceRoleRule | null {
   for (const role of Object.values(SOURCE_POLICY.roles)) {
-    if (sourceSegments.some((segment) => role.segments.some((roleSegment) => roleSegment === segment))) {
+    if (
+      sourceSegments.some((segment) =>
+        role.segments.some((roleSegment) => roleSegment === segment),
+      )
+    ) {
       return {
         forbiddenSegments: new Set<string>(role.forbiddenOutwardSegments),
         label: role.label,
