@@ -164,9 +164,7 @@ function analyzeRecognizedRoleDirection(
 function resolveSourceRole(sourceSegments: readonly string[]): SourceRoleRule | null {
   for (const role of Object.values(SOURCE_POLICY.roles)) {
     if (
-      sourceSegments.some((segment) =>
-        role.segments.some((roleSegment) => roleSegment === segment),
-      )
+      sourceSegments.some((segment) => role.segments.some((roleSegment) => roleSegment === segment))
     ) {
       return {
         forbiddenSegments: new Set<string>(role.forbiddenOutwardSegments),
