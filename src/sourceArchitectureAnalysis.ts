@@ -4,6 +4,7 @@ import path from 'node:path';
 import { ARCHITECTURE_POLICY } from '@ankhorage/policy/architecture';
 
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
+import { getArchitecturePolicyRule } from './utils/getArchitecturePolicyRule.js';
 
 interface SourceImport {
   readonly filePath: string;
@@ -15,9 +16,6 @@ interface AnalyzeSourceArchitectureInput {
   readonly profile: DoctorPolicyProfile;
   readonly targetPath: string;
 }
-
-type ArchitecturePolicyRule =
-  (typeof ARCHITECTURE_POLICY.rules)[keyof typeof ARCHITECTURE_POLICY.rules];
 
 const SOURCE_POLICY = ARCHITECTURE_POLICY.source;
 
@@ -83,7 +81,7 @@ async function analyzeFeatureCombinationsAsync(
           createDiagnostic(
             input,
             path.join(featureRoot, roleName),
-            getArchitectureRule(requirement.ruleId),
+            getArchitecturePolicyRule(requirement.ruleId),
             `Feature "${entry.name}" declares ${roleName}/ without one of the required inward roles: ${requirement.requiresAnyOf.join(', ')}.`,
           ),
         );
@@ -127,7 +125,7 @@ function createEscapedRepositoryDiagnostic(
   return createDiagnostic(
     input,
     sourceImport.filePath,
-    getArchitectureRule(SOURCE_POLICY.repositoryBoundaryRuleId),
+    getArchitecturePolicyRule(SOURCE_POLICY.repositoryBoundaryRuleId),
     `Relative import "${sourceImport.specifier}" escapes the standalone repository root.`,
   );
 }
@@ -150,7 +148,7 @@ function analyzeRecognizedRoleDirection(
       createDiagnostic(
         input,
         sourceImport.filePath,
-        getArchitectureRule(deliveryPolicy.ruleId),
+        getArchitecturePolicyRule(deliveryPolicy.ruleId),
         `Thin delivery adapter must not wire concrete adapter implementation through "${sourceImport.specifier}". Import an application operation or composition boundary instead.`,
       ),
     ];
@@ -169,7 +167,7 @@ function resolveSourceRole(sourceSegments: readonly string[]): SourceRoleRule | 
       return {
         forbiddenSegments: new Set<string>(role.forbiddenOutwardSegments),
         label: role.label,
-        rule: getArchitectureRule(role.ruleId),
+        rule: getArchitecturePolicyRule(role.ruleId),
       };
     }
   }
@@ -180,7 +178,7 @@ function resolveSourceRole(sourceSegments: readonly string[]): SourceRoleRule | 
 interface SourceRoleRule {
   readonly forbiddenSegments: ReadonlySet<string>;
   readonly label: string;
-  readonly rule: ArchitecturePolicyRule;
+  readonly rule: ReturnType<typeof getArchitecturePolicyRule>;
 }
 
 /*** Report one outward dependency when the imported path crosses a forbidden role. */
@@ -218,20 +216,11 @@ function splitRelativePath(targetPath: string, filePath: string): readonly strin
   return path.relative(targetPath, filePath).split(path.sep).filter(Boolean);
 }
 
-/*** Resolve a Policy-owned rule descriptor by its stable id. */
-function getArchitectureRule(ruleId: string): ArchitecturePolicyRule {
-  const rule = Object.values(ARCHITECTURE_POLICY.rules).find((entry) => entry.id === ruleId);
-  if (rule === undefined) {
-    throw new Error(`Unknown architecture policy rule: ${ruleId}`);
-  }
-  return rule;
-}
-
 /*** Build one deterministic architecture diagnostic from Policy-owned metadata. */
 function createDiagnostic(
   input: AnalyzeSourceArchitectureInput,
   diagnosticPath: string,
-  rule: ArchitecturePolicyRule,
+  rule: ReturnType<typeof getArchitecturePolicyRule>,
   message: string,
 ): DoctorDiagnostic {
   return {
