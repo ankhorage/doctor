@@ -999,8 +999,7 @@ function requireRecordField(request: {
       message: `package.json must define an object "${request.fieldName}" field.`,
       path: request.packageJsonPath,
       profile: request.profile,
-      ruleId: request.ruleId,
-      severity: 'error',
+      ...architecturePolicyRuleFields(request.ruleId),
     }),
   );
 }
@@ -1023,8 +1022,7 @@ function requireStringArrayField(request: {
       message: `package.json must define a non-empty string array "${request.fieldName}" field.`,
       path: request.packageJsonPath,
       profile: request.profile,
-      ruleId: request.ruleId,
-      severity: 'error',
+      ...architecturePolicyRuleFields(request.ruleId),
     }),
   );
 }
