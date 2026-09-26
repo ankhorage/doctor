@@ -1,7 +1,10 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
+import { ARCHITECTURE_POLICY } from '@ankhorage/policy/architecture';
+
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
+import { getArchitecturePolicyRule } from './utils/getArchitecturePolicyRule.js';
 
 interface SourceImport {
   readonly filePath: string;
@@ -14,31 +17,7 @@ interface AnalyzeSourceArchitectureInput {
   readonly targetPath: string;
 }
 
-const CATCH_ALL_DIRECTORIES = ['common', 'helpers', 'shared'] as const;
-const INNER_ROLE_SEGMENTS = new Set(['domain', 'core']);
-const APPLICATION_ROLE_SEGMENTS = new Set(['application']);
-const PORT_ROLE_SEGMENTS = new Set(['ports']);
-const DOMAIN_OUTWARD_SEGMENTS = new Set([
-  'adapters',
-  'app',
-  'application',
-  'cli',
-  'composition',
-  'host',
-  'infrastructure',
-  'platform',
-]);
-const APPLICATION_OUTWARD_SEGMENTS = new Set([
-  'adapters',
-  'app',
-  'cli',
-  'composition',
-  'host',
-  'infrastructure',
-  'platform',
-]);
-const PORT_OUTWARD_SEGMENTS = APPLICATION_OUTWARD_SEGMENTS;
-const INWARD_FEATURE_ROLES = ['application', 'contracts', 'domain', 'planning', 'ports'] as const;
+const SOURCE_POLICY = ARCHITECTURE_POLICY.source;
 
 /*** Validate folder-role combinations and inward source dependency direction. */
 export async function analyzeSourceArchitecture(
@@ -54,14 +33,14 @@ async function analyzeDirectoryVocabularyAsync(
   const diagnostics: DoctorDiagnostic[] = [];
   const sourceRoot = path.join(input.targetPath, 'src');
 
-  for (const directoryName of CATCH_ALL_DIRECTORIES) {
+  for (const directoryName of SOURCE_POLICY.catchAllDirectories) {
     const directoryPath = path.join(sourceRoot, directoryName);
     if (await pathExistsAsync(directoryPath)) {
       diagnostics.push(
         createDiagnostic(
           input,
           directoryPath,
-          'package.architecture.catch-all-directory.disallowed',
+          ARCHITECTURE_POLICY.rules.catchAllDirectory,
           `src/${directoryName}/ is a generic catch-all. Move code to an owning domain, feature, package edge, or utils/ according to the repository profile.`,
         ),
       );
@@ -92,31 +71,21 @@ async function analyzeFeatureCombinationsAsync(
         .filter((child) => child.isDirectory())
         .map((child) => child.name),
     );
-    const hasInwardRole = INWARD_FEATURE_ROLES.some((role) => roleNames.has(role));
 
-    if (roleNames.has('adapters') && !hasInwardRole) {
-      diagnostics.push(
-        createDiagnostic(
-          input,
-          path.join(featureRoot, 'adapters'),
-          'package.architecture.role-combination.invalid',
-          `Feature "${entry.name}" declares adapters/ without domain, application, ports, contracts, or planning policy to adapt to.`,
-        ),
-      );
-    }
-
-    if (
-      roleNames.has('composition') &&
-      !['adapters', 'application', 'ports', 'planning'].some((role) => roleNames.has(role))
-    ) {
-      diagnostics.push(
-        createDiagnostic(
-          input,
-          path.join(featureRoot, 'composition'),
-          'package.architecture.role-combination.invalid',
-          `Feature "${entry.name}" declares composition/ without application, ports, planning, or adapters to wire.`,
-        ),
-      );
+    for (const [roleName, requirement] of Object.entries(SOURCE_POLICY.featureCombinations)) {
+      if (
+        roleNames.has(roleName) &&
+        !requirement.requiresAnyOf.some((requiredRole) => roleNames.has(requiredRole))
+      ) {
+        diagnostics.push(
+          createDiagnostic(
+            input,
+            path.join(featureRoot, roleName),
+            getArchitecturePolicyRule(requirement.ruleId),
+            `Feature "${entry.name}" declares ${roleName}/ without one of the required inward roles: ${requirement.requiresAnyOf.join(', ')}.`,
+          ),
+        );
+      }
     }
   }
 
@@ -156,7 +125,7 @@ function createEscapedRepositoryDiagnostic(
   return createDiagnostic(
     input,
     sourceImport.filePath,
-    'package.imports.outside-root.disallowed',
+    getArchitecturePolicyRule(SOURCE_POLICY.repositoryBoundaryRuleId),
     `Relative import "${sourceImport.specifier}" escapes the standalone repository root.`,
   );
 }
@@ -169,12 +138,17 @@ function analyzeRecognizedRoleDirection(
 ): DoctorDiagnostic[] {
   const sourceSegments = splitRelativePath(input.targetPath, sourceImport.filePath);
   const targetSegments = splitRelativePath(input.targetPath, targetPath);
-  if (isThinDeliveryAdapter(sourceSegments) && targetSegments.includes('adapters')) {
+  const deliveryPolicy = SOURCE_POLICY.thinDeliveryAdapter;
+
+  if (
+    includesSegmentSequence(sourceSegments, deliveryPolicy.pathSegments) &&
+    targetSegments.includes(deliveryPolicy.concreteAdapterSegment)
+  ) {
     return [
       createDiagnostic(
         input,
         sourceImport.filePath,
-        'package.architecture.delivery-concrete-adapter-import.disallowed',
+        getArchitecturePolicyRule(deliveryPolicy.ruleId),
         `Thin delivery adapter must not wire concrete adapter implementation through "${sourceImport.specifier}". Import an application operation or composition boundary instead.`,
       ),
     ];
@@ -183,55 +157,30 @@ function analyzeRecognizedRoleDirection(
   const role = resolveSourceRole(sourceSegments);
   if (role === null) return [];
 
-  return createOutwardImportDiagnostic(
-    input,
-    sourceImport,
-    targetSegments,
-    role.forbiddenSegments,
-    role.ruleId,
-    role.label,
-  );
-}
-
-/*** Check whether a source file belongs to a thin CLI command delivery boundary. */
-function isThinDeliveryAdapter(sourceSegments: readonly string[]): boolean {
-  const cliIndex = sourceSegments.indexOf('cli');
-  return cliIndex >= 0 && sourceSegments[cliIndex + 1] === 'commands';
+  return createOutwardImportDiagnostic(input, sourceImport, targetSegments, role);
 }
 
 /*** Resolve the dependency rule owned by one recognized inner source role. */
 function resolveSourceRole(sourceSegments: readonly string[]): SourceRoleRule | null {
-  if (sourceSegments.some((segment) => INNER_ROLE_SEGMENTS.has(segment))) {
-    return {
-      forbiddenSegments: DOMAIN_OUTWARD_SEGMENTS,
-      label: 'Domain/core policy',
-      ruleId: 'package.architecture.domain-outward-import.disallowed',
-    };
+  for (const role of Object.values(SOURCE_POLICY.roles)) {
+    if (
+      sourceSegments.some((segment) => role.segments.some((roleSegment) => roleSegment === segment))
+    ) {
+      return {
+        forbiddenSegments: new Set<string>(role.forbiddenOutwardSegments),
+        label: role.label,
+        rule: getArchitecturePolicyRule(role.ruleId),
+      };
+    }
   }
-  if (sourceSegments.some((segment) => APPLICATION_ROLE_SEGMENTS.has(segment))) {
-    return {
-      forbiddenSegments: APPLICATION_OUTWARD_SEGMENTS,
-      label: 'Application/use-case code',
-      ruleId: 'package.architecture.application-outward-import.disallowed',
-    };
-  }
-  if (sourceSegments.some((segment) => PORT_ROLE_SEGMENTS.has(segment))) {
-    return {
-      forbiddenSegments: PORT_OUTWARD_SEGMENTS,
-      label: 'Port contracts',
-      ruleId: 'package.architecture.port-outward-import.disallowed',
-    };
-  }
+
   return null;
 }
 
 interface SourceRoleRule {
   readonly forbiddenSegments: ReadonlySet<string>;
   readonly label: string;
-  readonly ruleId:
-    | 'package.architecture.application-outward-import.disallowed'
-    | 'package.architecture.domain-outward-import.disallowed'
-    | 'package.architecture.port-outward-import.disallowed';
+  readonly rule: ReturnType<typeof getArchitecturePolicyRule>;
 }
 
 /*** Report one outward dependency when the imported path crosses a forbidden role. */
@@ -239,24 +188,29 @@ function createOutwardImportDiagnostic(
   input: AnalyzeSourceArchitectureInput,
   sourceImport: SourceImport,
   targetSegments: readonly string[],
-  forbiddenSegments: ReadonlySet<string>,
-  ruleId:
-    | 'package.architecture.application-outward-import.disallowed'
-    | 'package.architecture.domain-outward-import.disallowed'
-    | 'package.architecture.port-outward-import.disallowed',
-  roleLabel: string,
+  role: SourceRoleRule,
 ): DoctorDiagnostic[] {
-  const outwardRole = targetSegments.find((segment) => forbiddenSegments.has(segment));
+  const outwardRole = targetSegments.find((segment) => role.forbiddenSegments.has(segment));
   if (outwardRole === undefined) return [];
 
   return [
     createDiagnostic(
       input,
       sourceImport.filePath,
-      ruleId,
-      `${roleLabel} must not import outward ${outwardRole}/ implementation through "${sourceImport.specifier}".`,
+      role.rule,
+      `${role.label} must not import outward ${outwardRole}/ implementation through "${sourceImport.specifier}".`,
     ),
   ];
+}
+
+/*** Check whether one path segment sequence occurs contiguously in another. */
+function includesSegmentSequence(
+  segments: readonly string[],
+  expected: readonly string[],
+): boolean {
+  return segments.some((_, index) =>
+    expected.every((segment, offset) => segments[index + offset] === segment),
+  );
 }
 
 /*** Split one repository path into normalized architecture segments. */
@@ -264,11 +218,11 @@ function splitRelativePath(targetPath: string, filePath: string): readonly strin
   return path.relative(targetPath, filePath).split(path.sep).filter(Boolean);
 }
 
-/*** Build one deterministic architecture diagnostic. */
+/*** Build one deterministic architecture diagnostic from Policy-owned metadata. */
 function createDiagnostic(
   input: AnalyzeSourceArchitectureInput,
   diagnosticPath: string,
-  ruleId: DoctorDiagnostic['ruleId'],
+  rule: ReturnType<typeof getArchitecturePolicyRule>,
   message: string,
 ): DoctorDiagnostic {
   return {
@@ -276,8 +230,8 @@ function createDiagnostic(
     message,
     path: diagnosticPath,
     profile: input.profile,
-    ruleId,
-    severity: 'error',
+    ruleId: rule.id,
+    severity: rule.severity,
   };
 }
 

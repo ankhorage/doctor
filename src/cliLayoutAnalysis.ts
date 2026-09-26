@@ -1,6 +1,8 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
+import { ARCHITECTURE_POLICY } from '@ankhorage/policy/architecture';
+
 import {
   analyzeDoctorTarget,
   type DoctorAnalysisRequest,
@@ -9,8 +11,10 @@ import {
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
 import { analyzeAppManifestTarget } from './manifestAnalysis.js';
 import { analyzeSourceArchitecture } from './sourceArchitectureAnalysis.js';
+import { getArchitecturePolicyRule } from './utils/getArchitecturePolicyRule.js';
 
-const LEGACY_ROOT_CLI_SOURCE = path.join('src', 'cli.ts');
+const CLI_POLICY = ARCHITECTURE_POLICY.cli;
+const DEPENDENCY_POLICY = ARCHITECTURE_POLICY.dependencies;
 const ACTIVE_SOURCE_ROOTS = ['src', 'app', 'apps', 'packages', 'scripts'] as const;
 const ACTIVE_SOURCE_EXTENSIONS = new Set([
   '.cjs',
@@ -38,7 +42,6 @@ const IGNORED_SOURCE_DIRECTORIES = new Set([
   'test',
   'tests',
 ]);
-const COMPATIBILITY_PACKAGE_PREFIX = '@ankh/';
 const STUDIO_PACKAGE_NAME = '@ankhorage/studio';
 const STUDIO_DND_PACKAGE_NAME = '@ankhorage/react-native-reanimated-dnd-web';
 const STUDIO_RUNTIME_PACKAGE_NAME = '@ankhorage/runtime';
@@ -105,9 +108,10 @@ async function analyzeTargetArchitecture(request: {
   readonly targetPath: string;
 }): Promise<DoctorDiagnostic[]> {
   const diagnostics: DoctorDiagnostic[] = [];
-  const legacyRootCliPath = path.join(request.targetPath, LEGACY_ROOT_CLI_SOURCE);
+  const legacyRootCliPath = path.join(request.targetPath, CLI_POLICY.legacyRootFile);
   const exportsField = isRecord(request.packageJson.exports) ? request.packageJson.exports : null;
-  const cliCapable = hasAnkhProvider(request.packageJson) || exportsField?.['./cli'] !== undefined;
+  const cliCapable =
+    hasAnkhProvider(request.packageJson) || exportsField?.[CLI_POLICY.packageExport] !== undefined;
 
   if (await pathExists(legacyRootCliPath)) {
     diagnostics.push({
@@ -115,20 +119,18 @@ async function analyzeTargetArchitecture(request: {
       message: 'Package CLI code must live under src/cli/; root src/cli.ts is not allowed.',
       path: legacyRootCliPath,
       profile: request.profile,
-      ruleId: 'package.cli.root-file.disallowed',
-      severity: 'error',
+      ...architectureRuleFields(CLI_POLICY.legacyRootRuleId),
     });
   }
 
-  if (cliCapable && exportsField?.['./cli'] === undefined) {
+  if (cliCapable && exportsField?.[CLI_POLICY.packageExport] === undefined) {
     diagnostics.push({
       code: 'field-missing',
       message:
         'CLI-capable packages must export "./cli" from package.json and point it at the metadata-declared provider build output.',
       path: request.packageJsonPath,
       profile: request.profile,
-      ruleId: 'package.cli.export.required',
-      severity: 'error',
+      ...architectureRuleFields(CLI_POLICY.exportRuleId),
     });
   }
 
@@ -178,42 +180,41 @@ function validateDependencyArchitecture(request: {
   const diagnostics: DoctorDiagnostic[] = [];
 
   for (const dependency of request.dependencyEntries) {
-    if (dependency.packageName.startsWith(COMPATIBILITY_PACKAGE_PREFIX)) {
+    if (dependency.packageName.startsWith(DEPENDENCY_POLICY.compatibilityPackagePrefix)) {
       diagnostics.push({
         code: 'field-invalid',
         message: `Dependency "${dependency.packageName}" in package.json.${dependency.fieldName} is an old ankhorage4 workspace alias. Depend on "${toOwningPackageSpecifier(dependency.packageName)}" directly.`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.dependencies.ankh-workspace-alias.disallowed',
-        severity: 'error',
+        ...architectureRuleFields(DEPENDENCY_POLICY.rules.compatibilityDependency),
       });
     }
 
     if (
       request.profile === 'public-package' &&
-      /^(?:file:|link:|workspace:|github:|git(?:\+[^:]+)?:)/u.test(dependency.version)
+      DEPENDENCY_POLICY.localProtocolPrefixes.some((prefix) =>
+        dependency.version.startsWith(prefix),
+      )
     ) {
       diagnostics.push({
         code: 'field-invalid',
         message: `Published dependency "${dependency.packageName}" must resolve from a registry version, not "${dependency.version}". Standalone packages cannot rely on local/workspace/Git package state.`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.dependencies.local-protocol.disallowed',
-        severity: 'error',
+        ...architectureRuleFields(DEPENDENCY_POLICY.rules.localProtocolDependency),
       });
     }
 
     if (
-      dependency.packageName.includes('ankhorage4') ||
-      dependency.version.includes('ankhorage4')
+      dependency.packageName.includes(DEPENDENCY_POLICY.legacySourceMarker) ||
+      dependency.version.includes(DEPENDENCY_POLICY.legacySourceMarker)
     ) {
       diagnostics.push({
         code: 'field-invalid',
         message: `Dependency "${dependency.packageName}" references ankhorage4 as active source. Depend on the extracted owning @ankhorage/* package instead.`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ruleId: 'package.dependencies.ankhorage4-source.disallowed',
-        severity: 'error',
+        ...architectureRuleFields(DEPENDENCY_POLICY.rules.legacySourceDependency),
       });
     }
   }
@@ -228,25 +229,23 @@ function validateActiveSourceImports(request: {
   const diagnostics: DoctorDiagnostic[] = [];
 
   for (const sourceImport of request.activeSourceImports) {
-    if (sourceImport.specifier.startsWith(COMPATIBILITY_PACKAGE_PREFIX)) {
+    if (sourceImport.specifier.startsWith(DEPENDENCY_POLICY.compatibilityPackagePrefix)) {
       diagnostics.push({
         code: 'field-invalid',
         message: `Import "${sourceImport.specifier}" is an old ankhorage4 compatibility boundary. Import "${toOwningPackageSpecifier(sourceImport.specifier)}" directly from the owning package.`,
         path: sourceImport.filePath,
         profile: request.profile,
-        ruleId: 'package.imports.ankh-workspace-alias.disallowed',
-        severity: 'error',
+        ...architectureRuleFields(DEPENDENCY_POLICY.rules.compatibilityImport),
       });
     }
 
-    if (sourceImport.specifier.includes('ankhorage4')) {
+    if (sourceImport.specifier.includes(DEPENDENCY_POLICY.legacySourceMarker)) {
       diagnostics.push({
         code: 'field-invalid',
         message: `Import "${sourceImport.specifier}" references ankhorage4 as active source. Import the extracted owning @ankhorage/* package instead.`,
         path: sourceImport.filePath,
         profile: request.profile,
-        ruleId: 'package.imports.ankhorage4-source.disallowed',
-        severity: 'error',
+        ...architectureRuleFields(DEPENDENCY_POLICY.rules.legacySourceImport),
       });
     }
   }
@@ -429,8 +428,16 @@ function isPackageImport(specifier: string, packageName: string): boolean {
   return specifier === packageName || specifier.startsWith(`${packageName}/`);
 }
 
+/*** Resolve Policy-owned rule metadata for generic architecture diagnostics. */
+function architectureRuleFields(
+  ruleId: DoctorDiagnostic['ruleId'],
+): Pick<DoctorDiagnostic, 'ruleId' | 'severity'> {
+  const rule = getArchitecturePolicyRule(ruleId);
+  return { ruleId: rule.id, severity: rule.severity };
+}
+
 function toOwningPackageSpecifier(specifier: string): string {
-  return `@ankhorage/${specifier.slice(COMPATIBILITY_PACKAGE_PREFIX.length)}`;
+  return `@ankhorage/${specifier.slice(DEPENDENCY_POLICY.compatibilityPackagePrefix.length)}`;
 }
 
 async function readPackageJson(packageJsonPath: string): Promise<Record<string, unknown> | null> {
