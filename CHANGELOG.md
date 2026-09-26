@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.6
+
+### Patch Changes
+
+- b358666: Update the development toolchain to `@ankhorage/devtools` v2.
+
 ## 0.11.5
 
 ### Patch Changes
