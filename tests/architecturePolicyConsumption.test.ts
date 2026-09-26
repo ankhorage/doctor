@@ -18,89 +18,101 @@ function requiredPublicPackageField(name: string) {
   return field;
 }
 
+async function createPublicPackagePolicyFixture() {
+  const catchAllDirectory = firstPolicyValue(
+    ARCHITECTURE_POLICY.source.catchAllDirectories,
+    'a catch-all directory',
+  );
+  const localProtocol = firstPolicyValue(
+    ARCHITECTURE_POLICY.dependencies.localProtocolPrefixes,
+    'a local dependency protocol',
+  );
+  const compatibilityPackage = `${ARCHITECTURE_POLICY.dependencies.compatibilityPackagePrefix}runtime`;
+  const missingField = requiredPublicPackageField('description');
+  const requiredRepoPath = firstPolicyValue(
+    ARCHITECTURE_POLICY.publicPackage.requiredRepoPaths,
+    'a required repository path',
+  );
+  const requiredScript = firstPolicyValue(
+    ARCHITECTURE_POLICY.publicPackage.requiredScripts,
+    'a required package script',
+  );
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      name: '@ankhorage/policy-consumption-fixture',
+      version: '1.0.0',
+      dependencies: {
+        [compatibilityPackage]: '^1.0.0',
+        helper: `${localProtocol}../helper`,
+      },
+    },
+    extraFiles: {
+      [ARCHITECTURE_POLICY.cli.legacyRootFile]: 'export {};\n',
+      [`src/${catchAllDirectory}/value.ts`]: 'export const value = true;\n',
+      'src/index.ts': `import '${compatibilityPackage}';\n`,
+    },
+  });
+
+  return {
+    expectedRuleIds: [
+      ARCHITECTURE_POLICY.cli.legacyRootRuleId,
+      ARCHITECTURE_POLICY.rules.catchAllDirectory.id,
+      ARCHITECTURE_POLICY.dependencies.rules.compatibilityDependency,
+      ARCHITECTURE_POLICY.dependencies.rules.compatibilityImport,
+      ARCHITECTURE_POLICY.dependencies.rules.localProtocolDependency,
+      requiredRepoPath.ruleId,
+      requiredScript.ruleId,
+      missingField.ruleId,
+    ],
+    fixture,
+  };
+}
+
+async function createSourceArchitecturePolicyFixture() {
+  const domainPolicy = ARCHITECTURE_POLICY.source.roles.domain;
+  const domainSegment = firstPolicyValue(domainPolicy.segments, 'a domain segment');
+  const outwardSegment = firstPolicyValue(
+    domainPolicy.forbiddenOutwardSegments,
+    'an outward domain segment',
+  );
+  const compositionPolicy = ARCHITECTURE_POLICY.source.featureCombinations.composition;
+  const deliveryPolicy = ARCHITECTURE_POLICY.source.thinDeliveryAdapter;
+  const commandPath = ['src', ...deliveryPolicy.pathSegments, 'issue.ts'].join('/');
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      name: '@ankhorage/internal-policy-fixture',
+      private: true,
+    },
+    extraFiles: {
+      [`src/features/orders/${domainSegment}/order.ts`]:
+        `import { repository } from '../${outwardSegment}/repository'; export const order = repository;\n`,
+      [`src/features/orders/${outwardSegment}/repository.ts`]: 'export const repository = true;\n',
+      'src/features/orphan/composition/wire.ts': 'export const wire = true;\n',
+      [commandPath]:
+        `import { repository } from '../../features/orders/${deliveryPolicy.concreteAdapterSegment}/repository'; export const issue = repository;\n`,
+    },
+  });
+
+  return {
+    expectedRuleIds: [domainPolicy.ruleId, compositionPolicy.ruleId, deliveryPolicy.ruleId],
+    fixture,
+  };
+}
+
 describe('canonical architecture policy consumption', () => {
   test('uses Policy-owned CLI, dependency, repo, script, and field requirements', async () => {
-    const catchAllDirectory = firstPolicyValue(
-      ARCHITECTURE_POLICY.source.catchAllDirectories,
-      'a catch-all directory',
-    );
-    const localProtocol = firstPolicyValue(
-      ARCHITECTURE_POLICY.dependencies.localProtocolPrefixes,
-      'a local dependency protocol',
-    );
-    const compatibilityPackage =
-      `${ARCHITECTURE_POLICY.dependencies.compatibilityPackagePrefix}runtime`;
-    const missingField = requiredPublicPackageField('description');
-    const requiredRepoPath = firstPolicyValue(
-      ARCHITECTURE_POLICY.publicPackage.requiredRepoPaths,
-      'a required repository path',
-    );
-    const requiredScript = firstPolicyValue(
-      ARCHITECTURE_POLICY.publicPackage.requiredScripts,
-      'a required package script',
-    );
-
-    const fixture = await createDoctorFixture({
-      packageJson: {
-        name: '@ankhorage/policy-consumption-fixture',
-        version: '1.0.0',
-        dependencies: {
-          [compatibilityPackage]: '^1.0.0',
-          helper: `${localProtocol}../helper`,
-        },
-      },
-      extraFiles: {
-        [ARCHITECTURE_POLICY.cli.legacyRootFile]: 'export {};\n',
-        [`src/${catchAllDirectory}/value.ts`]: 'export const value = true;\n',
-        'src/index.ts': `import '${compatibilityPackage}';\n`,
-      },
-    });
-
+    const { expectedRuleIds, fixture } = await createPublicPackagePolicyFixture();
     const result = await analyzeDoctorTargetWithCliLayout({ cwd: fixture, mode: 'validate' });
     const ruleIds = result.diagnostics.map(({ ruleId }) => ruleId);
 
-    expect(ruleIds).toContain(ARCHITECTURE_POLICY.cli.legacyRootRuleId);
-    expect(ruleIds).toContain(ARCHITECTURE_POLICY.rules.catchAllDirectory.id);
-    expect(ruleIds).toContain(ARCHITECTURE_POLICY.dependencies.rules.compatibilityDependency);
-    expect(ruleIds).toContain(ARCHITECTURE_POLICY.dependencies.rules.compatibilityImport);
-    expect(ruleIds).toContain(ARCHITECTURE_POLICY.dependencies.rules.localProtocolDependency);
-    expect(ruleIds).toContain(requiredRepoPath.ruleId);
-    expect(ruleIds).toContain(requiredScript.ruleId);
-    expect(ruleIds).toContain(missingField.ruleId);
+    for (const ruleId of expectedRuleIds) expect(ruleIds).toContain(ruleId);
   });
 
   test('uses Policy-owned role, feature-combination, and thin-delivery rules', async () => {
-    const domainPolicy = ARCHITECTURE_POLICY.source.roles.domain;
-    const domainSegment = firstPolicyValue(domainPolicy.segments, 'a domain segment');
-    const outwardSegment = firstPolicyValue(
-      domainPolicy.forbiddenOutwardSegments,
-      'an outward domain segment',
-    );
-    const compositionPolicy = ARCHITECTURE_POLICY.source.featureCombinations.composition;
-    const deliveryPolicy = ARCHITECTURE_POLICY.source.thinDeliveryAdapter;
-    const commandPath = ['src', ...deliveryPolicy.pathSegments, 'issue.ts'].join('/');
-
-    const fixture = await createDoctorFixture({
-      packageJson: {
-        name: '@ankhorage/internal-policy-fixture',
-        private: true,
-      },
-      extraFiles: {
-        [`src/features/orders/${domainSegment}/order.ts`]:
-          `import { repository } from '../${outwardSegment}/repository'; export const order = repository;\n`,
-        [`src/features/orders/${outwardSegment}/repository.ts`]:
-          'export const repository = true;\n',
-        'src/features/orphan/composition/wire.ts': 'export const wire = true;\n',
-        [commandPath]:
-          `import { repository } from '../../features/orders/${deliveryPolicy.concreteAdapterSegment}/repository'; export const issue = repository;\n`,
-      },
-    });
-
+    const { expectedRuleIds, fixture } = await createSourceArchitecturePolicyFixture();
     const result = await analyzeDoctorTargetWithCliLayout({ cwd: fixture, mode: 'validate' });
     const ruleIds = result.diagnostics.map(({ ruleId }) => ruleId);
 
-    expect(ruleIds).toContain(domainPolicy.ruleId);
-    expect(ruleIds).toContain(compositionPolicy.ruleId);
-    expect(ruleIds).toContain(deliveryPolicy.ruleId);
+    for (const ruleId of expectedRuleIds) expect(ruleIds).toContain(ruleId);
   });
 });
