@@ -192,7 +192,9 @@ function validateDependencyArchitecture(request: {
 
     if (
       request.profile === 'public-package' &&
-      DEPENDENCY_POLICY.localProtocolPrefixes.some((prefix) => dependency.version.startsWith(prefix))
+      DEPENDENCY_POLICY.localProtocolPrefixes.some((prefix) =>
+        dependency.version.startsWith(prefix),
+      )
     ) {
       diagnostics.push({
         code: 'field-invalid',
