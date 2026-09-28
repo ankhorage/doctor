@@ -108,7 +108,8 @@ describe('canonical architecture policy consumption', () => {
   });
 
   test('uses Policy-owned role and thin-delivery rules while role combinations are deferred', async () => {
-    const { deferredRuleId, expectedRuleIds, fixture } = await createSourceArchitecturePolicyFixture();
+    const { deferredRuleId, expectedRuleIds, fixture } =
+      await createSourceArchitecturePolicyFixture();
     const result = await analyzeDoctorTargetWithCliLayout({ cwd: fixture, mode: 'validate' });
     const ruleIds = result.diagnostics.map(({ ruleId }) => ruleId);
 
