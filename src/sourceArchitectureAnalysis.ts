@@ -47,48 +47,7 @@ async function analyzeDirectoryVocabularyAsync(
     }
   }
 
-  diagnostics.push(...(await analyzeFeatureCombinationsAsync(input, sourceRoot)));
-  return diagnostics;
-}
-
-/*** Validate feature-first role combinations without requiring unused ceremonial layers. */
-async function analyzeFeatureCombinationsAsync(
-  input: AnalyzeSourceArchitectureInput,
-  sourceRoot: string,
-): Promise<DoctorDiagnostic[]> {
-  const featuresRoot = path.join(sourceRoot, 'features');
-  if (!(await pathExistsAsync(featuresRoot))) return [];
-
-  const featureEntries = (await fs.readdir(featuresRoot, { withFileTypes: true }))
-    .filter((entry) => entry.isDirectory())
-    .sort((left, right) => left.name.localeCompare(right.name));
-  const diagnostics: DoctorDiagnostic[] = [];
-
-  for (const entry of featureEntries) {
-    const featureRoot = path.join(featuresRoot, entry.name);
-    const roleNames = new Set(
-      (await fs.readdir(featureRoot, { withFileTypes: true }))
-        .filter((child) => child.isDirectory())
-        .map((child) => child.name),
-    );
-
-    for (const [roleName, requirement] of Object.entries(SOURCE_POLICY.featureCombinations)) {
-      if (
-        roleNames.has(roleName) &&
-        !requirement.requiresAnyOf.some((requiredRole) => roleNames.has(requiredRole))
-      ) {
-        diagnostics.push(
-          createDiagnostic(
-            input,
-            path.join(featureRoot, roleName),
-            getArchitecturePolicyRule(requirement.ruleId),
-            `Feature "${entry.name}" declares ${roleName}/ without one of the required inward roles: ${requirement.requiresAnyOf.join(', ')}.`,
-          ),
-        );
-      }
-    }
-  }
-
+  // Folder-role combination enforcement stays deferred until rules-architecture is canonical.
   return diagnostics;
 }
 

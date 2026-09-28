@@ -196,7 +196,7 @@ describe('target package architecture policy', () => {
     expect(ruleIds).not.toContain('package.architecture.application-outward-import.disallowed');
   });
 
-  test('rejects feature adapters without an inward capability boundary', async () => {
+  test('defers feature role-combination enforcement until rules-architecture is canonical', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createInternalPackageJson(),
       extraFiles: {
@@ -206,7 +206,7 @@ describe('target package architecture policy', () => {
 
     const ruleIds = await analyzeRuleIds(fixture);
 
-    expect(ruleIds).toContain('package.architecture.role-combination.invalid');
+    expect(ruleIds).not.toContain('package.architecture.role-combination.invalid');
   });
 
   test('rejects domain and application imports that point outward', async () => {
