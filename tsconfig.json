@@ -4,6 +4,7 @@
     "target": "ES2022",
     "inlineSources": true,
     "lib": ["ES2022"],
+    "types": ["bun", "node"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "strict": true,
