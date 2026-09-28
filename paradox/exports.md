@@ -235,7 +235,7 @@ Source: `src/commandContext.ts:11:1`
 
 Kind: `type`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:130:1`
+Source: `src/diagnostics.ts:129:1`
 
 ### Members
 
