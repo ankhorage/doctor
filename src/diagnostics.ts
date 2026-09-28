@@ -103,7 +103,6 @@ export type DoctorRuleId =
   | 'package.scripts.lint-fix.required'
   | 'package.scripts.lint.required'
   | 'package.scripts.test.required'
-  | 'package.scripts.standalone.required'
   | 'package.scripts.typecheck.required'
   | 'package.scripts.version-packages.required'
   | 'provider.commands.match-capabilities'
