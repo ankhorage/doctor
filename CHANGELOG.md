@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.12
+
+### Patch Changes
+
+- f66a9e7: Update Ankhorage dependencies: `@ankhorage/policy`.
+
 ## 0.11.11
 
 ### Patch Changes
