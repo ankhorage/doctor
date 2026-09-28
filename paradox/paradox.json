@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.11.13",
+      "value": "v0.11.14",
       "color": "cb3837"
     },
     {
@@ -3503,24 +3503,13 @@
       }
     },
     {
-      "name": "analyzeFeatureCombinationsAsync",
-      "description": "Validate feature-first role combinations without requiring unused ceremonial layers.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 55,
-        "column": 1
-      }
-    },
-    {
       "name": "analyzeImportDirection",
       "description": "Validate that relative source imports point inward across recognized architecture roles.",
       "see": [],
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 96,
+        "line": 55,
         "column": 1
       }
     },
@@ -3531,7 +3520,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 103,
+        "line": 62,
         "column": 1
       }
     },
@@ -3542,7 +3531,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 117,
+        "line": 76,
         "column": 1
       }
     },
@@ -3553,7 +3542,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 134,
+        "line": 93,
         "column": 1
       }
     },
@@ -3564,7 +3553,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 164,
+        "line": 123,
         "column": 1
       }
     },
@@ -3575,7 +3564,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 187,
+        "line": 146,
         "column": 1
       }
     },
@@ -3586,7 +3575,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 207,
+        "line": 166,
         "column": 1
       }
     },
@@ -3597,7 +3586,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 217,
+        "line": 176,
         "column": 1
       }
     },
@@ -3608,7 +3597,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 222,
+        "line": 181,
         "column": 1
       }
     },
@@ -3619,7 +3608,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/sourceArchitectureAnalysis.ts",
-        "line": 239,
+        "line": 198,
         "column": 1
       }
     },
@@ -5656,30 +5645,6 @@
         "fromSymbol": "analyzeDirectoryVocabularyAsync",
         "toSymbol": "createDiagnostic",
         "callExpression": "createDiagnostic",
-        "sourcePath": "src/sourceArchitectureAnalysis.ts"
-      },
-      {
-        "fromSymbol": "analyzeDirectoryVocabularyAsync",
-        "toSymbol": "analyzeFeatureCombinationsAsync",
-        "callExpression": "analyzeFeatureCombinationsAsync",
-        "sourcePath": "src/sourceArchitectureAnalysis.ts"
-      },
-      {
-        "fromSymbol": "analyzeFeatureCombinationsAsync",
-        "toSymbol": "pathExistsAsync",
-        "callExpression": "pathExistsAsync",
-        "sourcePath": "src/sourceArchitectureAnalysis.ts"
-      },
-      {
-        "fromSymbol": "analyzeFeatureCombinationsAsync",
-        "toSymbol": "createDiagnostic",
-        "callExpression": "createDiagnostic",
-        "sourcePath": "src/sourceArchitectureAnalysis.ts"
-      },
-      {
-        "fromSymbol": "analyzeFeatureCombinationsAsync",
-        "toSymbol": "getArchitecturePolicyRule",
-        "callExpression": "getArchitecturePolicyRule",
         "sourcePath": "src/sourceArchitectureAnalysis.ts"
       },
       {

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.14
+
+### Patch Changes
+
+- 5ca125e: Temporarily defer feature role-combination enforcement until
+  `ankhorage/rules-architecture` is the canonical machine-readable architecture rules source, while
+  keeping the remaining architecture diagnostics active.
+
 ## 0.11.13
 
 ### Patch Changes
