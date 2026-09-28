@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.15
+
+### Patch Changes
+
+- 1478d4c: Update dependencies from Renovate pull request #183.
+
 ## 0.11.14
 
 ### Patch Changes
