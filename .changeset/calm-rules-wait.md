@@ -1,5 +1,5 @@
 ---
-"@ankhorage/doctor": patch
+'@ankhorage/doctor': patch
 ---
 
 Temporarily defer feature role-combination enforcement until
