@@ -6,7 +6,7 @@
       "name": "@ankhorage/doctor",
       "dependencies": {
         "@ankhorage/contracts": "^22.8.2",
-        "@ankhorage/policy": "^0.5.3",
+        "@ankhorage/policy": "^0.5.4",
         "@ankhorage/supabase-auth": "^1.2.27",
         "@ankhorage/utility": "^1.9.0",
       },
@@ -33,7 +33,7 @@
 
     "@ankhorage/paradox": ["@ankhorage/paradox@0.2.6", "", { "dependencies": { "@ankhorage/policy": "^0.5.1", "@ankhorage/utility": "^1.8.1", "ts-morph": "^28.0.0" }, "bin": { "paradox": "dist/cli/standalone.js" } }, "sha512-9x8BHN0qodoSlR/YRQNS5zzvZ5IAii7b7V7EBp0cZL6SrbRQp2PsQWOGnvM/qvv5AqPJH1JtbG9yHLLddXPdtQ=="],
 
-    "@ankhorage/policy": ["@ankhorage/policy@0.5.3", "", {}, "sha512-qex6il8m1jnY9gHfvxVyocrTiNzhf7eP3kOhsYUZX5cVdaohHclDvhDr+m2tvtY0WdQXP3v8G4VlyahTSkc6EA=="],
+    "@ankhorage/policy": ["@ankhorage/policy@0.5.4", "", {}, "sha512-c7PWFBe6zjMUVMnUatOg+4o+CwXnWo0/wahXnDhM5NYkjWk9GQgZSuQccy2idE1E/3x3D3CxEPjM+E9t1jN/xQ=="],
 
     "@ankhorage/project-detector": ["@ankhorage/project-detector@0.3.1", "", { "dependencies": { "@ankhorage/utility": "^0.8.0", "minimatch": "^10.2.6", "yaml": "^2.9.1" }, "peerDependencies": { "@ankhorage/ankh": "^0.8.13" }, "optionalPeers": ["@ankhorage/ankh"], "bin": { "project-detector": "dist/cli/runAsync.js" } }, "sha512-jU6Kb0l2TQru0cAi/Q2hFuksurkWMH4ZOhaxEhgJsK6NnlyvkJuctyjRpxtIpqU47mxiIFt4+iJ35EsvldNUVQ=="],
 
