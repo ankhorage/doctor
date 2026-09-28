@@ -92,7 +92,8 @@ async function createSourceArchitecturePolicyFixture() {
   });
 
   return {
-    expectedRuleIds: [domainPolicy.ruleId, compositionPolicy.ruleId, deliveryPolicy.ruleId],
+    deferredRuleId: compositionPolicy.ruleId,
+    expectedRuleIds: [domainPolicy.ruleId, deliveryPolicy.ruleId],
     fixture,
   };
 }
@@ -106,11 +107,12 @@ describe('canonical architecture policy consumption', () => {
     for (const ruleId of expectedRuleIds) expect(ruleIds).toContain(ruleId);
   });
 
-  test('uses Policy-owned role, feature-combination, and thin-delivery rules', async () => {
-    const { expectedRuleIds, fixture } = await createSourceArchitecturePolicyFixture();
+  test('uses Policy-owned role and thin-delivery rules while role combinations are deferred', async () => {
+    const { deferredRuleId, expectedRuleIds, fixture } = await createSourceArchitecturePolicyFixture();
     const result = await analyzeDoctorTargetWithCliLayout({ cwd: fixture, mode: 'validate' });
     const ruleIds = result.diagnostics.map(({ ruleId }) => ruleId);
 
     for (const ruleId of expectedRuleIds) expect(ruleIds).toContain(ruleId);
+    expect(ruleIds).not.toContain(deferredRuleId);
   });
 });
