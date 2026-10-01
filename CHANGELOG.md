@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.36
+
+### Patch Changes
+
+- be4c306: Update dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`, `@ankhorage/utility`.
+- bf80629: Update Renovate-managed workflows.
+
 ## 0.11.35
 
 ### Patch Changes
