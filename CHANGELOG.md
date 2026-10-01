@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.28
+
+### Patch Changes
+
+- ac03576: Update Renovate-managed workflows.
+
 ## 0.11.27
 
 ### Patch Changes
