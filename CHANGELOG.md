@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.33
+
+### Patch Changes
+
+- ea2a00f: Update dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`, `@ankhorage/utility`.
+
 ## 0.11.32
 
 ### Patch Changes
