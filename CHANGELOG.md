@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.42
+
+### Patch Changes
+
+- 814c6c9: Update dependencies: `@ankhorage/utility`.
+
 ## 0.11.41
 
 ### Patch Changes
