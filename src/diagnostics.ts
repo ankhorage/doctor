@@ -59,6 +59,7 @@ export type DoctorRuleId =
   | 'package.cli.root-file.disallowed'
   | 'package.architecture.application-outward-import.disallowed'
   | 'package.architecture.catch-all-directory.disallowed'
+  | 'package.architecture.feature-ownership.required'
   | 'package.architecture.domain-outward-import.disallowed'
   | 'package.architecture.delivery-concrete-adapter-import.disallowed'
   | 'package.architecture.port-outward-import.disallowed'
