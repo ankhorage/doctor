@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.40
+
+### Patch Changes
+
+- bae14ff: Update Renovate-managed workflows.
+- 3ebbf5d: Update dependencies: `@types/node`.
+- 150627a: Update dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`, `@ankhorage/utility`.
+
 ## 0.11.39
 
 ### Patch Changes
