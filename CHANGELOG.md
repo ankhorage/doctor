@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.29
+
+### Patch Changes
+
+- ffac67e: Update dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`, `@ankhorage/policy`, `@ankhorage/utility`.
+
 ## 0.11.28
 
 ### Patch Changes
