@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.17
+
+### Patch Changes
+
+- 7b1b13f: Update Renovate-managed workflows.
+- aa0dc90: Update dependencies: `@types/node`.
+
 ## 0.11.16
 
 ### Patch Changes
