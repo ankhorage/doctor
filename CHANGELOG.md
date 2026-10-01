@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.21
+
+### Patch Changes
+
+- 12bbced: Update Renovate-managed workflows.
+
 ## 0.11.20
 
 ### Patch Changes
