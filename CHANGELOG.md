@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.82
+
+### Patch Changes
+
+- df72a95: Update dependencies: `@ankhorage/ankh`, `@ankhorage/devtools`.
+- f2890e7: Update dependencies: `@ankhorage/contracts`, `@ankhorage/utility`.
+
 ## 0.11.81
 
 ### Patch Changes
