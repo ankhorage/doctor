@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.90
+
+### Patch Changes
+
+- fd05fac: Update Renovate-managed workflows.
+
 ## 0.11.89
 
 ### Patch Changes
