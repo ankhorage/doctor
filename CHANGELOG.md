@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.87
+
+### Patch Changes
+
+- e159ba0: Update dependencies: `@ankhorage/devtools`.
+- cb2e180: Update dependencies: `@ankhorage/utility`.
+
 ## 0.11.86
 
 ### Patch Changes
