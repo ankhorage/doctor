@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.12.0
+
+### Minor Changes
+
+- 024d4d7: Replace direct @ankhorage/policy consumption with the canonical repository and architecture Rules
+  providers, and evaluate Doctor source architecture through the canonical dependency graph.
+
 ## 0.11.96
 
 ### Patch Changes
