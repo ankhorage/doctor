@@ -1,6 +1,6 @@
 {
   "name": "@ankhorage/doctor",
-  "version": "0.11.74",
+  "version": "0.11.75",
   "description": "Executable Ankh provider and standalone CLI for lightweight repo and package compliance diagnostics.",
   "license": "MIT",
   "publishConfig": {
