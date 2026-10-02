@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.73
+
+### Patch Changes
+
+- e3abfce: Update dependencies: `@ankhorage/ankh`, `@ankhorage/devtools`.
+
 ## 0.11.72
 
 ### Patch Changes
