@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.66
+
+### Patch Changes
+
+- f85ead2: Update Renovate-managed workflows.
+
 ## 0.11.65
 
 ### Patch Changes
