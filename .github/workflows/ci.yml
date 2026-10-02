@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -38,6 +38,25 @@ jobs:
         with:
           name: generated-bun-lock
           path: bun.lock
+
+      - name: Commit regenerated Bun lock to PR branch
+        if: github.event_name == 'pull_request'
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          cp bun.lock "${RUNNER_TEMP}/bun.lock.generated"
+          git fetch origin "$HEAD_REF"
+          git checkout -B lock-sync "origin/$HEAD_REF"
+          cp "${RUNNER_TEMP}/bun.lock.generated" bun.lock
+          if git diff --quiet -- bun.lock; then
+            echo "Bun lock is already canonical."
+            exit 0
+          fi
+          git config user.name "ankhorage-renovate-sync[bot]"
+          git config user.email "ankhorage-renovate-sync[bot]@users.noreply.github.com"
+          git add bun.lock
+          git commit -m "chore(doctor): sync Rules dependency lock"
+          git push origin HEAD:"$HEAD_REF"
 
       - name: Run build
         run: |
