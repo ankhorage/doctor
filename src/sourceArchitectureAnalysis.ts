@@ -1,205 +1,130 @@
-import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-import { ARCHITECTURE_POLICY } from '@ankhorage/policy/architecture';
+import { createSourceGraphAsync, type SourceGraph } from '@ankhorage/dependency-graph';
+import { evaluateArchitectureProfile } from '@ankhorage/rules-architecture';
 
-import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
-import { getArchitecturePolicyRule } from './utils/getArchitecturePolicyRule.js';
+import type {
+  DoctorDiagnostic,
+  DoctorDiagnosticSeverity,
+  DoctorPolicyProfile,
+  DoctorRuleId,
+} from './diagnostics.js';
 
-interface SourceImport {
-  readonly filePath: string;
-  readonly specifier: string;
-}
+const ENABLED_ARCHITECTURE_RULES = [
+  'package.architecture.domain-outward-import.disallowed',
+  'package.architecture.application-outward-import.disallowed',
+  'package.architecture.port-outward-import.disallowed',
+  'package.architecture.delivery-concrete-adapter-import.disallowed',
+] as const satisfies readonly DoctorRuleId[];
+
+const ACTIVE_SOURCE_ROOTS = ['src', 'app', 'apps', 'packages', 'scripts'] as const;
+const IGNORED_SOURCE_DIRECTORIES = new Set([
+  '.expo',
+  '.git',
+  '.next',
+  '__fixtures__',
+  '__tests__',
+  'build',
+  'coverage',
+  'dist',
+  'docs',
+  'fixtures',
+  'node_modules',
+  'paradox',
+  'test',
+  'tests',
+]);
 
 interface AnalyzeSourceArchitectureInput {
-  readonly activeSourceImports: readonly SourceImport[];
   readonly profile: DoctorPolicyProfile;
   readonly targetPath: string;
 }
 
-const SOURCE_POLICY = ARCHITECTURE_POLICY.source;
-
-/*** Validate folder-role combinations and inward source dependency direction. */
+/***
+ * Evaluates Doctor's currently enforced source-architecture subset through rules-architecture.
+ */
 export async function analyzeSourceArchitecture(
   input: AnalyzeSourceArchitectureInput,
 ): Promise<DoctorDiagnostic[]> {
-  return [...(await analyzeDirectoryVocabularyAsync(input)), ...analyzeImportDirection(input)];
+  const graph = await createSourceGraphAsync({
+    projects: [{ id: 'doctor-target', rootPath: input.targetPath }],
+  });
+  const result = evaluateArchitectureProfile(filterActiveSourceGraph(graph), 'ankhorage', {
+    config: {
+      version: 1,
+      rules: ENABLED_ARCHITECTURE_RULES.map((id) => ({ enabled: true, id })),
+    },
+  });
+
+  return result.findings.map((finding) => toDoctorDiagnostic(input, finding));
 }
 
-/*** Validate architectural directory names only when a repository has introduced them. */
-async function analyzeDirectoryVocabularyAsync(
-  input: AnalyzeSourceArchitectureInput,
-): Promise<DoctorDiagnostic[]> {
-  const diagnostics: DoctorDiagnostic[] = [];
-  const sourceRoot = path.join(input.targetPath, 'src');
-
-  for (const directoryName of SOURCE_POLICY.catchAllDirectories) {
-    const directoryPath = path.join(sourceRoot, directoryName);
-    if (await pathExistsAsync(directoryPath)) {
-      diagnostics.push(
-        createDiagnostic(
-          input,
-          directoryPath,
-          ARCHITECTURE_POLICY.rules.catchAllDirectory,
-          `src/${directoryName}/ is a generic catch-all. Move code to an owning domain, feature, package edge, or utils/ according to the repository profile.`,
-        ),
-      );
-    }
-  }
-
-  // Folder-role combination enforcement stays deferred until rules-architecture is canonical.
-  return diagnostics;
-}
-
-/*** Validate that relative source imports point inward across recognized architecture roles. */
-function analyzeImportDirection(input: AnalyzeSourceArchitectureInput): DoctorDiagnostic[] {
-  return input.activeSourceImports.flatMap((sourceImport) =>
-    analyzeOneImportDirection(input, sourceImport),
-  );
-}
-
-/*** Validate one relative import against repository and layer boundaries. */
-function analyzeOneImportDirection(
-  input: AnalyzeSourceArchitectureInput,
-  sourceImport: SourceImport,
-): DoctorDiagnostic[] {
-  if (!sourceImport.specifier.startsWith('.')) return [];
-
-  const targetPath = path.resolve(path.dirname(sourceImport.filePath), sourceImport.specifier);
-  const escaped = createEscapedRepositoryDiagnostic(input, sourceImport, targetPath);
-  if (escaped !== null) return [escaped];
-
-  return analyzeRecognizedRoleDirection(input, sourceImport, targetPath);
-}
-
-/*** Report a relative import that escapes the standalone repository boundary. */
-function createEscapedRepositoryDiagnostic(
-  input: AnalyzeSourceArchitectureInput,
-  sourceImport: SourceImport,
-  targetPath: string,
-): DoctorDiagnostic | null {
-  const relativeTarget = path.relative(input.targetPath, targetPath);
-  if (!relativeTarget.startsWith('..') && !path.isAbsolute(relativeTarget)) return null;
-
-  return createDiagnostic(
-    input,
-    sourceImport.filePath,
-    getArchitecturePolicyRule(SOURCE_POLICY.repositoryBoundaryRuleId),
-    `Relative import "${sourceImport.specifier}" escapes the standalone repository root.`,
-  );
-}
-
-/*** Apply inward dependency rules for recognized source architecture roles. */
-function analyzeRecognizedRoleDirection(
-  input: AnalyzeSourceArchitectureInput,
-  sourceImport: SourceImport,
-  targetPath: string,
-): DoctorDiagnostic[] {
-  const sourceSegments = splitRelativePath(input.targetPath, sourceImport.filePath);
-  const targetSegments = splitRelativePath(input.targetPath, targetPath);
-  const deliveryPolicy = SOURCE_POLICY.thinDeliveryAdapter;
-
-  if (
-    includesSegmentSequence(sourceSegments, deliveryPolicy.pathSegments) &&
-    targetSegments.includes(deliveryPolicy.concreteAdapterSegment)
-  ) {
-    return [
-      createDiagnostic(
-        input,
-        sourceImport.filePath,
-        getArchitecturePolicyRule(deliveryPolicy.ruleId),
-        `Thin delivery adapter must not wire concrete adapter implementation through "${sourceImport.specifier}". Import an application operation or composition boundary instead.`,
-      ),
-    ];
-  }
-
-  const role = resolveSourceRole(sourceSegments);
-  if (role === null) return [];
-
-  return createOutwardImportDiagnostic(input, sourceImport, targetSegments, role);
-}
-
-/*** Resolve the dependency rule owned by one recognized inner source role. */
-function resolveSourceRole(sourceSegments: readonly string[]): SourceRoleRule | null {
-  for (const role of Object.values(SOURCE_POLICY.roles)) {
-    if (
-      sourceSegments.some((segment) => role.segments.some((roleSegment) => roleSegment === segment))
-    ) {
-      return {
-        forbiddenSegments: new Set<string>(role.forbiddenOutwardSegments),
-        label: role.label,
-        rule: getArchitecturePolicyRule(role.ruleId),
-      };
-    }
-  }
-
-  return null;
-}
-
-interface SourceRoleRule {
-  readonly forbiddenSegments: ReadonlySet<string>;
-  readonly label: string;
-  readonly rule: ReturnType<typeof getArchitecturePolicyRule>;
-}
-
-/*** Report one outward dependency when the imported path crosses a forbidden role. */
-function createOutwardImportDiagnostic(
-  input: AnalyzeSourceArchitectureInput,
-  sourceImport: SourceImport,
-  targetSegments: readonly string[],
-  role: SourceRoleRule,
-): DoctorDiagnostic[] {
-  const outwardRole = targetSegments.find((segment) => role.forbiddenSegments.has(segment));
-  if (outwardRole === undefined) return [];
-
-  return [
-    createDiagnostic(
-      input,
-      sourceImport.filePath,
-      role.rule,
-      `${role.label} must not import outward ${outwardRole}/ implementation through "${sourceImport.specifier}".`,
-    ),
-  ];
-}
-
-/*** Check whether one path segment sequence occurs contiguously in another. */
-function includesSegmentSequence(
-  segments: readonly string[],
-  expected: readonly string[],
-): boolean {
-  return segments.some((_, index) =>
-    expected.every((segment, offset) => segments[index + offset] === segment),
-  );
-}
-
-/*** Split one repository path into normalized architecture segments. */
-function splitRelativePath(targetPath: string, filePath: string): readonly string[] {
-  return path.relative(targetPath, filePath).split(path.sep).filter(Boolean);
-}
-
-/*** Build one deterministic architecture diagnostic from Policy-owned metadata. */
-function createDiagnostic(
-  input: AnalyzeSourceArchitectureInput,
-  diagnosticPath: string,
-  rule: ReturnType<typeof getArchitecturePolicyRule>,
-  message: string,
-): DoctorDiagnostic {
+/***
+ * Keeps architecture evaluation aligned with Doctor's existing active-source scan contract.
+ */
+function filterActiveSourceGraph(graph: SourceGraph): SourceGraph {
+  const nodeById = new Map(graph.graph.nodes.map((node) => [node.id, node.data]));
   return {
-    code: 'field-invalid',
-    message,
-    path: diagnosticPath,
-    profile: input.profile,
-    ruleId: rule.id,
-    severity: rule.severity,
+    ...graph,
+    graph: {
+      nodes: graph.graph.nodes,
+      edges: graph.graph.edges.filter((edge) => {
+        if (edge.data.kind !== 'imports') return true;
+        const source = nodeById.get(edge.source);
+        const sourcePath = source?.path ?? source?.filePath;
+        return sourcePath === undefined || isActiveSourcePath(sourcePath);
+      }),
+    },
   };
 }
 
-/*** Check whether a filesystem path exists. */
-async function pathExistsAsync(targetPath: string): Promise<boolean> {
-  try {
-    await fs.access(targetPath);
-    return true;
-  } catch {
+/***
+ * Checks whether one portable path belongs to Doctor's active production-source surface.
+ */
+function isActiveSourcePath(sourcePath: string): boolean {
+  const normalized = sourcePath.split(path.sep).join('/');
+  const [root, ...segments] = normalized.split('/').filter(Boolean);
+  if (root === undefined || !ACTIVE_SOURCE_ROOTS.includes(root as (typeof ACTIVE_SOURCE_ROOTS)[number])) {
     return false;
   }
+  if (segments.some((segment) => IGNORED_SOURCE_DIRECTORIES.has(segment))) return false;
+  const fileName = segments.at(-1) ?? '';
+  return !/(?:^|\.)(?:spec|test)\.[cm]?[jt]sx?$/u.test(fileName);
+}
+
+/***
+ * Converts one architecture Rule finding into Doctor's stable diagnostic surface.
+ */
+function toDoctorDiagnostic(
+  input: AnalyzeSourceArchitectureInput,
+  finding: ReturnType<typeof evaluateArchitectureProfile>['findings'][number],
+): DoctorDiagnostic {
+  const subjectPath = finding.sourceLocation?.path ?? finding.subjects[0]?.path ?? '.';
+  return {
+    code: 'field-invalid',
+    message: finding.message,
+    path: path.resolve(input.targetPath, subjectPath),
+    profile: input.profile,
+    ruleId: toDoctorRuleId(finding.ruleId),
+    severity: toDoctorSeverity(finding.severity),
+  };
+}
+
+/***
+ * Narrows architecture-provider rule ids to the subset Doctor intentionally enforces.
+ */
+function toDoctorRuleId(ruleId: string): DoctorRuleId {
+  const match = ENABLED_ARCHITECTURE_RULES.find((candidate) => candidate === ruleId);
+  if (match === undefined) throw new Error('Unexpected Doctor architecture rule: ' + ruleId);
+  return match;
+}
+
+/***
+ * Narrows generic Rules severity to Doctor's diagnostic severity surface.
+ */
+function toDoctorSeverity(severity: 'error' | 'info' | 'warning'): DoctorDiagnosticSeverity {
+  if (severity === 'info') {
+    throw new Error('Doctor does not support info-level architecture diagnostics.');
+  }
+  return severity;
 }

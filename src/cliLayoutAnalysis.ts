@@ -152,7 +152,6 @@ async function analyzeTargetArchitecture(request: {
   );
   diagnostics.push(
     ...(await analyzeSourceArchitecture({
-      activeSourceImports,
       profile: request.profile,
       targetPath: request.targetPath,
     })),
