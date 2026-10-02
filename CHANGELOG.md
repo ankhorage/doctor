@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.89
+
+### Patch Changes
+
+- 6de3373: Update Renovate-managed workflows.
+- 0413ce7: Update dependencies: `@ankhorage/ankh`, `@ankhorage/devtools`.
+
 ## 0.11.88
 
 ### Patch Changes
