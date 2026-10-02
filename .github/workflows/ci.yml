@@ -33,6 +33,12 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Upload regenerated Bun lock
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-bun-lock
+          path: bun.lock
+
       - name: Run build
         run: |
           if node -e "const p=require('./package.json'); process.exit(p.scripts?.build ? 0 : 1)"; then
