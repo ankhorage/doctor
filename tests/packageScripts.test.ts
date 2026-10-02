@@ -1,4 +1,4 @@
-import { REPOSITORY_POLICY } from '@ankhorage/policy/repository';
+import { REPOSITORY_RULE_METADATA } from '@ankhorage/rules-repository';
 import { describe, expect, test } from 'bun:test';
 
 import { analyzeDoctorTarget } from '../src/index.js';
@@ -61,10 +61,10 @@ describe('public package script policy', () => {
 
 function createCanonicalWorkflowFiles(): Readonly<Record<string, string>> {
   const workflow = (name: string) =>
-    `name: ${name}\n\njobs:\n  validate:\n    steps:\n      - uses: oven-sh/setup-bun@v2\n        with:\n          bun-version: '${REPOSITORY_POLICY.runtime.bun.version}'\n`;
+    `name: ${name}\n\njobs:\n  validate:\n    steps:\n      - uses: oven-sh/setup-bun@v2\n        with:\n          bun-version: '${REPOSITORY_RULE_METADATA.runtime.bun.version}'\n`;
 
   return Object.fromEntries(
-    REPOSITORY_POLICY.runtime.bun.workflowTargets.map(({ path }, index) => [
+    REPOSITORY_RULE_METADATA.runtime.bun.workflowTargets.map(({ path }, index) => [
       path,
       workflow(index === 0 ? 'CI' : 'Release'),
     ]),
@@ -111,10 +111,10 @@ function createPublicPackageJson(knipScript: Readonly<Record<string, string>>) {
     },
     devDependencies: {
       '@ankhorage/devtools': '^1.8.0',
-      '@types/bun': REPOSITORY_POLICY.runtime.bun.typesRange,
+      '@types/bun': REPOSITORY_RULE_METADATA.runtime.bun.typesRange,
       '@types/node': '^25.6.0',
       typescript: '^5.9.3',
     },
-    packageManager: REPOSITORY_POLICY.runtime.bun.packageManager,
+    packageManager: REPOSITORY_RULE_METADATA.runtime.bun.packageManager,
   };
 }
