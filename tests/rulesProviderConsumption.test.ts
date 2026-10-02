@@ -116,9 +116,7 @@ async function createSourceArchitectureRulesFixture() {
   });
 
   expect(domainRole.ruleId).toBe('package.architecture.domain-outward-import.disallowed');
-  expect(delivery.ruleId).toBe(
-    'package.architecture.delivery-concrete-adapter-import.disallowed',
-  );
+  expect(delivery.ruleId).toBe('package.architecture.delivery-concrete-adapter-import.disallowed');
 
   return {
     deferredRuleId: 'package.architecture.role-combination.invalid' as const,
