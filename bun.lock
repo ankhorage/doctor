@@ -11,8 +11,8 @@
         "@ankhorage/utility": "^1.9.45",
       },
       "devDependencies": {
-        "@ankhorage/ankh": "^0.10.43",
-        "@ankhorage/devtools": "^2.0.69",
+        "@ankhorage/ankh": "^0.10.46",
+        "@ankhorage/devtools": "^2.0.71",
         "@ankhorage/paradox": "^0.2.19",
         "@types/bun": "^1.4.2",
         "@types/node": "^26.6.4",
@@ -21,7 +21,7 @@
     },
   },
   "packages": {
-    "@ankhorage/ankh": ["@ankhorage/ankh@0.10.43", "", { "dependencies": { "@ankhorage/contracts": "^22.0.1", "yaml": "^2.9.1" }, "bin": { "ankh": "dist/bin.js" } }, "sha512-N1NeXA6ZQ3/DtPHwSj2kI8fEVBKnrmILprrjgmPi0bjLrzk/yZ4JCVToDqJMv1NkrCzHCwCy0oO99Na4PezcYQ=="],
+    "@ankhorage/ankh": ["@ankhorage/ankh@0.10.46", "", { "dependencies": { "@ankhorage/contracts": "^22.0.1", "yaml": "^2.9.1" }, "bin": { "ankh": "dist/bin.js" } }, "sha512-1to88vzxm9tBHlMMmTqtSD8Zcp6oS4feas5GhSxgXJkdlkUdqgf+im3ZDicMC6tKg0SGFRs3jOjeem7oIt1cXw=="],
 
     "@ankhorage/apm": ["@ankhorage/apm@0.8.13", "", { "dependencies": { "@ankhorage/project-detector": "^0.1.0", "@ankhorage/utility": "^1.4.0", "jsonc-parser": "^3.3.1", "semver": "^7.8.5", "yaml": "^2.9.1" }, "peerDependencies": { "@ankhorage/ankh": "^0.10.4" }, "optionalPeers": ["@ankhorage/ankh"], "bin": { "apm": "dist/cli/runAsync.js" } }, "sha512-5ZzR2/ZYaoWaNux7ZY3gkDMI/NuxGHlnqt6lHY6cmy2ePvtv5g5YCwVsqXwYK3Dw8f+vJe6lLWJMt88oSrQX8Q=="],
 
@@ -29,7 +29,7 @@
 
     "@ankhorage/contracts": ["@ankhorage/contracts@22.8.54", "", { "dependencies": { "@ankhorage/color-theory": "^0.3.1", "@ankhorage/utility": "^1.9.41" } }, "sha512-ct60PAtQIakEwHRO+yf3lCKNFAQ5zFgIQUBZwZlZ9l7QF2MW0LYlnxxS1cFOofRAY0CnWpVsNLbdl9OQAQNtCA=="],
 
-    "@ankhorage/devtools": ["@ankhorage/devtools@2.0.69", "", { "dependencies": { "@ankhorage/apm": "^0.8.13", "@ankhorage/contracts": "^22.8.53", "@ankhorage/policy": "^0.6.0", "@ankhorage/project-detector": "^0.3.3", "@ankhorage/utility": "^0.5.5", "@changesets/cli": "^3.0.3", "@eslint/compat": "^2.1.1", "@eslint/js": "^10.0.1", "@next/eslint-plugin-next": "^16.3.8", "eslint": "^10.11.0", "eslint-config-prettier": "^10.1.8", "eslint-plugin-import": "^2.32.0", "eslint-plugin-prettier": "^5.5.6", "eslint-plugin-react": "^7.37.5", "eslint-plugin-react-hooks": "^7.1.1", "eslint-plugin-react-native": "^5.0.0", "eslint-plugin-security": "^4.2.0", "eslint-plugin-simple-import-sort": "^14.0.0", "eslint-plugin-unused-imports": "^4.4.1", "knip": "^6.39.0", "prettier": "^3.9.9", "typescript": "~6.0.3", "typescript-eslint": "^8.71.0" }, "bin": { "ankhorage-knip": "dist/cli/bin/knip.js", "ankhorage-eslint": "dist/cli/bin/eslint.js", "ankhorage-prettier": "dist/cli/bin/prettier.js", "ankhorage-changeset": "dist/cli/bin/changeset.js", "ankhorage-structure": "dist/cli/bin/structure.js", "ankhorage-apm-release": "dist/cli/bin/apm-release.js" } }, "sha512-O059odytL3h3FcTLLRaSmuHVGVQW0Xoo7hYGzhifl+F6XuaMKsBeNSUJaxHz+eVwZI0iVRN1exGwr8iOmMISQw=="],
+    "@ankhorage/devtools": ["@ankhorage/devtools@2.0.71", "", { "dependencies": { "@ankhorage/apm": "^0.8.13", "@ankhorage/contracts": "^22.8.54", "@ankhorage/policy": "^0.6.0", "@ankhorage/project-detector": "^0.3.3", "@ankhorage/utility": "^0.5.5", "@changesets/cli": "^3.0.3", "@eslint/compat": "^2.1.1", "@eslint/js": "^10.0.1", "@next/eslint-plugin-next": "^16.3.8", "eslint": "^10.11.0", "eslint-config-prettier": "^10.1.8", "eslint-plugin-import": "^2.32.0", "eslint-plugin-prettier": "^5.5.6", "eslint-plugin-react": "^7.37.5", "eslint-plugin-react-hooks": "^7.1.1", "eslint-plugin-react-native": "^5.0.0", "eslint-plugin-security": "^4.2.0", "eslint-plugin-simple-import-sort": "^14.0.0", "eslint-plugin-unused-imports": "^4.4.1", "knip": "^6.39.0", "prettier": "^3.9.9", "typescript": "~6.0.3", "typescript-eslint": "^8.71.0" }, "bin": { "ankhorage-knip": "dist/cli/bin/knip.js", "ankhorage-eslint": "dist/cli/bin/eslint.js", "ankhorage-prettier": "dist/cli/bin/prettier.js", "ankhorage-changeset": "dist/cli/bin/changeset.js", "ankhorage-structure": "dist/cli/bin/structure.js", "ankhorage-apm-release": "dist/cli/bin/apm-release.js" } }, "sha512-8XMHJaL9UlrpAFbN6LihNtXNOaIei3swDKFo8WtDkISF/awEmTcimI63agm/oK5vvs4eWuh+kMsOOg72iroNaw=="],
 
     "@ankhorage/paradox": ["@ankhorage/paradox@0.2.19", "", { "dependencies": { "@ankhorage/policy": "^0.6.0", "@ankhorage/utility": "^1.9.42", "ts-morph": "^28.0.0" }, "bin": { "paradox": "dist/cli/standalone.js" } }, "sha512-vjAZQ/Oe8nZpaDnRc2xOz76VRnW/bFnvg3B9J5zCh5dqwfVptQN+wb3c7XdhC/OqscF94sfFCFDe6+U6DSAyow=="],
 
