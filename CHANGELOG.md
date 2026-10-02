@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.59
+
+### Patch Changes
+
+- 77d0069: Update dependencies: `@ankhorage/ankh`, `@ankhorage/devtools`.
+- db11d79: Update dependencies: `@ankhorage/contracts`, `@ankhorage/utility`.
+
 ## 0.11.58
 
 ### Patch Changes
