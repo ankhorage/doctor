@@ -2,12 +2,12 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import { ARCHITECTURE_POLICY } from '@ankhorage/policy/architecture';
+import { REPOSITORY_RULE_METADATA } from '@ankhorage/rules-repository';
 import { uniqueSortedStrings } from '@ankhorage/utility/array';
 
 import type { DoctorDiagnostic, DoctorPolicyProfile, DoctorRuleId } from './diagnostics.js';
 import type { DoctorReadiness } from './readiness.js';
-import { getArchitecturePolicyRule } from './utils/getArchitecturePolicyRule.js';
+import { getRepositoryRule } from './utils/getRepositoryRule.js';
 
 export type DoctorTargetCheck = 'manifest' | 'package' | 'repo';
 export type DoctorTargetMode = 'fix' | 'package' | 'repo' | 'validate';
@@ -67,7 +67,7 @@ const REPO_MARKERS = [
   { label: 'yarn.lock', relativePath: 'yarn.lock' },
 ] as const;
 
-const PUBLIC_PACKAGE_POLICY = ARCHITECTURE_POLICY.publicPackage;
+const PUBLIC_PACKAGE_POLICY = REPOSITORY_RULE_METADATA.publicPackage;
 
 const PROVIDER_SOURCE_CANDIDATES = [
   path.join('src', 'ankh.provider.ts'),
@@ -348,7 +348,7 @@ async function analyzePackagePolicy(request: {
         message: 'Public package profiles must not set private: true.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.privateDisallowedRuleId),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.privateDisallowedRuleId),
       }),
     );
   }
@@ -363,7 +363,7 @@ async function analyzePackagePolicy(request: {
         message: `package.json "type" must be "${PUBLIC_PACKAGE_POLICY.packageType.value}".`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.packageType.ruleId),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.packageType.ruleId),
       }),
     );
   }
@@ -379,7 +379,7 @@ async function analyzePackagePolicy(request: {
         message: `package.json publishConfig.access must exist and equal "${PUBLIC_PACKAGE_POLICY.publishAccess.value}".`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.publishAccess.ruleId),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.publishAccess.ruleId),
       }),
     );
   }
@@ -391,7 +391,7 @@ async function analyzePackagePolicy(request: {
         message: 'package.json must define a Bun-aligned packageManager field.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.packageManager.requiredRuleId),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.packageManager.requiredRuleId),
       }),
     );
     request.plannedChanges.push(
@@ -409,7 +409,7 @@ async function analyzePackagePolicy(request: {
         message: 'package.json packageManager must be Bun-aligned, for example "bun@1.x".',
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.packageManager.bunRuleId),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.packageManager.bunRuleId),
       }),
     );
   }
@@ -423,7 +423,7 @@ async function analyzePackagePolicy(request: {
           message: `Missing required package script: ${requirement.name}`,
           path: request.packageJsonPath,
           profile: request.profile,
-          ...architecturePolicyRuleFields(requirement.ruleId),
+          ...repositoryRuleFields(requirement.ruleId),
         }),
       );
     }
@@ -440,7 +440,7 @@ async function analyzePackagePolicy(request: {
         message: 'Public package repos must declare TypeScript in dependencies or devDependencies.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.typescript),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.typescript),
       }),
     );
   }
@@ -463,7 +463,7 @@ async function analyzePackagePolicy(request: {
         message: 'Public package repos must declare @types/bun in devDependencies.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.bunTypes),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.bunTypes),
       }),
     );
   }
@@ -475,7 +475,7 @@ async function analyzePackagePolicy(request: {
         message: 'Public package repos must declare @types/node in devDependencies.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.nodeTypes),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.nodeTypes),
       }),
     );
   }
@@ -488,7 +488,7 @@ async function analyzePackagePolicy(request: {
           'This package consumes shared Ankhorage lint/format/knip tooling and must declare @ankhorage/devtools.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.devtools),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.devtools),
       }),
     );
   }
@@ -504,7 +504,7 @@ async function analyzePackagePolicy(request: {
         message: 'This package owns Paradox docs generation and must declare @ankhorage/paradox.',
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.paradox),
+        ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.paradox),
       }),
     );
   }
@@ -546,7 +546,7 @@ function createChangesetsDependencyDiagnostic(request: {
       : 'Public package repos must not declare @changesets/cli directly; @ankhorage/devtools owns Changesets execution.',
     path: request.packageJsonPath,
     profile: request.profile,
-    ...architecturePolicyRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.changesets),
+    ...repositoryRuleFields(PUBLIC_PACKAGE_POLICY.dependencyRules.changesets),
   });
 }
 
@@ -943,7 +943,7 @@ async function maybeRequirePath(
       message: `Missing expected repo artifact: ${relativePath}`,
       path: absolutePath,
       profile: 'public-package',
-      ...architecturePolicyRuleFields(ruleId),
+      ...repositoryRuleFields(ruleId),
     }),
   );
   plannedChanges.push(
@@ -974,7 +974,7 @@ function requireNonEmptyStringField(request: {
       message: `package.json must define a non-empty "${request.fieldName}" field.`,
       path: request.packageJsonPath,
       profile: request.profile,
-      ...architecturePolicyRuleFields(request.ruleId),
+      ...repositoryRuleFields(request.ruleId),
     }),
   );
 }
@@ -997,7 +997,7 @@ function requireRecordField(request: {
       message: `package.json must define an object "${request.fieldName}" field.`,
       path: request.packageJsonPath,
       profile: request.profile,
-      ...architecturePolicyRuleFields(request.ruleId),
+      ...repositoryRuleFields(request.ruleId),
     }),
   );
 }
@@ -1020,7 +1020,7 @@ function requireStringArrayField(request: {
       message: `package.json must define a non-empty string array "${request.fieldName}" field.`,
       path: request.packageJsonPath,
       profile: request.profile,
-      ...architecturePolicyRuleFields(request.ruleId),
+      ...repositoryRuleFields(request.ruleId),
     }),
   );
 }
@@ -1113,11 +1113,9 @@ function createEarlyResult(targetPath: string, diagnostic: DoctorDiagnostic): Do
   };
 }
 
-/*** Return canonical rule id and severity for a Policy-owned generic package rule. */
-function architecturePolicyRuleFields(
-  ruleId: DoctorRuleId,
-): Pick<DoctorDiagnostic, 'ruleId' | 'severity'> {
-  const rule = getArchitecturePolicyRule(ruleId);
+/*** Return canonical rule id and severity from the repository Rules provider. */
+function repositoryRuleFields(ruleId: DoctorRuleId): Pick<DoctorDiagnostic, 'ruleId' | 'severity'> {
+  const rule = getRepositoryRule(ruleId);
   return { ruleId: rule.id, severity: rule.severity };
 }
 

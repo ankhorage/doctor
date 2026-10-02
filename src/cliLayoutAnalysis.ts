@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-import { ARCHITECTURE_POLICY } from '@ankhorage/policy/architecture';
+import { REPOSITORY_RULE_IDS, REPOSITORY_RULE_METADATA } from '@ankhorage/rules-repository';
 
 import {
   analyzeDoctorTarget,
@@ -10,11 +10,12 @@ import {
 } from './analysis.js';
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
 import { analyzeAppManifestTarget } from './manifestAnalysis.js';
+import { analyzeRepositorySourceRules } from './repositorySourceRulesAnalysis.js';
 import { analyzeSourceArchitecture } from './sourceArchitectureAnalysis.js';
-import { getArchitecturePolicyRule } from './utils/getArchitecturePolicyRule.js';
+import { getRepositoryRule } from './utils/getRepositoryRule.js';
 
-const CLI_POLICY = ARCHITECTURE_POLICY.cli;
-const DEPENDENCY_POLICY = ARCHITECTURE_POLICY.dependencies;
+const CLI_POLICY = REPOSITORY_RULE_METADATA.cli;
+const DEPENDENCY_POLICY = REPOSITORY_RULE_METADATA.dependencies;
 const ACTIVE_SOURCE_ROOTS = ['src', 'app', 'apps', 'packages', 'scripts'] as const;
 const ACTIVE_SOURCE_EXTENSIONS = new Set([
   '.cjs',
@@ -119,7 +120,7 @@ async function analyzeTargetArchitecture(request: {
       message: 'Package CLI code must live under src/cli/; root src/cli.ts is not allowed.',
       path: legacyRootCliPath,
       profile: request.profile,
-      ...architectureRuleFields(CLI_POLICY.legacyRootRuleId),
+      ...repositoryRuleFields(REPOSITORY_RULE_IDS.cliRootFile),
     });
   }
 
@@ -130,7 +131,7 @@ async function analyzeTargetArchitecture(request: {
         'CLI-capable packages must export "./cli" from package.json and point it at the metadata-declared provider build output.',
       path: request.packageJsonPath,
       profile: request.profile,
-      ...architectureRuleFields(CLI_POLICY.exportRuleId),
+      ...repositoryRuleFields(REPOSITORY_RULE_IDS.cliExport),
     });
   }
 
@@ -143,16 +144,23 @@ async function analyzeTargetArchitecture(request: {
     }),
   );
 
-  const activeSourceImports = await collectActiveSourceImports(request.targetPath);
+  const activeSource = await collectActiveSourceSnapshot(request.targetPath);
   diagnostics.push(
     ...validateActiveSourceImports({
-      activeSourceImports,
+      activeSourceImports: activeSource.imports,
       profile: request.profile,
     }),
   );
   diagnostics.push(
+    ...analyzeRepositorySourceRules({
+      files: activeSource.files,
+      imports: activeSource.imports,
+      profile: request.profile,
+      targetPath: request.targetPath,
+    }),
+  );
+  diagnostics.push(
     ...(await analyzeSourceArchitecture({
-      activeSourceImports,
       profile: request.profile,
       targetPath: request.targetPath,
     })),
@@ -161,7 +169,7 @@ async function analyzeTargetArchitecture(request: {
   if (request.packageJson.name === STUDIO_PACKAGE_NAME) {
     diagnostics.push(
       ...validateStudioOwnership({
-        activeSourceImports,
+        activeSourceImports: activeSource.imports,
         dependencyEntries,
         packageJsonPath: request.packageJsonPath,
         profile: request.profile,
@@ -186,7 +194,7 @@ function validateDependencyArchitecture(request: {
         message: `Dependency "${dependency.packageName}" in package.json.${dependency.fieldName} is an old ankhorage4 workspace alias. Depend on "${toOwningPackageSpecifier(dependency.packageName)}" directly.`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architectureRuleFields(DEPENDENCY_POLICY.rules.compatibilityDependency),
+        ...repositoryRuleFields(REPOSITORY_RULE_IDS.compatibilityDependency),
       });
     }
 
@@ -201,7 +209,7 @@ function validateDependencyArchitecture(request: {
         message: `Published dependency "${dependency.packageName}" must resolve from a registry version, not "${dependency.version}". Standalone packages cannot rely on local/workspace/Git package state.`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architectureRuleFields(DEPENDENCY_POLICY.rules.localProtocolDependency),
+        ...repositoryRuleFields(REPOSITORY_RULE_IDS.localProtocolDependency),
       });
     }
 
@@ -214,7 +222,7 @@ function validateDependencyArchitecture(request: {
         message: `Dependency "${dependency.packageName}" references ankhorage4 as active source. Depend on the extracted owning @ankhorage/* package instead.`,
         path: request.packageJsonPath,
         profile: request.profile,
-        ...architectureRuleFields(DEPENDENCY_POLICY.rules.legacySourceDependency),
+        ...repositoryRuleFields(REPOSITORY_RULE_IDS.legacySourceDependency),
       });
     }
   }
@@ -235,7 +243,7 @@ function validateActiveSourceImports(request: {
         message: `Import "${sourceImport.specifier}" is an old ankhorage4 compatibility boundary. Import "${toOwningPackageSpecifier(sourceImport.specifier)}" directly from the owning package.`,
         path: sourceImport.filePath,
         profile: request.profile,
-        ...architectureRuleFields(DEPENDENCY_POLICY.rules.compatibilityImport),
+        ...repositoryRuleFields(REPOSITORY_RULE_IDS.compatibilityImport),
       });
     }
 
@@ -245,7 +253,7 @@ function validateActiveSourceImports(request: {
         message: `Import "${sourceImport.specifier}" references ankhorage4 as active source. Import the extracted owning @ankhorage/* package instead.`,
         path: sourceImport.filePath,
         profile: request.profile,
-        ...architectureRuleFields(DEPENDENCY_POLICY.rules.legacySourceImport),
+        ...repositoryRuleFields(REPOSITORY_RULE_IDS.legacySourceImport),
       });
     }
   }
@@ -320,24 +328,37 @@ function validateStudioOwnership(request: {
   return diagnostics;
 }
 
-async function collectActiveSourceImports(targetPath: string): Promise<ActiveSourceImport[]> {
-  const imports: ActiveSourceImport[] = [];
+interface ActiveSourceSnapshot {
+  readonly files: readonly string[];
+  readonly imports: readonly ActiveSourceImport[];
+}
+
+/***
+ * Collects active production files and their static import specifiers once for repository checks.
+ */
+async function collectActiveSourceSnapshot(targetPath: string): Promise<ActiveSourceSnapshot> {
+  const files: string[] = [];
 
   for (const sourceRoot of ACTIVE_SOURCE_ROOTS) {
     const sourceRootPath = path.join(targetPath, sourceRoot);
-    if (!(await pathExists(sourceRootPath))) {
-      continue;
-    }
-
-    for (const filePath of await listActiveSourceFiles(sourceRootPath)) {
-      const source = await fs.readFile(filePath, 'utf8');
-      for (const specifier of extractImportSpecifiers(source)) {
-        imports.push({ filePath, specifier });
-      }
+    if (await pathExists(sourceRootPath)) {
+      files.push(...(await listActiveSourceFiles(sourceRootPath)));
     }
   }
 
-  return imports;
+  const imports = (
+    await Promise.all(
+      files.map(async (filePath) => {
+        const source = await fs.readFile(filePath, 'utf8');
+        return extractImportSpecifiers(source).map((specifier) => ({ filePath, specifier }));
+      }),
+    )
+  ).flat();
+
+  return {
+    files: [...files].sort((left, right) => left.localeCompare(right)),
+    imports,
+  };
 }
 
 async function listActiveSourceFiles(rootPath: string): Promise<string[]> {
@@ -428,11 +449,11 @@ function isPackageImport(specifier: string, packageName: string): boolean {
   return specifier === packageName || specifier.startsWith(`${packageName}/`);
 }
 
-/*** Resolve Policy-owned rule metadata for generic architecture diagnostics. */
-function architectureRuleFields(
+/*** Resolve repository Rules metadata for package and source-boundary diagnostics. */
+function repositoryRuleFields(
   ruleId: DoctorDiagnostic['ruleId'],
 ): Pick<DoctorDiagnostic, 'ruleId' | 'severity'> {
-  const rule = getArchitecturePolicyRule(ruleId);
+  const rule = getRepositoryRule(ruleId);
   return { ruleId: rule.id, severity: rule.severity };
 }
 

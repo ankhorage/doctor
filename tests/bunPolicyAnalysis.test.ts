@@ -1,13 +1,18 @@
-import { REPOSITORY_POLICY } from '@ankhorage/policy/repository';
+import { REPOSITORY_RULE_IDS, REPOSITORY_RULE_METADATA } from '@ankhorage/rules-repository';
 import { expect, test } from 'bun:test';
 
 import { analyzeDoctorTarget } from '../src/index.js';
 import { createDoctorFixture } from './testSupport.js';
 
-const BUN_POLICY = REPOSITORY_POLICY.runtime.bun;
-const BUN_POLICY_RULE_IDS = Object.values(REPOSITORY_POLICY.rules).map((rule) => rule.id);
+const BUN_POLICY = REPOSITORY_RULE_METADATA.runtime.bun;
+const BUN_POLICY_RULE_IDS = [
+  REPOSITORY_RULE_IDS.bunPackageManager,
+  REPOSITORY_RULE_IDS.bunTypes,
+  REPOSITORY_RULE_IDS.ciBun,
+  REPOSITORY_RULE_IDS.releaseBun,
+] as const;
 
-test('reports every managed Bun drift location from canonical repository policy', async () => {
+test('reports every managed Bun drift location from canonical repository Rules', async () => {
   const fixture = await createDoctorFixture({
     packageJson: createPublicPackageJson('bun@0.0.0', '^0.0.0'),
     extraFiles: createWorkflowFiles('0.0.0'),
@@ -26,7 +31,7 @@ test('reports every managed Bun drift location from canonical repository policy'
   }
 });
 
-test('accepts repository state synchronized to canonical repository policy', async () => {
+test('accepts repository state synchronized to canonical repository Rules', async () => {
   const fixture = await createDoctorFixture({
     packageJson: createPublicPackageJson(BUN_POLICY.packageManager, BUN_POLICY.typesRange),
     extraFiles: createWorkflowFiles(BUN_POLICY.version),
@@ -69,8 +74,8 @@ test('reports missing managed workflow Bun state as repairable drift', async () 
 });
 
 function getExpectedPolicyValue(ruleId: string): string {
-  if (ruleId === REPOSITORY_POLICY.rules.packageManager.id) return BUN_POLICY.packageManager;
-  if (ruleId === REPOSITORY_POLICY.rules.bunTypes.id) return BUN_POLICY.typesRange;
+  if (ruleId === REPOSITORY_RULE_IDS.bunPackageManager) return BUN_POLICY.packageManager;
+  if (ruleId === REPOSITORY_RULE_IDS.bunTypes) return BUN_POLICY.typesRange;
   return BUN_POLICY.version;
 }
 

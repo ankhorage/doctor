@@ -1,16 +1,17 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-import { REPOSITORY_POLICY } from '@ankhorage/policy/repository';
+import { REPOSITORY_RULE_IDS, REPOSITORY_RULE_METADATA } from '@ankhorage/rules-repository';
 
 import type { DoctorAnalysisResult } from './analysis.js';
 import type { DoctorDiagnostic } from './diagnostics.js';
+import { getRepositoryRule } from './utils/getRepositoryRule.js';
 
-const BUN_POLICY = REPOSITORY_POLICY.runtime.bun;
+const BUN_POLICY = REPOSITORY_RULE_METADATA.runtime.bun;
 const REPAIR_HINT = 'Run "ankh devtools sync" to repair the managed Bun state.';
 const BUN_VERSION_PATTERN = /^\s*bun-version:\s*['"]?([^'"\s#]+)['"]?\s*(?:#.*)?$/mu;
 
-type RepositoryPolicyRule = (typeof REPOSITORY_POLICY.rules)[keyof typeof REPOSITORY_POLICY.rules];
+type RepositoryRule = ReturnType<typeof getRepositoryRule>;
 type WorkflowTarget = (typeof BUN_POLICY.workflowTargets)[number];
 
 /***
@@ -53,7 +54,7 @@ function analyzePackageBunPolicy(
       location: 'package.json#packageManager',
       path: packageJsonPath,
       profile: result.profile,
-      rule: REPOSITORY_POLICY.rules.packageManager,
+      rule: getRepositoryRule(REPOSITORY_RULE_IDS.bunPackageManager),
     });
   }
 
@@ -68,7 +69,7 @@ function analyzePackageBunPolicy(
       location: 'package.json#devDependencies.@types/bun',
       path: packageJsonPath,
       profile: result.profile,
-      rule: REPOSITORY_POLICY.rules.bunTypes,
+      rule: getRepositoryRule(REPOSITORY_RULE_IDS.bunTypes),
     });
   }
 
@@ -152,7 +153,7 @@ function pushMismatch(
     readonly location: string;
     readonly path: string;
     readonly profile: DoctorAnalysisResult['profile'];
-    readonly rule: RepositoryPolicyRule;
+    readonly rule: RepositoryRule;
   },
 ): void {
   if (input.actual === input.expected) return;
@@ -165,17 +166,6 @@ function pushMismatch(
     ruleId: input.rule.id,
     severity: input.rule.severity,
   });
-}
-
-/***
- * Resolves one stable repository rule by its Policy-owned id.
- */
-function getRepositoryRule(ruleId: string): RepositoryPolicyRule {
-  const rule = Object.values(REPOSITORY_POLICY.rules).find((entry) => entry.id === ruleId);
-  if (rule === undefined) {
-    throw new Error(`Unknown repository policy rule: ${ruleId}`);
-  }
-  return rule;
 }
 
 /***
