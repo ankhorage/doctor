@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.72
+
+### Patch Changes
+
+- 8d70aae: Update Renovate-managed workflows.
+- 92aa5e2: Update dependencies: `@ankhorage/utility`.
+
 ## 0.11.71
 
 ### Patch Changes
