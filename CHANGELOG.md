@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.65
+
+### Patch Changes
+
+- 84008bd: Update dependencies: `@ankhorage/contracts`, `@ankhorage/utility`.
+
 ## 0.11.64
 
 ### Patch Changes
