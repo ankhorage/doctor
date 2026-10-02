@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.80
+
+### Patch Changes
+
+- ea83207: Update dependencies: `@ankhorage/contracts`, `@ankhorage/utility`.
+
 ## 0.11.79
 
 ### Patch Changes
