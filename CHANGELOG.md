@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.67
+
+### Patch Changes
+
+- 39b37e1: Update dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`.
+
 ## 0.11.66
 
 ### Patch Changes
