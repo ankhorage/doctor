@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.45
+
+### Patch Changes
+
+- f2bc091: Update Renovate-managed workflows.
+
 ## 0.11.44
 
 ### Patch Changes
