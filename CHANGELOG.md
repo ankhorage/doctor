@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.86
+
+### Patch Changes
+
+- d2d81f9: Update dependencies: `@ankhorage/ankh`, `@ankhorage/devtools`.
+
 ## 0.11.85
 
 ### Patch Changes
