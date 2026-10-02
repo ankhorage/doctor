@@ -5,9 +5,15 @@ import { describe, expect, test } from 'bun:test';
 import { analyzeDoctorTargetWithCliLayout } from '../src/cliLayoutAnalysis.js';
 import { createDoctorFixture } from './testSupport.js';
 
-const [ANKHORAGE_PROFILE] = listArchitectureProfiles();
-if (ANKHORAGE_PROFILE === undefined) {
-  throw new Error('Rules Architecture must expose the Ankhorage profile.');
+const ANKHORAGE_PROFILE = getAnkhorageProfile();
+
+/*** Resolve the required Ankhorage profile without leaking optionality into fixture builders. */
+function getAnkhorageProfile() {
+  const [profile] = listArchitectureProfiles();
+  if (profile === undefined) {
+    throw new Error('Rules Architecture must expose the Ankhorage profile.');
+  }
+  return profile;
 }
 
 /*** Return the first provider-owned metadata value or fail the fixture setup. */
@@ -109,9 +115,17 @@ async function createSourceArchitectureRulesFixture() {
     },
   });
 
+  expect(domainRole.ruleId).toBe('package.architecture.domain-outward-import.disallowed');
+  expect(delivery.ruleId).toBe(
+    'package.architecture.delivery-concrete-adapter-import.disallowed',
+  );
+
   return {
-    deferredRuleId: 'package.architecture.role-combination.invalid',
-    expectedRuleIds: [domainRole.ruleId, delivery.ruleId],
+    deferredRuleId: 'package.architecture.role-combination.invalid' as const,
+    expectedRuleIds: [
+      'package.architecture.domain-outward-import.disallowed',
+      'package.architecture.delivery-concrete-adapter-import.disallowed',
+    ] as const,
     fixture,
   };
 }
