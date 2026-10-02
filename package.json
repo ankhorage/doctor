@@ -78,15 +78,15 @@
     "test:standalone": "bun test tests/standaloneContract.test.ts"
   },
   "dependencies": {
-    "@ankhorage/contracts": "^22.8.54",
+    "@ankhorage/contracts": "^22.8.58",
     "@ankhorage/supabase-auth": "^1.2.27",
-    "@ankhorage/utility": "^1.9.45",
+    "@ankhorage/utility": "^1.9.47",
     "@ankhorage/policy": "^0.6.0"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.10.46",
     "@ankhorage/devtools": "^2.0.71",
-    "@ankhorage/paradox": "^0.2.19",
+    "@ankhorage/paradox": "^0.2.21",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.4",
     "typescript": "^6.0.3"
