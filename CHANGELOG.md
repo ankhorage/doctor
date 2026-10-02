@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.48
+
+### Patch Changes
+
+- 60b2017: Update dependencies: `@ankhorage/ankh`, `@ankhorage/devtools`.
+- 2d00951: Update dependencies: `@ankhorage/contracts`, `@ankhorage/utility`.
+
 ## 0.11.47
 
 ### Patch Changes
