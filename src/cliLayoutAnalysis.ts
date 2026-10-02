@@ -10,6 +10,7 @@ import {
 } from './analysis.js';
 import type { DoctorDiagnostic, DoctorPolicyProfile } from './diagnostics.js';
 import { analyzeAppManifestTarget } from './manifestAnalysis.js';
+import { analyzeRepositorySourceRules } from './repositorySourceRulesAnalysis.js';
 import { analyzeSourceArchitecture } from './sourceArchitectureAnalysis.js';
 import { getRepositoryRule } from './utils/getRepositoryRule.js';
 
@@ -143,11 +144,19 @@ async function analyzeTargetArchitecture(request: {
     }),
   );
 
-  const activeSourceImports = await collectActiveSourceImports(request.targetPath);
+  const activeSource = await collectActiveSourceSnapshot(request.targetPath);
   diagnostics.push(
     ...validateActiveSourceImports({
-      activeSourceImports,
+      activeSourceImports: activeSource.imports,
       profile: request.profile,
+    }),
+  );
+  diagnostics.push(
+    ...analyzeRepositorySourceRules({
+      files: activeSource.files,
+      imports: activeSource.imports,
+      profile: request.profile,
+      targetPath: request.targetPath,
     }),
   );
   diagnostics.push(
@@ -160,7 +169,7 @@ async function analyzeTargetArchitecture(request: {
   if (request.packageJson.name === STUDIO_PACKAGE_NAME) {
     diagnostics.push(
       ...validateStudioOwnership({
-        activeSourceImports,
+        activeSourceImports: activeSource.imports,
         dependencyEntries,
         packageJsonPath: request.packageJsonPath,
         profile: request.profile,
@@ -319,24 +328,37 @@ function validateStudioOwnership(request: {
   return diagnostics;
 }
 
-async function collectActiveSourceImports(targetPath: string): Promise<ActiveSourceImport[]> {
-  const imports: ActiveSourceImport[] = [];
+interface ActiveSourceSnapshot {
+  readonly files: readonly string[];
+  readonly imports: readonly ActiveSourceImport[];
+}
+
+/***
+ * Collects active production files and their static import specifiers once for repository checks.
+ */
+async function collectActiveSourceSnapshot(targetPath: string): Promise<ActiveSourceSnapshot> {
+  const files: string[] = [];
 
   for (const sourceRoot of ACTIVE_SOURCE_ROOTS) {
     const sourceRootPath = path.join(targetPath, sourceRoot);
-    if (!(await pathExists(sourceRootPath))) {
-      continue;
-    }
-
-    for (const filePath of await listActiveSourceFiles(sourceRootPath)) {
-      const source = await fs.readFile(filePath, 'utf8');
-      for (const specifier of extractImportSpecifiers(source)) {
-        imports.push({ filePath, specifier });
-      }
+    if (await pathExists(sourceRootPath)) {
+      files.push(...(await listActiveSourceFiles(sourceRootPath)));
     }
   }
 
-  return imports;
+  const imports = (
+    await Promise.all(
+      files.map(async (filePath) => {
+        const source = await fs.readFile(filePath, 'utf8');
+        return extractImportSpecifiers(source).map((specifier) => ({ filePath, specifier }));
+      }),
+    )
+  ).flat();
+
+  return {
+    files: [...files].sort((left, right) => left.localeCompare(right)),
+    imports,
+  };
 }
 
 async function listActiveSourceFiles(rootPath: string): Promise<string[]> {
