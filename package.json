@@ -84,8 +84,8 @@
     "@ankhorage/policy": "^0.6.0"
   },
   "devDependencies": {
-    "@ankhorage/ankh": "^0.10.38",
-    "@ankhorage/devtools": "^2.0.62",
+    "@ankhorage/ankh": "^0.10.40",
+    "@ankhorage/devtools": "^2.0.65",
     "@ankhorage/paradox": "^0.2.16",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.4",
