@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.43
+
+### Patch Changes
+
+- ec2191e: Update dependencies: `@ankhorage/ankh`, `@ankhorage/devtools`.
+
 ## 0.11.42
 
 ### Patch Changes
