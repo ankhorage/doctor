@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.93
+
+### Patch Changes
+
+- 5ee1626: Update Renovate-managed workflows.
+- d1e0e5b: Update dependencies: `@ankhorage/contracts`, `@ankhorage/utility`.
+
 ## 0.11.92
 
 ### Patch Changes
