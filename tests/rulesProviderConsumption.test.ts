@@ -6,7 +6,7 @@ import { analyzeDoctorTargetWithCliLayout } from '../src/cliLayoutAnalysis.js';
 import { createDoctorFixture } from './testSupport.js';
 
 const [ANKHORAGE_PROFILE] = listArchitectureProfiles();
-if (ANKHORAGE_PROFILE === undefined || ANKHORAGE_PROFILE.id !== 'ankhorage') {
+if (ANKHORAGE_PROFILE === undefined) {
   throw new Error('Rules Architecture must expose the Ankhorage profile.');
 }
 

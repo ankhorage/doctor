@@ -84,7 +84,7 @@ function filterActiveSourceGraph(graph: SourceGraph): SourceGraph {
 function isActiveSourcePath(sourcePath: string): boolean {
   const normalized = sourcePath.split(path.sep).join('/');
   const [root, ...segments] = normalized.split('/').filter(Boolean);
-  if (root === undefined || !ACTIVE_SOURCE_ROOTS.includes(root as (typeof ACTIVE_SOURCE_ROOTS)[number])) {
+  if (root === undefined || !ACTIVE_SOURCE_ROOTS.some((candidate) => candidate === root)) {
     return false;
   }
   if (segments.some((segment) => IGNORED_SOURCE_DIRECTORIES.has(segment))) return false;

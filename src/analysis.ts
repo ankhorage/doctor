@@ -1114,9 +1114,7 @@ function createEarlyResult(targetPath: string, diagnostic: DoctorDiagnostic): Do
 }
 
 /*** Return canonical rule id and severity from the repository Rules provider. */
-function repositoryRuleFields(
-  ruleId: DoctorRuleId,
-): Pick<DoctorDiagnostic, 'ruleId' | 'severity'> {
+function repositoryRuleFields(ruleId: DoctorRuleId): Pick<DoctorDiagnostic, 'ruleId' | 'severity'> {
   const rule = getRepositoryRule(ruleId);
   return { ruleId: rule.id, severity: rule.severity };
 }
