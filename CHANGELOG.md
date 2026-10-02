@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.76
+
+### Patch Changes
+
+- 1eb7faf: Update Renovate-managed workflows.
+- 6e6676d: Update dependencies: `@ankhorage/paradox`.
+
 ## 0.11.75
 
 ### Patch Changes

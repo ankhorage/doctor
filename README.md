@@ -3,7 +3,7 @@
 
 # @ankhorage/doctor
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.11.75](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![paradox: warnings](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.11.76](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![paradox: warnings](././paradox/badges/docs.svg)
 
 Executable Ankh provider and standalone CLI for lightweight repo and package compliance diagnostics.
 
@@ -31,25 +31,6 @@ surfaces when only one policy area should be inspected.
 
 ```ts
 await runCli(['--help']);
-```
-
-## Configuration
-
-### Example
-
-```ts
-import { defineParadoxConfig } from '@ankhorage/paradox';
-
-export default defineParadoxConfig({
-  mode: 'write',
-  package: {
-    root: '.',
-    entrypoints: ['src/index.ts'],
-  },
-  output: {
-    dir: './paradox',
-  },
-});
 ```
 
 ## Generated documentation
