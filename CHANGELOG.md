@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.9
+
+### Patch Changes
+
+- a5c644f: Update dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`, `@ankhorage/utility`.
+
 ## 0.12.8
 
 ### Patch Changes
