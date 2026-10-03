@@ -82,7 +82,7 @@
     "@ankhorage/dependency-graph": "^1.1.1",
     "@ankhorage/rules-architecture": "^0.4.0",
     "@ankhorage/rules-repository": "^0.2.0",
-    "@ankhorage/supabase-auth": "^1.2.30",
+    "@ankhorage/supabase-auth": "^1.2.31",
     "@ankhorage/utility": "^1.9.82"
   },
   "devDependencies": {
