@@ -10,7 +10,7 @@
         "@ankhorage/rules-architecture": "^0.5.0",
         "@ankhorage/rules-repository": "^0.2.0",
         "@ankhorage/supabase-auth": "^1.2.31",
-        "@ankhorage/utility": "^1.9.82",
+        "@ankhorage/utility": "^1.9.83",
       },
       "devDependencies": {
         "@ankhorage/ankh": "^0.11.0",
@@ -51,7 +51,7 @@
 
     "@ankhorage/supabase-auth": ["@ankhorage/supabase-auth@1.2.31", "", { "dependencies": { "@ankhorage/contracts": "^22.8.99", "@noble/hashes": "2.4.0" } }, "sha512-lM81LOEW/3V2ru2d2el15GUYHQR/01M/btGwt2SCNRBDw3iZl9hnkCUD08jxOGC02ws5eax026yXIFhssNGaPg=="],
 
-    "@ankhorage/utility": ["@ankhorage/utility@1.9.82", "", { "peerDependencies": { "fastify": "^5.12.5" }, "optionalPeers": ["fastify"] }, "sha512-HYInRFCIx5nMjvJWBZVhSCBm0CPYsQUBumqq5drW41kNhTMC547hUFm3BIQEnA3Mc+f69uikHyudw+tbHFf1hA=="],
+    "@ankhorage/utility": ["@ankhorage/utility@1.9.83", "", { "peerDependencies": { "fastify": "^5.12.5" }, "optionalPeers": ["fastify"] }, "sha512-7g+XW+I6evrkOX/OxwksEZb18THHNz/4tMJACG5t3Opq6O7muNkBvqWjRjiY3VMmQuM9v+t86nNN513I+Z3NqA=="],
 
     "@babel/code-frame": ["@babel/code-frame@7.29.7", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.29.7", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw=="],
 
