@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.10
+
+### Patch Changes
+
+- 0390cb8: Update dependencies: `@ankhorage/supabase-auth`.
+
 ## 0.12.9
 
 ### Patch Changes
