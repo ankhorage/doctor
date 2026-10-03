@@ -9,7 +9,7 @@
         "@ankhorage/dependency-graph": "^1.1.1",
         "@ankhorage/rules-architecture": "^0.4.0",
         "@ankhorage/rules-repository": "^0.2.0",
-        "@ankhorage/supabase-auth": "^1.2.30",
+        "@ankhorage/supabase-auth": "^1.2.31",
         "@ankhorage/utility": "^1.9.82",
       },
       "devDependencies": {
@@ -49,7 +49,7 @@
 
     "@ankhorage/rules-repository": ["@ankhorage/rules-repository@0.2.0", "", { "dependencies": { "@ankhorage/rules": "^0.2.0" } }, "sha512-ugJq6urUXGpexwcJAERSfauHJAUtWN2ZkogsAMYUX9dMCH8wXcQrdWOuYHjL5G7wB6f0IX2Ebjri7091AuF1XQ=="],
 
-    "@ankhorage/supabase-auth": ["@ankhorage/supabase-auth@1.2.30", "", { "dependencies": { "@ankhorage/contracts": "^22.8.98", "@noble/hashes": "2.4.0" } }, "sha512-Wcf5Wn/zN2KouCCUxur6BLwvcdC7tGm6xnuXhpxbqIrIwMVdKZQ04S4mOW9/W+FaaWoijLbO0sFHId5AxchZWw=="],
+    "@ankhorage/supabase-auth": ["@ankhorage/supabase-auth@1.2.31", "", { "dependencies": { "@ankhorage/contracts": "^22.8.99", "@noble/hashes": "2.4.0" } }, "sha512-lM81LOEW/3V2ru2d2el15GUYHQR/01M/btGwt2SCNRBDw3iZl9hnkCUD08jxOGC02ws5eax026yXIFhssNGaPg=="],
 
     "@ankhorage/utility": ["@ankhorage/utility@1.9.82", "", { "peerDependencies": { "fastify": "^5.12.5" }, "optionalPeers": ["fastify"] }, "sha512-HYInRFCIx5nMjvJWBZVhSCBm0CPYsQUBumqq5drW41kNhTMC547hUFm3BIQEnA3Mc+f69uikHyudw+tbHFf1hA=="],
 
