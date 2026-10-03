@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.2
+
+### Patch Changes
+
+- 4203f79: Update dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`, `@ankhorage/supabase-auth`, `@ankhorage/utility`.
+
 ## 0.12.1
 
 ### Patch Changes

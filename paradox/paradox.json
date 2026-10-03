@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.12.1",
+      "value": "v0.12.2",
       "color": "cb3837"
     },
     {
@@ -82,56 +82,56 @@
     {
       "ruleId": "documentation.public-function.description",
       "severity": "warning",
-      "message": "Public function analyzeAuthReadiness has no Paradox description.",
+      "message": "Exported function analyzeAuthReadiness has no documentation description.",
       "sourcePath": "src/authReadinessAnalysis.ts",
       "line": 11
     },
     {
       "ruleId": "documentation.public-function.description",
       "severity": "warning",
-      "message": "Public function analyzeAuthReadinessFile has no Paradox description.",
+      "message": "Exported function analyzeAuthReadinessFile has no documentation description.",
       "sourcePath": "src/authReadinessFileAnalysis.ts",
       "line": 5
     },
     {
       "ruleId": "documentation.public-function.description",
       "severity": "warning",
-      "message": "Public function createDoctorRuntimeProvider has no Paradox description.",
+      "message": "Exported function createDoctorRuntimeProvider has no documentation description.",
       "sourcePath": "src/cli/index.ts",
       "line": 23
     },
     {
       "ruleId": "documentation.public-function.description",
       "severity": "warning",
-      "message": "Public function runCli has no Paradox description.",
+      "message": "Exported function runCli has no documentation description.",
       "sourcePath": "src/cli/standalone.ts",
       "line": 21
     },
     {
       "ruleId": "documentation.public-function.description",
       "severity": "warning",
-      "message": "Public function createDefaultCommandContext has no Paradox description.",
+      "message": "Exported function createDefaultCommandContext has no documentation description.",
       "sourcePath": "src/commandContext.ts",
       "line": 15
     },
     {
       "ruleId": "documentation.public-function.description",
       "severity": "warning",
-      "message": "Public function analyzeAppManifest has no Paradox description.",
+      "message": "Exported function analyzeAppManifest has no documentation description.",
       "sourcePath": "src/manifestAnalysis.ts",
       "line": 116
     },
     {
       "ruleId": "documentation.public-function.description",
       "severity": "warning",
-      "message": "Public function analyzeAppManifestFile has no Paradox description.",
+      "message": "Exported function analyzeAppManifestFile has no documentation description.",
       "sourcePath": "src/manifestAnalysis.ts",
       "line": 82
     },
     {
       "ruleId": "documentation.public-function.description",
       "severity": "warning",
-      "message": "Public function analyzeAppManifestTarget has no Paradox description.",
+      "message": "Exported function analyzeAppManifestTarget has no documentation description.",
       "sourcePath": "src/manifestAnalysis.ts",
       "line": 41
     }
