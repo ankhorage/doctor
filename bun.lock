@@ -7,7 +7,7 @@
       "dependencies": {
         "@ankhorage/contracts": "^22.8.99",
         "@ankhorage/dependency-graph": "^1.1.1",
-        "@ankhorage/rules-architecture": "^0.4.0",
+        "@ankhorage/rules-architecture": "^0.5.0",
         "@ankhorage/rules-repository": "^0.2.0",
         "@ankhorage/supabase-auth": "^1.2.31",
         "@ankhorage/utility": "^1.9.82",
@@ -43,7 +43,7 @@
 
     "@ankhorage/rules": ["@ankhorage/rules@0.2.0", "", { "dependencies": { "@ankhorage/utility": "^1.9.0" }, "bin": { "ankhorage-rules": "dist/cli/standalone.js" } }, "sha512-st23ry6Nnnus0Z4bnwpLOt41PnKMx/uR1crc3JEDGsyn9OshvQRB2IeeGlMgJHR5MUGCXDdSXYtNYwecGo/lPQ=="],
 
-    "@ankhorage/rules-architecture": ["@ankhorage/rules-architecture@0.4.0", "", { "dependencies": { "@ankhorage/dependency-graph": "^1.1.1", "@ankhorage/graph": "^0.3.0", "@ankhorage/rules": "^0.2.0" }, "bin": { "ankhorage-rules-architecture": "dist/cli/standalone.js" } }, "sha512-zl6U08vnzFnw6QdIs5/J0CjYN4qXh5d6c682t/GzdVvDN6qyIJqMo1h4H+OBkQYk2BJrP8XyH29BKh94M8hg/g=="],
+    "@ankhorage/rules-architecture": ["@ankhorage/rules-architecture@0.5.0", "", { "dependencies": { "@ankhorage/dependency-graph": "^1.1.1", "@ankhorage/graph": "^0.3.0", "@ankhorage/rules": "^0.2.0" }, "bin": { "ankhorage-rules-architecture": "dist/cli/standalone.js" } }, "sha512-uXbZRLKS5bh12RrXS9EjAswOYO3K7OuDbRI9qWRaBOPOQNaeL+t5O56EH2jqvYV+FDfUfFpGyQ0TMia4RStXaQ=="],
 
     "@ankhorage/rules-documentation": ["@ankhorage/rules-documentation@0.3.3", "", { "dependencies": { "@ankhorage/rules": "^0.2.0" } }, "sha512-hMjyOwjCiDOp+RcTcKCy7cs3DLR39hX765huff0RlUXLKm3ccbbSJ9qx6QJOA1u3FvCM1hGGlO/XGep0ctjE+Q=="],
 
