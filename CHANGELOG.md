@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.8
+
+### Patch Changes
+
+- dcda325: Update dependencies: `@ankhorage/contracts`, `@ankhorage/supabase-auth`.
+
 ## 0.12.7
 
 ### Patch Changes
