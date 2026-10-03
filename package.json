@@ -78,7 +78,7 @@
     "test:standalone": "bun test tests/standaloneContract.test.ts"
   },
   "dependencies": {
-    "@ankhorage/contracts": "^22.8.101",
+    "@ankhorage/contracts": "^22.8.102",
     "@ankhorage/dependency-graph": "^1.1.1",
     "@ankhorage/rules-architecture": "^0.5.0",
     "@ankhorage/rules-repository": "^0.2.0",
