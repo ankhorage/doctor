@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.4
+
+### Patch Changes
+
+- a3cd008: Update dependencies: `@ankhorage/contracts`, `@ankhorage/supabase-auth`, `@ankhorage/utility`.
+
 ## 0.12.3
 
 ### Patch Changes
