@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.3
+
+### Patch Changes
+
+- f7702ca: Update dependencies: `@ankhorage/supabase-auth`.
+
 ## 0.12.2
 
 ### Patch Changes
