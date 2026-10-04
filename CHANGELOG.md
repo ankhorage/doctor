@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.16
+
+### Patch Changes
+
+- ce98a07: Update dependencies: `@ankhorage/dependency-graph`.
+
 ## 0.12.15
 
 ### Patch Changes
