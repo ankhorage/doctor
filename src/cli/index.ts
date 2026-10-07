@@ -1,5 +1,6 @@
 import type { AnkhCommandHandler, AnkhRuntimeCommandProvider } from '@ankhorage/ankh';
 
+import { CAPABILITIES } from '../capabilities/index.js';
 import {
   createProviderCommandDescriptors,
   DOCTOR_COMMANDS,
@@ -8,7 +9,6 @@ import {
   type RunDoctorCommandImpl,
 } from '../commands.js';
 import { analyzeDoctorTargetWithCliLayout } from '../dependencyPolicyAnalysis.js';
-import { CAPABILITIES } from '../capabilities/index.js';
 import {
   DOCTOR_COMMAND_CATEGORY,
   DOCTOR_PACKAGE_NAME,

@@ -1,5 +1,4 @@
 import type { Capability } from '@ankhorage/contracts/capabilities';
-
 import { describe, expect, test } from 'bun:test';
 
 import { findDoctorCommandByStandaloneName, runDoctorCommand } from '../src/commands.js';

@@ -663,7 +663,12 @@ async function validateAnkhMetadataAndProvider(request: {
     );
   }
 
-  if (!sameStringSet(providerCapabilities.map((capability) => capability.id), commandCapabilities)) {
+  if (
+    !sameStringSet(
+      providerCapabilities.map((capability) => capability.id),
+      commandCapabilities,
+    )
+  ) {
     diagnostics.push(
       createDiagnostic({
         code: 'field-invalid',
@@ -1094,7 +1099,10 @@ function validateAnkhMetadataShape(value: unknown, providerPackage: boolean): st
     return 'Non-provider package metadata, when present, must use null or a package-relative "./..." provider value.';
   }
 
-  if (!Array.isArray(value.capabilities) || value.capabilities.some((capability) => !isCapability(capability))) {
+  if (
+    !Array.isArray(value.capabilities) ||
+    value.capabilities.some((capability) => !isCapability(capability))
+  ) {
     return 'package.json "ankh.capabilities" must be an array of canonical Capability descriptors.';
   }
 

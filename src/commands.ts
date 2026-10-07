@@ -2,6 +2,7 @@ import type { Capability } from '@ankhorage/contracts/capabilities';
 import type { AnkhCommandDescriptor } from '@ankhorage/contracts/cli';
 
 import type { DoctorAnalysisResult, DoctorPlannedChange, DoctorTargetMode } from './analysis.js';
+import { CAPABILITIES } from './capabilities/index.js';
 import { analyzeDoctorTargetWithCliLayout } from './cliLayoutAnalysis.js';
 import type { DoctorCommandContext, DoctorCommandRunResult } from './commandContext.js';
 import {
@@ -9,7 +10,6 @@ import {
   countWarningDiagnostics,
   type DoctorDiagnostic,
 } from './diagnostics.js';
-import { CAPABILITIES } from './capabilities/index.js';
 import { DOCTOR_COMMAND_CATEGORY } from './packageMetadata.js';
 import type { DoctorReadiness } from './readiness.js';
 
