@@ -75,8 +75,11 @@ graph TD
   module_src_bunPolicyAnalysis_ts --> module_src_analysis_ts
   module_src_bunPolicyAnalysis_ts --> module_src_diagnostics_ts
   module_src_bunPolicyAnalysis_ts --> module_src_utils_getRepositoryRule_ts
+  module_src_capabilities_index_ts["src/capabilities/index.ts"]
+  package__ankhorage_doctor -.-> module_src_capabilities_index_ts
   module_src_cli_index_ts["src/cli/index.ts"]
   package__ankhorage_doctor -.-> module_src_cli_index_ts
+  module_src_cli_index_ts --> module_src_capabilities_index_ts
   module_src_cli_index_ts --> module_src_commands_ts
   module_src_cli_index_ts --> module_src_dependencyPolicyAnalysis_ts
   module_src_cli_index_ts --> module_src_packageMetadata_ts
@@ -99,6 +102,7 @@ graph TD
   module_src_commands_ts["src/commands.ts"]
   package__ankhorage_doctor -.-> module_src_commands_ts
   module_src_commands_ts --> module_src_analysis_ts
+  module_src_commands_ts --> module_src_capabilities_index_ts
   module_src_commands_ts --> module_src_cliLayoutAnalysis_ts
   module_src_commands_ts --> module_src_commandContext_ts
   module_src_commands_ts --> module_src_diagnostics_ts
@@ -121,6 +125,7 @@ graph TD
   module_src_packageMetadata_ts["src/packageMetadata.ts"]
   package__ankhorage_doctor -.-> module_src_packageMetadata_ts
   module_src_packageMetadata_ts --> module_package_json
+  module_src_packageMetadata_ts --> module_src_capabilities_index_ts
   module_src_readiness_ts["src/readiness.ts"]
   package__ankhorage_doctor -.-> module_src_readiness_ts
   module_src_repositorySourceRulesAnalysis_ts["src/repositorySourceRulesAnalysis.ts"]
@@ -137,6 +142,7 @@ graph TD
   module_src_utils_getRepositoryRule_ts --> module_src_diagnostics_ts
   module_tests_ankh_provider_test_ts["tests/ankh.provider.test.ts"]
   package__ankhorage_doctor -.-> module_tests_ankh_provider_test_ts
+  module_tests_ankh_provider_test_ts --> module_src_capabilities_index_ts
   module_tests_ankh_provider_test_ts --> module_src_cli_index_ts
   module_tests_ankh_provider_test_ts --> module_src_commands_ts
   module_tests_auth5NativeReadiness_test_ts["tests/auth5NativeReadiness.test.ts"]
@@ -161,6 +167,7 @@ graph TD
   module_tests_changesetsDependencyPlacement_test_ts --> module_tests_testSupport_ts
   module_tests_cli_test_ts["tests/cli.test.ts"]
   package__ankhorage_doctor -.-> module_tests_cli_test_ts
+  module_tests_cli_test_ts --> module_src_capabilities_index_ts
   module_tests_cli_test_ts --> module_src_cli_index_ts
   module_tests_cli_test_ts --> module_src_cli_standalone_ts
   module_tests_cli_test_ts --> module_tests_testSupport_ts
@@ -184,6 +191,7 @@ graph TD
   module_tests_package_test_ts["tests/package.test.ts"]
   package__ankhorage_doctor -.-> module_tests_package_test_ts
   module_tests_package_test_ts --> module_package_json
+  module_tests_package_test_ts --> module_src_capabilities_index_ts
   module_tests_packageScripts_test_ts["tests/packageScripts.test.ts"]
   package__ankhorage_doctor -.-> module_tests_packageScripts_test_ts
   module_tests_packageScripts_test_ts --> module_src_index_ts

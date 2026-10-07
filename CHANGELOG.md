@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.0
+
+### Minor Changes
+
+- 2f38cf5: Adopt canonical Contracts Capability descriptors for Doctor provider metadata and validate package/provider capability catalogs with the shared runtime API.
+
 ## 0.12.16
 
 ### Patch Changes

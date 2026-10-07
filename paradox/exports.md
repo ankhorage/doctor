@@ -90,6 +90,12 @@ Analyze a Doctor target with CLI layout validation and repository-level policies
   - request: `DoctorAnalysisRequest`
   - returns: `Promise<DoctorAnalysisResult>`
 
+## CAPABILITIES
+
+Kind: `value`
+Module: `src/capabilities/index.ts`
+Source: `src/capabilities/index.ts:3:14`
+
 ## createDefaultCommandContext
 
 Kind: `function`
@@ -126,41 +132,35 @@ Source: `src/cli/index.ts:18:1`
 | runCommandImpl | property | `RunDoctorCommandImpl \| undefined` | no |  |
 | services | property | `Partial<DoctorCommandServices> \| undefined` | no |  |
 
-## DOCTOR_CAPABILITIES
-
-Kind: `value`
-Module: `src/packageMetadata.ts`
-Source: `src/packageMetadata.ts:12:14`
-
 ## DOCTOR_COMMAND_CATEGORY
 
 Kind: `value`
 Module: `src/packageMetadata.ts`
-Source: `src/packageMetadata.ts:11:14`
+Source: `src/packageMetadata.ts:8:14`
 
 ## DOCTOR_PACKAGE_METADATA
 
 Kind: `value`
 Module: `src/packageMetadata.ts`
-Source: `src/packageMetadata.ts:19:14`
+Source: `src/packageMetadata.ts:10:14`
 
 ## DOCTOR_PACKAGE_NAME
 
 Kind: `value`
 Module: `src/packageMetadata.ts`
-Source: `src/packageMetadata.ts:9:14`
+Source: `src/packageMetadata.ts:6:14`
 
 ## DOCTOR_PACKAGE_VERSION
 
 Kind: `value`
 Module: `src/packageMetadata.ts`
-Source: `src/packageMetadata.ts:10:14`
+Source: `src/packageMetadata.ts:7:14`
 
 ## DoctorAnalysisRequest
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:17:1`
+Source: `src/analysis.ts:23:1`
 
 ### Members
 
@@ -174,7 +174,7 @@ Source: `src/analysis.ts:17:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:38:1`
+Source: `src/analysis.ts:44:1`
 
 ### Members
 
@@ -264,7 +264,7 @@ Source: `src/diagnostics.ts:16:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:31:1`
+Source: `src/analysis.ts:37:1`
 
 ### Members
 
@@ -279,7 +279,7 @@ Source: `src/analysis.ts:31:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:23:1`
+Source: `src/analysis.ts:29:1`
 
 ### Members
 
@@ -295,7 +295,7 @@ Source: `src/analysis.ts:23:1`
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:14:1`
+Source: `src/analysis.ts:20:1`
 
 ## DoctorPolicyProfile
 
@@ -339,13 +339,13 @@ Source: `src/diagnostics.ts:19:1`
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:12:1`
+Source: `src/analysis.ts:18:1`
 
 ## DoctorTargetMode
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:13:1`
+Source: `src/analysis.ts:19:1`
 
 ## runCli
 

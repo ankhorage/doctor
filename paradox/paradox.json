@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.12.16",
+      "value": "v0.13.0",
       "color": "cb3837"
     },
     {
@@ -341,9 +341,18 @@
       ]
     },
     {
+      "path": "src/capabilities/index.ts",
+      "isEntrypoint": false,
+      "dependencies": [],
+      "exports": [
+        "CAPABILITIES"
+      ]
+    },
+    {
       "path": "src/cli/index.ts",
       "isEntrypoint": false,
       "dependencies": [
+        "src/capabilities/index.ts",
         "src/commands.ts",
         "src/dependencyPolicyAnalysis.ts",
         "src/packageMetadata.ts"
@@ -399,6 +408,7 @@
       "isEntrypoint": false,
       "dependencies": [
         "src/analysis.ts",
+        "src/capabilities/index.ts",
         "src/cliLayoutAnalysis.ts",
         "src/commandContext.ts",
         "src/diagnostics.ts",
@@ -458,10 +468,10 @@
         "analyzeAuthReadinessFile",
         "analyzeDoctorTarget",
         "analyzeDoctorTargetWithCliLayout",
+        "CAPABILITIES",
         "createDefaultCommandContext",
         "createDoctorRuntimeProvider",
         "CreateDoctorRuntimeProviderOptions",
-        "DOCTOR_CAPABILITIES",
         "DOCTOR_COMMAND_CATEGORY",
         "DOCTOR_PACKAGE_METADATA",
         "DOCTOR_PACKAGE_NAME",
@@ -505,10 +515,10 @@
       "path": "src/packageMetadata.ts",
       "isEntrypoint": false,
       "dependencies": [
-        "package.json"
+        "package.json",
+        "src/capabilities/index.ts"
       ],
       "exports": [
-        "DOCTOR_CAPABILITIES",
         "DOCTOR_COMMAND_CATEGORY",
         "DOCTOR_PACKAGE_METADATA",
         "DOCTOR_PACKAGE_NAME",
@@ -568,6 +578,7 @@
       "path": "tests/ankh.provider.test.ts",
       "isEntrypoint": false,
       "dependencies": [
+        "src/capabilities/index.ts",
         "src/cli/index.ts",
         "src/commands.ts"
       ],
@@ -622,6 +633,7 @@
       "path": "tests/cli.test.ts",
       "isEntrypoint": false,
       "dependencies": [
+        "src/capabilities/index.ts",
         "src/cli/index.ts",
         "src/cli/standalone.ts",
         "tests/testSupport.ts"
@@ -669,7 +681,8 @@
       "path": "tests/package.test.ts",
       "isEntrypoint": false,
       "dependencies": [
-        "package.json"
+        "package.json",
+        "src/capabilities/index.ts"
       ],
       "exports": []
     },
@@ -1033,6 +1046,28 @@
       "structuredRows": []
     },
     {
+      "name": "CAPABILITIES",
+      "title": null,
+      "description": null,
+      "isReadme": false,
+      "see": [],
+      "security": [],
+      "kind": "value",
+      "modulePath": "src/capabilities/index.ts",
+      "sourceLocation": {
+        "filePath": "src/capabilities/index.ts",
+        "line": 3,
+        "column": 14
+      },
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
       "name": "createDefaultCommandContext",
       "title": null,
       "description": null,
@@ -1139,28 +1174,6 @@
       "structuredRows": []
     },
     {
-      "name": "DOCTOR_CAPABILITIES",
-      "title": null,
-      "description": null,
-      "isReadme": false,
-      "see": [],
-      "security": [],
-      "kind": "value",
-      "modulePath": "src/packageMetadata.ts",
-      "sourceLocation": {
-        "filePath": "src/packageMetadata.ts",
-        "line": 12,
-        "column": 14
-      },
-      "exportPaths": [
-        "src/index.ts"
-      ],
-      "relatedSymbols": [],
-      "signatures": [],
-      "members": [],
-      "structuredRows": []
-    },
-    {
       "name": "DOCTOR_COMMAND_CATEGORY",
       "title": null,
       "description": null,
@@ -1171,7 +1184,7 @@
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
         "filePath": "src/packageMetadata.ts",
-        "line": 11,
+        "line": 8,
         "column": 14
       },
       "exportPaths": [
@@ -1193,7 +1206,7 @@
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
         "filePath": "src/packageMetadata.ts",
-        "line": 19,
+        "line": 10,
         "column": 14
       },
       "exportPaths": [
@@ -1215,7 +1228,7 @@
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
         "filePath": "src/packageMetadata.ts",
-        "line": 9,
+        "line": 6,
         "column": 14
       },
       "exportPaths": [
@@ -1237,7 +1250,7 @@
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
         "filePath": "src/packageMetadata.ts",
-        "line": 10,
+        "line": 7,
         "column": 14
       },
       "exportPaths": [
@@ -1259,7 +1272,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 17,
+        "line": 23,
         "column": 1
       },
       "exportPaths": [
@@ -1305,7 +1318,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 38,
+        "line": 44,
         "column": 1
       },
       "exportPaths": [
@@ -1640,7 +1653,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 31,
+        "line": 37,
         "column": 1
       },
       "exportPaths": [
@@ -1695,7 +1708,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 23,
+        "line": 29,
         "column": 1
       },
       "exportPaths": [
@@ -1756,7 +1769,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 14,
+        "line": 20,
         "column": 1
       },
       "exportPaths": [
@@ -1932,7 +1945,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 12,
+        "line": 18,
         "column": 1
       },
       "exportPaths": [
@@ -1954,7 +1967,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 13,
+        "line": 19,
         "column": 1
       },
       "exportPaths": [
@@ -2019,7 +2032,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 79,
+        "line": 85,
         "column": 1
       }
     },
@@ -2030,7 +2043,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 226,
+        "line": 232,
         "column": 1
       }
     },
@@ -2041,7 +2054,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 308,
+        "line": 314,
         "column": 1
       }
     },
@@ -2052,7 +2065,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 524,
+        "line": 530,
         "column": 1
       }
     },
@@ -2063,7 +2076,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 553,
+        "line": 559,
         "column": 1
       }
     },
@@ -2074,7 +2087,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 691,
+        "line": 700,
         "column": 1
       }
     },
@@ -2085,7 +2098,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 780,
+        "line": 789,
         "column": 1
       }
     },
@@ -2096,7 +2109,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 808,
+        "line": 817,
         "column": 1
       }
     },
@@ -2107,7 +2120,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 818,
+        "line": 827,
         "column": 1
       }
     },
@@ -2118,7 +2131,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 860,
+        "line": 869,
         "column": 1
       }
     },
@@ -2129,7 +2142,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 881,
+        "line": 890,
         "column": 1
       }
     },
@@ -2140,7 +2153,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 892,
+        "line": 901,
         "column": 1
       }
     },
@@ -2151,7 +2164,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 922,
+        "line": 931,
         "column": 1
       }
     },
@@ -2162,7 +2175,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 959,
+        "line": 968,
         "column": 1
       }
     },
@@ -2173,7 +2186,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 982,
+        "line": 991,
         "column": 1
       }
     },
@@ -2184,7 +2197,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1005,
+        "line": 1014,
         "column": 1
       }
     },
@@ -2195,7 +2208,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1028,
+        "line": 1037,
         "column": 1
       }
     },
@@ -2206,7 +2219,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1047,
+        "line": 1056,
         "column": 1
       }
     },
@@ -2217,7 +2230,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1062,
+        "line": 1071,
         "column": 1
       }
     },
@@ -2228,7 +2241,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1069,
+        "line": 1078,
         "column": 1
       }
     },
@@ -2239,7 +2252,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1103,
+        "line": 1112,
         "column": 1
       }
     },
@@ -2250,7 +2263,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1117,
+        "line": 1126,
         "column": 1
       }
     },
@@ -2261,7 +2274,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1122,
+        "line": 1131,
         "column": 1
       }
     },
@@ -2272,7 +2285,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1126,
+        "line": 1135,
         "column": 1
       }
     },
@@ -2283,7 +2296,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1133,
+        "line": 1142,
         "column": 1
       }
     },
@@ -2294,7 +2307,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1138,
+        "line": 1147,
         "column": 1
       }
     },
@@ -2305,7 +2318,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1142,
+        "line": 1151,
         "column": 1
       }
     },
@@ -2316,7 +2329,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1154,
+        "line": 1163,
         "column": 1
       }
     },
@@ -2327,7 +2340,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1163,
+        "line": 1172,
         "column": 1
       }
     },
@@ -2338,7 +2351,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1167,
+        "line": 1176,
         "column": 1
       }
     },
@@ -2349,7 +2362,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1171,
+        "line": 1180,
         "column": 1
       }
     },
@@ -2360,7 +2373,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1175,
+        "line": 1184,
         "column": 1
       }
     },
@@ -2371,7 +2384,29 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1179,
+        "line": 1188,
+        "column": 1
+      }
+    },
+    {
+      "name": "readCapabilities",
+      "description": "Read and normalize canonical Capability descriptors from untrusted metadata.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1193,
+        "column": 1
+      }
+    },
+    {
+      "name": "sameCapabilitySet",
+      "description": "Compare capability collections by canonical id and descriptor semantics.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 1198,
         "column": 1
       }
     },
@@ -2382,7 +2417,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1183,
+        "line": 1212,
         "column": 1
       }
     },
@@ -3020,7 +3055,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 98,
+        "line": 100,
         "column": 1
       }
     },
@@ -3031,7 +3066,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 124,
+        "line": 126,
         "column": 1
       }
     },
@@ -3042,7 +3077,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 132,
+        "line": 134,
         "column": 1
       }
     },
@@ -3053,7 +3088,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 136,
+        "line": 138,
         "column": 1
       }
     },
@@ -3064,7 +3099,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 157,
+        "line": 159,
         "column": 1
       }
     },
@@ -3075,7 +3110,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 161,
+        "line": 163,
         "column": 1
       }
     },
@@ -3086,7 +3121,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 175,
+        "line": 177,
         "column": 1
       }
     },
@@ -3097,7 +3132,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 183,
+        "line": 185,
         "column": 1
       }
     },
@@ -3108,7 +3143,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 203,
+        "line": 205,
         "column": 1
       }
     },
@@ -3119,7 +3154,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 220,
+        "line": 222,
         "column": 1
       }
     },
@@ -3130,7 +3165,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 237,
+        "line": 239,
         "column": 1
       }
     },
@@ -3141,7 +3176,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 254,
+        "line": 256,
         "column": 1
       }
     },
@@ -3152,7 +3187,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 271,
+        "line": 273,
         "column": 1
       }
     },
@@ -3163,7 +3198,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 327,
+        "line": 329,
         "column": 1
       }
     },
@@ -3174,7 +3209,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 331,
+        "line": 333,
         "column": 1
       }
     },
@@ -3185,7 +3220,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 335,
+        "line": 337,
         "column": 1
       }
     },
@@ -3196,7 +3231,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 339,
+        "line": 341,
         "column": 1
       }
     },
@@ -3207,7 +3242,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 344,
+        "line": 346,
         "column": 1
       }
     },
@@ -3970,6 +4005,11 @@
       },
       {
         "fromPath": "src/commands.ts",
+        "toPath": "src/capabilities/index.ts",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromPath": "src/commands.ts",
         "toPath": "src/cliLayoutAnalysis.ts",
         "sourcePath": "src/commands.ts"
       },
@@ -4021,6 +4061,11 @@
       {
         "fromPath": "src/index.ts",
         "toPath": "src/authReadinessFileAnalysis.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
+        "fromPath": "src/index.ts",
+        "toPath": "src/capabilities/index.ts",
         "sourcePath": "src/index.ts"
       },
       {
@@ -4089,6 +4134,11 @@
         "sourcePath": "src/packageMetadata.ts"
       },
       {
+        "fromPath": "src/packageMetadata.ts",
+        "toPath": "src/capabilities/index.ts",
+        "sourcePath": "src/packageMetadata.ts"
+      },
+      {
         "fromPath": "src/repositorySourceRulesAnalysis.ts",
         "toPath": "src/diagnostics.ts",
         "sourcePath": "src/repositorySourceRulesAnalysis.ts"
@@ -4102,6 +4152,11 @@
         "fromPath": "src/sourceArchitectureAnalysis.ts",
         "toPath": "src/diagnostics.ts",
         "sourcePath": "src/sourceArchitectureAnalysis.ts"
+      },
+      {
+        "fromPath": "tests/ankh.provider.test.ts",
+        "toPath": "src/capabilities/index.ts",
+        "sourcePath": "tests/ankh.provider.test.ts"
       },
       {
         "fromPath": "tests/ankh.provider.test.ts",
@@ -4162,6 +4217,11 @@
         "fromPath": "tests/changesetsDependencyPlacement.test.ts",
         "toPath": "tests/testSupport.ts",
         "sourcePath": "tests/changesetsDependencyPlacement.test.ts"
+      },
+      {
+        "fromPath": "tests/cli.test.ts",
+        "toPath": "src/capabilities/index.ts",
+        "sourcePath": "tests/cli.test.ts"
       },
       {
         "fromPath": "tests/cli.test.ts",
@@ -4229,6 +4289,11 @@
         "sourcePath": "tests/package.test.ts"
       },
       {
+        "fromPath": "tests/package.test.ts",
+        "toPath": "src/capabilities/index.ts",
+        "sourcePath": "tests/package.test.ts"
+      },
+      {
         "fromPath": "tests/packageScripts.test.ts",
         "toPath": "src/index.ts",
         "sourcePath": "tests/packageScripts.test.ts"
@@ -4292,6 +4357,11 @@
         "fromPath": "tests/typescriptDependencyPlacement.test.ts",
         "toPath": "tests/testSupport.ts",
         "sourcePath": "tests/typescriptDependencyPlacement.test.ts"
+      },
+      {
+        "fromPath": "src/cli/index.ts",
+        "toPath": "src/capabilities/index.ts",
+        "sourcePath": "src/cli/index.ts"
       },
       {
         "fromPath": "src/cli/index.ts",
@@ -4518,8 +4588,20 @@
       },
       {
         "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "readCapabilities",
+        "callExpression": "readCapabilities",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
         "toSymbol": "uniqueSortedStrings",
         "callExpression": "uniqueSortedStrings",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "validateAnkhMetadataAndProvider",
+        "toSymbol": "sameCapabilitySet",
+        "callExpression": "sameCapabilitySet",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4554,8 +4636,8 @@
       },
       {
         "fromSymbol": "inspectProviderSource",
-        "toSymbol": "readStringArray",
-        "callExpression": "readStringArray",
+        "toSymbol": "readCapabilities",
+        "callExpression": "readCapabilities",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -4763,6 +4845,12 @@
         "sourcePath": "src/analysis.ts"
       },
       {
+        "fromSymbol": "src/analysis.ts",
+        "toSymbol": "isCapability",
+        "callExpression": "isCapability",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
         "fromSymbol": "repositoryRuleFields",
         "toSymbol": "getRepositoryRule",
         "callExpression": "getRepositoryRule",
@@ -4784,6 +4872,12 @@
         "fromSymbol": "isPackageRelativeProviderPath",
         "toSymbol": "isNonEmptyString",
         "callExpression": "isNonEmptyString",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "src/analysis.ts",
+        "toSymbol": "areCapabilitiesEqual",
+        "callExpression": "areCapabilitiesEqual",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -6150,6 +6244,12 @@
       },
       {
         "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "createTestCapabilities",
+        "callExpression": "createTestCapabilities",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
         "toSymbol": "getRecordField",
         "callExpression": "getRecordField",
         "sourcePath": "tests/commands.test.ts"
@@ -6164,6 +6264,12 @@
         "fromSymbol": "getCommand",
         "toSymbol": "findDoctorCommandByStandaloneName",
         "callExpression": "findDoctorCommandByStandaloneName",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "createProviderSource",
+        "toSymbol": "createTestCapabilities",
+        "callExpression": "createTestCapabilities",
         "sourcePath": "tests/commands.test.ts"
       },
       {
