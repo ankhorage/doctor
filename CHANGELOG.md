@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.1
+
+### Patch Changes
+
+- 4358e5c: Update dependencies: `@ankhorage/dependency-graph`, `@ankhorage/supabase-auth`.
+
 ## 0.13.0
 
 ### Minor Changes
