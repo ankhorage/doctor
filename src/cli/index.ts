@@ -1,5 +1,6 @@
 import type { AnkhCommandHandler, AnkhRuntimeCommandProvider } from '@ankhorage/ankh';
 
+import { CAPABILITIES } from '../capabilities/index.js';
 import {
   createProviderCommandDescriptors,
   DOCTOR_COMMANDS,
@@ -9,7 +10,6 @@ import {
 } from '../commands.js';
 import { analyzeDoctorTargetWithCliLayout } from '../dependencyPolicyAnalysis.js';
 import {
-  DOCTOR_CAPABILITIES,
   DOCTOR_COMMAND_CATEGORY,
   DOCTOR_PACKAGE_NAME,
   DOCTOR_PACKAGE_VERSION,
@@ -33,7 +33,7 @@ export function createDoctorRuntimeProvider(
     id: DOCTOR_PACKAGE_NAME,
     category: DOCTOR_COMMAND_CATEGORY,
     version: DOCTOR_PACKAGE_VERSION,
-    capabilities: [...DOCTOR_CAPABILITIES],
+    capabilities: CAPABILITIES,
     commands: createProviderCommandDescriptors(),
     handlers: DOCTOR_COMMANDS.map((command) => {
       const handler: AnkhCommandHandler = (request) =>

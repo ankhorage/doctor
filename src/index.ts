@@ -9,6 +9,7 @@ export type {
 } from './analysis.js';
 export { analyzeAuthReadiness, type DoctorAuthReadinessAnalysis } from './authReadinessAnalysis.js';
 export { analyzeAuthReadinessFile } from './authReadinessFileAnalysis.js';
+export { CAPABILITIES } from './capabilities/index.js';
 export {
   createDoctorRuntimeProvider,
   type CreateDoctorRuntimeProviderOptions,
@@ -33,7 +34,6 @@ export {
   analyzeAppManifestTarget,
 } from './manifestAnalysis.js';
 export {
-  DOCTOR_CAPABILITIES,
   DOCTOR_COMMAND_CATEGORY,
   DOCTOR_PACKAGE_METADATA,
   DOCTOR_PACKAGE_NAME,

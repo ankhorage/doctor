@@ -1,6 +1,7 @@
 import type { AnkhRuntimeCommandProvider } from '@ankhorage/ankh';
 import { describe, expect, test } from 'bun:test';
 
+import { CAPABILITIES } from '../src/capabilities/index.js';
 import provider, { createDoctorRuntimeProvider } from '../src/cli/index.js';
 import { createProviderCommandDescriptors, DOCTOR_COMMANDS } from '../src/commands.js';
 
@@ -10,12 +11,7 @@ describe('doctor package provider', () => {
 
     expect(expectedProvider.id).toBe('@ankhorage/doctor');
     expect(expectedProvider.category).toBe('doctor');
-    expect(expectedProvider.capabilities).toEqual([
-      'doctor.validate',
-      'doctor.fix',
-      'doctor.repo',
-      'doctor.package',
-    ]);
+    expect(expectedProvider.capabilities).toEqual(CAPABILITIES);
     expect(expectedProvider.commands).toEqual(createProviderCommandDescriptors());
     expect(expectedProvider.handlers?.map((handler) => handler.path.join(' '))).toEqual(
       DOCTOR_COMMANDS.map((command) => command.path.join(' ')),

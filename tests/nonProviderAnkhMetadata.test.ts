@@ -31,7 +31,17 @@ const NON_PROVIDER_PACKAGE_JSON: Record<string, unknown> = {
   ankh: {
     category: 'contracts',
     provider: null,
-    capabilities: ['contracts.cli'],
+    capabilities: [
+      {
+        id: 'contracts.cli',
+        owner: '@ankhorage/example',
+        access: ['invoke'],
+        binding: {
+          kind: 'action',
+          bindableAs: ['target'],
+        },
+      },
+    ],
   },
   scripts: {
     build: 'bun x tsc -p tsconfig.build.json',

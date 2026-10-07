@@ -6,6 +6,7 @@ import {
 } from '@ankhorage/ankh';
 import { describe, expect, test } from 'bun:test';
 
+import { CAPABILITIES } from '../src/capabilities/index.js';
 import { createDoctorRuntimeProvider } from '../src/cli/index.js';
 import { runCli } from '../src/cli/standalone.js';
 import { createCapturedCommandContext } from './testSupport.js';
@@ -108,7 +109,7 @@ function createDiscoveredPackage(): AnkhDiscoveredPackage {
     metadata: {
       category: 'doctor',
       provider: './dist/cli/index.js',
-      capabilities: ['doctor.validate', 'doctor.fix', 'doctor.repo', 'doctor.package'],
+      capabilities: CAPABILITIES,
     },
     packageJsonPath: '/workspace/package.json',
     packageName: '@ankhorage/doctor',
