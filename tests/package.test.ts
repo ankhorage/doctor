@@ -2,13 +2,14 @@ import type { AnkhPackageMetadata } from '@ankhorage/contracts/cli';
 import { describe, expect, test } from 'bun:test';
 
 import packageJson from '../package.json';
+import { CAPABILITIES } from '../src/capabilities/index.js';
 
 describe('package metadata', () => {
   test('publishes the expected Ankh metadata and bin entry', () => {
     const expectedAnkhMetadata = {
       category: 'doctor',
       provider: './dist/cli/index.js',
-      capabilities: ['doctor.validate', 'doctor.fix', 'doctor.repo', 'doctor.package'],
+      capabilities: CAPABILITIES,
     } as const satisfies AnkhPackageMetadata;
 
     expect(packageJson.name).toBe('@ankhorage/doctor');

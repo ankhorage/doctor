@@ -1,4 +1,5 @@
-import type { AnkhCapabilityId, AnkhCommandDescriptor } from '@ankhorage/contracts/cli';
+import type { Capability } from '@ankhorage/contracts/capabilities';
+import type { AnkhCommandDescriptor } from '@ankhorage/contracts/cli';
 
 import type { DoctorAnalysisResult, DoctorPlannedChange, DoctorTargetMode } from './analysis.js';
 import { analyzeDoctorTargetWithCliLayout } from './cliLayoutAnalysis.js';
@@ -8,7 +9,8 @@ import {
   countWarningDiagnostics,
   type DoctorDiagnostic,
 } from './diagnostics.js';
-import { DOCTOR_CAPABILITIES, DOCTOR_COMMAND_CATEGORY } from './packageMetadata.js';
+import { CAPABILITIES } from './capabilities/index.js';
+import { DOCTOR_COMMAND_CATEGORY } from './packageMetadata.js';
 import type { DoctorReadiness } from './readiness.js';
 
 type DoctorCommandName = 'fix' | 'package' | 'repo' | 'validate';
@@ -24,7 +26,7 @@ type DoctorCommandImplementation = (
 ) => Promise<DoctorCommandRunResult>;
 
 export interface DoctorCommandDefinition {
-  readonly capability: AnkhCapabilityId;
+  readonly capability: Capability['id'];
   readonly mode: DoctorTargetMode;
   readonly path: readonly [DoctorCommandName];
   readonly standaloneName: DoctorCommandName;
@@ -53,11 +55,11 @@ export type RunDoctorCommandImpl = (
 ) => Promise<DoctorCommandRunResult>;
 
 const COMMAND_CAPABILITIES = {
-  validate: DOCTOR_CAPABILITIES[0],
-  fix: DOCTOR_CAPABILITIES[1],
-  repo: DOCTOR_CAPABILITIES[2],
-  package: DOCTOR_CAPABILITIES[3],
-} as const satisfies Record<DoctorCommandName, AnkhCapabilityId>;
+  validate: CAPABILITIES[0].id,
+  fix: CAPABILITIES[1].id,
+  repo: CAPABILITIES[2].id,
+  package: CAPABILITIES[3].id,
+} as const satisfies Record<DoctorCommandName, Capability['id']>;
 
 export const DOCTOR_COMMANDS = [
   {

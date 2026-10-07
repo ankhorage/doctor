@@ -2,6 +2,12 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import {
+  areCapabilitiesEqual,
+  type Capability,
+  isCapability,
+  normalizeCapability,
+} from '@ankhorage/contracts/capabilities';
 import { REPOSITORY_RULE_METADATA } from '@ankhorage/rules-repository';
 import { uniqueSortedStrings } from '@ankhorage/utility/array';
 
@@ -48,7 +54,7 @@ export interface DoctorAnalysisResult {
 }
 
 interface ProviderInspectionResult {
-  readonly capabilities: readonly string[];
+  readonly capabilities: readonly Capability[];
   readonly commandCapabilities: readonly string[];
   readonly commandPaths: readonly string[];
   readonly handlerPaths: readonly string[];
@@ -639,18 +645,16 @@ async function validateAnkhMetadataAndProvider(request: {
     return diagnostics;
   }
 
-  const metadataCapabilities = Array.isArray(metadata.capabilities)
-    ? metadata.capabilities.filter(isNonEmptyString)
-    : [];
-  const providerCapabilities = uniqueSortedStrings(inspection.result.capabilities);
+  const metadataCapabilities = readCapabilities(metadata.capabilities);
+  const providerCapabilities = inspection.result.capabilities;
   const commandCapabilities = uniqueSortedStrings(inspection.result.commandCapabilities);
 
-  if (!sameStringSet(metadataCapabilities, commandCapabilities)) {
+  if (!sameCapabilitySet(metadataCapabilities, providerCapabilities)) {
     diagnostics.push(
       createDiagnostic({
         code: 'field-invalid',
         message:
-          'package.json.ankh capabilities must match the implemented provider command capabilities exactly.',
+          'package.json.ankh capabilities must match the implemented provider capability descriptors exactly.',
         path: request.packageJsonPath,
         profile: request.profile,
         ruleId: 'package.ankh.capabilities.match-provider',
@@ -659,7 +663,7 @@ async function validateAnkhMetadataAndProvider(request: {
     );
   }
 
-  if (!sameStringSet(providerCapabilities, commandCapabilities)) {
+  if (!sameStringSet(providerCapabilities.map((capability) => capability.id), commandCapabilities)) {
     diagnostics.push(
       createDiagnostic({
         code: 'field-invalid',
@@ -732,7 +736,7 @@ async function inspectProviderSource(request: {
       };
     }
 
-    const capabilities = readStringArray(provider.capabilities);
+    const capabilities = readCapabilities(provider.capabilities);
     const commands = Array.isArray(provider.commands) ? provider.commands : [];
     const handlers = Array.isArray(provider.handlers) ? provider.handlers : [];
 
@@ -1090,11 +1094,8 @@ function validateAnkhMetadataShape(value: unknown, providerPackage: boolean): st
     return 'Non-provider package metadata, when present, must use null or a package-relative "./..." provider value.';
   }
 
-  if (
-    !Array.isArray(value.capabilities) ||
-    value.capabilities.some((capability) => !isNonEmptyString(capability))
-  ) {
-    return 'package.json "ankh.capabilities" must be an array of non-empty strings.';
+  if (!Array.isArray(value.capabilities) || value.capabilities.some((capability) => !isCapability(capability))) {
+    return 'package.json "ankh.capabilities" must be an array of canonical Capability descriptors.';
   }
 
   return null;
@@ -1178,6 +1179,26 @@ function isStringTuple(value: unknown): value is readonly string[] {
 
 function readStringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.filter(isNonEmptyString) : [];
+}
+
+/*** Read and normalize canonical Capability descriptors from untrusted metadata. */
+function readCapabilities(value: unknown): Capability[] {
+  return Array.isArray(value) ? value.filter(isCapability).map(normalizeCapability) : [];
+}
+
+/*** Compare capability collections by canonical id and descriptor semantics. */
+function sameCapabilitySet(left: readonly Capability[], right: readonly Capability[]): boolean {
+  const leftById = new Map(left.map((capability) => [capability.id, capability]));
+  const rightById = new Map(right.map((capability) => [capability.id, capability]));
+  return (
+    leftById.size === left.length &&
+    rightById.size === right.length &&
+    leftById.size === rightById.size &&
+    [...leftById].every(([id, capability]) => {
+      const other = rightById.get(id);
+      return other !== undefined && areCapabilitiesEqual(capability, other);
+    })
+  );
 }
 
 function sameStringSet(left: readonly string[], right: readonly string[]): boolean {

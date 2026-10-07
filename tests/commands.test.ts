@@ -1,3 +1,5 @@
+import type { Capability } from '@ankhorage/contracts/capabilities';
+
 import { describe, expect, test } from 'bun:test';
 
 import { findDoctorCommandByStandaloneName, runDoctorCommand } from '../src/commands.js';
@@ -278,6 +280,37 @@ describe('doctor command runner', () => {
         }),
         ankh: {
           category: '',
+          capabilities: createTestCapabilities(['doctor.validate']),
+        },
+      },
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.ankh.present.valid-shape');
+  });
+
+  test('legacy string capability metadata is rejected', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        ...createValidPublicPackageJson({
+          docsScript: 'echo docs',
+        }),
+        ankh: {
+          category: 'doctor',
+          provider: './dist/ankh.provider.js',
           capabilities: ['doctor.validate'],
         },
       },
@@ -287,6 +320,12 @@ describe('doctor command runner', () => {
       withReadme: true,
       withChangelog: true,
       withLicense: true,
+      extraFiles: {
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate'],
+          commandCapabilities: ['doctor.validate'],
+        }),
+      },
     });
     const captured = createCapturedCommandContext(fixture);
 
@@ -309,7 +348,7 @@ describe('doctor command runner', () => {
         ankh: {
           category: 'doctor',
           provider: './dist/ankh.provider.js',
-          capabilities: ['doctor.validate', 'doctor.fix'],
+          capabilities: createTestCapabilities(['doctor.validate', 'doctor.fix']),
         },
       },
       withGitDir: true,
@@ -431,7 +470,7 @@ describe('doctor command runner', () => {
         ankh: {
           category: 'doctor',
           provider: './dist/ankh.provider.js',
-          capabilities: ['doctor.validate'],
+          capabilities: createTestCapabilities(['doctor.validate']),
         },
       },
       withGitDir: true,
@@ -610,11 +649,12 @@ function createValidPublicPackageJson(options: {
 }
 
 function createProviderSource(options: {
-  readonly capabilities: readonly string[];
-  readonly commandCapabilities: readonly string[];
+  readonly capabilities: readonly Capability['id'][];
+  readonly commandCapabilities: readonly Capability['id'][];
   readonly handlerPaths?: readonly string[];
 }): string {
   const handlerPaths = options.handlerPaths ?? ['validate'];
+  const capabilities = createTestCapabilities(options.capabilities);
   const commandLines = options.commandCapabilities
     .map(
       (capability) =>
@@ -632,7 +672,7 @@ function createProviderSource(options: {
     "  id: '@ankhorage/example',",
     "  category: 'doctor',",
     "  version: '1.0.0',",
-    `  capabilities: ${JSON.stringify(options.capabilities)},`,
+    `  capabilities: ${JSON.stringify(capabilities)},`,
     '  commands: [',
     commandLines,
     '  ],',
@@ -644,6 +684,18 @@ function createProviderSource(options: {
     'export default provider;',
     '',
   ].join('\n');
+}
+
+function createTestCapabilities(ids: readonly Capability['id'][]): readonly Capability[] {
+  return ids.map((id) => ({
+    id,
+    owner: '@ankhorage/example',
+    access: ['invoke'],
+    binding: {
+      kind: 'action',
+      bindableAs: ['target'],
+    },
+  }));
 }
 
 function getRecordField(
