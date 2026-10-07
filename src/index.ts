@@ -32,8 +32,8 @@ export {
   analyzeAppManifestFile,
   analyzeAppManifestTarget,
 } from './manifestAnalysis.js';
+export { CAPABILITIES } from './capabilities/index.js';
 export {
-  DOCTOR_CAPABILITIES,
   DOCTOR_COMMAND_CATEGORY,
   DOCTOR_PACKAGE_METADATA,
   DOCTOR_PACKAGE_NAME,
