@@ -375,6 +375,148 @@ describe('doctor command runner', () => {
     expect(captured.stdout.value).toContain('package.ankh.capabilities.match-provider');
   });
 
+  test('provider command capabilities may exactly match the published provider catalog', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createProviderPackageJson(['doctor.validate']),
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate'],
+          commandCapabilities: ['doctor.validate'],
+        }),
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(0);
+  });
+
+  test('provider catalogs may publish runtime-only capabilities outside the command surface', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createProviderPackageJson(['doctor.validate', 'doctor.fix']),
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate', 'doctor.fix'],
+          commandCapabilities: ['doctor.validate'],
+        }),
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(0);
+  });
+
+  test('provider commands cannot reference unpublished capabilities', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createProviderPackageJson(['doctor.validate']),
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate'],
+          commandCapabilities: ['doctor.fix'],
+        }),
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('provider.commands.match-capabilities');
+  });
+
+  test('duplicate and invalid provider capability descriptors remain rejected', async () => {
+    const duplicateFixture = await createDoctorFixture({
+      packageJson: createProviderPackageJson(['doctor.validate']),
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate', 'doctor.validate'],
+          commandCapabilities: ['doctor.validate'],
+        }),
+      },
+    });
+    const invalidFixture = await createDoctorFixture({
+      packageJson: createProviderPackageJson(['doctor.validate']),
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/ankh.provider.ts': [
+          'const provider = {',
+          "  id: '@ankhorage/example',",
+          "  category: 'doctor',",
+          "  version: '1.0.0',",
+          "  capabilities: [{ id: 'doctor.validate' }],",
+          "  commands: [{ capability: 'doctor.validate', path: ['validate'], summary: 'summary' }],",
+          "  handlers: [{ path: ['validate'], handler: async () => ({ exitCode: 0 }) }],",
+          '};',
+          '',
+          'export default provider;',
+          '',
+        ].join('\n'),
+      },
+    });
+
+    const duplicateCaptured = createCapturedCommandContext(duplicateFixture);
+    const invalidCaptured = createCapturedCommandContext(invalidFixture);
+    const duplicateResult = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: duplicateCaptured.context,
+    });
+    const invalidResult = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: invalidCaptured.context,
+    });
+
+    expect(duplicateResult.exitCode).toBe(1);
+    expect(invalidResult.exitCode).toBe(1);
+    expect(duplicateCaptured.stdout.value).toContain('package.ankh.capabilities.match-provider');
+    expect(invalidCaptured.stdout.value).toContain('package.ankh.capabilities.match-provider');
+  });
+
   test('paradox dependency is required only when the package owns docs generation through Paradox', async () => {
     const packageJson = createValidPublicPackageJson({
       docsScript: 'bunx @ankhorage/paradox && ankhorage-prettier --write README.md paradox',
@@ -644,6 +786,28 @@ function createValidPublicPackageJson(options: {
       typescript: '^5.9.3',
     },
     packageManager: 'bun@1.3.13',
+  };
+}
+
+function createProviderPackageJson(
+  capabilities: readonly Capability['id'][],
+): Record<string, unknown> {
+  const packageJson = createValidPublicPackageJson({
+    docsScript: 'echo docs',
+  });
+  const exportsField = getRecordField(packageJson, 'exports');
+  exportsField['./cli'] = {
+    import: './dist/ankh.provider.js',
+    types: './dist/ankh.provider.d.ts',
+  };
+
+  return {
+    ...packageJson,
+    ankh: {
+      category: 'doctor',
+      provider: './dist/ankh.provider.js',
+      capabilities: createTestCapabilities(capabilities),
+    },
   };
 }
 
