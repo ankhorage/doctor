@@ -51,7 +51,7 @@
 
     "@ankhorage/rules-repository": ["@ankhorage/rules-repository@0.2.0", "", { "dependencies": { "@ankhorage/rules": "^0.2.0" } }, "sha512-ugJq6urUXGpexwcJAERSfauHJAUtWN2ZkogsAMYUX9dMCH8wXcQrdWOuYHjL5G7wB6f0IX2Ebjri7091AuF1XQ=="],
 
-    "@ankhorage/supabase-auth": ["@ankhorage/supabase-auth@1.2.38", "", { "dependencies": { "@ankhorage/contracts": "^24.1.0", "@noble/hashes": "2.4.0" } }, "sha512-Eom2BMvvdca3Ou68Zjspn/R0xnEaEQIdSTouXAkxgD++Ngk6dCfCCTwgbjsAASMho8yud1Y47COWxnIfAdfkoA=="],
+    "@ankhorage/supabase-auth": ["@ankhorage/supabase-auth@1.2.39", "", { "dependencies": { "@ankhorage/contracts": "^24.2.0", "@noble/hashes": "2.4.0" } }, "sha512-ZR2XyOxootI29dXK6xyzu4iy0TsI7DxxjX7YxwEUp0sHPTlFN4hCCaak6QrKkvurHTe6udxA1nSZaSjqyeAdkQ=="],
 
     "@ankhorage/utility": ["@ankhorage/utility@1.9.85", "", { "peerDependencies": { "fastify": "^5.12.5" }, "optionalPeers": ["fastify"] }, "sha512-039OnOPntg5EY7BwMR4shCaHOO8N/DgNZOgQxkh/lxtsZbqIlf34bp47ZYh7NoPVibxLDwj8CeMl6m1Pw8y1aQ=="],
 
