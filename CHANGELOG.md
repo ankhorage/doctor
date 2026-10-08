@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.6
+
+### Patch Changes
+
+- a5f4c83: Allow non-provider package metadata without capabilities when no public capability catalog exists.
+
 ## 0.14.5
 
 ### Patch Changes
