@@ -611,7 +611,11 @@ async function validateAnkhMetadataAndProvider(request: {
     return diagnostics;
   }
 
-  const metadataValidation = validateAnkhMetadataShape(metadata, providerPackage);
+  const metadataValidation = validateAnkhMetadataShape(
+    metadata,
+    providerPackage,
+    catalog.path !== null,
+  );
   if (metadataValidation !== null) {
     diagnostics.push(
       createDiagnostic({
@@ -1135,7 +1139,11 @@ function hasDependency(
   return dependencyMap !== null && isNonEmptyString(dependencyMap[dependencyName]);
 }
 
-function validateAnkhMetadataShape(value: unknown, providerPackage: boolean): string | null {
+function validateAnkhMetadataShape(
+  value: unknown,
+  providerPackage: boolean,
+  hasPublicCapabilityCatalog: boolean,
+): string | null {
   if (!isRecord(value)) {
     return 'package.json "ankh" metadata must be an object when present.';
   }
@@ -1159,9 +1167,14 @@ function validateAnkhMetadataShape(value: unknown, providerPackage: boolean): st
     return 'Non-provider package metadata, when present, must use null or a package-relative "./..." provider value.';
   }
 
+  if ((providerPackage || hasPublicCapabilityCatalog) && !Array.isArray(value.capabilities)) {
+    return 'package.json "ankh.capabilities" must be an array of canonical Capability descriptors.';
+  }
+
   if (
-    !Array.isArray(value.capabilities) ||
-    value.capabilities.some((capability) => !isCapability(capability))
+    value.capabilities !== undefined &&
+    (!Array.isArray(value.capabilities) ||
+      value.capabilities.some((capability) => !isCapability(capability)))
   ) {
     return 'package.json "ankh.capabilities" must be an array of canonical Capability descriptors.';
   }
