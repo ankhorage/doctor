@@ -664,15 +664,14 @@ async function validateAnkhMetadataAndProvider(request: {
   }
 
   if (
-    !sameStringSet(
-      providerCapabilities.map((capability) => capability.id),
-      commandCapabilities,
+    !commandCapabilities.every((commandCapability) =>
+      providerCapabilities.some((capability) => capability.id === commandCapability),
     )
   ) {
     diagnostics.push(
       createDiagnostic({
         code: 'field-invalid',
-        message: 'Provider export capabilities must match the provider command capability surface.',
+        message: 'Every provider command must reference a capability published by the provider.',
         path: inspection.result.sourcePath,
         profile: request.profile,
         ruleId: 'provider.commands.match-capabilities',
