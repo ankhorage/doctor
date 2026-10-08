@@ -11,6 +11,7 @@ import {
 import { REPOSITORY_RULE_METADATA } from '@ankhorage/rules-repository';
 import { uniqueSortedStrings } from '@ankhorage/utility/array';
 
+import { readCapabilityCatalogAsync } from './capabilityCatalog.js';
 import type { DoctorDiagnostic, DoctorPolicyProfile, DoctorRuleId } from './diagnostics.js';
 import type { DoctorReadiness } from './readiness.js';
 import { getRepositoryRule } from './utils/getRepositoryRule.js';
@@ -566,6 +567,7 @@ async function validateAnkhMetadataAndProvider(request: {
 }): Promise<DoctorDiagnostic[]> {
   const diagnostics: DoctorDiagnostic[] = [];
   const metadata = request.packageJson.ankh;
+  const catalog = await readCapabilityCatalogAsync(request.targetPath, request.packageJson.exports);
   const providerPackage =
     (isRecord(metadata) && isNonEmptyString(metadata.provider)) ||
     (await isProviderPackage(request.targetPath));
@@ -594,6 +596,18 @@ async function validateAnkhMetadataAndProvider(request: {
   }
 
   if (metadata === undefined) {
+    if (catalog.path !== null) {
+      diagnostics.push(
+        createDiagnostic({
+          code: 'field-missing',
+          message: 'A public capability catalog requires package.json.ankh discovery metadata.',
+          path: request.packageJsonPath,
+          profile: request.profile,
+          ruleId: 'package.ankh.required-for-capability-catalog',
+          severity: 'error',
+        }),
+      );
+    }
     return diagnostics;
   }
 
@@ -610,6 +624,54 @@ async function validateAnkhMetadataAndProvider(request: {
       }),
     );
     return diagnostics;
+  }
+
+  if (!isRecord(metadata)) {
+    return diagnostics;
+  }
+
+  const metadataCapabilities = readCapabilities(metadata.capabilities);
+  const metadataIdsAreUnique = hasUniqueCapabilityIds(metadataCapabilities);
+  if (!metadataIdsAreUnique) {
+    diagnostics.push(
+      createDiagnostic({
+        code: 'field-invalid',
+        message: 'package.json.ankh capabilities must not contain duplicate capability ids.',
+        path: request.packageJsonPath,
+        profile: request.profile,
+        ruleId: 'package.ankh.capabilities.unique',
+        severity: 'error',
+      }),
+    );
+  }
+
+  if (catalog.path !== null && catalog.capabilities === null) {
+    diagnostics.push(
+      createDiagnostic({
+        code: 'field-invalid',
+        message: `The public capability catalog is invalid: ${catalog.reason}`,
+        path: catalog.path,
+        profile: request.profile,
+        ruleId: 'package.ankh.capabilities.catalog.valid',
+        severity: 'error',
+      }),
+    );
+  } else if (
+    catalog.capabilities !== null &&
+    metadataIdsAreUnique &&
+    !sameCapabilitySet(metadataCapabilities, catalog.capabilities)
+  ) {
+    diagnostics.push(
+      createDiagnostic({
+        code: 'field-invalid',
+        message:
+          'package.json.ankh capabilities must match the canonical public CAPABILITIES catalog exactly.',
+        path: request.packageJsonPath,
+        profile: request.profile,
+        ruleId: 'package.ankh.capabilities.match-catalog',
+        severity: 'error',
+      }),
+    );
   }
 
   if (!providerPackage) {
@@ -645,7 +707,6 @@ async function validateAnkhMetadataAndProvider(request: {
     return diagnostics;
   }
 
-  const metadataCapabilities = readCapabilities(metadata.capabilities);
   const providerCapabilities = inspection.result.capabilities;
   const commandCapabilities = uniqueSortedStrings(inspection.result.commandCapabilities);
 
@@ -1206,6 +1267,11 @@ function sameCapabilitySet(left: readonly Capability[], right: readonly Capabili
       return other !== undefined && areCapabilitiesEqual(capability, other);
     })
   );
+}
+
+/*** Determine whether every normalized catalog descriptor has a distinct stable identifier. */
+function hasUniqueCapabilityIds(capabilities: readonly Capability[]): boolean {
+  return new Set(capabilities.map((capability) => capability.id)).size === capabilities.length;
 }
 
 function sameStringSet(left: readonly string[], right: readonly string[]): boolean {
