@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.13.1",
+      "value": "v0.13.2",
       "color": "cb3837"
     },
     {
@@ -2087,7 +2087,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 700,
+        "line": 699,
         "column": 1
       }
     },
@@ -2098,7 +2098,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 789,
+        "line": 788,
         "column": 1
       }
     },
@@ -2109,7 +2109,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 817,
+        "line": 816,
         "column": 1
       }
     },
@@ -2120,7 +2120,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 827,
+        "line": 826,
         "column": 1
       }
     },
@@ -2131,7 +2131,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 869,
+        "line": 868,
         "column": 1
       }
     },
@@ -2142,7 +2142,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 890,
+        "line": 889,
         "column": 1
       }
     },
@@ -2153,7 +2153,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 901,
+        "line": 900,
         "column": 1
       }
     },
@@ -2164,7 +2164,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 931,
+        "line": 930,
         "column": 1
       }
     },
@@ -2175,7 +2175,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 968,
+        "line": 967,
         "column": 1
       }
     },
@@ -2186,7 +2186,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 991,
+        "line": 990,
         "column": 1
       }
     },
@@ -2197,7 +2197,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1014,
+        "line": 1013,
         "column": 1
       }
     },
@@ -2208,7 +2208,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1037,
+        "line": 1036,
         "column": 1
       }
     },
@@ -2219,7 +2219,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1056,
+        "line": 1055,
         "column": 1
       }
     },
@@ -2230,7 +2230,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1071,
+        "line": 1070,
         "column": 1
       }
     },
@@ -2241,7 +2241,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1078,
+        "line": 1077,
         "column": 1
       }
     },
@@ -2252,7 +2252,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1112,
+        "line": 1111,
         "column": 1
       }
     },
@@ -2263,7 +2263,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1126,
+        "line": 1125,
         "column": 1
       }
     },
@@ -2274,7 +2274,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1131,
+        "line": 1130,
         "column": 1
       }
     },
@@ -2285,7 +2285,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1135,
+        "line": 1134,
         "column": 1
       }
     },
@@ -2296,7 +2296,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1142,
+        "line": 1141,
         "column": 1
       }
     },
@@ -2307,7 +2307,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1147,
+        "line": 1146,
         "column": 1
       }
     },
@@ -2318,7 +2318,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1151,
+        "line": 1150,
         "column": 1
       }
     },
@@ -2329,7 +2329,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1163,
+        "line": 1162,
         "column": 1
       }
     },
@@ -2340,7 +2340,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1172,
+        "line": 1171,
         "column": 1
       }
     },
@@ -2351,7 +2351,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1176,
+        "line": 1175,
         "column": 1
       }
     },
@@ -2362,7 +2362,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1180,
+        "line": 1179,
         "column": 1
       }
     },
@@ -2373,7 +2373,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1184,
+        "line": 1183,
         "column": 1
       }
     },
@@ -2384,7 +2384,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1188,
+        "line": 1187,
         "column": 1
       }
     },
@@ -2395,7 +2395,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1193,
+        "line": 1192,
         "column": 1
       }
     },
@@ -2406,7 +2406,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1198,
+        "line": 1197,
         "column": 1
       }
     },
@@ -2417,7 +2417,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1212,
+        "line": 1211,
         "column": 1
       }
     },
@@ -6250,6 +6250,12 @@
       },
       {
         "fromSymbol": "tests/commands.test.ts",
+        "toSymbol": "createProviderPackageJson",
+        "callExpression": "createProviderPackageJson",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "tests/commands.test.ts",
         "toSymbol": "getRecordField",
         "callExpression": "getRecordField",
         "sourcePath": "tests/commands.test.ts"
@@ -6264,6 +6270,24 @@
         "fromSymbol": "getCommand",
         "toSymbol": "findDoctorCommandByStandaloneName",
         "callExpression": "findDoctorCommandByStandaloneName",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "createProviderPackageJson",
+        "toSymbol": "createValidPublicPackageJson",
+        "callExpression": "createValidPublicPackageJson",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "createProviderPackageJson",
+        "toSymbol": "getRecordField",
+        "callExpression": "getRecordField",
+        "sourcePath": "tests/commands.test.ts"
+      },
+      {
+        "fromSymbol": "createProviderPackageJson",
+        "toSymbol": "createTestCapabilities",
+        "callExpression": "createTestCapabilities",
         "sourcePath": "tests/commands.test.ts"
       },
       {

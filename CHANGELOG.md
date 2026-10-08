@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.2
+
+### Patch Changes
+
+- 50c98fb: Allow provider capability catalogs to include valid runtime-only capabilities that are not exposed as CLI commands.
+
 ## 0.13.1
 
 ### Patch Changes
