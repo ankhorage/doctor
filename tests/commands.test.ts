@@ -253,6 +253,7 @@ describe('doctor command runner', () => {
       withChangelog: true,
       withLicense: true,
       extraFiles: {
+        'src/capabilities/index.ts': createCapabilitiesCatalogSource(['doctor.validate']),
         'src/ankh.provider.ts': createProviderSource({
           capabilities: ['doctor.validate'],
           commandCapabilities: ['doctor.validate'],
@@ -320,6 +321,10 @@ describe('doctor command runner', () => {
       withChangelog: true,
       withLicense: true,
       extraFiles: {
+        'src/capabilities/index.ts': createCapabilitiesCatalogSource([
+          'doctor.validate',
+          'doctor.fix',
+        ]),
         'src/ankh.provider.ts': createProviderSource({
           capabilities: ['doctor.validate'],
           commandCapabilities: ['doctor.validate'],
@@ -385,6 +390,7 @@ describe('doctor command runner', () => {
       withChangelog: true,
       withLicense: true,
       extraFiles: {
+        'src/capabilities/index.ts': createCapabilitiesCatalogSource(['doctor.validate']),
         'src/ankh.provider.ts': createProviderSource({
           capabilities: ['doctor.validate'],
           commandCapabilities: ['doctor.validate'],
@@ -412,6 +418,10 @@ describe('doctor command runner', () => {
       withChangelog: true,
       withLicense: true,
       extraFiles: {
+        'src/capabilities/index.ts': createCapabilitiesCatalogSource([
+          'doctor.validate',
+          'doctor.fix',
+        ]),
         'src/ankh.provider.ts': createProviderSource({
           capabilities: ['doctor.validate', 'doctor.fix'],
           commandCapabilities: ['doctor.validate'],
@@ -800,6 +810,10 @@ function createProviderPackageJson(
     import: './dist/ankh.provider.js',
     types: './dist/ankh.provider.d.ts',
   };
+  exportsField['./capabilities'] = {
+    import: './dist/capabilities/index.js',
+    types: './dist/capabilities/index.d.ts',
+  };
 
   return {
     ...packageJson,
@@ -847,6 +861,11 @@ function createProviderSource(options: {
     'export default provider;',
     '',
   ].join('\n');
+}
+
+/*** Render a static public capability catalog for one provider fixture. */
+function createCapabilitiesCatalogSource(capabilities: readonly Capability['id'][]): string {
+  return `export const CAPABILITIES = ${JSON.stringify(createTestCapabilities(capabilities))};\n`;
 }
 
 function createTestCapabilities(ids: readonly Capability['id'][]): readonly Capability[] {

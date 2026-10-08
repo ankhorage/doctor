@@ -3,6 +3,18 @@ import { describe, expect, test } from 'bun:test';
 import { findDoctorCommandByStandaloneName, runDoctorCommand } from '../src/commands.js';
 import { createCapturedCommandContext, createDoctorFixture } from './testSupport.js';
 
+const NON_PROVIDER_CAPABILITIES = [
+  {
+    id: 'contracts.cli',
+    owner: '@ankhorage/example',
+    access: ['invoke'],
+    binding: {
+      kind: 'action',
+      bindableAs: ['target'],
+    },
+  },
+];
+
 const NON_PROVIDER_PACKAGE_JSON: Record<string, unknown> = {
   name: '@ankhorage/example',
   version: '1.0.0',
@@ -24,6 +36,7 @@ const NON_PROVIDER_PACKAGE_JSON: Record<string, unknown> = {
       import: './dist/index.js',
       types: './dist/index.d.ts',
     },
+    './capabilities': './dist/capabilities/index.js',
   },
   publishConfig: {
     access: 'public',
@@ -31,17 +44,7 @@ const NON_PROVIDER_PACKAGE_JSON: Record<string, unknown> = {
   ankh: {
     category: 'contracts',
     provider: null,
-    capabilities: [
-      {
-        id: 'contracts.cli',
-        owner: '@ankhorage/example',
-        access: ['invoke'],
-        binding: {
-          kind: 'action',
-          bindableAs: ['target'],
-        },
-      },
-    ],
+    capabilities: NON_PROVIDER_CAPABILITIES,
   },
   scripts: {
     build: 'bun x tsc -p tsconfig.build.json',
@@ -77,6 +80,9 @@ describe('non-provider Ankh package metadata', () => {
       withReadme: true,
       withChangelog: true,
       withLicense: true,
+      extraFiles: {
+        'src/capabilities/index.ts': `export const CAPABILITIES = ${JSON.stringify(NON_PROVIDER_CAPABILITIES)};\n`,
+      },
     });
     const captured = createCapturedCommandContext(fixture);
     const command = findDoctorCommandByStandaloneName('validate');
