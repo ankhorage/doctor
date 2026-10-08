@@ -5,7 +5,7 @@
     "": {
       "name": "@ankhorage/doctor",
       "dependencies": {
-        "@ankhorage/contracts": "^24.1.0",
+        "@ankhorage/contracts": "^24.2.0",
         "@ankhorage/dependency-graph": "^1.3.0",
         "@ankhorage/rules-architecture": "^0.5.0",
         "@ankhorage/rules-repository": "^0.2.0",
@@ -31,7 +31,7 @@
 
     "@ankhorage/color-theory": ["@ankhorage/color-theory@0.3.1", "", { "dependencies": { "culori": "^4.0.2" } }, "sha512-PqGeC16IkWzTA3Qig3T1p6CE6oN6JC1fv83cJ8SdohY5vlNE1YqJAZsLkzCy59ylJOwgPITA98TRH3jIVnlGBw=="],
 
-    "@ankhorage/contracts": ["@ankhorage/contracts@24.1.0", "", { "dependencies": { "@ankhorage/color-theory": "^0.3.1", "@ankhorage/utility": "^1.9.85" } }, "sha512-aY29kI/SBhi8kWxOa8H7NEJk59/FWSNzg3YJmxWjIYkQ8He9Zw5wk6KH2b2+msLYoBqVXIr79vpQQQJqyRwBnw=="],
+    "@ankhorage/contracts": ["@ankhorage/contracts@24.2.0", "", { "dependencies": { "@ankhorage/color-theory": "^0.3.1", "@ankhorage/utility": "^1.9.85" } }, "sha512-QP2u9DrKx2JO3NnMhEiDPFfiwOlbHJ1yT8dXazED/7IPr4tiG7Rdf99N4WifyTrC0rwc3aIxfximqz19hHri4w=="],
 
     "@ankhorage/dependency-graph": ["@ankhorage/dependency-graph@1.3.0", "", { "dependencies": { "@ankhorage/api": "^0.2.0", "@ankhorage/graph": "^0.3.0", "@ankhorage/project-detector": "^0.3.3", "@ankhorage/utility": "^0.8.0", "java-parser": "^3.0.1", "typescript": "~6.0.3" } }, "sha512-r+2hJNBgc74uBJUddrEj5ugJyS4IWOGta5QhD4eVydYXPSukhZbegSfpkDmYZVoZJUUttF8NPJRDzCSa0d/rEw=="],
 
