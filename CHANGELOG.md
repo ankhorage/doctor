@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.0
+
+### Minor Changes
+
+- ab4a3fd: Validate published capability catalog metadata against the safe static public catalog source, including provider-null packages.
+
 ## 0.13.2
 
 ### Patch Changes

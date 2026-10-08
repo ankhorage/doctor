@@ -6,6 +6,7 @@ graph TD
   package__ankhorage_doctor -.-> module_package_json
   module_src_analysis_ts["src/analysis.ts"]
   package__ankhorage_doctor -.-> module_src_analysis_ts
+  module_src_analysis_ts --> module_src_capabilityCatalog_ts
   module_src_analysis_ts --> module_src_diagnostics_ts
   module_src_analysis_ts --> module_src_readiness_ts
   module_src_analysis_ts --> module_src_utils_getRepositoryRule_ts
@@ -77,6 +78,14 @@ graph TD
   module_src_bunPolicyAnalysis_ts --> module_src_utils_getRepositoryRule_ts
   module_src_capabilities_index_ts["src/capabilities/index.ts"]
   package__ankhorage_doctor -.-> module_src_capabilities_index_ts
+  module_src_capabilityCatalog_ts["src/capabilityCatalog.ts"]
+  package__ankhorage_doctor -.-> module_src_capabilityCatalog_ts
+  module_src_capabilityCatalog_ts --> module_src_capabilityCatalogAst_ts
+  module_src_capabilityCatalog_ts --> module_src_capabilityCatalogExports_ts
+  module_src_capabilityCatalogAst_ts["src/capabilityCatalogAst.ts"]
+  package__ankhorage_doctor -.-> module_src_capabilityCatalogAst_ts
+  module_src_capabilityCatalogExports_ts["src/capabilityCatalogExports.ts"]
+  package__ankhorage_doctor -.-> module_src_capabilityCatalogExports_ts
   module_src_cli_index_ts["src/cli/index.ts"]
   package__ankhorage_doctor -.-> module_src_cli_index_ts
   module_src_cli_index_ts --> module_src_capabilities_index_ts
@@ -161,6 +170,14 @@ graph TD
   package__ankhorage_doctor -.-> module_tests_bunPolicyAnalysis_test_ts
   module_tests_bunPolicyAnalysis_test_ts --> module_src_index_ts
   module_tests_bunPolicyAnalysis_test_ts --> module_tests_testSupport_ts
+  module_tests_capabilityCatalogAst_test_ts["tests/capabilityCatalogAst.test.ts"]
+  package__ankhorage_doctor -.-> module_tests_capabilityCatalogAst_test_ts
+  module_tests_capabilityCatalogAst_test_ts --> module_src_analysis_ts
+  module_tests_capabilityCatalogAst_test_ts --> module_tests_testSupport_ts
+  module_tests_capabilityCatalogMetadata_test_ts["tests/capabilityCatalogMetadata.test.ts"]
+  package__ankhorage_doctor -.-> module_tests_capabilityCatalogMetadata_test_ts
+  module_tests_capabilityCatalogMetadata_test_ts --> module_src_analysis_ts
+  module_tests_capabilityCatalogMetadata_test_ts --> module_tests_testSupport_ts
   module_tests_changesetsDependencyPlacement_test_ts["tests/changesetsDependencyPlacement.test.ts"]
   package__ankhorage_doctor -.-> module_tests_changesetsDependencyPlacement_test_ts
   module_tests_changesetsDependencyPlacement_test_ts --> module_src_index_ts

@@ -17,6 +17,9 @@ graph LR
   module_src_authReadinessUnsupportedBackend_ts["src/authReadinessUnsupportedBackend.ts"]
   module_src_bunPolicyAnalysis_ts["src/bunPolicyAnalysis.ts"]
   module_src_capabilities_index_ts["src/capabilities/index.ts"]
+  module_src_capabilityCatalog_ts["src/capabilityCatalog.ts"]
+  module_src_capabilityCatalogAst_ts["src/capabilityCatalogAst.ts"]
+  module_src_capabilityCatalogExports_ts["src/capabilityCatalogExports.ts"]
   module_src_cli_index_ts["src/cli/index.ts"]
   module_src_cli_standalone_ts["src/cli/standalone.ts"]
   module_src_cliLayoutAnalysis_ts["src/cliLayoutAnalysis.ts"]
@@ -37,6 +40,8 @@ graph LR
   module_tests_authReadinessAnalysis_test_ts["tests/authReadinessAnalysis.test.ts"]
   module_tests_authReadinessCommand_test_ts["tests/authReadinessCommand.test.ts"]
   module_tests_bunPolicyAnalysis_test_ts["tests/bunPolicyAnalysis.test.ts"]
+  module_tests_capabilityCatalogAst_test_ts["tests/capabilityCatalogAst.test.ts"]
+  module_tests_capabilityCatalogMetadata_test_ts["tests/capabilityCatalogMetadata.test.ts"]
   module_tests_changesetsDependencyPlacement_test_ts["tests/changesetsDependencyPlacement.test.ts"]
   module_tests_cli_test_ts["tests/cli.test.ts"]
   module_tests_commands_test_ts["tests/commands.test.ts"]
@@ -52,6 +57,7 @@ graph LR
   module_tests_targetArchitecture_test_ts["tests/targetArchitecture.test.ts"]
   module_tests_testSupport_ts["tests/testSupport.ts"]
   module_tests_typescriptDependencyPlacement_test_ts["tests/typescriptDependencyPlacement.test.ts"]
+  module_src_analysis_ts --> module_src_capabilityCatalog_ts
   module_src_analysis_ts --> module_src_diagnostics_ts
   module_src_analysis_ts --> module_src_readiness_ts
   module_src_analysis_ts --> module_src_utils_getRepositoryRule_ts
@@ -91,6 +97,8 @@ graph LR
   module_src_bunPolicyAnalysis_ts --> module_src_analysis_ts
   module_src_bunPolicyAnalysis_ts --> module_src_diagnostics_ts
   module_src_bunPolicyAnalysis_ts --> module_src_utils_getRepositoryRule_ts
+  module_src_capabilityCatalog_ts --> module_src_capabilityCatalogAst_ts
+  module_src_capabilityCatalog_ts --> module_src_capabilityCatalogExports_ts
   module_src_cli_index_ts --> module_src_capabilities_index_ts
   module_src_cli_index_ts --> module_src_commands_ts
   module_src_cli_index_ts --> module_src_dependencyPolicyAnalysis_ts
@@ -136,6 +144,10 @@ graph LR
   module_tests_authReadinessCommand_test_ts --> module_tests_testSupport_ts
   module_tests_bunPolicyAnalysis_test_ts --> module_src_index_ts
   module_tests_bunPolicyAnalysis_test_ts --> module_tests_testSupport_ts
+  module_tests_capabilityCatalogAst_test_ts --> module_src_analysis_ts
+  module_tests_capabilityCatalogAst_test_ts --> module_tests_testSupport_ts
+  module_tests_capabilityCatalogMetadata_test_ts --> module_src_analysis_ts
+  module_tests_capabilityCatalogMetadata_test_ts --> module_tests_testSupport_ts
   module_tests_changesetsDependencyPlacement_test_ts --> module_src_index_ts
   module_tests_changesetsDependencyPlacement_test_ts --> module_tests_testSupport_ts
   module_tests_cli_test_ts --> module_src_capabilities_index_ts
