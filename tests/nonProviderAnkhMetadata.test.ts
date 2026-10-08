@@ -1,5 +1,6 @@
-import { describe, expect, test } from 'bun:test';
+import { expect, test } from 'bun:test';
 
+import { analyzeDoctorTarget } from '../src/analysis.js';
 import { findDoctorCommandByStandaloneName, runDoctorCommand } from '../src/commands.js';
 import { createCapturedCommandContext, createDoctorFixture } from './testSupport.js';
 
@@ -70,32 +71,80 @@ const NON_PROVIDER_PACKAGE_JSON: Record<string, unknown> = {
   packageManager: 'bun@1.4.2',
 };
 
-describe('non-provider Ankh package metadata', () => {
-  test('accepts a nullable provider when no provider source exists', async () => {
-    const fixture = await createDoctorFixture({
-      packageJson: NON_PROVIDER_PACKAGE_JSON,
-      withGitDir: true,
-      withWorkflows: true,
-      withChangeset: true,
-      withReadme: true,
-      withChangelog: true,
-      withLicense: true,
-      extraFiles: {
-        'src/capabilities/index.ts': `export const CAPABILITIES = ${JSON.stringify(NON_PROVIDER_CAPABILITIES)};\n`,
-      },
-    });
-    const captured = createCapturedCommandContext(fixture);
-    const command = findDoctorCommandByStandaloneName('validate');
-    if (command === null) throw new Error('Missing validate command.');
-
-    const result = await runDoctorCommand({
-      argv: [],
-      command,
-      context: captured.context,
-    });
-
-    expect(result.exitCode).toBe(0);
-    expect(captured.stdout.value).not.toContain('package.ankh.present.valid-shape');
-    expect(captured.stdout.value).not.toContain('package.ankh.provider-path.required');
+test('non-provider metadata accepts a nullable provider when no provider source exists', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: NON_PROVIDER_PACKAGE_JSON,
+    withGitDir: true,
+    withWorkflows: true,
+    withChangeset: true,
+    withReadme: true,
+    withChangelog: true,
+    withLicense: true,
+    extraFiles: {
+      'src/capabilities/index.ts': `export const CAPABILITIES = ${JSON.stringify(NON_PROVIDER_CAPABILITIES)};\n`,
+    },
   });
+  const captured = createCapturedCommandContext(fixture);
+  const command = findDoctorCommandByStandaloneName('validate');
+  if (command === null) throw new Error('Missing validate command.');
+
+  const result = await runDoctorCommand({
+    argv: [],
+    command,
+    context: captured.context,
+  });
+
+  expect(result.exitCode).toBe(0);
+  expect(captured.stdout.value).not.toContain('package.ankh.present.valid-shape');
+  expect(captured.stdout.value).not.toContain('package.ankh.provider-path.required');
+});
+
+test('non-provider metadata accepts unrelated structure metadata without capabilities when no catalog exists', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      ...NON_PROVIDER_PACKAGE_JSON,
+      ankh: {
+        category: 'contracts',
+        provider: null,
+        structure: { profile: 'contracts' },
+      },
+    },
+    withGitDir: true,
+    withWorkflows: true,
+    withChangeset: true,
+    withReadme: true,
+    withChangelog: true,
+    withLicense: true,
+  });
+  const captured = createCapturedCommandContext(fixture);
+  const command = findDoctorCommandByStandaloneName('validate');
+  if (command === null) throw new Error('Missing validate command.');
+
+  const result = await runDoctorCommand({
+    argv: [],
+    command,
+    context: captured.context,
+  });
+
+  expect(result.exitCode).toBe(0);
+  expect(captured.stdout.value).not.toContain('package.ankh.present.valid-shape');
+});
+
+test('non-provider metadata rejects malformed capabilities when present without a catalog', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      ...NON_PROVIDER_PACKAGE_JSON,
+      ankh: {
+        category: 'contracts',
+        provider: null,
+        structure: { profile: 'contracts' },
+        capabilities: ['contracts.cli'],
+      },
+    },
+  });
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(result.diagnostics.map((diagnostic) => diagnostic.ruleId)).toContain(
+    'package.ankh.present.valid-shape',
+  );
 });
