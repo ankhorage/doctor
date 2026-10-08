@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.2
+
+### Patch Changes
+
+- 178e400: Update dependencies: `@ankhorage/supabase-auth`.
+
 ## 0.14.1
 
 ### Patch Changes
