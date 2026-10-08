@@ -93,7 +93,123 @@ test('capability catalog metadata requires a valid public export', async () => {
         capabilities: [createCapability('fixture.unpublished')],
       },
     },
+    extraFiles: {
+      'src/capabilities/index.ts': catalogSource([createCapability('fixture.unpublished')]),
+    },
   });
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual(['package.ankh.capabilities.catalog.valid']);
+});
+
+test('unrelated public capabilities exports do not opt a package into a catalog', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: { exports: { './capabilities': './dist/capabilities.js' } },
+    extraFiles: {
+      'src/capabilities.ts': 'export const isCapability = () => true;\n',
+    },
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual([]);
+});
+
+test('capability catalog metadata accepts Devtools-style imported derived catalogs', async () => {
+  const capability = createCapability('fixture.derived.one');
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      ankh: { category: 'fixture', provider: null, capabilities: [capability] },
+      exports: { './capabilities': './dist/capabilities/index.js' },
+    },
+    extraFiles: {
+      'src/metadata/events.ts': "export const EVENTS = ['one'];\n",
+      'src/capabilities/index.ts': `import type { Capability } from '@ankhorage/contracts/capabilities';
+import { EVENTS } from '../metadata/events';
+
+export const CAPABILITIES = EVENTS.map((name) => ({
+  id: \`fixture.derived.\${name}\`,
+  owner: '@ankhorage/fixture',
+  access: ['invoke'],
+  binding: { kind: 'action', bindableAs: ['target'] },
+})) satisfies readonly Capability[];
+throw new Error('Doctor must not execute catalog modules');
+`,
+    },
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual([]);
+});
+
+test('capability catalog metadata accepts static descriptor composition', async () => {
+  const capability = createCapability('fixture.composed', { label: 'Composed' });
+  const result = await analyzeCatalog({
+    catalog: [capability],
+    metadata: [capability],
+    catalogSource: `const descriptor = ${JSON.stringify(createCapability('fixture.composed'))};
+export const CAPABILITIES = [{ ...descriptor, label: 'Composed' }];\n`,
+  });
+
+  expect(catalogDiagnostics(result)).toEqual([]);
+});
+
+test('capability catalog metadata rejects duplicate canonical source ids', async () => {
+  const capability = createCapability('fixture.duplicate');
+  const result = await analyzeCatalog({
+    catalog: [capability, capability],
+    metadata: [capability],
+  });
+
+  expect(catalogDiagnostics(result)).toEqual(['package.ankh.capabilities.catalog.valid']);
+});
+
+test('capability catalog metadata reports malformed canonical source clearly', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      ankh: { category: 'fixture', provider: null, capabilities: [] },
+      exports: { './capabilities': './dist/capabilities/index.js' },
+    },
+    extraFiles: { 'src/capabilities/index.ts': 'export const OTHER = [];\n' },
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual(['package.ankh.capabilities.catalog.valid']);
+  expect(result.diagnostics.map((diagnostic) => diagnostic.message).join('\n')).toContain(
+    'Unable to find static export CAPABILITIES',
+  );
+});
+
+test('capability catalog metadata rejects unsupported dynamic expressions without executing them', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      ankh: { category: 'fixture', provider: null, capabilities: [] },
+      exports: { './capabilities': './dist/capabilities/index.js' },
+    },
+    extraFiles: {
+      'src/capabilities/index.ts': 'export const CAPABILITIES = process.env.CAPABILITIES;\n',
+    },
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual(['package.ankh.capabilities.catalog.valid']);
+  expect(result.diagnostics.map((diagnostic) => diagnostic.message).join('\n')).toContain(
+    'Unsupported static capability expression',
+  );
+});
+
+test('capability catalog metadata rejects external capability export targets', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      ankh: { category: 'fixture', provider: null, capabilities: [] },
+      exports: { './capabilities': '../outside.js' },
+    },
+    extraFiles: { 'src/capabilities/index.ts': 'export const CAPABILITIES = [];\n' },
+  });
+
   const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
 
   expect(catalogDiagnostics(result)).toEqual(['package.ankh.capabilities.catalog.valid']);
@@ -135,6 +251,7 @@ async function analyzeCatalog(input: {
   readonly catalog: readonly Record<string, unknown>[];
   readonly metadata: readonly Record<string, unknown>[];
   readonly providerSource?: string;
+  readonly catalogSource?: string;
 }) {
   const fixture = await createDoctorFixture({
     packageJson: {
@@ -146,7 +263,7 @@ async function analyzeCatalog(input: {
       exports: { './capabilities': './dist/capabilities/index.js' },
     },
     extraFiles: {
-      'src/capabilities/index.ts': catalogSource(input.catalog),
+      'src/capabilities/index.ts': input.catalogSource ?? catalogSource(input.catalog),
       ...(input.providerSource === undefined ? {} : { 'src/cli/index.ts': input.providerSource }),
     },
   });

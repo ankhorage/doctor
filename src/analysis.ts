@@ -645,18 +645,19 @@ async function validateAnkhMetadataAndProvider(request: {
     );
   }
 
-  if (catalog.capabilities === null) {
+  if (catalog.path !== null && catalog.capabilities === null) {
     diagnostics.push(
       createDiagnostic({
         code: 'field-invalid',
         message: `The public capability catalog is invalid: ${catalog.reason}`,
-        path: catalog.path ?? request.packageJsonPath,
+        path: catalog.path,
         profile: request.profile,
         ruleId: 'package.ankh.capabilities.catalog.valid',
         severity: 'error',
       }),
     );
   } else if (
+    catalog.capabilities !== null &&
     metadataIdsAreUnique &&
     !sameCapabilitySet(metadataCapabilities, catalog.capabilities)
   ) {
