@@ -871,7 +871,7 @@
 
     "@ankhorage/project-detector/@ankhorage/utility": ["@ankhorage/utility@0.8.0", "", {}, "sha512-0ywzdqu1pO+n9yNhbJE5+JD4CeUQ1GEvMGbh8pccr8ieLFlYgTKMFWxH3XUk0Mw6P2ngelQU+PHC+kjJ/xL8Uw=="],
 
-    "@ankhorage/supabase-auth/@ankhorage/contracts": ["@ankhorage/contracts@25.0.0", "", { "dependencies": { "@ankhorage/color-theory": "^0.3.1", "@ankhorage/utility": "^1.9.85" } }, "sha512-kTZpSDmxgwxJRSAULO7Xo+lSI3PlEYoDLxKMKZgTXL5pLklBCaNv5xAi+RXJSUVV0CfVusAVkZnryzHgAb/fqg=="],
+    "@ankhorage/supabase-auth/@ankhorage/contracts": ["@ankhorage/contracts@25.0.1", "", { "dependencies": { "@ankhorage/color-theory": "^0.3.1", "@ankhorage/utility": "^1.9.85" } }, "sha512-7eGJGpAtQMMyF4OemSjz5TFQ5zelHvhq5BdIJgXrlpOOZF2PJxr3fDQdBdlZBHZyYlB1lgJhgnYG338yPTz+AQ=="],
 
     "@babel/core/json5": ["json5@2.2.3", "", { "bin": { "json5": "lib/cli.js" } }, "sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg=="],
 
