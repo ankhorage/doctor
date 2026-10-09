@@ -1,11 +1,8 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-import {
-  type Capability,
-  isCapability,
-  normalizeCapability,
-} from '@ankhorage/contracts/capabilities';
+import { parseCapabilityCatalog } from '@ankhorage/capability';
+import type { Capability } from '@ankhorage/contracts/capability';
 
 import { capabilityCatalogAstAsync } from './capabilityCatalogAst.js';
 import { capabilityCatalogExports } from './capabilityCatalogExports.js';
@@ -29,12 +26,9 @@ export async function readCapabilityCatalogAsync(
     const values = await capabilityCatalogAstAsync(packageRoot, catalogPath, 'CAPABILITIES');
     if (!Array.isArray(values))
       throw new Error(`${CAPABILITIES_SOURCE_PATH} must export CAPABILITIES as an array.`);
-    const capabilities = values.map((value, index) => {
-      if (!isCapability(value))
-        throw new Error(`CAPABILITIES[${index}] is not a valid Capability.`);
-      return normalizeCapability(value);
-    });
-    assertUniqueCapabilityIds(capabilities);
+    const capabilities = parseCapabilityCatalog(values);
+    if (capabilities === null)
+      throw new Error('CAPABILITIES must contain valid descriptors with unique capability ids.');
     return { capabilities, path: catalogPath, reason: null };
   } catch (error) {
     return {
@@ -51,14 +45,5 @@ async function isFileAsync(candidate: string): Promise<boolean> {
     return (await fs.stat(candidate)).isFile();
   } catch {
     return false;
-  }
-}
-
-/*** Reject duplicate identifiers in one canonical catalog. */
-function assertUniqueCapabilityIds(capabilities: readonly Capability[]): void {
-  const ids = new Set<string>();
-  for (const capability of capabilities) {
-    if (ids.has(capability.id)) throw new Error(`Duplicate capability id "${capability.id}".`);
-    ids.add(capability.id);
   }
 }

@@ -3,11 +3,12 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import {
-  areCapabilitiesEqual,
-  type Capability,
+  areCapabilityCatalogsEqual,
   isCapability,
+  isCapabilityCatalog,
   normalizeCapability,
-} from '@ankhorage/contracts/capabilities';
+} from '@ankhorage/capability';
+import type { Capability } from '@ankhorage/contracts/capability';
 import { REPOSITORY_RULE_METADATA } from '@ankhorage/rules-repository';
 import { uniqueSortedStrings } from '@ankhorage/utility/array';
 
@@ -635,7 +636,7 @@ async function validateAnkhMetadataAndProvider(request: {
   }
 
   const metadataCapabilities = readCapabilities(metadata.capabilities);
-  const metadataIdsAreUnique = hasUniqueCapabilityIds(metadataCapabilities);
+  const metadataIdsAreUnique = isCapabilityCatalog(metadataCapabilities);
   if (!metadataIdsAreUnique) {
     diagnostics.push(
       createDiagnostic({
@@ -663,7 +664,7 @@ async function validateAnkhMetadataAndProvider(request: {
   } else if (
     catalog.capabilities !== null &&
     metadataIdsAreUnique &&
-    !sameCapabilitySet(metadataCapabilities, catalog.capabilities)
+    !areCapabilityCatalogsEqual(metadataCapabilities, catalog.capabilities)
   ) {
     diagnostics.push(
       createDiagnostic({
@@ -714,7 +715,7 @@ async function validateAnkhMetadataAndProvider(request: {
   const providerCapabilities = inspection.result.capabilities;
   const commandCapabilities = uniqueSortedStrings(inspection.result.commandCapabilities);
 
-  if (!sameCapabilitySet(metadataCapabilities, providerCapabilities)) {
+  if (!areCapabilityCatalogsEqual(metadataCapabilities, providerCapabilities)) {
     diagnostics.push(
       createDiagnostic({
         code: 'field-invalid',
@@ -1265,26 +1266,6 @@ function readStringArray(value: unknown): string[] {
 /*** Read and normalize canonical Capability descriptors from untrusted metadata. */
 function readCapabilities(value: unknown): Capability[] {
   return Array.isArray(value) ? value.filter(isCapability).map(normalizeCapability) : [];
-}
-
-/*** Compare capability collections by canonical id and descriptor semantics. */
-function sameCapabilitySet(left: readonly Capability[], right: readonly Capability[]): boolean {
-  const leftById = new Map(left.map((capability) => [capability.id, capability]));
-  const rightById = new Map(right.map((capability) => [capability.id, capability]));
-  return (
-    leftById.size === left.length &&
-    rightById.size === right.length &&
-    leftById.size === rightById.size &&
-    [...leftById].every(([id, capability]) => {
-      const other = rightById.get(id);
-      return other !== undefined && areCapabilitiesEqual(capability, other);
-    })
-  );
-}
-
-/*** Determine whether every normalized catalog descriptor has a distinct stable identifier. */
-function hasUniqueCapabilityIds(capabilities: readonly Capability[]): boolean {
-  return new Set(capabilities.map((capability) => capability.id)).size === capabilities.length;
 }
 
 function sameStringSet(left: readonly string[], right: readonly string[]): boolean {
