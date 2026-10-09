@@ -1,4 +1,4 @@
-import type { Capability } from '@ankhorage/contracts/capabilities';
+import type { Capability } from '@ankhorage/contracts/capability';
 import type { AnkhCommandDescriptor } from '@ankhorage/contracts/cli';
 
 import type { DoctorAnalysisResult, DoctorPlannedChange, DoctorTargetMode } from './analysis.js';

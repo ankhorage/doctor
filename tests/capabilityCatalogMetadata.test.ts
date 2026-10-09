@@ -124,7 +124,7 @@ test('capability catalog metadata accepts Devtools-style imported derived catalo
     },
     extraFiles: {
       'src/metadata/events.ts': "export const EVENTS = ['one'];\n",
-      'src/capabilities/index.ts': `import type { Capability } from '@ankhorage/contracts/capabilities';
+      'src/capabilities/index.ts': `import type { Capability } from '@ankhorage/contracts/capability';
 import { EVENTS } from '../metadata/events';
 
 export const CAPABILITIES = EVENTS.map((name) => ({
