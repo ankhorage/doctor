@@ -507,7 +507,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 24,
+      "line": 25,
       "column": 1
     },
     "exportPaths": [
@@ -553,7 +553,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 45,
+      "line": 46,
       "column": 1
     },
     "exportPaths": [
@@ -888,7 +888,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 38,
+      "line": 39,
       "column": 1
     },
     "exportPaths": [
@@ -943,7 +943,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 30,
+      "line": 31,
       "column": 1
     },
     "exportPaths": [
@@ -1004,7 +1004,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 21,
+      "line": 22,
       "column": 1
     },
     "exportPaths": [
@@ -1180,7 +1180,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 19,
+      "line": 20,
       "column": 1
     },
     "exportPaths": [
@@ -1202,7 +1202,7 @@
     "modulePath": "src/analysis.ts",
     "sourceLocation": {
       "filePath": "src/analysis.ts",
-      "line": 20,
+      "line": 21,
       "column": 1
     },
     "exportPaths": [

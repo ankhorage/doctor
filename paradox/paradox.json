@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.14.6",
+      "value": "v0.14.7",
       "color": "cb3837"
     },
     {
@@ -1319,7 +1319,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 24,
+        "line": 25,
         "column": 1
       },
       "exportPaths": [
@@ -1365,7 +1365,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 45,
+        "line": 46,
         "column": 1
       },
       "exportPaths": [
@@ -1700,7 +1700,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 38,
+        "line": 39,
         "column": 1
       },
       "exportPaths": [
@@ -1755,7 +1755,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 30,
+        "line": 31,
         "column": 1
       },
       "exportPaths": [
@@ -1816,7 +1816,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 21,
+        "line": 22,
         "column": 1
       },
       "exportPaths": [
@@ -1992,7 +1992,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 19,
+        "line": 20,
         "column": 1
       },
       "exportPaths": [
@@ -2014,7 +2014,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 20,
+        "line": 21,
         "column": 1
       },
       "exportPaths": [
@@ -2079,7 +2079,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 86,
+        "line": 87,
         "column": 1
       }
     },
@@ -2090,7 +2090,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 233,
+        "line": 234,
         "column": 1
       }
     },
@@ -2101,7 +2101,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 315,
+        "line": 316,
         "column": 1
       }
     },
@@ -2112,7 +2112,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 531,
+        "line": 532,
         "column": 1
       }
     },
@@ -2123,7 +2123,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 560,
+        "line": 561,
         "column": 1
       }
     },
@@ -2134,7 +2134,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 764,
+        "line": 765,
         "column": 1
       }
     },
@@ -2145,7 +2145,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 853,
+        "line": 854,
         "column": 1
       }
     },
@@ -2156,7 +2156,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 881,
+        "line": 882,
         "column": 1
       }
     },
@@ -2167,7 +2167,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 891,
+        "line": 892,
         "column": 1
       }
     },
@@ -2178,7 +2178,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 933,
+        "line": 934,
         "column": 1
       }
     },
@@ -2189,7 +2189,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 954,
+        "line": 955,
         "column": 1
       }
     },
@@ -2200,7 +2200,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 965,
+        "line": 966,
         "column": 1
       }
     },
@@ -2211,7 +2211,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 995,
+        "line": 996,
         "column": 1
       }
     },
@@ -2222,7 +2222,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1032,
+        "line": 1033,
         "column": 1
       }
     },
@@ -2233,7 +2233,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1055,
+        "line": 1056,
         "column": 1
       }
     },
@@ -2244,7 +2244,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1078,
+        "line": 1079,
         "column": 1
       }
     },
@@ -2255,7 +2255,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1101,
+        "line": 1102,
         "column": 1
       }
     },
@@ -2266,7 +2266,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1120,
+        "line": 1121,
         "column": 1
       }
     },
@@ -2277,7 +2277,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1135,
+        "line": 1136,
         "column": 1
       }
     },
@@ -2288,7 +2288,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1142,
+        "line": 1143,
         "column": 1
       }
     },
@@ -2299,7 +2299,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1185,
+        "line": 1186,
         "column": 1
       }
     },
@@ -2310,7 +2310,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1199,
+        "line": 1200,
         "column": 1
       }
     },
@@ -2321,7 +2321,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1204,
+        "line": 1205,
         "column": 1
       }
     },
@@ -2332,7 +2332,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1208,
+        "line": 1209,
         "column": 1
       }
     },
@@ -2343,7 +2343,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1215,
+        "line": 1216,
         "column": 1
       }
     },
@@ -2354,7 +2354,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1220,
+        "line": 1221,
         "column": 1
       }
     },
@@ -2365,7 +2365,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1224,
+        "line": 1225,
         "column": 1
       }
     },
@@ -2376,7 +2376,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1236,
+        "line": 1237,
         "column": 1
       }
     },
@@ -2387,7 +2387,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1245,
+        "line": 1246,
         "column": 1
       }
     },
@@ -2398,7 +2398,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1249,
+        "line": 1250,
         "column": 1
       }
     },
@@ -2409,7 +2409,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1253,
+        "line": 1254,
         "column": 1
       }
     },
@@ -2420,7 +2420,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1257,
+        "line": 1258,
         "column": 1
       }
     },
@@ -2431,7 +2431,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1261,
+        "line": 1262,
         "column": 1
       }
     },
@@ -2442,29 +2442,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1266,
-        "column": 1
-      }
-    },
-    {
-      "name": "sameCapabilitySet",
-      "description": "Compare capability collections by canonical id and descriptor semantics.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/analysis.ts",
-        "line": 1271,
-        "column": 1
-      }
-    },
-    {
-      "name": "hasUniqueCapabilityIds",
-      "description": "Determine whether every normalized catalog descriptor has a distinct stable identifier.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/analysis.ts",
-        "line": 1286,
+        "line": 1267,
         "column": 1
       }
     },
@@ -2475,7 +2453,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1290,
+        "line": 1271,
         "column": 1
       }
     },
@@ -2838,7 +2816,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalog.ts",
-        "line": 21,
+        "line": 18,
         "column": 1
       }
     },
@@ -2849,18 +2827,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalog.ts",
-        "line": 49,
-        "column": 1
-      }
-    },
-    {
-      "name": "assertUniqueCapabilityIds",
-      "description": "Reject duplicate identifiers in one canonical catalog.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/capabilityCatalog.ts",
-        "line": 58,
+        "line": 43,
         "column": 1
       }
     },
@@ -4901,14 +4868,14 @@
       },
       {
         "fromSymbol": "validateAnkhMetadataAndProvider",
-        "toSymbol": "hasUniqueCapabilityIds",
-        "callExpression": "hasUniqueCapabilityIds",
+        "toSymbol": "isCapabilityCatalog",
+        "callExpression": "isCapabilityCatalog",
         "sourcePath": "src/analysis.ts"
       },
       {
         "fromSymbol": "validateAnkhMetadataAndProvider",
-        "toSymbol": "sameCapabilitySet",
-        "callExpression": "sameCapabilitySet",
+        "toSymbol": "areCapabilityCatalogsEqual",
+        "callExpression": "areCapabilityCatalogsEqual",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -5191,12 +5158,6 @@
         "fromSymbol": "isPackageRelativeProviderPath",
         "toSymbol": "isNonEmptyString",
         "callExpression": "isNonEmptyString",
-        "sourcePath": "src/analysis.ts"
-      },
-      {
-        "fromSymbol": "src/analysis.ts",
-        "toSymbol": "areCapabilitiesEqual",
-        "callExpression": "areCapabilitiesEqual",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -5488,21 +5449,9 @@
         "sourcePath": "src/capabilityCatalog.ts"
       },
       {
-        "fromSymbol": "src/capabilityCatalog.ts",
-        "toSymbol": "isCapability",
-        "callExpression": "isCapability",
-        "sourcePath": "src/capabilityCatalog.ts"
-      },
-      {
-        "fromSymbol": "src/capabilityCatalog.ts",
-        "toSymbol": "normalizeCapability",
-        "callExpression": "normalizeCapability",
-        "sourcePath": "src/capabilityCatalog.ts"
-      },
-      {
         "fromSymbol": "readCapabilityCatalogAsync",
-        "toSymbol": "assertUniqueCapabilityIds",
-        "callExpression": "assertUniqueCapabilityIds",
+        "toSymbol": "parseCapabilityCatalog",
+        "callExpression": "parseCapabilityCatalog",
         "sourcePath": "src/capabilityCatalog.ts"
       },
       {

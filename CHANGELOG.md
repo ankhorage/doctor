@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.7
+
+### Patch Changes
+
+- 9a03149: Consume the standalone capability toolkit for descriptor and catalog validation.
+
 ## 0.14.6
 
 ### Patch Changes

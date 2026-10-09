@@ -160,7 +160,7 @@ Source: `src/packageMetadata.ts:7:14`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:24:1`
+Source: `src/analysis.ts:25:1`
 
 ### Members
 
@@ -174,7 +174,7 @@ Source: `src/analysis.ts:24:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:45:1`
+Source: `src/analysis.ts:46:1`
 
 ### Members
 
@@ -264,7 +264,7 @@ Source: `src/diagnostics.ts:16:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:38:1`
+Source: `src/analysis.ts:39:1`
 
 ### Members
 
@@ -279,7 +279,7 @@ Source: `src/analysis.ts:38:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:30:1`
+Source: `src/analysis.ts:31:1`
 
 ### Members
 
@@ -295,7 +295,7 @@ Source: `src/analysis.ts:30:1`
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:21:1`
+Source: `src/analysis.ts:22:1`
 
 ## DoctorPolicyProfile
 
@@ -339,13 +339,13 @@ Source: `src/diagnostics.ts:19:1`
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:19:1`
+Source: `src/analysis.ts:20:1`
 
 ## DoctorTargetMode
 
 Kind: `unknown`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:20:1`
+Source: `src/analysis.ts:21:1`
 
 ## runCli
 
