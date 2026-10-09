@@ -6,7 +6,7 @@
       "name": "@ankhorage/doctor",
       "dependencies": {
         "@ankhorage/capability": "^0.2.1",
-        "@ankhorage/contracts": "^25.0.1",
+        "@ankhorage/contracts": "^25.1.0",
         "@ankhorage/dependency-graph": "^1.3.0",
         "@ankhorage/rules-architecture": "^0.6.0",
         "@ankhorage/rules-repository": "^0.2.0",
@@ -16,7 +16,7 @@
       "devDependencies": {
         "@ankhorage/ankh": "^0.13.0",
         "@ankhorage/devtools": "^2.3.9",
-        "@ankhorage/paradox": "^0.3.1",
+        "@ankhorage/paradox": "^0.3.2",
         "@types/bun": "^1.4.2",
         "@types/node": "^26.6.5",
         "typescript": "^6.0.3",
@@ -34,7 +34,7 @@
 
     "@ankhorage/color-theory": ["@ankhorage/color-theory@0.3.1", "", { "dependencies": { "culori": "^4.0.2" } }, "sha512-PqGeC16IkWzTA3Qig3T1p6CE6oN6JC1fv83cJ8SdohY5vlNE1YqJAZsLkzCy59ylJOwgPITA98TRH3jIVnlGBw=="],
 
-    "@ankhorage/contracts": ["@ankhorage/contracts@25.0.1", "", { "dependencies": { "@ankhorage/color-theory": "^0.3.1", "@ankhorage/utility": "^1.9.85" } }, "sha512-7eGJGpAtQMMyF4OemSjz5TFQ5zelHvhq5BdIJgXrlpOOZF2PJxr3fDQdBdlZBHZyYlB1lgJhgnYG338yPTz+AQ=="],
+    "@ankhorage/contracts": ["@ankhorage/contracts@25.1.0", "", { "dependencies": { "@ankhorage/color-theory": "^0.3.1", "@ankhorage/utility": "^1.9.85" } }, "sha512-BS2k7zwUvnCzUIFFAVLaIm6WIsoXvn2jSNBDBCY3BRFdsPFpQakM2woN8OEzC+oY91gftm05t0v59YMG4J7HxQ=="],
 
     "@ankhorage/dependency-graph": ["@ankhorage/dependency-graph@1.3.0", "", { "dependencies": { "@ankhorage/api": "^0.2.0", "@ankhorage/graph": "^0.3.0", "@ankhorage/project-detector": "^0.3.3", "@ankhorage/utility": "^0.8.0", "java-parser": "^3.0.1", "typescript": "~6.0.3" } }, "sha512-r+2hJNBgc74uBJUddrEj5ugJyS4IWOGta5QhD4eVydYXPSukhZbegSfpkDmYZVoZJUUttF8NPJRDzCSa0d/rEw=="],
 
