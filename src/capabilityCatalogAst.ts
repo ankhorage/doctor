@@ -7,6 +7,7 @@ import {
   isStaticArray,
   isStaticRecord,
   readStaticArray,
+  readStaticProperty,
   type StaticRecord,
   type StaticValue,
 } from './capabilityCatalogStaticValue.js';
@@ -110,13 +111,12 @@ class StaticCatalogResolver {
     if (node.kind === ts.SyntaxKind.FalseKeyword) return false;
     if (node.kind === ts.SyntaxKind.NullKeyword) return null;
     if (ts.isIdentifier(node)) return environment.resolveAsync(node.text);
-    if (ts.isPropertyAccessExpression(node)) {
-      const owner = await this.evaluateAsync(node.expression, environment);
-      const property = isStaticRecord(owner) ? owner[node.name.text] : undefined;
-      if (property === undefined)
-        throw new Error(`Unsupported static capability property access: ${node.getText()}.`);
-      return property;
-    }
+    if (ts.isPropertyAccessExpression(node))
+      return readStaticProperty(
+        await this.evaluateAsync(node.expression, environment),
+        node.name.text,
+        node.getText(),
+      );
     if (ts.isArrayLiteralExpression(node)) return this.arrayAsync(node, environment);
     if (ts.isObjectLiteralExpression(node)) return this.objectAsync(node, environment);
     if (ts.isTemplateExpression(node)) return this.templateAsync(node, environment);
