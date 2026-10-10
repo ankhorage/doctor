@@ -18,12 +18,18 @@ type CatalogResolution =
 export async function readCapabilityCatalogAsync(
   packageRoot: string,
   packageExports: unknown,
+  materializedCapabilities?: unknown,
 ): Promise<CatalogResolution> {
   const catalogPath = path.resolve(packageRoot, CAPABILITIES_SOURCE_PATH);
   if (!(await isFileAsync(catalogPath))) return { capabilities: null, path: null, reason: null };
   try {
     capabilityCatalogExports(packageRoot, packageExports, catalogPath);
-    const values = await capabilityCatalogAstAsync(packageRoot, catalogPath, 'CAPABILITIES');
+    const values = await capabilityCatalogAstAsync(
+      packageRoot,
+      catalogPath,
+      'CAPABILITIES',
+      materializedCapabilities,
+    );
     if (!Array.isArray(values))
       throw new Error(`${CAPABILITIES_SOURCE_PATH} must export CAPABILITIES as an array.`);
     const capabilities = parseCapabilityCatalog(values);

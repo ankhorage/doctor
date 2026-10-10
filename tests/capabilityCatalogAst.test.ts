@@ -5,6 +5,48 @@ import { createDoctorFixture } from './testSupport.js';
 
 const catalogRule = 'package.ankh.capabilities.catalog.valid';
 
+const STORAGE_INPUT_SCHEMA = {
+  type: 'object',
+  required: ['bucket', 'path', 'body'],
+  properties: {
+    storageId: { type: 'string' },
+    bucket: { type: 'string' },
+    path: { type: 'string' },
+    body: { type: 'string', format: 'base64' },
+  },
+} as const;
+
+const CONTRACTS_STORAGE_SCHEMA_SOURCE = `export const STORAGE_IDENTITY_SCHEMA = {
+  type: 'object',
+  required: ['bucket', 'path'],
+  properties: {
+    storageId: { type: 'string' },
+    bucket: { type: 'string' },
+    path: { type: 'string' },
+  },
+};
+
+export const STORAGE_UPLOAD_INPUT_SCHEMA = {
+  ...STORAGE_IDENTITY_SCHEMA,
+  required: ['bucket', 'path', 'body'],
+  properties: {
+    ...STORAGE_IDENTITY_SCHEMA.properties,
+    body: { type: 'string', format: 'base64' },
+  },
+};
+`;
+
+const STORAGE_CAPABILITY_SOURCE = `import { STORAGE_UPLOAD_INPUT_SCHEMA } from '@ankhorage/contracts/storage';
+
+export const CAPABILITIES = [{
+  id: 'fixture.storage.upload',
+  owner: '@ankhorage/fixture',
+  access: ['invoke'],
+  binding: { kind: 'action', bindableAs: ['target'] },
+  input: { schema: STORAGE_UPLOAD_INPUT_SCHEMA },
+}];
+`;
+
 test('capability catalogs ignore unreachable dynamic imported declarations', async () => {
   const capability = createCapability('fixture.lazy.one');
   const fixture = await createDoctorFixture({
@@ -25,6 +67,31 @@ export const CAPABILITIES = STATIC_EVENTS.map((event) => ({
   access: ['invoke'],
   binding: { kind: 'action', bindableAs: ['target'] },
 }));
+`,
+    },
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual([]);
+});
+
+test('capability catalogs resolve trailing package-local derived spreads without execution', async () => {
+  const base = createCapability('fixture.spread.base');
+  const derived = createCapability('fixture.spread.derived');
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      ankh: { category: 'fixture', provider: null, capabilities: [base, derived] },
+      exports: { './capabilities': './dist/capabilities/index.js' },
+    },
+    extraFiles: {
+      'src/metadata/createEventCapabilities.ts': `export function createEventCapabilities() {
+  throw new Error('Doctor must not execute package-local catalog derivation');
+}
+`,
+      'src/capabilities/index.ts': `import { createEventCapabilities } from '../metadata/createEventCapabilities';
+
+export const CAPABILITIES = [${JSON.stringify(base)}, ...createEventCapabilities()];
 `,
     },
   });
@@ -105,6 +172,13 @@ export const CAPABILITIES = [AUTH_CAPABILITY];
   expect(catalogDiagnostics(result)).toEqual([]);
 });
 
+test('capability catalogs resolve static property access inside Contracts schema exports', async () => {
+  const fixture = await createContractsStorageSchemaFixture();
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual([]);
+});
+
 test('capability catalogs reject unrelated external package imports', async () => {
   const fixture = await createDoctorFixture({
     packageJson: {
@@ -132,6 +206,29 @@ export const CAPABILITIES = EXTERNAL_CAPABILITIES;
     'Contracts public exports',
   );
 });
+
+/*** Create a Contracts storage fixture whose exported schema composes a nested static property. */
+async function createContractsStorageSchemaFixture(): Promise<string> {
+  const capability = {
+    ...createCapability('fixture.storage.upload'),
+    input: { schema: STORAGE_INPUT_SCHEMA },
+  };
+  return createDoctorFixture({
+    packageJson: {
+      dependencies: { '@ankhorage/contracts': '^25.2.0' },
+      ankh: { category: 'fixture', provider: null, capabilities: [capability] },
+      exports: { './capabilities': './dist/capabilities/index.js' },
+    },
+    extraFiles: {
+      'node_modules/@ankhorage/contracts/package.json': JSON.stringify({
+        name: '@ankhorage/contracts',
+        exports: { './storage': './dist/storage.js' },
+      }),
+      'node_modules/@ankhorage/contracts/dist/storage.js': CONTRACTS_STORAGE_SCHEMA_SOURCE,
+      'src/capabilities/index.ts': STORAGE_CAPABILITY_SOURCE,
+    },
+  });
+}
 
 /*** Select the diagnostics emitted by canonical catalog validation. */
 function catalogDiagnostics(result: Awaited<ReturnType<typeof analyzeDoctorTarget>>): string[] {

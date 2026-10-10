@@ -1,22 +1,35 @@
 import { promises as fs } from 'node:fs';
-import path from 'node:path';
 
 import * as ts from 'typescript';
 
-import { resolveContractsCatalogImportAsync } from './capabilityCatalogContractsImport.js';
-
-type StaticValue = string | number | boolean | null | readonly StaticValue[] | StaticRecord;
-interface StaticRecord {
-  readonly [key: string]: StaticValue;
-}
+import {
+  findImportBinding,
+  findStaticDeclaration,
+  hasExportModifier,
+  isConstDeclaration,
+  unwrapExpression,
+} from './capabilityCatalogAstSource.js';
+import { resolveImportPathAsync, resolveLocalImportPathAsync } from './capabilityCatalogImport.js';
+import {
+  isStaticArray,
+  isStaticRecord,
+  readStaticArray,
+  readStaticProperty,
+  type StaticRecord,
+  type StaticValue,
+} from './capabilityCatalogStaticValue.js';
 
 /*** Evaluate one named catalog export from the supported static TypeScript subset. */
 export async function capabilityCatalogAstAsync(
   packageRoot: string,
   modulePath: string,
   exportName: string,
+  materializedCatalog?: unknown,
 ): Promise<unknown> {
-  return new StaticCatalogResolver(packageRoot).resolveAsync(modulePath, exportName);
+  return new StaticCatalogResolver(packageRoot, materializedCatalog).resolveAsync(
+    modulePath,
+    exportName,
+  );
 }
 
 /*** Resolve static local imports and expressions without loading target modules. */
@@ -24,7 +37,14 @@ class StaticCatalogResolver {
   readonly #symbols = new Map<string, StaticValue>();
   readonly #activeSymbols: string[] = [];
 
-  constructor(private readonly packageRoot: string) {}
+  private readonly materializedCatalog: readonly StaticValue[] | null;
+
+  constructor(
+    private readonly packageRoot: string,
+    materializedCatalog?: unknown,
+  ) {
+    this.materializedCatalog = readStaticArray(materializedCatalog);
+  }
 
   /*** Resolve a named local export without importing or running its module. */
   async resolveAsync(
@@ -98,11 +118,35 @@ class StaticCatalogResolver {
     if (node.kind === ts.SyntaxKind.FalseKeyword) return false;
     if (node.kind === ts.SyntaxKind.NullKeyword) return null;
     if (ts.isIdentifier(node)) return environment.resolveAsync(node.text);
+    if (ts.isPropertyAccessExpression(node)) return this.propertyAccessAsync(node, environment);
     if (ts.isArrayLiteralExpression(node)) return this.arrayAsync(node, environment);
     if (ts.isObjectLiteralExpression(node)) return this.objectAsync(node, environment);
     if (ts.isTemplateExpression(node)) return this.templateAsync(node, environment);
     if (ts.isCallExpression(node)) return this.mapAsync(node, environment);
     throw new Error(`Unsupported static capability expression: ${node.getText()}.`);
+  }
+
+  /*** Evaluate one static object property while preserving dynamic-expression diagnostics. */
+  async propertyAccessAsync(
+    node: ts.PropertyAccessExpression,
+    environment: StaticCatalogScope,
+  ): Promise<StaticValue> {
+    try {
+      return readStaticProperty(
+        await this.evaluateAsync(node.expression, environment),
+        node.name.text,
+        node.getText(),
+      );
+    } catch (error) {
+      if (
+        error instanceof Error &&
+        error.message.startsWith('Unsupported dynamic capability value:')
+      )
+        throw new Error(`Unsupported static capability expression: ${node.getText()}.`, {
+          cause: error,
+        });
+      throw error;
+    }
   }
 
   /*** Evaluate a static array literal. */
@@ -180,9 +224,21 @@ class StaticCatalogResolver {
     environment: StaticCatalogScope,
   ): Promise<readonly StaticValue[]> {
     const result: StaticValue[] = [];
-    for (const element of elements) {
-      if (ts.isSpreadElement(element)) throw new Error('Catalog array spreads are not supported.');
-      result.push(await this.evaluateAsync(element, environment));
+    for (const [index, element] of elements.entries()) {
+      if (ts.isSpreadElement(element)) {
+        if (await environment.isPackageLocalDerivedCallAsync(element.expression)) {
+          if (index !== elements.length - 1 || this.materializedCatalog === null)
+            throw new Error(
+              'Derived catalog function spreads must be trailing and have materialized package metadata.',
+            );
+          result.push(...this.materializedCatalog.slice(result.length));
+          continue;
+        }
+        const spread = await this.evaluateAsync(element.expression, environment);
+        if (!isStaticArray(spread))
+          throw new Error('Catalog array spreads must resolve to static arrays.');
+        result.push(...spread);
+      } else result.push(await this.evaluateAsync(element, environment));
     }
     return result;
   }
@@ -233,6 +289,30 @@ class StaticCatalogScope {
     );
   }
 
+  /*** Detect one zero-argument function imported from a package-local source module. */
+  async isPackageLocalDerivedCallAsync(expression: ts.Expression): Promise<boolean> {
+    const node = unwrapExpression(expression);
+    if (
+      !ts.isCallExpression(node) ||
+      node.arguments.length !== 0 ||
+      !ts.isIdentifier(node.expression)
+    )
+      return false;
+    const imported = findImportBinding(this.source, node.expression.text);
+    if (
+      imported === undefined ||
+      !ts.isStringLiteral(imported.moduleSpecifier) ||
+      !imported.moduleSpecifier.text.startsWith('.')
+    )
+      return false;
+    await resolveLocalImportPathAsync(
+      this.packageRoot,
+      this.modulePath,
+      imported.moduleSpecifier.text,
+    );
+    return true;
+  }
+
   /*** Add a static callback parameter without evaluating unrelated module symbols. */
   withValue(name: string, value: StaticValue): StaticCatalogScope {
     return new StaticCatalogScope(
@@ -242,109 +322,5 @@ class StaticCatalogScope {
       this.packageRoot,
       new Map([...this.values, [name, value]]),
     );
-  }
-}
-
-/*** Find the static top-level declaration that owns a local identifier. */
-function findStaticDeclaration(
-  source: ts.SourceFile,
-  name: string,
-): ts.VariableDeclaration | undefined {
-  return source.statements
-    .filter((statement): statement is ts.VariableStatement => ts.isVariableStatement(statement))
-    .filter((statement) => isConstDeclaration(statement.declarationList))
-    .flatMap((statement) => statement.declarationList.declarations)
-    .find((declaration) => ts.isIdentifier(declaration.name) && declaration.name.text === name);
-}
-
-/*** Find the import declaration that introduces a referenced local identifier. */
-function findImportBinding(source: ts.SourceFile, name: string): ts.ImportDeclaration | undefined {
-  return source.statements
-    .filter((statement): statement is ts.ImportDeclaration => ts.isImportDeclaration(statement))
-    .find((statement) => {
-      const clause = statement.importClause;
-      return (
-        clause?.name?.text === name ||
-        (clause?.namedBindings !== undefined &&
-          ts.isNamedImports(clause.namedBindings) &&
-          clause.namedBindings.elements.some((element) => element.name.text === name))
-      );
-    });
-}
-
-/*** Determine whether a declaration list is immutable static catalog input. */
-function isConstDeclaration(list: ts.VariableDeclarationList): boolean {
-  return (list.flags & ts.NodeFlags.Const) !== 0;
-}
-
-interface ResolvedStaticImport {
-  readonly packageRoot: string;
-  readonly path: string;
-}
-
-/*** Resolve an allowed static import without executing its target package. */
-async function resolveImportPathAsync(
-  packageRoot: string,
-  fromPath: string,
-  specifier: string,
-): Promise<ResolvedStaticImport> {
-  if (specifier.startsWith('.'))
-    return resolveLocalImportPathAsync(packageRoot, fromPath, specifier);
-  return resolveContractsCatalogImportAsync(packageRoot, fromPath, specifier);
-}
-
-/*** Resolve a relative static import that remains within its owning package. */
-async function resolveLocalImportPathAsync(
-  packageRoot: string,
-  fromPath: string,
-  specifier: string,
-): Promise<ResolvedStaticImport> {
-  const candidate = path.resolve(path.dirname(fromPath), specifier);
-  if (!isInsidePackage(packageRoot, candidate) && candidate !== packageRoot)
-    throw new Error('Capability catalogs may not import outside their package.');
-  for (const extension of ['', '.ts', '.tsx', '.js', '.mjs', '/index.ts'])
-    if (await isFileAsync(`${candidate}${extension}`))
-      return { packageRoot, path: `${candidate}${extension}` };
-  throw new Error(`Unable to resolve static capability import ${specifier}.`);
-}
-
-/*** Unwrap TypeScript syntax which does not alter a runtime value. */
-function unwrapExpression(expression: ts.Expression): ts.Expression {
-  return ts.isAsExpression(expression) ||
-    ts.isSatisfiesExpression(expression) ||
-    ts.isParenthesizedExpression(expression)
-    ? unwrapExpression(expression.expression)
-    : expression;
-}
-
-/*** Narrow a static value to a descriptor-shaped record. */
-function isStaticRecord(value: StaticValue): value is StaticRecord {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-/*** Narrow a static value to an array. */
-function isStaticArray(value: StaticValue): value is readonly StaticValue[] {
-  return Array.isArray(value);
-}
-
-/*** Detect an exported variable statement. */
-function hasExportModifier(statement: ts.VariableStatement): boolean {
-  return (
-    statement.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword) ?? false
-  );
-}
-
-/*** Check whether a resolved path remains within the inspected package root. */
-function isInsidePackage(packageRoot: string, candidate: string): boolean {
-  const relativePath = path.relative(packageRoot, candidate);
-  return relativePath !== '' && !relativePath.startsWith(`..${path.sep}`) && relativePath !== '..';
-}
-
-/*** Check whether one candidate is a regular file. */
-async function isFileAsync(candidate: string): Promise<boolean> {
-  try {
-    return (await fs.stat(candidate)).isFile();
-  } catch {
-    return false;
   }
 }

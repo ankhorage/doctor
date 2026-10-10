@@ -57,6 +57,7 @@ export interface DoctorAnalysisResult {
 
 interface ProviderInspectionResult {
   readonly capabilities: readonly Capability[];
+  readonly capabilitiesValid: boolean;
   readonly commandCapabilities: readonly string[];
   readonly commandPaths: readonly string[];
   readonly handlerPaths: readonly string[];
@@ -568,7 +569,11 @@ async function validateAnkhMetadataAndProvider(request: {
 }): Promise<DoctorDiagnostic[]> {
   const diagnostics: DoctorDiagnostic[] = [];
   const metadata = request.packageJson.ankh;
-  const catalog = await readCapabilityCatalogAsync(request.targetPath, request.packageJson.exports);
+  const catalog = await readCapabilityCatalogAsync(
+    request.targetPath,
+    request.packageJson.exports,
+    isRecord(metadata) ? metadata.capabilities : undefined,
+  );
   const providerPackage =
     (isRecord(metadata) && isNonEmptyString(metadata.provider)) ||
     (await isProviderPackage(request.targetPath));
@@ -714,13 +719,25 @@ async function validateAnkhMetadataAndProvider(request: {
 
   const providerCapabilities = inspection.result.capabilities;
   const commandCapabilities = uniqueSortedStrings(inspection.result.commandCapabilities);
+  const providerCapabilitiesMatch =
+    inspection.result.capabilitiesValid &&
+    (catalog.capabilities === null
+      ? catalog.path === null &&
+        areCapabilityCatalogsEqual(metadataCapabilities, providerCapabilities)
+      : providerCapabilities.every((providerCapability) =>
+          catalog.capabilities.some((catalogCapability) =>
+            areCapabilityCatalogsEqual([providerCapability], [catalogCapability]),
+          ),
+        ));
 
-  if (!areCapabilityCatalogsEqual(metadataCapabilities, providerCapabilities)) {
+  if (!providerCapabilitiesMatch) {
     diagnostics.push(
       createDiagnostic({
         code: 'field-invalid',
         message:
-          'package.json.ankh capabilities must match the implemented provider capability descriptors exactly.',
+          catalog.capabilities === null && catalog.path === null
+            ? 'package.json.ankh capabilities must match the implemented provider capability descriptors exactly.'
+            : 'Provider capabilities must be valid, unique descriptors contained identically in the canonical public CAPABILITIES catalog.',
         path: request.packageJsonPath,
         profile: request.profile,
         ruleId: 'package.ankh.capabilities.match-provider',
@@ -806,6 +823,7 @@ async function inspectProviderSource(request: {
       };
     }
 
+    const capabilitiesValid = isCapabilityCatalog(provider.capabilities);
     const capabilities = readCapabilities(provider.capabilities);
     const commands = Array.isArray(provider.commands) ? provider.commands : [];
     const handlers = Array.isArray(provider.handlers) ? provider.handlers : [];
@@ -829,6 +847,7 @@ async function inspectProviderSource(request: {
       diagnostic: null,
       result: {
         capabilities,
+        capabilitiesValid,
         commandCapabilities,
         commandPaths,
         handlerPaths,
