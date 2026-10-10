@@ -409,7 +409,12 @@ describe('doctor command runner', () => {
   });
 
   test('provider capabilities may be an executable subset of a mixed canonical package catalog', async () => {
-    const invoked = createTestCapabilities(['doctor.validate'])[0];
+    const invoked = {
+      id: 'doctor.validate',
+      owner: '@ankhorage/example',
+      access: ['invoke'],
+      binding: { kind: 'action', bindableAs: ['target'] },
+    } satisfies Capability;
     const emitted = {
       id: 'doctor.event',
       owner: '@ankhorage/example',
