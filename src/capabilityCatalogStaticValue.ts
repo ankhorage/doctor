@@ -15,7 +15,11 @@ export function isStaticArray(value: StaticValue): value is readonly StaticValue
 }
 
 /*** Read one property from a statically resolved object. */
-export function readStaticProperty(value: StaticValue, key: string, expression: string): StaticValue {
+export function readStaticProperty(
+  value: StaticValue,
+  key: string,
+  expression: string,
+): StaticValue {
   const property = isStaticRecord(value) ? value[key] : undefined;
   if (property === undefined)
     throw new Error(`Unsupported static capability property access: ${expression}.`);
