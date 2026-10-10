@@ -118,17 +118,35 @@ class StaticCatalogResolver {
     if (node.kind === ts.SyntaxKind.FalseKeyword) return false;
     if (node.kind === ts.SyntaxKind.NullKeyword) return null;
     if (ts.isIdentifier(node)) return environment.resolveAsync(node.text);
-    if (ts.isPropertyAccessExpression(node))
-      return readStaticProperty(
-        await this.evaluateAsync(node.expression, environment),
-        node.name.text,
-        node.getText(),
-      );
+    if (ts.isPropertyAccessExpression(node)) return this.propertyAccessAsync(node, environment);
     if (ts.isArrayLiteralExpression(node)) return this.arrayAsync(node, environment);
     if (ts.isObjectLiteralExpression(node)) return this.objectAsync(node, environment);
     if (ts.isTemplateExpression(node)) return this.templateAsync(node, environment);
     if (ts.isCallExpression(node)) return this.mapAsync(node, environment);
     throw new Error(`Unsupported static capability expression: ${node.getText()}.`);
+  }
+
+  /*** Evaluate one static object property while preserving dynamic-expression diagnostics. */
+  async propertyAccessAsync(
+    node: ts.PropertyAccessExpression,
+    environment: StaticCatalogScope,
+  ): Promise<StaticValue> {
+    try {
+      return readStaticProperty(
+        await this.evaluateAsync(node.expression, environment),
+        node.name.text,
+        node.getText(),
+      );
+    } catch (error) {
+      if (
+        error instanceof Error &&
+        error.message.startsWith('Unsupported dynamic capability value:')
+      )
+        throw new Error(`Unsupported static capability expression: ${node.getText()}.`, {
+          cause: error,
+        });
+      throw error;
+    }
   }
 
   /*** Evaluate a static array literal. */
