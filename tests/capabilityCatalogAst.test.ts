@@ -131,6 +131,43 @@ export const CAPABILITIES = [AUTH_CAPABILITY];
 });
 
 test('capability catalogs resolve static property access inside Contracts schema exports', async () => {
+  const fixture = await createContractsStorageSchemaFixture();
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual([]);
+});
+
+test('capability catalogs reject unrelated external package imports', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      dependencies: { '@ankhorage/unrelated': '^1.0.0' },
+      ankh: { category: 'fixture', provider: null, capabilities: [] },
+      exports: { './capabilities': './dist/capabilities/index.js' },
+    },
+    extraFiles: {
+      'node_modules/@ankhorage/unrelated/package.json': JSON.stringify({
+        name: '@ankhorage/unrelated',
+        exports: { './schema': './schema.js' },
+      }),
+      'node_modules/@ankhorage/unrelated/schema.js': 'export const CAPABILITIES = [];\n',
+      'src/capabilities/index.ts': `import { CAPABILITIES as EXTERNAL_CAPABILITIES } from '@ankhorage/unrelated/schema';
+
+export const CAPABILITIES = EXTERNAL_CAPABILITIES;
+`,
+    },
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual([catalogRule]);
+  expect(result.diagnostics.map((diagnostic) => diagnostic.message).join('\n')).toContain(
+    'Contracts public exports',
+  );
+});
+
+
+/*** Create a Contracts storage fixture whose exported schema composes a nested static property. */
+async function createContractsStorageSchemaFixture(): Promise<string> {
   const inputSchema = {
     type: 'object',
     required: ['bucket', 'path', 'body'],
@@ -145,7 +182,7 @@ test('capability catalogs resolve static property access inside Contracts schema
     ...createCapability('fixture.storage.upload'),
     input: { schema: inputSchema },
   };
-  const fixture = await createDoctorFixture({
+  return createDoctorFixture({
     packageJson: {
       dependencies: { '@ankhorage/contracts': '^25.2.0' },
       ankh: { category: 'fixture', provider: null, capabilities: [capability] },
@@ -187,39 +224,7 @@ export const CAPABILITIES = [{
 `,
     },
   });
-
-  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
-
-  expect(catalogDiagnostics(result)).toEqual([]);
-});
-
-test('capability catalogs reject unrelated external package imports', async () => {
-  const fixture = await createDoctorFixture({
-    packageJson: {
-      dependencies: { '@ankhorage/unrelated': '^1.0.0' },
-      ankh: { category: 'fixture', provider: null, capabilities: [] },
-      exports: { './capabilities': './dist/capabilities/index.js' },
-    },
-    extraFiles: {
-      'node_modules/@ankhorage/unrelated/package.json': JSON.stringify({
-        name: '@ankhorage/unrelated',
-        exports: { './schema': './schema.js' },
-      }),
-      'node_modules/@ankhorage/unrelated/schema.js': 'export const CAPABILITIES = [];\n',
-      'src/capabilities/index.ts': `import { CAPABILITIES as EXTERNAL_CAPABILITIES } from '@ankhorage/unrelated/schema';
-
-export const CAPABILITIES = EXTERNAL_CAPABILITIES;
-`,
-    },
-  });
-
-  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
-
-  expect(catalogDiagnostics(result)).toEqual([catalogRule]);
-  expect(result.diagnostics.map((diagnostic) => diagnostic.message).join('\n')).toContain(
-    'Contracts public exports',
-  );
-});
+}
 
 /*** Select the diagnostics emitted by canonical catalog validation. */
 function catalogDiagnostics(result: Awaited<ReturnType<typeof analyzeDoctorTarget>>): string[] {
