@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.14.10",
+      "value": "v0.14.11",
       "color": "cb3837"
     },
     {
@@ -363,9 +363,19 @@
     {
       "path": "src/capabilityCatalogAst.ts",
       "isEntrypoint": false,
-      "dependencies": [],
+      "dependencies": [
+        "src/capabilityCatalogContractsImport.ts"
+      ],
       "exports": [
         "capabilityCatalogAstAsync"
+      ]
+    },
+    {
+      "path": "src/capabilityCatalogContractsImport.ts",
+      "isEntrypoint": false,
+      "dependencies": [],
+      "exports": [
+        "resolveContractsCatalogImportAsync"
       ]
     },
     {
@@ -2838,7 +2848,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 12,
+        "line": 14,
         "column": 1
       }
     },
@@ -2849,7 +2859,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 233,
+        "line": 249,
         "column": 1
       }
     },
@@ -2860,7 +2870,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 245,
+        "line": 261,
         "column": 1
       }
     },
@@ -2871,18 +2881,29 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 260,
+        "line": 276,
         "column": 1
       }
     },
     {
       "name": "resolveImportPathAsync",
-      "description": "Resolve a local import to one source file inside the inspected package.",
+      "description": "Resolve an allowed static import without executing its target package.",
       "see": [],
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 265,
+        "line": 286,
+        "column": 1
+      }
+    },
+    {
+      "name": "resolveLocalImportPathAsync",
+      "description": "Resolve a relative static import that remains within its owning package.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogAst.ts",
+        "line": 297,
         "column": 1
       }
     },
@@ -2893,7 +2914,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 281,
+        "line": 312,
         "column": 1
       }
     },
@@ -2904,7 +2925,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 290,
+        "line": 321,
         "column": 1
       }
     },
@@ -2915,7 +2936,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 295,
+        "line": 326,
         "column": 1
       }
     },
@@ -2926,7 +2947,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 300,
+        "line": 331,
         "column": 1
       }
     },
@@ -2937,7 +2958,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 307,
+        "line": 338,
         "column": 1
       }
     },
@@ -2948,7 +2969,95 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 313,
+        "line": 344,
+        "column": 1
+      }
+    },
+    {
+      "name": "resolveContractsCatalogImportAsync",
+      "description": "Resolve a declared Contracts public export without executing package code.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogContractsImport.ts",
+        "line": 12,
+        "column": 1
+      }
+    },
+    {
+      "name": "findInstalledContractsPackageRootAsync",
+      "description": "Find the installed Contracts package that owns a resolved public export.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogContractsImport.ts",
+        "line": 36,
+        "column": 1
+      }
+    },
+    {
+      "name": "findContractsPackageRootAsync",
+      "description": "Walk parent directories until the Contracts package manifest establishes the boundary.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogContractsImport.ts",
+        "line": 41,
+        "column": 1
+      }
+    },
+    {
+      "name": "isContractsPublicSubpath",
+      "description": "Check whether a specifier names an explicitly exported Contracts subpath.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogContractsImport.ts",
+        "line": 57,
+        "column": 1
+      }
+    },
+    {
+      "name": "hasDeclaredContractsDependencyAsync",
+      "description": "Check whether the inspected package declares its Contracts dependency.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogContractsImport.ts",
+        "line": 62,
+        "column": 1
+      }
+    },
+    {
+      "name": "hasContractsDependency",
+      "description": "Check standard runtime dependency declarations for Contracts.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogContractsImport.ts",
+        "line": 74,
+        "column": 1
+      }
+    },
+    {
+      "name": "isInsidePackage",
+      "description": "Check whether a resolved export remains within its installed package.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogContractsImport.ts",
+        "line": 87,
+        "column": 1
+      }
+    },
+    {
+      "name": "isUnknownRecord",
+      "description": "Narrow an unknown value to a record without accepting arrays.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogContractsImport.ts",
+        "line": 93,
         "column": 1
       }
     },
@@ -4211,6 +4320,11 @@
         "fromPath": "src/capabilityCatalog.ts",
         "toPath": "src/capabilityCatalogExports.ts",
         "sourcePath": "src/capabilityCatalog.ts"
+      },
+      {
+        "fromPath": "src/capabilityCatalogAst.ts",
+        "toPath": "src/capabilityCatalogContractsImport.ts",
+        "sourcePath": "src/capabilityCatalogAst.ts"
       },
       {
         "fromPath": "src/cliLayoutAnalysis.ts",
@@ -5618,12 +5732,24 @@
       },
       {
         "fromSymbol": "resolveImportPathAsync",
+        "toSymbol": "resolveLocalImportPathAsync",
+        "callExpression": "resolveLocalImportPathAsync",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "resolveImportPathAsync",
+        "toSymbol": "resolveContractsCatalogImportAsync",
+        "callExpression": "resolveContractsCatalogImportAsync",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "resolveLocalImportPathAsync",
         "toSymbol": "isInsidePackage",
         "callExpression": "isInsidePackage",
         "sourcePath": "src/capabilityCatalogAst.ts"
       },
       {
-        "fromSymbol": "resolveImportPathAsync",
+        "fromSymbol": "resolveLocalImportPathAsync",
         "toSymbol": "isFileAsync",
         "callExpression": "isFileAsync",
         "sourcePath": "src/capabilityCatalogAst.ts"
@@ -5633,6 +5759,78 @@
         "toSymbol": "unwrapExpression",
         "callExpression": "unwrapExpression",
         "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "resolveContractsCatalogImportAsync",
+        "toSymbol": "isContractsPublicSubpath",
+        "callExpression": "isContractsPublicSubpath",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "resolveContractsCatalogImportAsync",
+        "toSymbol": "hasDeclaredContractsDependencyAsync",
+        "callExpression": "hasDeclaredContractsDependencyAsync",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "resolveContractsCatalogImportAsync",
+        "toSymbol": "createRequire",
+        "callExpression": "createRequire",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "resolveContractsCatalogImportAsync",
+        "toSymbol": "pathToFileURL",
+        "callExpression": "pathToFileURL",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "resolveContractsCatalogImportAsync",
+        "toSymbol": "findInstalledContractsPackageRootAsync",
+        "callExpression": "findInstalledContractsPackageRootAsync",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "resolveContractsCatalogImportAsync",
+        "toSymbol": "isInsidePackage",
+        "callExpression": "isInsidePackage",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "findInstalledContractsPackageRootAsync",
+        "toSymbol": "findContractsPackageRootAsync",
+        "callExpression": "findContractsPackageRootAsync",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "findContractsPackageRootAsync",
+        "toSymbol": "isUnknownRecord",
+        "callExpression": "isUnknownRecord",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "findContractsPackageRootAsync",
+        "toSymbol": "findContractsPackageRootAsync",
+        "callExpression": "findContractsPackageRootAsync",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "hasDeclaredContractsDependencyAsync",
+        "toSymbol": "hasContractsDependency",
+        "callExpression": "hasContractsDependency",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "hasContractsDependency",
+        "toSymbol": "isUnknownRecord",
+        "callExpression": "isUnknownRecord",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
+      },
+      {
+        "fromSymbol": "src/capabilityCatalogContractsImport.ts",
+        "toSymbol": "isUnknownRecord",
+        "callExpression": "isUnknownRecord",
+        "sourcePath": "src/capabilityCatalogContractsImport.ts"
       },
       {
         "fromSymbol": "capabilityCatalogExports",

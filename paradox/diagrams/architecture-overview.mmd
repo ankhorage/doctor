@@ -84,6 +84,9 @@ graph TD
   module_src_capabilityCatalog_ts --> module_src_capabilityCatalogExports_ts
   module_src_capabilityCatalogAst_ts["src/capabilityCatalogAst.ts"]
   package__ankhorage_doctor -.-> module_src_capabilityCatalogAst_ts
+  module_src_capabilityCatalogAst_ts --> module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogContractsImport_ts["src/capabilityCatalogContractsImport.ts"]
+  package__ankhorage_doctor -.-> module_src_capabilityCatalogContractsImport_ts
   module_src_capabilityCatalogExports_ts["src/capabilityCatalogExports.ts"]
   package__ankhorage_doctor -.-> module_src_capabilityCatalogExports_ts
   module_src_cli_index_ts["src/cli/index.ts"]

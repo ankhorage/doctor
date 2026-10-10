@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.11
+
+### Patch Changes
+
+- 508cced: Allow capability catalogs to statically read named schema exports from declared, installed public `@ankhorage/contracts/*` subpaths without executing package code.
+
 ## 0.14.10
 
 ### Patch Changes

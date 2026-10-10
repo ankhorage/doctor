@@ -209,7 +209,12 @@
   </li><li>
     <button class="nav-button" type="button" data-target="src/capabilityCatalogAst.ts">
       src/capabilityCatalogAst.ts
-      <small>11 functions</small>
+      <small>12 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/capabilityCatalogContractsImport.ts">
+      src/capabilityCatalogContractsImport.ts
+      <small>8 functions</small>
     </button>
   </li><li>
     <button class="nav-button" type="button" data-target="src/capabilityCatalogExports.ts">
@@ -288,7 +293,7 @@
       <div class="summary">
         <div><strong>33</strong><span class="muted">public exports</span></div>
         <div><strong>0</strong><span class="muted">components</span></div>
-        <div><strong>58</strong><span class="muted">modules</span></div>
+        <div><strong>59</strong><span class="muted">modules</span></div>
         <div><strong>1</strong><span class="muted">entrypoints</span></div>
       </div>
       <h3>Entrypoints</h3>
@@ -447,11 +452,16 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/capabilityCatalogAst.ts</code>, <code>src/capabilityCatalogExports.ts</code></p>
     <p><strong>Exports:</strong> <code>readCapabilityCatalogAsync</code></p>
-  </article><article class="item" data-search="src/capabilityCatalogAst.ts capabilityCatalogAstAsync">
+  </article><article class="item" data-search="src/capabilityCatalogAst.ts src/capabilityCatalogContractsImport.ts capabilityCatalogAstAsync">
     <h3>src/capabilityCatalogAst.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
+    <p><strong>Dependencies:</strong> <code>src/capabilityCatalogContractsImport.ts</code></p>
     <p><strong>Exports:</strong> <code>capabilityCatalogAstAsync</code></p>
+  </article><article class="item" data-search="src/capabilityCatalogContractsImport.ts resolveContractsCatalogImportAsync">
+    <h3>src/capabilityCatalogContractsImport.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
+    <p><strong>Exports:</strong> <code>resolveContractsCatalogImportAsync</code></p>
   </article><article class="item" data-search="src/capabilityCatalogExports.ts capabilityCatalogExports">
     <h3>src/capabilityCatalogExports.ts</h3>
     <p class="muted">Referenced module</p>
@@ -1602,6 +1612,9 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogExports_ts
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogAst_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogContractsImport_ts
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogExports_ts
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
@@ -1846,6 +1859,9 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogExports_ts
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogAst_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogContractsImport_ts
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogExports_ts
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
@@ -2027,6 +2043,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilities_index_ts[&quot;src/capabilities/index.ts&quot;]
   module_src_capabilityCatalog_ts[&quot;src/capabilityCatalog.ts&quot;]
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
+  module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
@@ -2107,6 +2124,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_bunPolicyAnalysis_ts --&gt; module_src_utils_getRepositoryRule_ts
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogAst_ts
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogExports_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogContractsImport_ts
   module_src_cli_index_ts --&gt; module_src_capabilities_index_ts
   module_src_cli_index_ts --&gt; module_src_commands_ts
   module_src_cli_index_ts --&gt; module_src_dependencyPolicyAnalysis_ts
@@ -2211,6 +2229,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilities_index_ts[&quot;src/capabilities/index.ts&quot;]
   module_src_capabilityCatalog_ts[&quot;src/capabilityCatalog.ts&quot;]
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
+  module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
@@ -2291,6 +2310,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_bunPolicyAnalysis_ts --&gt; module_src_utils_getRepositoryRule_ts
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogAst_ts
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogExports_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogContractsImport_ts
   module_src_cli_index_ts --&gt; module_src_capabilities_index_ts
   module_src_cli_index_ts --&gt; module_src_commands_ts
   module_src_cli_index_ts --&gt; module_src_dependencyPolicyAnalysis_ts
@@ -2397,6 +2417,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilities_index_ts[&quot;src/capabilities/index.ts&quot;]
   module_src_capabilityCatalog_ts[&quot;src/capabilityCatalog.ts&quot;]
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
+  module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
@@ -2557,6 +2578,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilities_index_ts[&quot;src/capabilities/index.ts&quot;]
   module_src_capabilityCatalog_ts[&quot;src/capabilityCatalog.ts&quot;]
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
+  module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
@@ -3212,58 +3234,108 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/capabilityCatalogAst.ts</h2>
       <article class="item" data-search="capabilityCatalogAstAsync src/capabilityCatalogAst.ts Evaluate one named catalog export from the supported static TypeScript subset.">
     <h3>capabilityCatalogAstAsync</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:12:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:14:1</code></p>
     <p>Evaluate one named catalog export from the supported static TypeScript subset.</p>
     
   </article><article class="item" data-search="findStaticDeclaration src/capabilityCatalogAst.ts Find the static top-level declaration that owns a local identifier.">
     <h3>findStaticDeclaration</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:233:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:249:1</code></p>
     <p>Find the static top-level declaration that owns a local identifier.</p>
     
   </article><article class="item" data-search="findImportBinding src/capabilityCatalogAst.ts Find the import declaration that introduces a referenced local identifier.">
     <h3>findImportBinding</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:245:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:261:1</code></p>
     <p>Find the import declaration that introduces a referenced local identifier.</p>
     
   </article><article class="item" data-search="isConstDeclaration src/capabilityCatalogAst.ts Determine whether a declaration list is immutable static catalog input.">
     <h3>isConstDeclaration</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:260:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:276:1</code></p>
     <p>Determine whether a declaration list is immutable static catalog input.</p>
     
-  </article><article class="item" data-search="resolveImportPathAsync src/capabilityCatalogAst.ts Resolve a local import to one source file inside the inspected package.">
+  </article><article class="item" data-search="resolveImportPathAsync src/capabilityCatalogAst.ts Resolve an allowed static import without executing its target package.">
     <h3>resolveImportPathAsync</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:265:1</code></p>
-    <p>Resolve a local import to one source file inside the inspected package.</p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:286:1</code></p>
+    <p>Resolve an allowed static import without executing its target package.</p>
+    
+  </article><article class="item" data-search="resolveLocalImportPathAsync src/capabilityCatalogAst.ts Resolve a relative static import that remains within its owning package.">
+    <h3>resolveLocalImportPathAsync</h3>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:297:1</code></p>
+    <p>Resolve a relative static import that remains within its owning package.</p>
     
   </article><article class="item" data-search="unwrapExpression src/capabilityCatalogAst.ts Unwrap TypeScript syntax which does not alter a runtime value.">
     <h3>unwrapExpression</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:281:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:312:1</code></p>
     <p>Unwrap TypeScript syntax which does not alter a runtime value.</p>
     
   </article><article class="item" data-search="isStaticRecord src/capabilityCatalogAst.ts Narrow a static value to a descriptor-shaped record.">
     <h3>isStaticRecord</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:290:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:321:1</code></p>
     <p>Narrow a static value to a descriptor-shaped record.</p>
     
   </article><article class="item" data-search="isStaticArray src/capabilityCatalogAst.ts Narrow a static value to an array.">
     <h3>isStaticArray</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:295:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:326:1</code></p>
     <p>Narrow a static value to an array.</p>
     
   </article><article class="item" data-search="hasExportModifier src/capabilityCatalogAst.ts Detect an exported variable statement.">
     <h3>hasExportModifier</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:300:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:331:1</code></p>
     <p>Detect an exported variable statement.</p>
     
   </article><article class="item" data-search="isInsidePackage src/capabilityCatalogAst.ts Check whether a resolved path remains within the inspected package root.">
     <h3>isInsidePackage</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:307:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:338:1</code></p>
     <p>Check whether a resolved path remains within the inspected package root.</p>
     
   </article><article class="item" data-search="isFileAsync src/capabilityCatalogAst.ts Check whether one candidate is a regular file.">
     <h3>isFileAsync</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:313:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:344:1</code></p>
     <p>Check whether one candidate is a regular file.</p>
+    
+  </article>
+    </section>
+  </section><section id="view-src-capabilitycatalogcontractsimport-ts" class="view" data-view="src/capabilityCatalogContractsImport.ts" hidden>
+    <section class="panel">
+      <h2>src/capabilityCatalogContractsImport.ts</h2>
+      <article class="item" data-search="resolveContractsCatalogImportAsync src/capabilityCatalogContractsImport.ts Resolve a declared Contracts public export without executing package code.">
+    <h3>resolveContractsCatalogImportAsync</h3>
+    <p class="muted"><code>src/capabilityCatalogContractsImport.ts:12:1</code></p>
+    <p>Resolve a declared Contracts public export without executing package code.</p>
+    
+  </article><article class="item" data-search="findInstalledContractsPackageRootAsync src/capabilityCatalogContractsImport.ts Find the installed Contracts package that owns a resolved public export.">
+    <h3>findInstalledContractsPackageRootAsync</h3>
+    <p class="muted"><code>src/capabilityCatalogContractsImport.ts:36:1</code></p>
+    <p>Find the installed Contracts package that owns a resolved public export.</p>
+    
+  </article><article class="item" data-search="findContractsPackageRootAsync src/capabilityCatalogContractsImport.ts Walk parent directories until the Contracts package manifest establishes the boundary.">
+    <h3>findContractsPackageRootAsync</h3>
+    <p class="muted"><code>src/capabilityCatalogContractsImport.ts:41:1</code></p>
+    <p>Walk parent directories until the Contracts package manifest establishes the boundary.</p>
+    
+  </article><article class="item" data-search="isContractsPublicSubpath src/capabilityCatalogContractsImport.ts Check whether a specifier names an explicitly exported Contracts subpath.">
+    <h3>isContractsPublicSubpath</h3>
+    <p class="muted"><code>src/capabilityCatalogContractsImport.ts:57:1</code></p>
+    <p>Check whether a specifier names an explicitly exported Contracts subpath.</p>
+    
+  </article><article class="item" data-search="hasDeclaredContractsDependencyAsync src/capabilityCatalogContractsImport.ts Check whether the inspected package declares its Contracts dependency.">
+    <h3>hasDeclaredContractsDependencyAsync</h3>
+    <p class="muted"><code>src/capabilityCatalogContractsImport.ts:62:1</code></p>
+    <p>Check whether the inspected package declares its Contracts dependency.</p>
+    
+  </article><article class="item" data-search="hasContractsDependency src/capabilityCatalogContractsImport.ts Check standard runtime dependency declarations for Contracts.">
+    <h3>hasContractsDependency</h3>
+    <p class="muted"><code>src/capabilityCatalogContractsImport.ts:74:1</code></p>
+    <p>Check standard runtime dependency declarations for Contracts.</p>
+    
+  </article><article class="item" data-search="isInsidePackage src/capabilityCatalogContractsImport.ts Check whether a resolved export remains within its installed package.">
+    <h3>isInsidePackage</h3>
+    <p class="muted"><code>src/capabilityCatalogContractsImport.ts:87:1</code></p>
+    <p>Check whether a resolved export remains within its installed package.</p>
+    
+  </article><article class="item" data-search="isUnknownRecord src/capabilityCatalogContractsImport.ts Narrow an unknown value to a record without accepting arrays.">
+    <h3>isUnknownRecord</h3>
+    <p class="muted"><code>src/capabilityCatalogContractsImport.ts:93:1</code></p>
+    <p>Narrow an unknown value to a record without accepting arrays.</p>
     
   </article>
     </section>
