@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.13
+
+### Patch Changes
+
+- 043e0d9: Resolve explicit Node ESM local import specifiers to their TypeScript source files during static capability catalog validation.
+
 ## 0.14.12
 
 ### Patch Changes

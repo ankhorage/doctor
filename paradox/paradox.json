@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.14.12",
+      "value": "v0.14.13",
       "color": "cb3837"
     },
     {
@@ -3112,13 +3112,24 @@
       }
     },
     {
+      "name": "localSourceCandidates",
+      "description": "Enumerate source files represented by one package-local ESM import specifier.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogImport.ts",
+        "line": 37,
+        "column": 1
+      }
+    },
+    {
       "name": "isInsidePackage",
       "description": "Check whether a resolved path remains within the inspected package root.",
       "see": [],
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogImport.ts",
-        "line": 38,
+        "line": 57,
         "column": 1
       }
     },
@@ -3129,7 +3140,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogImport.ts",
-        "line": 44,
+        "line": 63,
         "column": 1
       }
     },
@@ -6019,6 +6030,12 @@
         "fromSymbol": "resolveLocalImportPathAsync",
         "toSymbol": "isInsidePackage",
         "callExpression": "isInsidePackage",
+        "sourcePath": "src/capabilityCatalogImport.ts"
+      },
+      {
+        "fromSymbol": "resolveLocalImportPathAsync",
+        "toSymbol": "localSourceCandidates",
+        "callExpression": "localSourceCandidates",
         "sourcePath": "src/capabilityCatalogImport.ts"
       },
       {
