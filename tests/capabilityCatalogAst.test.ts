@@ -5,6 +5,48 @@ import { createDoctorFixture } from './testSupport.js';
 
 const catalogRule = 'package.ankh.capabilities.catalog.valid';
 
+const STORAGE_INPUT_SCHEMA = {
+  type: 'object',
+  required: ['bucket', 'path', 'body'],
+  properties: {
+    storageId: { type: 'string' },
+    bucket: { type: 'string' },
+    path: { type: 'string' },
+    body: { type: 'string', format: 'base64' },
+  },
+} as const;
+
+const CONTRACTS_STORAGE_SCHEMA_SOURCE = `export const STORAGE_IDENTITY_SCHEMA = {
+  type: 'object',
+  required: ['bucket', 'path'],
+  properties: {
+    storageId: { type: 'string' },
+    bucket: { type: 'string' },
+    path: { type: 'string' },
+  },
+};
+
+export const STORAGE_UPLOAD_INPUT_SCHEMA = {
+  ...STORAGE_IDENTITY_SCHEMA,
+  required: ['bucket', 'path', 'body'],
+  properties: {
+    ...STORAGE_IDENTITY_SCHEMA.properties,
+    body: { type: 'string', format: 'base64' },
+  },
+};
+`;
+
+const STORAGE_CAPABILITY_SOURCE = `import { STORAGE_UPLOAD_INPUT_SCHEMA } from '@ankhorage/contracts/storage';
+
+export const CAPABILITIES = [{
+  id: 'fixture.storage.upload',
+  owner: '@ankhorage/fixture',
+  access: ['invoke'],
+  binding: { kind: 'action', bindableAs: ['target'] },
+  input: { schema: STORAGE_UPLOAD_INPUT_SCHEMA },
+}];
+`;
+
 test('capability catalogs ignore unreachable dynamic imported declarations', async () => {
   const capability = createCapability('fixture.lazy.one');
   const fixture = await createDoctorFixture({
@@ -165,22 +207,11 @@ export const CAPABILITIES = EXTERNAL_CAPABILITIES;
   );
 });
 
-
 /*** Create a Contracts storage fixture whose exported schema composes a nested static property. */
 async function createContractsStorageSchemaFixture(): Promise<string> {
-  const inputSchema = {
-    type: 'object',
-    required: ['bucket', 'path', 'body'],
-    properties: {
-      storageId: { type: 'string' },
-      bucket: { type: 'string' },
-      path: { type: 'string' },
-      body: { type: 'string', format: 'base64' },
-    },
-  };
   const capability = {
     ...createCapability('fixture.storage.upload'),
-    input: { schema: inputSchema },
+    input: { schema: STORAGE_INPUT_SCHEMA },
   };
   return createDoctorFixture({
     packageJson: {
@@ -193,35 +224,8 @@ async function createContractsStorageSchemaFixture(): Promise<string> {
         name: '@ankhorage/contracts',
         exports: { './storage': './dist/storage.js' },
       }),
-      'node_modules/@ankhorage/contracts/dist/storage.js': `export const STORAGE_IDENTITY_SCHEMA = {
-  type: 'object',
-  required: ['bucket', 'path'],
-  properties: {
-    storageId: { type: 'string' },
-    bucket: { type: 'string' },
-    path: { type: 'string' },
-  },
-};
-
-export const STORAGE_UPLOAD_INPUT_SCHEMA = {
-  ...STORAGE_IDENTITY_SCHEMA,
-  required: ['bucket', 'path', 'body'],
-  properties: {
-    ...STORAGE_IDENTITY_SCHEMA.properties,
-    body: { type: 'string', format: 'base64' },
-  },
-};
-`,
-      'src/capabilities/index.ts': `import { STORAGE_UPLOAD_INPUT_SCHEMA } from '@ankhorage/contracts/storage';
-
-export const CAPABILITIES = [{
-  id: 'fixture.storage.upload',
-  owner: '@ankhorage/fixture',
-  access: ['invoke'],
-  binding: { kind: 'action', bindableAs: ['target'] },
-  input: { schema: STORAGE_UPLOAD_INPUT_SCHEMA },
-}];
-`,
+      'node_modules/@ankhorage/contracts/dist/storage.js': CONTRACTS_STORAGE_SCHEMA_SOURCE,
+      'src/capabilities/index.ts': STORAGE_CAPABILITY_SOURCE,
     },
   });
 }
