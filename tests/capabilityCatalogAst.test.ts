@@ -78,6 +78,61 @@ test('capability catalogs reject cyclic local static imports', async () => {
   );
 });
 
+test('capability catalogs accept named static Contracts schema imports', async () => {
+  const capability = createCapability('fixture.contracts.schema');
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      dependencies: { '@ankhorage/contracts': '^25.0.0' },
+      ankh: { category: 'fixture', provider: null, capabilities: [capability] },
+      exports: { './capabilities': './dist/capabilities/index.js' },
+    },
+    extraFiles: {
+      'node_modules/@ankhorage/contracts/package.json': JSON.stringify({
+        name: '@ankhorage/contracts',
+        exports: { './auth': './dist/auth.js' },
+      }),
+      'node_modules/@ankhorage/contracts/dist/auth.js': `export const AUTH_CAPABILITY = ${JSON.stringify(capability)};
+`,
+      'src/capabilities/index.ts': `import { AUTH_CAPABILITY } from '@ankhorage/contracts/auth';
+
+export const CAPABILITIES = [AUTH_CAPABILITY];
+`,
+    },
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual([]);
+});
+
+test('capability catalogs reject unrelated external package imports', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      dependencies: { '@ankhorage/unrelated': '^1.0.0' },
+      ankh: { category: 'fixture', provider: null, capabilities: [] },
+      exports: { './capabilities': './dist/capabilities/index.js' },
+    },
+    extraFiles: {
+      'node_modules/@ankhorage/unrelated/package.json': JSON.stringify({
+        name: '@ankhorage/unrelated',
+        exports: { './schema': './schema.js' },
+      }),
+      'node_modules/@ankhorage/unrelated/schema.js': 'export const CAPABILITIES = [];\n',
+      'src/capabilities/index.ts': `import { CAPABILITIES as EXTERNAL_CAPABILITIES } from '@ankhorage/unrelated/schema';
+
+export const CAPABILITIES = EXTERNAL_CAPABILITIES;
+`,
+    },
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual([catalogRule]);
+  expect(result.diagnostics.map((diagnostic) => diagnostic.message).join('\n')).toContain(
+    'Contracts public exports',
+  );
+});
+
 /*** Select the diagnostics emitted by canonical catalog validation. */
 function catalogDiagnostics(result: Awaited<ReturnType<typeof analyzeDoctorTarget>>): string[] {
   return result.diagnostics

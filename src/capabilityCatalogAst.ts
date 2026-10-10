@@ -3,6 +3,8 @@ import path from 'node:path';
 
 import * as ts from 'typescript';
 
+import { resolveContractsCatalogImportAsync } from './capabilityCatalogContractsImport.js';
+
 type StaticValue = string | number | boolean | null | readonly StaticValue[] | StaticRecord;
 interface StaticRecord {
   readonly [key: string]: StaticValue;
@@ -25,9 +27,15 @@ class StaticCatalogResolver {
   constructor(private readonly packageRoot: string) {}
 
   /*** Resolve a named local export without importing or running its module. */
-  async resolveAsync(modulePath: string, exportName: string): Promise<StaticValue> {
+  async resolveAsync(
+    modulePath: string,
+    exportName: string,
+    moduleRoot = this.packageRoot,
+  ): Promise<StaticValue> {
     const key = `${modulePath}:${exportName}`;
-    return this.resolveSymbolAsync(key, () => this.resolveUncachedAsync(modulePath, exportName));
+    return this.resolveSymbolAsync(key, () =>
+      this.resolveUncachedAsync(modulePath, exportName, moduleRoot),
+    );
   }
 
   /*** Resolve one local symbol while detecting recursive static references. */
@@ -53,7 +61,11 @@ class StaticCatalogResolver {
   }
 
   /*** Find and evaluate the declaration owning one exported static value. */
-  async resolveUncachedAsync(modulePath: string, exportName: string): Promise<StaticValue> {
+  async resolveUncachedAsync(
+    modulePath: string,
+    exportName: string,
+    moduleRoot: string,
+  ): Promise<StaticValue> {
     const source = ts.createSourceFile(
       modulePath,
       await fs.readFile(modulePath, 'utf8'),
@@ -70,7 +82,7 @@ class StaticCatalogResolver {
       throw new Error(`Unable to find static export ${exportName} in ${modulePath}.`);
     return this.evaluateAsync(
       declaration.initializer,
-      new StaticCatalogScope(this, source, modulePath, this.packageRoot),
+      new StaticCatalogScope(this, source, modulePath, moduleRoot),
     );
   }
 
@@ -186,7 +198,7 @@ class StaticCatalogScope {
     private readonly values: ReadonlyMap<string, StaticValue> = new Map(),
   ) {}
 
-  /*** Resolve a local constant or named local import when it is referenced. */
+  /*** Resolve a local constant or an allowed named static package import. */
   async resolveAsync(name: string): Promise<StaticValue> {
     const value = this.values.get(name);
     if (value !== undefined) return value;
@@ -209,12 +221,16 @@ class StaticCatalogScope {
       (element) => !element.isTypeOnly && element.name.text === name,
     );
     if (binding === undefined) throw new Error(`Unsupported dynamic capability value: ${name}.`);
-    const importPath = await resolveImportPathAsync(
+    const resolvedImport = await resolveImportPathAsync(
       this.packageRoot,
       this.modulePath,
       imported.moduleSpecifier.text,
     );
-    return this.resolver.resolveAsync(importPath, binding.propertyName?.text ?? binding.name.text);
+    return this.resolver.resolveAsync(
+      resolvedImport.path,
+      binding.propertyName?.text ?? binding.name.text,
+      resolvedImport.packageRoot,
+    );
   }
 
   /*** Add a static callback parameter without evaluating unrelated module symbols. */
@@ -261,19 +277,34 @@ function isConstDeclaration(list: ts.VariableDeclarationList): boolean {
   return (list.flags & ts.NodeFlags.Const) !== 0;
 }
 
-/*** Resolve a local import to one source file inside the inspected package. */
+interface ResolvedStaticImport {
+  readonly packageRoot: string;
+  readonly path: string;
+}
+
+/*** Resolve an allowed static import without executing its target package. */
 async function resolveImportPathAsync(
   packageRoot: string,
   fromPath: string,
   specifier: string,
-): Promise<string> {
-  if (!specifier.startsWith('.'))
-    throw new Error('Capability catalogs may import only local static metadata.');
+): Promise<ResolvedStaticImport> {
+  if (specifier.startsWith('.'))
+    return resolveLocalImportPathAsync(packageRoot, fromPath, specifier);
+  return resolveContractsCatalogImportAsync(packageRoot, fromPath, specifier);
+}
+
+/*** Resolve a relative static import that remains within its owning package. */
+async function resolveLocalImportPathAsync(
+  packageRoot: string,
+  fromPath: string,
+  specifier: string,
+): Promise<ResolvedStaticImport> {
   const candidate = path.resolve(path.dirname(fromPath), specifier);
   if (!isInsidePackage(packageRoot, candidate) && candidate !== packageRoot)
     throw new Error('Capability catalogs may not import outside their package.');
   for (const extension of ['', '.ts', '.tsx', '.js', '.mjs', '/index.ts'])
-    if (await isFileAsync(`${candidate}${extension}`)) return `${candidate}${extension}`;
+    if (await isFileAsync(`${candidate}${extension}`))
+      return { packageRoot, path: `${candidate}${extension}` };
   throw new Error(`Unable to resolve static capability import ${specifier}.`);
 }
 
