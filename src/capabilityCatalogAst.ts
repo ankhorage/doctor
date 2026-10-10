@@ -2,6 +2,13 @@ import { promises as fs } from 'node:fs';
 
 import * as ts from 'typescript';
 
+import {
+  findImportBinding,
+  findStaticDeclaration,
+  hasExportModifier,
+  isConstDeclaration,
+  unwrapExpression,
+} from './capabilityCatalogAstSource.js';
 import { resolveImportPathAsync, resolveLocalImportPathAsync } from './capabilityCatalogImport.js';
 import {
   isStaticArray,
@@ -298,52 +305,4 @@ class StaticCatalogScope {
       new Map([...this.values, [name, value]]),
     );
   }
-}
-
-/*** Find the static top-level declaration that owns a local identifier. */
-function findStaticDeclaration(
-  source: ts.SourceFile,
-  name: string,
-): ts.VariableDeclaration | undefined {
-  return source.statements
-    .filter((statement): statement is ts.VariableStatement => ts.isVariableStatement(statement))
-    .filter((statement) => isConstDeclaration(statement.declarationList))
-    .flatMap((statement) => statement.declarationList.declarations)
-    .find((declaration) => ts.isIdentifier(declaration.name) && declaration.name.text === name);
-}
-
-/*** Find the import declaration that introduces a referenced local identifier. */
-function findImportBinding(source: ts.SourceFile, name: string): ts.ImportDeclaration | undefined {
-  return source.statements
-    .filter((statement): statement is ts.ImportDeclaration => ts.isImportDeclaration(statement))
-    .find((statement) => {
-      const clause = statement.importClause;
-      return (
-        clause?.name?.text === name ||
-        (clause?.namedBindings !== undefined &&
-          ts.isNamedImports(clause.namedBindings) &&
-          clause.namedBindings.elements.some((element) => element.name.text === name))
-      );
-    });
-}
-
-/*** Determine whether a declaration list is immutable static catalog input. */
-function isConstDeclaration(list: ts.VariableDeclarationList): boolean {
-  return (list.flags & ts.NodeFlags.Const) !== 0;
-}
-
-/*** Unwrap TypeScript syntax which does not alter a runtime value. */
-function unwrapExpression(expression: ts.Expression): ts.Expression {
-  return ts.isAsExpression(expression) ||
-    ts.isSatisfiesExpression(expression) ||
-    ts.isParenthesizedExpression(expression)
-    ? unwrapExpression(expression.expression)
-    : expression;
-}
-
-/*** Detect an exported variable statement. */
-function hasExportModifier(statement: ts.VariableStatement): boolean {
-  return (
-    statement.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword) ?? false
-  );
 }
