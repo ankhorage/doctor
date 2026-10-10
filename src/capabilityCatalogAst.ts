@@ -186,9 +186,7 @@ class StaticCatalogResolver {
         if (!isStaticArray(spread))
           throw new Error('Catalog array spreads must resolve to static arrays.');
         result.push(...spread);
-        continue;
-      }
-      result.push(await this.evaluateAsync(element, environment));
+      } else result.push(await this.evaluateAsync(element, environment));
     }
     return result;
   }
