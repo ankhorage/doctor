@@ -721,7 +721,7 @@ async function validateAnkhMetadataAndProvider(request: {
       ? catalog.path === null &&
         areCapabilityCatalogsEqual(metadataCapabilities, providerCapabilities)
       : providerCapabilities.every((providerCapability) =>
-          catalog.capabilities?.some((catalogCapability) =>
+          catalog.capabilities.some((catalogCapability) =>
             areCapabilityCatalogsEqual([providerCapability], [catalogCapability]),
           ),
         ));
