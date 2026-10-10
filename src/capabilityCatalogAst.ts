@@ -8,6 +8,7 @@ import {
   isStaticArray,
   isStaticRecord,
   readStaticArray,
+  type StaticRecord,
   type StaticValue,
 } from './capabilityCatalogStaticValue.js';
 
