@@ -34,6 +34,29 @@ export const CAPABILITIES = STATIC_EVENTS.map((event) => ({
   expect(catalogDiagnostics(result)).toEqual([]);
 });
 
+
+test('capability catalogs compose package-local static array spreads', async () => {
+  const base = createCapability('fixture.spread.base');
+  const derived = createCapability('fixture.spread.derived');
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      ankh: { category: 'fixture', provider: null, capabilities: [base, derived] },
+      exports: { './capabilities': './dist/capabilities/index.js' },
+    },
+    extraFiles: {
+      'src/metadata/events.ts': `export const EVENT_CAPABILITIES = ${JSON.stringify([derived])};\n`,
+      'src/capabilities/index.ts': `import { EVENT_CAPABILITIES } from '../metadata/events';
+
+export const CAPABILITIES = [${JSON.stringify(base)}, ...EVENT_CAPABILITIES];
+`,
+    },
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'package' });
+
+  expect(catalogDiagnostics(result)).toEqual([]);
+});
+
 test('capability catalogs reject reachable dynamic imported declarations', async () => {
   const fixture = await createDoctorFixture({
     packageJson: {

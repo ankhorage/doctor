@@ -181,7 +181,13 @@ class StaticCatalogResolver {
   ): Promise<readonly StaticValue[]> {
     const result: StaticValue[] = [];
     for (const element of elements) {
-      if (ts.isSpreadElement(element)) throw new Error('Catalog array spreads are not supported.');
+      if (ts.isSpreadElement(element)) {
+        const spread = await this.evaluateAsync(element.expression, environment);
+        if (!isStaticArray(spread))
+          throw new Error('Catalog array spreads must resolve to static arrays.');
+        result.push(...spread);
+        continue;
+      }
       result.push(await this.evaluateAsync(element, environment));
     }
     return result;

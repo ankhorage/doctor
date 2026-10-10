@@ -408,6 +408,77 @@ describe('doctor command runner', () => {
     expect(result.exitCode).toBe(0);
   });
 
+  test('provider capabilities may be an executable subset of a mixed canonical package catalog', async () => {
+    const invoked = createTestCapabilities(['doctor.validate'])[0];
+    const emitted = {
+      id: 'doctor.event',
+      owner: '@ankhorage/example',
+      access: ['emit'],
+      binding: { kind: 'event', bindableAs: ['source'] },
+    } satisfies Capability;
+    const fixture = await createDoctorFixture({
+      packageJson: {
+        ...createProviderPackageJson([]),
+        ankh: {
+          category: 'doctor',
+          provider: './dist/ankh.provider.js',
+          capabilities: [invoked, emitted],
+        },
+      },
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/capabilities/index.ts': `export const CAPABILITIES = ${JSON.stringify([invoked, emitted])};\n`,
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate'],
+          commandCapabilities: ['doctor.validate'],
+        }),
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(0);
+  });
+
+  test('provider capabilities must exist identically in the canonical package catalog', async () => {
+    const fixture = await createDoctorFixture({
+      packageJson: createProviderPackageJson(['doctor.validate']),
+      withGitDir: true,
+      withWorkflows: true,
+      withChangeset: true,
+      withReadme: true,
+      withChangelog: true,
+      withLicense: true,
+      extraFiles: {
+        'src/capabilities/index.ts': createCapabilitiesCatalogSource(['doctor.fix']),
+        'src/ankh.provider.ts': createProviderSource({
+          capabilities: ['doctor.validate'],
+          commandCapabilities: ['doctor.validate'],
+        }),
+      },
+    });
+    const captured = createCapturedCommandContext(fixture);
+
+    const result = await runDoctorCommand({
+      argv: [],
+      command: getCommand('validate'),
+      context: captured.context,
+    });
+
+    expect(result.exitCode).toBe(1);
+    expect(captured.stdout.value).toContain('package.ankh.capabilities.match-provider');
+  });
+
   test('provider catalogs may publish runtime-only capabilities outside the command surface', async () => {
     const fixture = await createDoctorFixture({
       packageJson: createProviderPackageJson(['doctor.validate', 'doctor.fix']),
