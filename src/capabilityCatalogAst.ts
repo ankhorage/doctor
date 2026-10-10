@@ -1,10 +1,8 @@
 import { promises as fs } from 'node:fs';
+
 import * as ts from 'typescript';
 
-import {
-  resolveImportPathAsync,
-  resolveLocalImportPathAsync,
-} from './capabilityCatalogImport.js';
+import { resolveImportPathAsync, resolveLocalImportPathAsync } from './capabilityCatalogImport.js';
 import {
   isStaticArray,
   isStaticRecord,
@@ -342,4 +340,3 @@ function hasExportModifier(statement: ts.VariableStatement): boolean {
     statement.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword) ?? false
   );
 }
-
