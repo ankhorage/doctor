@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.14.11",
+      "value": "v0.14.12",
       "color": "cb3837"
     },
     {
@@ -364,10 +364,24 @@
       "path": "src/capabilityCatalogAst.ts",
       "isEntrypoint": false,
       "dependencies": [
-        "src/capabilityCatalogContractsImport.ts"
+        "src/capabilityCatalogAstSource.ts",
+        "src/capabilityCatalogImport.ts",
+        "src/capabilityCatalogStaticValue.ts"
       ],
       "exports": [
         "capabilityCatalogAstAsync"
+      ]
+    },
+    {
+      "path": "src/capabilityCatalogAstSource.ts",
+      "isEntrypoint": false,
+      "dependencies": [],
+      "exports": [
+        "findImportBinding",
+        "findStaticDeclaration",
+        "hasExportModifier",
+        "isConstDeclaration",
+        "unwrapExpression"
       ]
     },
     {
@@ -384,6 +398,31 @@
       "dependencies": [],
       "exports": [
         "capabilityCatalogExports"
+      ]
+    },
+    {
+      "path": "src/capabilityCatalogImport.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/capabilityCatalogContractsImport.ts"
+      ],
+      "exports": [
+        "ResolvedStaticImport",
+        "resolveImportPathAsync",
+        "resolveLocalImportPathAsync"
+      ]
+    },
+    {
+      "path": "src/capabilityCatalogStaticValue.ts",
+      "isEntrypoint": false,
+      "dependencies": [],
+      "exports": [
+        "isStaticArray",
+        "isStaticRecord",
+        "readStaticArray",
+        "readStaticProperty",
+        "StaticRecord",
+        "StaticValue"
       ]
     },
     {
@@ -2089,7 +2128,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 87,
+        "line": 88,
         "column": 1
       }
     },
@@ -2100,7 +2139,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 234,
+        "line": 235,
         "column": 1
       }
     },
@@ -2111,7 +2150,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 316,
+        "line": 317,
         "column": 1
       }
     },
@@ -2122,7 +2161,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 532,
+        "line": 533,
         "column": 1
       }
     },
@@ -2133,7 +2172,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 561,
+        "line": 562,
         "column": 1
       }
     },
@@ -2144,7 +2183,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 765,
+        "line": 782,
         "column": 1
       }
     },
@@ -2155,7 +2194,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 854,
+        "line": 873,
         "column": 1
       }
     },
@@ -2166,7 +2205,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 882,
+        "line": 901,
         "column": 1
       }
     },
@@ -2177,7 +2216,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 892,
+        "line": 911,
         "column": 1
       }
     },
@@ -2188,7 +2227,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 934,
+        "line": 953,
         "column": 1
       }
     },
@@ -2199,7 +2238,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 955,
+        "line": 974,
         "column": 1
       }
     },
@@ -2210,7 +2249,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 966,
+        "line": 985,
         "column": 1
       }
     },
@@ -2221,7 +2260,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 996,
+        "line": 1015,
         "column": 1
       }
     },
@@ -2232,7 +2271,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1033,
+        "line": 1052,
         "column": 1
       }
     },
@@ -2243,7 +2282,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1056,
+        "line": 1075,
         "column": 1
       }
     },
@@ -2254,7 +2293,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1079,
+        "line": 1098,
         "column": 1
       }
     },
@@ -2265,7 +2304,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1102,
+        "line": 1121,
         "column": 1
       }
     },
@@ -2276,7 +2315,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1121,
+        "line": 1140,
         "column": 1
       }
     },
@@ -2287,7 +2326,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1136,
+        "line": 1155,
         "column": 1
       }
     },
@@ -2298,7 +2337,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1143,
+        "line": 1162,
         "column": 1
       }
     },
@@ -2309,7 +2348,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1186,
+        "line": 1205,
         "column": 1
       }
     },
@@ -2320,7 +2359,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1200,
+        "line": 1219,
         "column": 1
       }
     },
@@ -2331,7 +2370,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1205,
+        "line": 1224,
         "column": 1
       }
     },
@@ -2342,7 +2381,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1209,
+        "line": 1228,
         "column": 1
       }
     },
@@ -2353,7 +2392,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1216,
+        "line": 1235,
         "column": 1
       }
     },
@@ -2364,7 +2403,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1221,
+        "line": 1240,
         "column": 1
       }
     },
@@ -2375,7 +2414,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1225,
+        "line": 1244,
         "column": 1
       }
     },
@@ -2386,7 +2425,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1237,
+        "line": 1256,
         "column": 1
       }
     },
@@ -2397,7 +2436,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1246,
+        "line": 1265,
         "column": 1
       }
     },
@@ -2408,7 +2447,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1250,
+        "line": 1269,
         "column": 1
       }
     },
@@ -2419,7 +2458,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1254,
+        "line": 1273,
         "column": 1
       }
     },
@@ -2430,7 +2469,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1258,
+        "line": 1277,
         "column": 1
       }
     },
@@ -2441,7 +2480,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1262,
+        "line": 1281,
         "column": 1
       }
     },
@@ -2452,7 +2491,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1267,
+        "line": 1286,
         "column": 1
       }
     },
@@ -2463,7 +2502,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1271,
+        "line": 1290,
         "column": 1
       }
     },
@@ -2837,7 +2876,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalog.ts",
-        "line": 43,
+        "line": 49,
         "column": 1
       }
     },
@@ -2848,7 +2887,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/capabilityCatalogAst.ts",
-        "line": 14,
+        "line": 23,
         "column": 1
       }
     },
@@ -2858,8 +2897,8 @@
       "see": [],
       "security": [],
       "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 249,
+        "filePath": "src/capabilityCatalogAstSource.ts",
+        "line": 4,
         "column": 1
       }
     },
@@ -2869,8 +2908,8 @@
       "see": [],
       "security": [],
       "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 261,
+        "filePath": "src/capabilityCatalogAstSource.ts",
+        "line": 16,
         "column": 1
       }
     },
@@ -2880,30 +2919,8 @@
       "see": [],
       "security": [],
       "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 276,
-        "column": 1
-      }
-    },
-    {
-      "name": "resolveImportPathAsync",
-      "description": "Resolve an allowed static import without executing its target package.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 286,
-        "column": 1
-      }
-    },
-    {
-      "name": "resolveLocalImportPathAsync",
-      "description": "Resolve a relative static import that remains within its owning package.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 297,
+        "filePath": "src/capabilityCatalogAstSource.ts",
+        "line": 34,
         "column": 1
       }
     },
@@ -2913,30 +2930,8 @@
       "see": [],
       "security": [],
       "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 312,
-        "column": 1
-      }
-    },
-    {
-      "name": "isStaticRecord",
-      "description": "Narrow a static value to a descriptor-shaped record.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 321,
-        "column": 1
-      }
-    },
-    {
-      "name": "isStaticArray",
-      "description": "Narrow a static value to an array.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 326,
+        "filePath": "src/capabilityCatalogAstSource.ts",
+        "line": 39,
         "column": 1
       }
     },
@@ -2946,30 +2941,8 @@
       "see": [],
       "security": [],
       "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 331,
-        "column": 1
-      }
-    },
-    {
-      "name": "isInsidePackage",
-      "description": "Check whether a resolved path remains within the inspected package root.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 338,
-        "column": 1
-      }
-    },
-    {
-      "name": "isFileAsync",
-      "description": "Check whether one candidate is a regular file.",
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/capabilityCatalogAst.ts",
-        "line": 344,
+        "filePath": "src/capabilityCatalogAstSource.ts",
+        "line": 48,
         "column": 1
       }
     },
@@ -3113,6 +3086,105 @@
       "sourceLocation": {
         "filePath": "src/capabilityCatalogExports.ts",
         "line": 51,
+        "column": 1
+      }
+    },
+    {
+      "name": "resolveImportPathAsync",
+      "description": "Resolve an allowed static import without executing its target package.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogImport.ts",
+        "line": 12,
+        "column": 1
+      }
+    },
+    {
+      "name": "resolveLocalImportPathAsync",
+      "description": "Resolve a relative static import that remains within its owning package.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogImport.ts",
+        "line": 23,
+        "column": 1
+      }
+    },
+    {
+      "name": "isInsidePackage",
+      "description": "Check whether a resolved path remains within the inspected package root.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogImport.ts",
+        "line": 38,
+        "column": 1
+      }
+    },
+    {
+      "name": "isFileAsync",
+      "description": "Check whether one candidate is a regular file.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogImport.ts",
+        "line": 44,
+        "column": 1
+      }
+    },
+    {
+      "name": "isStaticRecord",
+      "description": "Narrow a static value to a descriptor-shaped record.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogStaticValue.ts",
+        "line": 8,
+        "column": 1
+      }
+    },
+    {
+      "name": "isStaticArray",
+      "description": "Narrow a static value to an array.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogStaticValue.ts",
+        "line": 13,
+        "column": 1
+      }
+    },
+    {
+      "name": "readStaticProperty",
+      "description": "Read one property from a statically resolved object.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogStaticValue.ts",
+        "line": 18,
+        "column": 1
+      }
+    },
+    {
+      "name": "readStaticArray",
+      "description": "Read one JSON-compatible array as static catalog materialization input.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogStaticValue.ts",
+        "line": 32,
+        "column": 1
+      }
+    },
+    {
+      "name": "isStaticValue",
+      "description": "Narrow untrusted JSON-compatible input to the static evaluator value model.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/capabilityCatalogStaticValue.ts",
+        "line": 37,
         "column": 1
       }
     },
@@ -4323,8 +4395,23 @@
       },
       {
         "fromPath": "src/capabilityCatalogAst.ts",
-        "toPath": "src/capabilityCatalogContractsImport.ts",
+        "toPath": "src/capabilityCatalogAstSource.ts",
         "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromPath": "src/capabilityCatalogAst.ts",
+        "toPath": "src/capabilityCatalogImport.ts",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromPath": "src/capabilityCatalogAst.ts",
+        "toPath": "src/capabilityCatalogStaticValue.ts",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromPath": "src/capabilityCatalogImport.ts",
+        "toPath": "src/capabilityCatalogContractsImport.ts",
+        "sourcePath": "src/capabilityCatalogImport.ts"
       },
       {
         "fromPath": "src/cliLayoutAnalysis.ts",
@@ -5005,6 +5092,12 @@
         "sourcePath": "src/analysis.ts"
       },
       {
+        "fromSymbol": "src/analysis.ts",
+        "toSymbol": "areCapabilityCatalogsEqual",
+        "callExpression": "areCapabilityCatalogsEqual",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
         "fromSymbol": "validateAnkhMetadataAndProvider",
         "toSymbol": "sameStringSet",
         "callExpression": "sameStringSet",
@@ -5032,6 +5125,12 @@
         "fromSymbol": "inspectProviderSource",
         "toSymbol": "isRecord",
         "callExpression": "isRecord",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "inspectProviderSource",
+        "toSymbol": "isCapabilityCatalog",
+        "callExpression": "isCapabilityCatalog",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -5571,7 +5670,13 @@
       {
         "fromSymbol": "capabilityCatalogAstAsync",
         "toSymbol": "resolveAsync",
-        "callExpression": "new StaticCatalogResolver(packageRoot).resolveAsync",
+        "callExpression": "new StaticCatalogResolver(packageRoot, materializedCatalog).resolveAsync",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "StaticCatalogResolver",
+        "toSymbol": "readStaticArray",
+        "callExpression": "readStaticArray",
         "sourcePath": "src/capabilityCatalogAst.ts"
       },
       {
@@ -5618,6 +5723,12 @@
       },
       {
         "fromSymbol": "evaluateAsync",
+        "toSymbol": "propertyAccessAsync",
+        "callExpression": "this.propertyAccessAsync",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "evaluateAsync",
         "toSymbol": "arrayAsync",
         "callExpression": "this.arrayAsync",
         "sourcePath": "src/capabilityCatalogAst.ts"
@@ -5638,6 +5749,18 @@
         "fromSymbol": "evaluateAsync",
         "toSymbol": "mapAsync",
         "callExpression": "this.mapAsync",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "propertyAccessAsync",
+        "toSymbol": "readStaticProperty",
+        "callExpression": "readStaticProperty",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "propertyAccessAsync",
+        "toSymbol": "evaluateAsync",
+        "callExpression": "this.evaluateAsync",
         "sourcePath": "src/capabilityCatalogAst.ts"
       },
       {
@@ -5690,8 +5813,20 @@
       },
       {
         "fromSymbol": "evaluateElementsAsync",
+        "toSymbol": "isPackageLocalDerivedCallAsync",
+        "callExpression": "environment.isPackageLocalDerivedCallAsync",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "evaluateElementsAsync",
         "toSymbol": "evaluateAsync",
         "callExpression": "this.evaluateAsync",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "evaluateElementsAsync",
+        "toSymbol": "isStaticArray",
+        "callExpression": "isStaticArray",
         "sourcePath": "src/capabilityCatalogAst.ts"
       },
       {
@@ -5731,34 +5866,34 @@
         "sourcePath": "src/capabilityCatalogAst.ts"
       },
       {
-        "fromSymbol": "resolveImportPathAsync",
+        "fromSymbol": "isPackageLocalDerivedCallAsync",
+        "toSymbol": "unwrapExpression",
+        "callExpression": "unwrapExpression",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "isPackageLocalDerivedCallAsync",
+        "toSymbol": "findImportBinding",
+        "callExpression": "findImportBinding",
+        "sourcePath": "src/capabilityCatalogAst.ts"
+      },
+      {
+        "fromSymbol": "isPackageLocalDerivedCallAsync",
         "toSymbol": "resolveLocalImportPathAsync",
         "callExpression": "resolveLocalImportPathAsync",
         "sourcePath": "src/capabilityCatalogAst.ts"
       },
       {
-        "fromSymbol": "resolveImportPathAsync",
-        "toSymbol": "resolveContractsCatalogImportAsync",
-        "callExpression": "resolveContractsCatalogImportAsync",
-        "sourcePath": "src/capabilityCatalogAst.ts"
-      },
-      {
-        "fromSymbol": "resolveLocalImportPathAsync",
-        "toSymbol": "isInsidePackage",
-        "callExpression": "isInsidePackage",
-        "sourcePath": "src/capabilityCatalogAst.ts"
-      },
-      {
-        "fromSymbol": "resolveLocalImportPathAsync",
-        "toSymbol": "isFileAsync",
-        "callExpression": "isFileAsync",
-        "sourcePath": "src/capabilityCatalogAst.ts"
+        "fromSymbol": "src/capabilityCatalogAstSource.ts",
+        "toSymbol": "isConstDeclaration",
+        "callExpression": "isConstDeclaration",
+        "sourcePath": "src/capabilityCatalogAstSource.ts"
       },
       {
         "fromSymbol": "unwrapExpression",
         "toSymbol": "unwrapExpression",
         "callExpression": "unwrapExpression",
-        "sourcePath": "src/capabilityCatalogAst.ts"
+        "sourcePath": "src/capabilityCatalogAstSource.ts"
       },
       {
         "fromSymbol": "resolveContractsCatalogImportAsync",
@@ -5867,6 +6002,36 @@
         "toSymbol": "readCapabilityExportTarget",
         "callExpression": "readCapabilityExportTarget",
         "sourcePath": "src/capabilityCatalogExports.ts"
+      },
+      {
+        "fromSymbol": "resolveImportPathAsync",
+        "toSymbol": "resolveLocalImportPathAsync",
+        "callExpression": "resolveLocalImportPathAsync",
+        "sourcePath": "src/capabilityCatalogImport.ts"
+      },
+      {
+        "fromSymbol": "resolveImportPathAsync",
+        "toSymbol": "resolveContractsCatalogImportAsync",
+        "callExpression": "resolveContractsCatalogImportAsync",
+        "sourcePath": "src/capabilityCatalogImport.ts"
+      },
+      {
+        "fromSymbol": "resolveLocalImportPathAsync",
+        "toSymbol": "isInsidePackage",
+        "callExpression": "isInsidePackage",
+        "sourcePath": "src/capabilityCatalogImport.ts"
+      },
+      {
+        "fromSymbol": "resolveLocalImportPathAsync",
+        "toSymbol": "isFileAsync",
+        "callExpression": "isFileAsync",
+        "sourcePath": "src/capabilityCatalogImport.ts"
+      },
+      {
+        "fromSymbol": "readStaticProperty",
+        "toSymbol": "isStaticRecord",
+        "callExpression": "isStaticRecord",
+        "sourcePath": "src/capabilityCatalogStaticValue.ts"
       },
       {
         "fromSymbol": "analyzeDoctorTargetWithCliLayout",
@@ -6808,6 +6973,24 @@
         "fromSymbol": "tests/capabilityCatalogAst.test.ts",
         "toSymbol": "catalogDiagnostics",
         "callExpression": "catalogDiagnostics",
+        "sourcePath": "tests/capabilityCatalogAst.test.ts"
+      },
+      {
+        "fromSymbol": "tests/capabilityCatalogAst.test.ts",
+        "toSymbol": "createContractsStorageSchemaFixture",
+        "callExpression": "createContractsStorageSchemaFixture",
+        "sourcePath": "tests/capabilityCatalogAst.test.ts"
+      },
+      {
+        "fromSymbol": "createContractsStorageSchemaFixture",
+        "toSymbol": "createCapability",
+        "callExpression": "createCapability",
+        "sourcePath": "tests/capabilityCatalogAst.test.ts"
+      },
+      {
+        "fromSymbol": "createContractsStorageSchemaFixture",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
         "sourcePath": "tests/capabilityCatalogAst.test.ts"
       },
       {

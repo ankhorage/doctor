@@ -209,7 +209,12 @@
   </li><li>
     <button class="nav-button" type="button" data-target="src/capabilityCatalogAst.ts">
       src/capabilityCatalogAst.ts
-      <small>12 functions</small>
+      <small>1 function</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/capabilityCatalogAstSource.ts">
+      src/capabilityCatalogAstSource.ts
+      <small>5 functions</small>
     </button>
   </li><li>
     <button class="nav-button" type="button" data-target="src/capabilityCatalogContractsImport.ts">
@@ -219,6 +224,16 @@
   </li><li>
     <button class="nav-button" type="button" data-target="src/capabilityCatalogExports.ts">
       src/capabilityCatalogExports.ts
+      <small>5 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/capabilityCatalogImport.ts">
+      src/capabilityCatalogImport.ts
+      <small>4 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/capabilityCatalogStaticValue.ts">
+      src/capabilityCatalogStaticValue.ts
       <small>5 functions</small>
     </button>
   </li><li>
@@ -293,7 +308,7 @@
       <div class="summary">
         <div><strong>33</strong><span class="muted">public exports</span></div>
         <div><strong>0</strong><span class="muted">components</span></div>
-        <div><strong>59</strong><span class="muted">modules</span></div>
+        <div><strong>62</strong><span class="muted">modules</span></div>
         <div><strong>1</strong><span class="muted">entrypoints</span></div>
       </div>
       <h3>Entrypoints</h3>
@@ -452,11 +467,16 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/capabilityCatalogAst.ts</code>, <code>src/capabilityCatalogExports.ts</code></p>
     <p><strong>Exports:</strong> <code>readCapabilityCatalogAsync</code></p>
-  </article><article class="item" data-search="src/capabilityCatalogAst.ts src/capabilityCatalogContractsImport.ts capabilityCatalogAstAsync">
+  </article><article class="item" data-search="src/capabilityCatalogAst.ts src/capabilityCatalogAstSource.ts src/capabilityCatalogImport.ts src/capabilityCatalogStaticValue.ts capabilityCatalogAstAsync">
     <h3>src/capabilityCatalogAst.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>src/capabilityCatalogContractsImport.ts</code></p>
+    <p><strong>Dependencies:</strong> <code>src/capabilityCatalogAstSource.ts</code>, <code>src/capabilityCatalogImport.ts</code>, <code>src/capabilityCatalogStaticValue.ts</code></p>
     <p><strong>Exports:</strong> <code>capabilityCatalogAstAsync</code></p>
+  </article><article class="item" data-search="src/capabilityCatalogAstSource.ts findImportBinding findStaticDeclaration hasExportModifier isConstDeclaration unwrapExpression">
+    <h3>src/capabilityCatalogAstSource.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
+    <p><strong>Exports:</strong> <code>findImportBinding</code>, <code>findStaticDeclaration</code>, <code>hasExportModifier</code>, <code>isConstDeclaration</code>, <code>unwrapExpression</code></p>
   </article><article class="item" data-search="src/capabilityCatalogContractsImport.ts resolveContractsCatalogImportAsync">
     <h3>src/capabilityCatalogContractsImport.ts</h3>
     <p class="muted">Referenced module</p>
@@ -467,6 +487,16 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
     <p><strong>Exports:</strong> <code>capabilityCatalogExports</code></p>
+  </article><article class="item" data-search="src/capabilityCatalogImport.ts src/capabilityCatalogContractsImport.ts ResolvedStaticImport resolveImportPathAsync resolveLocalImportPathAsync">
+    <h3>src/capabilityCatalogImport.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/capabilityCatalogContractsImport.ts</code></p>
+    <p><strong>Exports:</strong> <code>ResolvedStaticImport</code>, <code>resolveImportPathAsync</code>, <code>resolveLocalImportPathAsync</code></p>
+  </article><article class="item" data-search="src/capabilityCatalogStaticValue.ts isStaticArray isStaticRecord readStaticArray readStaticProperty StaticRecord StaticValue">
+    <h3>src/capabilityCatalogStaticValue.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
+    <p><strong>Exports:</strong> <code>isStaticArray</code>, <code>isStaticRecord</code>, <code>readStaticArray</code>, <code>readStaticProperty</code>, <code>StaticRecord</code>, <code>StaticValue</code></p>
   </article><article class="item" data-search="src/cli/index.ts src/capabilities/index.ts src/commands.ts src/dependencyPolicyAnalysis.ts src/packageMetadata.ts createDoctorRuntimeProvider CreateDoctorRuntimeProviderOptions default">
     <h3>src/cli/index.ts</h3>
     <p class="muted">Referenced module</p>
@@ -1612,11 +1642,20 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogExports_ts
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogAst_ts
-  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogAstSource_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogImport_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogStaticValue_ts
+  module_src_capabilityCatalogAstSource_ts[&quot;src/capabilityCatalogAstSource.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogAstSource_ts
   module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogContractsImport_ts
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogExports_ts
+  module_src_capabilityCatalogImport_ts[&quot;src/capabilityCatalogImport.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogImport_ts
+  module_src_capabilityCatalogImport_ts --&gt; module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogStaticValue_ts[&quot;src/capabilityCatalogStaticValue.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogStaticValue_ts
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_cli_index_ts
   module_src_cli_index_ts --&gt; module_src_capabilities_index_ts
@@ -1859,11 +1898,20 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogExports_ts
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogAst_ts
-  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogAstSource_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogImport_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogStaticValue_ts
+  module_src_capabilityCatalogAstSource_ts[&quot;src/capabilityCatalogAstSource.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogAstSource_ts
   module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogContractsImport_ts
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogExports_ts
+  module_src_capabilityCatalogImport_ts[&quot;src/capabilityCatalogImport.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogImport_ts
+  module_src_capabilityCatalogImport_ts --&gt; module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogStaticValue_ts[&quot;src/capabilityCatalogStaticValue.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_capabilityCatalogStaticValue_ts
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_cli_index_ts
   module_src_cli_index_ts --&gt; module_src_capabilities_index_ts
@@ -2043,8 +2091,11 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilities_index_ts[&quot;src/capabilities/index.ts&quot;]
   module_src_capabilityCatalog_ts[&quot;src/capabilityCatalog.ts&quot;]
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
+  module_src_capabilityCatalogAstSource_ts[&quot;src/capabilityCatalogAstSource.ts&quot;]
   module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
+  module_src_capabilityCatalogImport_ts[&quot;src/capabilityCatalogImport.ts&quot;]
+  module_src_capabilityCatalogStaticValue_ts[&quot;src/capabilityCatalogStaticValue.ts&quot;]
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
@@ -2124,7 +2175,10 @@ surfaces when only one policy area should be inspected.</p>
   module_src_bunPolicyAnalysis_ts --&gt; module_src_utils_getRepositoryRule_ts
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogAst_ts
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogExports_ts
-  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogAstSource_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogImport_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogStaticValue_ts
+  module_src_capabilityCatalogImport_ts --&gt; module_src_capabilityCatalogContractsImport_ts
   module_src_cli_index_ts --&gt; module_src_capabilities_index_ts
   module_src_cli_index_ts --&gt; module_src_commands_ts
   module_src_cli_index_ts --&gt; module_src_dependencyPolicyAnalysis_ts
@@ -2229,8 +2283,11 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilities_index_ts[&quot;src/capabilities/index.ts&quot;]
   module_src_capabilityCatalog_ts[&quot;src/capabilityCatalog.ts&quot;]
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
+  module_src_capabilityCatalogAstSource_ts[&quot;src/capabilityCatalogAstSource.ts&quot;]
   module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
+  module_src_capabilityCatalogImport_ts[&quot;src/capabilityCatalogImport.ts&quot;]
+  module_src_capabilityCatalogStaticValue_ts[&quot;src/capabilityCatalogStaticValue.ts&quot;]
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
@@ -2310,7 +2367,10 @@ surfaces when only one policy area should be inspected.</p>
   module_src_bunPolicyAnalysis_ts --&gt; module_src_utils_getRepositoryRule_ts
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogAst_ts
   module_src_capabilityCatalog_ts --&gt; module_src_capabilityCatalogExports_ts
-  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogAstSource_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogImport_ts
+  module_src_capabilityCatalogAst_ts --&gt; module_src_capabilityCatalogStaticValue_ts
+  module_src_capabilityCatalogImport_ts --&gt; module_src_capabilityCatalogContractsImport_ts
   module_src_cli_index_ts --&gt; module_src_capabilities_index_ts
   module_src_cli_index_ts --&gt; module_src_commands_ts
   module_src_cli_index_ts --&gt; module_src_dependencyPolicyAnalysis_ts
@@ -2417,8 +2477,11 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilities_index_ts[&quot;src/capabilities/index.ts&quot;]
   module_src_capabilityCatalog_ts[&quot;src/capabilityCatalog.ts&quot;]
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
+  module_src_capabilityCatalogAstSource_ts[&quot;src/capabilityCatalogAstSource.ts&quot;]
   module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
+  module_src_capabilityCatalogImport_ts[&quot;src/capabilityCatalogImport.ts&quot;]
+  module_src_capabilityCatalogStaticValue_ts[&quot;src/capabilityCatalogStaticValue.ts&quot;]
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
@@ -2578,8 +2641,11 @@ surfaces when only one policy area should be inspected.</p>
   module_src_capabilities_index_ts[&quot;src/capabilities/index.ts&quot;]
   module_src_capabilityCatalog_ts[&quot;src/capabilityCatalog.ts&quot;]
   module_src_capabilityCatalogAst_ts[&quot;src/capabilityCatalogAst.ts&quot;]
+  module_src_capabilityCatalogAstSource_ts[&quot;src/capabilityCatalogAstSource.ts&quot;]
   module_src_capabilityCatalogContractsImport_ts[&quot;src/capabilityCatalogContractsImport.ts&quot;]
   module_src_capabilityCatalogExports_ts[&quot;src/capabilityCatalogExports.ts&quot;]
+  module_src_capabilityCatalogImport_ts[&quot;src/capabilityCatalogImport.ts&quot;]
+  module_src_capabilityCatalogStaticValue_ts[&quot;src/capabilityCatalogStaticValue.ts&quot;]
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
@@ -2809,177 +2875,177 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/analysis.ts</h2>
       <article class="item" data-search="analyzeDoctorTarget src/analysis.ts ">
     <h3>analyzeDoctorTarget</h3>
-    <p class="muted"><code>src/analysis.ts:87:1</code></p>
+    <p class="muted"><code>src/analysis.ts:88:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="analyzeRepoPolicy src/analysis.ts ">
     <h3>analyzeRepoPolicy</h3>
-    <p class="muted"><code>src/analysis.ts:234:1</code></p>
+    <p class="muted"><code>src/analysis.ts:235:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="analyzePackagePolicy src/analysis.ts ">
     <h3>analyzePackagePolicy</h3>
-    <p class="muted"><code>src/analysis.ts:316:1</code></p>
+    <p class="muted"><code>src/analysis.ts:317:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createChangesetsDependencyDiagnostic src/analysis.ts ">
     <h3>createChangesetsDependencyDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:532:1</code></p>
+    <p class="muted"><code>src/analysis.ts:533:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateAnkhMetadataAndProvider src/analysis.ts ">
     <h3>validateAnkhMetadataAndProvider</h3>
-    <p class="muted"><code>src/analysis.ts:561:1</code></p>
+    <p class="muted"><code>src/analysis.ts:562:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="inspectProviderSource src/analysis.ts ">
     <h3>inspectProviderSource</h3>
-    <p class="muted"><code>src/analysis.ts:765:1</code></p>
+    <p class="muted"><code>src/analysis.ts:782:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="resolveProviderSourcePath src/analysis.ts ">
     <h3>resolveProviderSourcePath</h3>
-    <p class="muted"><code>src/analysis.ts:854:1</code></p>
+    <p class="muted"><code>src/analysis.ts:873:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="findRepoMarkers src/analysis.ts ">
     <h3>findRepoMarkers</h3>
-    <p class="muted"><code>src/analysis.ts:882:1</code></p>
+    <p class="muted"><code>src/analysis.ts:901:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readPackageJson src/analysis.ts ">
     <h3>readPackageJson</h3>
-    <p class="muted"><code>src/analysis.ts:892:1</code></p>
+    <p class="muted"><code>src/analysis.ts:911:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="detectProfile src/analysis.ts ">
     <h3>detectProfile</h3>
-    <p class="muted"><code>src/analysis.ts:934:1</code></p>
+    <p class="muted"><code>src/analysis.ts:953:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isProviderPackage src/analysis.ts ">
     <h3>isProviderPackage</h3>
-    <p class="muted"><code>src/analysis.ts:955:1</code></p>
+    <p class="muted"><code>src/analysis.ts:974:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requirePublicPackageFields src/analysis.ts Validate every generic public-package metadata field from canonical Policy.">
     <h3>requirePublicPackageFields</h3>
-    <p class="muted"><code>src/analysis.ts:966:1</code></p>
+    <p class="muted"><code>src/analysis.ts:985:1</code></p>
     <p>Validate every generic public-package metadata field from canonical Policy.</p>
     
   </article><article class="item" data-search="maybeRequirePath src/analysis.ts ">
     <h3>maybeRequirePath</h3>
-    <p class="muted"><code>src/analysis.ts:996:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1015:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireNonEmptyStringField src/analysis.ts ">
     <h3>requireNonEmptyStringField</h3>
-    <p class="muted"><code>src/analysis.ts:1033:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1052:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireRecordField src/analysis.ts ">
     <h3>requireRecordField</h3>
-    <p class="muted"><code>src/analysis.ts:1056:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1075:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireStringArrayField src/analysis.ts ">
     <h3>requireStringArrayField</h3>
-    <p class="muted"><code>src/analysis.ts:1079:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1098:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="expectsParadox src/analysis.ts ">
     <h3>expectsParadox</h3>
-    <p class="muted"><code>src/analysis.ts:1102:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1121:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="expectsDevtools src/analysis.ts ">
     <h3>expectsDevtools</h3>
-    <p class="muted"><code>src/analysis.ts:1121:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1140:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="hasDependency src/analysis.ts ">
     <h3>hasDependency</h3>
-    <p class="muted"><code>src/analysis.ts:1136:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1155:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateAnkhMetadataShape src/analysis.ts ">
     <h3>validateAnkhMetadataShape</h3>
-    <p class="muted"><code>src/analysis.ts:1143:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1162:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createEarlyResult src/analysis.ts ">
     <h3>createEarlyResult</h3>
-    <p class="muted"><code>src/analysis.ts:1186:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1205:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="repositoryRuleFields src/analysis.ts Return canonical rule id and severity from the repository Rules provider.">
     <h3>repositoryRuleFields</h3>
-    <p class="muted"><code>src/analysis.ts:1200:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1219:1</code></p>
     <p>Return canonical rule id and severity from the repository Rules provider.</p>
     
   </article><article class="item" data-search="createDiagnostic src/analysis.ts ">
     <h3>createDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:1205:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1224:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createPlannedChange src/analysis.ts ">
     <h3>createPlannedChange</h3>
-    <p class="muted"><code>src/analysis.ts:1209:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1228:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createInvalidPackageJsonMessage src/analysis.ts ">
     <h3>createInvalidPackageJsonMessage</h3>
-    <p class="muted"><code>src/analysis.ts:1216:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1235:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="pathExists src/analysis.ts ">
     <h3>pathExists</h3>
-    <p class="muted"><code>src/analysis.ts:1221:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1240:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="statOrNull src/analysis.ts ">
     <h3>statOrNull</h3>
-    <p class="muted"><code>src/analysis.ts:1225:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1244:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isMissingPathError src/analysis.ts ">
     <h3>isMissingPathError</h3>
-    <p class="muted"><code>src/analysis.ts:1237:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1256:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isNonEmptyString src/analysis.ts ">
     <h3>isNonEmptyString</h3>
-    <p class="muted"><code>src/analysis.ts:1246:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1265:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isPackageRelativeProviderPath src/analysis.ts ">
     <h3>isPackageRelativeProviderPath</h3>
-    <p class="muted"><code>src/analysis.ts:1250:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1269:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isRecord src/analysis.ts ">
     <h3>isRecord</h3>
-    <p class="muted"><code>src/analysis.ts:1254:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1273:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isStringTuple src/analysis.ts ">
     <h3>isStringTuple</h3>
-    <p class="muted"><code>src/analysis.ts:1258:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1277:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readStringArray src/analysis.ts ">
     <h3>readStringArray</h3>
-    <p class="muted"><code>src/analysis.ts:1262:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1281:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readCapabilities src/analysis.ts Read and normalize canonical Capability descriptors from untrusted metadata.">
     <h3>readCapabilities</h3>
-    <p class="muted"><code>src/analysis.ts:1267:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1286:1</code></p>
     <p>Read and normalize canonical Capability descriptors from untrusted metadata.</p>
     
   </article><article class="item" data-search="sameStringSet src/analysis.ts ">
     <h3>sameStringSet</h3>
-    <p class="muted"><code>src/analysis.ts:1271:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1290:1</code></p>
     <p class="empty">No description available.</p>
     
   </article>
@@ -3224,7 +3290,7 @@ surfaces when only one policy area should be inspected.</p>
     
   </article><article class="item" data-search="isFileAsync src/capabilityCatalog.ts Check whether one candidate is a regular file.">
     <h3>isFileAsync</h3>
-    <p class="muted"><code>src/capabilityCatalog.ts:43:1</code></p>
+    <p class="muted"><code>src/capabilityCatalog.ts:49:1</code></p>
     <p>Check whether one candidate is a regular file.</p>
     
   </article>
@@ -3234,63 +3300,38 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/capabilityCatalogAst.ts</h2>
       <article class="item" data-search="capabilityCatalogAstAsync src/capabilityCatalogAst.ts Evaluate one named catalog export from the supported static TypeScript subset.">
     <h3>capabilityCatalogAstAsync</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:14:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAst.ts:23:1</code></p>
     <p>Evaluate one named catalog export from the supported static TypeScript subset.</p>
     
-  </article><article class="item" data-search="findStaticDeclaration src/capabilityCatalogAst.ts Find the static top-level declaration that owns a local identifier.">
+  </article>
+    </section>
+  </section><section id="view-src-capabilitycatalogastsource-ts" class="view" data-view="src/capabilityCatalogAstSource.ts" hidden>
+    <section class="panel">
+      <h2>src/capabilityCatalogAstSource.ts</h2>
+      <article class="item" data-search="findStaticDeclaration src/capabilityCatalogAstSource.ts Find the static top-level declaration that owns a local identifier.">
     <h3>findStaticDeclaration</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:249:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAstSource.ts:4:1</code></p>
     <p>Find the static top-level declaration that owns a local identifier.</p>
     
-  </article><article class="item" data-search="findImportBinding src/capabilityCatalogAst.ts Find the import declaration that introduces a referenced local identifier.">
+  </article><article class="item" data-search="findImportBinding src/capabilityCatalogAstSource.ts Find the import declaration that introduces a referenced local identifier.">
     <h3>findImportBinding</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:261:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAstSource.ts:16:1</code></p>
     <p>Find the import declaration that introduces a referenced local identifier.</p>
     
-  </article><article class="item" data-search="isConstDeclaration src/capabilityCatalogAst.ts Determine whether a declaration list is immutable static catalog input.">
+  </article><article class="item" data-search="isConstDeclaration src/capabilityCatalogAstSource.ts Determine whether a declaration list is immutable static catalog input.">
     <h3>isConstDeclaration</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:276:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAstSource.ts:34:1</code></p>
     <p>Determine whether a declaration list is immutable static catalog input.</p>
     
-  </article><article class="item" data-search="resolveImportPathAsync src/capabilityCatalogAst.ts Resolve an allowed static import without executing its target package.">
-    <h3>resolveImportPathAsync</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:286:1</code></p>
-    <p>Resolve an allowed static import without executing its target package.</p>
-    
-  </article><article class="item" data-search="resolveLocalImportPathAsync src/capabilityCatalogAst.ts Resolve a relative static import that remains within its owning package.">
-    <h3>resolveLocalImportPathAsync</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:297:1</code></p>
-    <p>Resolve a relative static import that remains within its owning package.</p>
-    
-  </article><article class="item" data-search="unwrapExpression src/capabilityCatalogAst.ts Unwrap TypeScript syntax which does not alter a runtime value.">
+  </article><article class="item" data-search="unwrapExpression src/capabilityCatalogAstSource.ts Unwrap TypeScript syntax which does not alter a runtime value.">
     <h3>unwrapExpression</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:312:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAstSource.ts:39:1</code></p>
     <p>Unwrap TypeScript syntax which does not alter a runtime value.</p>
     
-  </article><article class="item" data-search="isStaticRecord src/capabilityCatalogAst.ts Narrow a static value to a descriptor-shaped record.">
-    <h3>isStaticRecord</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:321:1</code></p>
-    <p>Narrow a static value to a descriptor-shaped record.</p>
-    
-  </article><article class="item" data-search="isStaticArray src/capabilityCatalogAst.ts Narrow a static value to an array.">
-    <h3>isStaticArray</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:326:1</code></p>
-    <p>Narrow a static value to an array.</p>
-    
-  </article><article class="item" data-search="hasExportModifier src/capabilityCatalogAst.ts Detect an exported variable statement.">
+  </article><article class="item" data-search="hasExportModifier src/capabilityCatalogAstSource.ts Detect an exported variable statement.">
     <h3>hasExportModifier</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:331:1</code></p>
+    <p class="muted"><code>src/capabilityCatalogAstSource.ts:48:1</code></p>
     <p>Detect an exported variable statement.</p>
-    
-  </article><article class="item" data-search="isInsidePackage src/capabilityCatalogAst.ts Check whether a resolved path remains within the inspected package root.">
-    <h3>isInsidePackage</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:338:1</code></p>
-    <p>Check whether a resolved path remains within the inspected package root.</p>
-    
-  </article><article class="item" data-search="isFileAsync src/capabilityCatalogAst.ts Check whether one candidate is a regular file.">
-    <h3>isFileAsync</h3>
-    <p class="muted"><code>src/capabilityCatalogAst.ts:344:1</code></p>
-    <p>Check whether one candidate is a regular file.</p>
     
   </article>
     </section>
@@ -3366,6 +3407,61 @@ surfaces when only one policy area should be inspected.</p>
     <h3>isRecord</h3>
     <p class="muted"><code>src/capabilityCatalogExports.ts:51:1</code></p>
     <p>Narrow an unknown value to a plain record.</p>
+    
+  </article>
+    </section>
+  </section><section id="view-src-capabilitycatalogimport-ts" class="view" data-view="src/capabilityCatalogImport.ts" hidden>
+    <section class="panel">
+      <h2>src/capabilityCatalogImport.ts</h2>
+      <article class="item" data-search="resolveImportPathAsync src/capabilityCatalogImport.ts Resolve an allowed static import without executing its target package.">
+    <h3>resolveImportPathAsync</h3>
+    <p class="muted"><code>src/capabilityCatalogImport.ts:12:1</code></p>
+    <p>Resolve an allowed static import without executing its target package.</p>
+    
+  </article><article class="item" data-search="resolveLocalImportPathAsync src/capabilityCatalogImport.ts Resolve a relative static import that remains within its owning package.">
+    <h3>resolveLocalImportPathAsync</h3>
+    <p class="muted"><code>src/capabilityCatalogImport.ts:23:1</code></p>
+    <p>Resolve a relative static import that remains within its owning package.</p>
+    
+  </article><article class="item" data-search="isInsidePackage src/capabilityCatalogImport.ts Check whether a resolved path remains within the inspected package root.">
+    <h3>isInsidePackage</h3>
+    <p class="muted"><code>src/capabilityCatalogImport.ts:38:1</code></p>
+    <p>Check whether a resolved path remains within the inspected package root.</p>
+    
+  </article><article class="item" data-search="isFileAsync src/capabilityCatalogImport.ts Check whether one candidate is a regular file.">
+    <h3>isFileAsync</h3>
+    <p class="muted"><code>src/capabilityCatalogImport.ts:44:1</code></p>
+    <p>Check whether one candidate is a regular file.</p>
+    
+  </article>
+    </section>
+  </section><section id="view-src-capabilitycatalogstaticvalue-ts" class="view" data-view="src/capabilityCatalogStaticValue.ts" hidden>
+    <section class="panel">
+      <h2>src/capabilityCatalogStaticValue.ts</h2>
+      <article class="item" data-search="isStaticRecord src/capabilityCatalogStaticValue.ts Narrow a static value to a descriptor-shaped record.">
+    <h3>isStaticRecord</h3>
+    <p class="muted"><code>src/capabilityCatalogStaticValue.ts:8:1</code></p>
+    <p>Narrow a static value to a descriptor-shaped record.</p>
+    
+  </article><article class="item" data-search="isStaticArray src/capabilityCatalogStaticValue.ts Narrow a static value to an array.">
+    <h3>isStaticArray</h3>
+    <p class="muted"><code>src/capabilityCatalogStaticValue.ts:13:1</code></p>
+    <p>Narrow a static value to an array.</p>
+    
+  </article><article class="item" data-search="readStaticProperty src/capabilityCatalogStaticValue.ts Read one property from a statically resolved object.">
+    <h3>readStaticProperty</h3>
+    <p class="muted"><code>src/capabilityCatalogStaticValue.ts:18:1</code></p>
+    <p>Read one property from a statically resolved object.</p>
+    
+  </article><article class="item" data-search="readStaticArray src/capabilityCatalogStaticValue.ts Read one JSON-compatible array as static catalog materialization input.">
+    <h3>readStaticArray</h3>
+    <p class="muted"><code>src/capabilityCatalogStaticValue.ts:32:1</code></p>
+    <p>Read one JSON-compatible array as static catalog materialization input.</p>
+    
+  </article><article class="item" data-search="isStaticValue src/capabilityCatalogStaticValue.ts Narrow untrusted JSON-compatible input to the static evaluator value model.">
+    <h3>isStaticValue</h3>
+    <p class="muted"><code>src/capabilityCatalogStaticValue.ts:37:1</code></p>
+    <p>Narrow untrusted JSON-compatible input to the static evaluator value model.</p>
     
   </article>
     </section>

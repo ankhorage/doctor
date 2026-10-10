@@ -19,8 +19,11 @@ graph LR
   module_src_capabilities_index_ts["src/capabilities/index.ts"]
   module_src_capabilityCatalog_ts["src/capabilityCatalog.ts"]
   module_src_capabilityCatalogAst_ts["src/capabilityCatalogAst.ts"]
+  module_src_capabilityCatalogAstSource_ts["src/capabilityCatalogAstSource.ts"]
   module_src_capabilityCatalogContractsImport_ts["src/capabilityCatalogContractsImport.ts"]
   module_src_capabilityCatalogExports_ts["src/capabilityCatalogExports.ts"]
+  module_src_capabilityCatalogImport_ts["src/capabilityCatalogImport.ts"]
+  module_src_capabilityCatalogStaticValue_ts["src/capabilityCatalogStaticValue.ts"]
   module_src_cli_index_ts["src/cli/index.ts"]
   module_src_cli_standalone_ts["src/cli/standalone.ts"]
   module_src_cliLayoutAnalysis_ts["src/cliLayoutAnalysis.ts"]
@@ -100,7 +103,10 @@ graph LR
   module_src_bunPolicyAnalysis_ts --> module_src_utils_getRepositoryRule_ts
   module_src_capabilityCatalog_ts --> module_src_capabilityCatalogAst_ts
   module_src_capabilityCatalog_ts --> module_src_capabilityCatalogExports_ts
-  module_src_capabilityCatalogAst_ts --> module_src_capabilityCatalogContractsImport_ts
+  module_src_capabilityCatalogAst_ts --> module_src_capabilityCatalogAstSource_ts
+  module_src_capabilityCatalogAst_ts --> module_src_capabilityCatalogImport_ts
+  module_src_capabilityCatalogAst_ts --> module_src_capabilityCatalogStaticValue_ts
+  module_src_capabilityCatalogImport_ts --> module_src_capabilityCatalogContractsImport_ts
   module_src_cli_index_ts --> module_src_capabilities_index_ts
   module_src_cli_index_ts --> module_src_commands_ts
   module_src_cli_index_ts --> module_src_dependencyPolicyAnalysis_ts
