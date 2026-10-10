@@ -34,7 +34,7 @@ export const CAPABILITIES = STATIC_EVENTS.map((event) => ({
   expect(catalogDiagnostics(result)).toEqual([]);
 });
 
-test('capability catalogs compose package-local static array spreads', async () => {
+test('capability catalogs resolve trailing package-local derived spreads without execution', async () => {
   const base = createCapability('fixture.spread.base');
   const derived = createCapability('fixture.spread.derived');
   const fixture = await createDoctorFixture({
@@ -43,10 +43,13 @@ test('capability catalogs compose package-local static array spreads', async () 
       exports: { './capabilities': './dist/capabilities/index.js' },
     },
     extraFiles: {
-      'src/metadata/events.ts': `export const EVENT_CAPABILITIES = ${JSON.stringify([derived])};\n`,
-      'src/capabilities/index.ts': `import { EVENT_CAPABILITIES } from '../metadata/events';
+      'src/metadata/createEventCapabilities.ts': `export function createEventCapabilities() {
+  throw new Error('Doctor must not execute package-local catalog derivation');
+}
+`,
+      'src/capabilities/index.ts': `import { createEventCapabilities } from '../metadata/createEventCapabilities';
 
-export const CAPABILITIES = [${JSON.stringify(base)}, ...EVENT_CAPABILITIES];
+export const CAPABILITIES = [${JSON.stringify(base)}, ...createEventCapabilities()];
 `,
     },
   });
