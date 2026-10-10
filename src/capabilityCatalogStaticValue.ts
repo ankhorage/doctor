@@ -1,10 +1,4 @@
-export type StaticValue =
-  | string
-  | number
-  | boolean
-  | null
-  | readonly StaticValue[]
-  | StaticRecord;
+export type StaticValue = string | number | boolean | null | readonly StaticValue[] | StaticRecord;
 
 export interface StaticRecord {
   readonly [key: string]: StaticValue;
