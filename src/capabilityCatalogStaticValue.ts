@@ -20,7 +20,9 @@ export function readStaticProperty(
   key: string,
   expression: string,
 ): StaticValue {
-  const property = isStaticRecord(value) ? value[key] : undefined;
+  const property = isStaticRecord(value)
+    ? Object.entries(value).find(([propertyKey]) => propertyKey === key)?.[1]
+    : undefined;
   if (property === undefined)
     throw new Error(`Unsupported static capability property access: ${expression}.`);
   return property;
