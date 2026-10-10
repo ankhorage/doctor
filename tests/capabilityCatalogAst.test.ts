@@ -89,7 +89,7 @@ test('capability catalogs resolve trailing package-local derived spreads without
   throw new Error('Doctor must not execute package-local catalog derivation');
 }
 `,
-      'src/capabilities/index.ts': `import { createEventCapabilities } from '../metadata/createEventCapabilities';
+      'src/capabilities/index.ts': `import { createEventCapabilities } from '../metadata/createEventCapabilities.js';
 
 export const CAPABILITIES = [${JSON.stringify(base)}, ...createEventCapabilities()];
 `,

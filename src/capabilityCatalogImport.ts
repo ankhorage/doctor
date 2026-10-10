@@ -28,10 +28,29 @@ export async function resolveLocalImportPathAsync(
   const candidate = path.resolve(path.dirname(fromPath), specifier);
   if (!isInsidePackage(packageRoot, candidate) && candidate !== packageRoot)
     throw new Error('Capability catalogs may not import outside their package.');
-  for (const extension of ['', '.ts', '.tsx', '.js', '.mjs', '/index.ts'])
-    if (await isFileAsync(`${candidate}${extension}`))
-      return { packageRoot, path: `${candidate}${extension}` };
+  for (const sourcePath of localSourceCandidates(candidate))
+    if (await isFileAsync(sourcePath)) return { packageRoot, path: sourcePath };
   throw new Error(`Unable to resolve static capability import ${specifier}.`);
+}
+
+/*** Enumerate source files represented by one package-local ESM import specifier. */
+function localSourceCandidates(candidate: string): readonly string[] {
+  const extension = path.extname(candidate);
+  if (extension === '.js')
+    return [candidate.replace(/\.js$/u, '.ts'), candidate.replace(/\.js$/u, '.tsx'), candidate];
+  if (extension === '.mjs') return [candidate.replace(/\.mjs$/u, '.mts'), candidate];
+  if (extension === '.cjs') return [candidate.replace(/\.cjs$/u, '.cts'), candidate];
+  return [
+    candidate,
+    `${candidate}.ts`,
+    `${candidate}.tsx`,
+    `${candidate}.js`,
+    `${candidate}.mjs`,
+    `${candidate}.cjs`,
+    `${candidate}/index.ts`,
+    `${candidate}/index.tsx`,
+    `${candidate}/index.js`,
+  ];
 }
 
 /*** Check whether a resolved path remains within the inspected package root. */
