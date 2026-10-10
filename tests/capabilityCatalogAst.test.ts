@@ -34,7 +34,6 @@ export const CAPABILITIES = STATIC_EVENTS.map((event) => ({
   expect(catalogDiagnostics(result)).toEqual([]);
 });
 
-
 test('capability catalogs compose package-local static array spreads', async () => {
   const base = createCapability('fixture.spread.base');
   const derived = createCapability('fixture.spread.derived');
