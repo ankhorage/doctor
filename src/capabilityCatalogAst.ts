@@ -4,19 +4,24 @@ import path from 'node:path';
 import * as ts from 'typescript';
 
 import { resolveContractsCatalogImportAsync } from './capabilityCatalogContractsImport.js';
-
-type StaticValue = string | number | boolean | null | readonly StaticValue[] | StaticRecord;
-interface StaticRecord {
-  readonly [key: string]: StaticValue;
-}
+import {
+  isStaticArray,
+  isStaticRecord,
+  readStaticArray,
+  type StaticValue,
+} from './capabilityCatalogStaticValue.js';
 
 /*** Evaluate one named catalog export from the supported static TypeScript subset. */
 export async function capabilityCatalogAstAsync(
   packageRoot: string,
   modulePath: string,
   exportName: string,
+  materializedCatalog?: unknown,
 ): Promise<unknown> {
-  return new StaticCatalogResolver(packageRoot).resolveAsync(modulePath, exportName);
+  return new StaticCatalogResolver(packageRoot, materializedCatalog).resolveAsync(
+    modulePath,
+    exportName,
+  );
 }
 
 /*** Resolve static local imports and expressions without loading target modules. */
@@ -24,7 +29,14 @@ class StaticCatalogResolver {
   readonly #symbols = new Map<string, StaticValue>();
   readonly #activeSymbols: string[] = [];
 
-  constructor(private readonly packageRoot: string) {}
+  private readonly materializedCatalog: readonly StaticValue[] | null;
+
+  constructor(
+    private readonly packageRoot: string,
+    materializedCatalog?: unknown,
+  ) {
+    this.materializedCatalog = readStaticArray(materializedCatalog);
+  }
 
   /*** Resolve a named local export without importing or running its module. */
   async resolveAsync(
@@ -180,8 +192,16 @@ class StaticCatalogResolver {
     environment: StaticCatalogScope,
   ): Promise<readonly StaticValue[]> {
     const result: StaticValue[] = [];
-    for (const element of elements) {
+    for (const [index, element] of elements.entries()) {
       if (ts.isSpreadElement(element)) {
+        if (await environment.isPackageLocalDerivedCallAsync(element.expression)) {
+          if (index !== elements.length - 1 || this.materializedCatalog === null)
+            throw new Error(
+              'Derived catalog function spreads must be trailing and have materialized package metadata.',
+            );
+          result.push(...this.materializedCatalog.slice(result.length));
+          continue;
+        }
         const spread = await this.evaluateAsync(element.expression, environment);
         if (!isStaticArray(spread))
           throw new Error('Catalog array spreads must resolve to static arrays.');
@@ -235,6 +255,30 @@ class StaticCatalogScope {
       binding.propertyName?.text ?? binding.name.text,
       resolvedImport.packageRoot,
     );
+  }
+
+  /*** Detect one zero-argument function imported from a package-local source module. */
+  async isPackageLocalDerivedCallAsync(expression: ts.Expression): Promise<boolean> {
+    const node = unwrapExpression(expression);
+    if (
+      !ts.isCallExpression(node) ||
+      node.arguments.length !== 0 ||
+      !ts.isIdentifier(node.expression)
+    )
+      return false;
+    const imported = findImportBinding(this.source, node.expression.text);
+    if (
+      imported === undefined ||
+      !ts.isStringLiteral(imported.moduleSpecifier) ||
+      !imported.moduleSpecifier.text.startsWith('.')
+    )
+      return false;
+    await resolveLocalImportPathAsync(
+      this.packageRoot,
+      this.modulePath,
+      imported.moduleSpecifier.text,
+    );
+    return true;
   }
 
   /*** Add a static callback parameter without evaluating unrelated module symbols. */
@@ -319,16 +363,6 @@ function unwrapExpression(expression: ts.Expression): ts.Expression {
     ts.isParenthesizedExpression(expression)
     ? unwrapExpression(expression.expression)
     : expression;
-}
-
-/*** Narrow a static value to a descriptor-shaped record. */
-function isStaticRecord(value: StaticValue): value is StaticRecord {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-/*** Narrow a static value to an array. */
-function isStaticArray(value: StaticValue): value is readonly StaticValue[] {
-  return Array.isArray(value);
 }
 
 /*** Detect an exported variable statement. */
