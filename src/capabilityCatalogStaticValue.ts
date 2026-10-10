@@ -14,6 +14,14 @@ export function isStaticArray(value: StaticValue): value is readonly StaticValue
   return Array.isArray(value);
 }
 
+/*** Read one property from a statically resolved object. */
+export function readStaticProperty(value: StaticValue, key: string, expression: string): StaticValue {
+  const property = isStaticRecord(value) ? value[key] : undefined;
+  if (property === undefined)
+    throw new Error(`Unsupported static capability property access: ${expression}.`);
+  return property;
+}
+
 /*** Read one JSON-compatible array as static catalog materialization input. */
 export function readStaticArray(value: unknown): readonly StaticValue[] | null {
   return Array.isArray(value) && value.every(isStaticValue) ? value : null;
