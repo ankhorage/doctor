@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.14
+
+### Patch Changes
+
+- b660c9a: Update dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`, `@ankhorage/supabase-auth`.
+
 ## 0.14.13
 
 ### Patch Changes
