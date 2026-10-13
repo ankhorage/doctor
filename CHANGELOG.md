@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.15
+
+### Patch Changes
+
+- b72a1b3: Allow the canonical Rules owner to publish a new Bun runtime contract while retaining strict checks for consumer repositories.
+
 ## 0.14.14
 
 ### Patch Changes
