@@ -28,6 +28,10 @@ export async function applyBunRuntimePolicy(
   const packageJson = await readPackageJson(packageJsonPath);
   if (packageJson === null) return result;
 
+  // The canonical owner validates its candidate metadata locally before publication.
+  // Its installed Rules package necessarily contains the previous released version.
+  if (packageJson.name === '@ankhorage/rules-repository') return result;
+
   const diagnostics = [
     ...result.diagnostics,
     ...analyzePackageBunPolicy(packageJson, packageJsonPath, result),

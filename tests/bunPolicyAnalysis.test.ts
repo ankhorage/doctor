@@ -42,6 +42,29 @@ test('accepts repository state synchronized to canonical repository Rules', asyn
   expect(result.diagnostics.filter(isBunPolicyDiagnostic)).toEqual([]);
 });
 
+test('permits the canonical Rules owner to upgrade its runtime before publication', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: {
+      ...createPublicPackageJson('bun@99.0.0', '^99.0.0'),
+      name: '@ankhorage/rules-repository',
+    },
+    extraFiles: createWorkflowFiles('99.0.0'),
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'validate' });
+  expect(result.diagnostics.filter(isBunPolicyDiagnostic)).toEqual([]);
+});
+
+test('continues to reject Bun drift in ordinary consumers', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: createPublicPackageJson('bun@99.0.0', '^99.0.0'),
+    extraFiles: createWorkflowFiles('99.0.0'),
+  });
+
+  const result = await analyzeDoctorTarget({ cwd: fixture, mode: 'validate' });
+  expect(result.diagnostics.filter(isBunPolicyDiagnostic)).toHaveLength(BUN_POLICY_RULE_IDS.length);
+});
+
 test('does not require target-local Devtools policy exports', async () => {
   const fixture = await createDoctorFixture({
     packageJson: createPublicPackageJson(BUN_POLICY.packageManager, BUN_POLICY.typesRange),
