@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.17
+
+### Patch Changes
+
+- 9798673: Update dependencies: `@ankhorage/capability`.
+
 ## 0.14.16
 
 ### Patch Changes
