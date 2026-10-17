@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.18
+
+### Patch Changes
+
+- 795f62c: Migrate OAuth readiness planning to the canonical `@ankhorage/auth-supabase` provider.
+
 ## 0.14.17
 
 ### Patch Changes
