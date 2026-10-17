@@ -1,6 +1,6 @@
+import { resolveSupabaseOAuthSetupPlan } from '@ankhorage/auth-supabase';
 import type { AppDeployTargetId, AppDeployTargets } from '@ankhorage/contracts/deploy';
 import type { AppEnvironmentId } from '@ankhorage/contracts/environments';
-import { resolveSupabaseOAuthSetupPlan } from '@ankhorage/supabase-auth';
 
 import { analyzeAuthReadinessEnvironment } from './authReadinessEnvironment.js';
 import { createUnsupportedAuthReadiness } from './authReadinessUnsupported.js';
