@@ -383,15 +383,15 @@ jobs:
                     platform_output_dir="$(mktemp -d "${RUNNER_TEMP}/standalone-platform-output.XXXXXX")"
                     printf '{"expo":{"name":"packed-platform-verification","slug":"packed-platform-verification"}}\n' > "$platform_dir/app.json"
                     APP_DIR="$platform_dir" PACKAGE_SPECIFIER="$specifier" node - <<'NODE'
-                  const { writeFileSync } = require('node:fs');
-                  const { join } = require('node:path');
-                  const appDir = process.env.APP_DIR;
-                  const specifier = process.env.PACKAGE_SPECIFIER;
-                  if (typeof appDir !== 'string' || typeof specifier !== 'string') {
-                    throw new Error('The platform verification app and package specifier are required.');
-                  }
-                  writeFileSync(join(appDir, 'App.tsx'), `export * from ${JSON.stringify(specifier)};\n`);
-                  NODE
+          const { writeFileSync } = require('node:fs');
+          const { join } = require('node:path');
+          const appDir = process.env.APP_DIR;
+          const specifier = process.env.PACKAGE_SPECIFIER;
+          if (typeof appDir !== 'string' || typeof specifier !== 'string') {
+            throw new Error('The platform verification app and package specifier are required.');
+          }
+          writeFileSync(join(appDir, 'App.tsx'), `export * from ${JSON.stringify(specifier)};\n`);
+          NODE
                     if (
                       cd "$platform_dir"
                       "$install_dir/node_modules/.bin/expo" export --platform ios --output-dir "$platform_output_dir"
