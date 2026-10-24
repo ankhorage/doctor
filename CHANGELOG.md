@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.23
+
+### Patch Changes
+
+- c97385c: Update dependencies: `@ankhorage/contracts`.
+
 ## 0.14.22
 
 ### Patch Changes
