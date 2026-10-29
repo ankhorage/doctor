@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.28
+
+### Patch Changes
+
+- ac7baee: Update dependencies: `@ankhorage/rules-repository`.
+
 ## 0.14.27
 
 ### Patch Changes
