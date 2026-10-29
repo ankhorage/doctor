@@ -142,7 +142,7 @@
   "devDependencies": {
     "@ankhorage/ankh": "^0.13.3",
     "@ankhorage/devtools": "^2.3.34",
-    "@ankhorage/paradox": "^0.3.5",
+    "@ankhorage/paradox": "^0.3.6",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.6",
     "typescript": "^6.0.3"
