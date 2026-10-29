@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.29
+
+### Patch Changes
+
+- 9391830: Update dependencies: `@ankhorage/rules-repository`.
+
 ## 0.14.28
 
 ### Patch Changes
