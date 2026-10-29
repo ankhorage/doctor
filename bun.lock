@@ -10,7 +10,7 @@
         "@ankhorage/contracts": "^26.3.0",
         "@ankhorage/dependency-graph": "^1.3.0",
         "@ankhorage/rules-architecture": "^0.6.1",
-        "@ankhorage/rules-repository": "^0.2.0",
+        "@ankhorage/rules-repository": "^0.2.2",
         "@ankhorage/utility": "^1.10.0",
       },
       "devDependencies": {
@@ -56,7 +56,7 @@
 
     "@ankhorage/rules-documentation": ["@ankhorage/rules-documentation@0.3.4", "", { "dependencies": { "@ankhorage/rules": "^0.2.0" } }, "sha512-UdjehHVOajgMQo1yQFUxQ7S1quWTvslnI/FveSGQomuTGXTj//k8Tm3QTiYijcO3qHiWAKByI311Q1IjZpLOMQ=="],
 
-    "@ankhorage/rules-repository": ["@ankhorage/rules-repository@0.2.0", "", { "dependencies": { "@ankhorage/rules": "^0.2.0" } }, "sha512-ugJq6urUXGpexwcJAERSfauHJAUtWN2ZkogsAMYUX9dMCH8wXcQrdWOuYHjL5G7wB6f0IX2Ebjri7091AuF1XQ=="],
+    "@ankhorage/rules-repository": ["@ankhorage/rules-repository@0.2.2", "", { "dependencies": { "@ankhorage/rules": "^0.2.0" } }, "sha512-GYFnYITdA+K2owYSBFTTrLTCX1OEI8KdoQoK2OHaGA4Q+hFyDe2nNDm/PUIF8dkcToJ4SOaurFYhlIrY2jIWtg=="],
 
     "@ankhorage/utility": ["@ankhorage/utility@1.10.0", "", { "peerDependencies": { "fastify": "^5.12.5" }, "optionalPeers": ["fastify"] }, "sha512-qeWaZHMZ1bKgfMIhaw+sb7UoeVo2rirddI7+3PoDKrsT80Oj3Hk90I6lKY9rp/o6zUGq7EX46Qugy9j8WaO7KQ=="],
 
