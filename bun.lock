@@ -5,7 +5,7 @@
     "": {
       "name": "@ankhorage/doctor",
       "dependencies": {
-        "@ankhorage/auth-supabase": "^2.0.7",
+        "@ankhorage/auth-supabase": "^2.0.8",
         "@ankhorage/capability": "^0.2.2",
         "@ankhorage/contracts": "^26.4.0",
         "@ankhorage/dependency-graph": "^1.4.0",
