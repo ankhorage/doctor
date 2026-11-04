@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.30
+
+### Patch Changes
+
+- 5813967: Update dependencies: `@ankhorage/dependency-graph`.
+
 ## 0.14.29
 
 ### Patch Changes
