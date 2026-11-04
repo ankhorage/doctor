@@ -136,7 +136,7 @@
     "@ankhorage/dependency-graph": "^1.4.0",
     "@ankhorage/rules-architecture": "^0.6.1",
     "@ankhorage/rules-repository": "^0.2.3",
-    "@ankhorage/auth-supabase": "^2.0.7",
+    "@ankhorage/auth-supabase": "^2.0.8",
     "@ankhorage/utility": "^1.10.0"
   },
   "devDependencies": {
