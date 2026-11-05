@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.33
+
+### Patch Changes
+
+- 8005e3b: Update dependencies: `@ankhorage/rules-architecture`.
+
 ## 0.14.32
 
 ### Patch Changes
