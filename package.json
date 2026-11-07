@@ -135,7 +135,7 @@
     "@ankhorage/contracts": "^26.4.0",
     "@ankhorage/dependency-graph": "^1.4.0",
     "@ankhorage/rules-architecture": "^0.8.0",
-    "@ankhorage/rules-repository": "^0.2.3",
+    "@ankhorage/rules-repository": "^0.3.0",
     "@ankhorage/auth-supabase": "^2.0.8",
     "@ankhorage/utility": "^1.10.0"
   },
