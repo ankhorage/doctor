@@ -10,7 +10,10 @@ const packageName = '@ankhorage/scraper';
 test.each(['patch', 'minor', 'major'])(
   'allows generated first changelog while a genuine %s Changeset is pending',
   async (level) => {
-    await expectChangelogDiagnostic(false, `---\n'${packageName}': ${level}\n---\n\nRelease observations.\n`);
+    await expectChangelogDiagnostic(
+      false,
+      `---\n'${packageName}': ${level}\n---\n\nRelease observations.\n`,
+    );
   },
 );
 
