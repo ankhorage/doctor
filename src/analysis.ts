@@ -243,6 +243,15 @@ async function analyzeRepoPolicy(request: {
 
   if (request.profile === 'public-package') {
     for (const artifact of PUBLIC_PACKAGE_POLICY.requiredRepoPaths) {
+      if (
+        artifact.ruleId === 'repo.changelog.required' &&
+        (await hasPendingPackageReleaseChangesetAsync(
+          request.targetPath,
+          request.packageJson?.name,
+        ))
+      ) {
+        continue;
+      }
       await maybeRequirePath(
         diagnostics,
         request.plannedChanges,
@@ -312,6 +321,38 @@ async function analyzeRepoPolicy(request: {
   }
 
   return diagnostics;
+}
+
+/*** Keep the release-owned changelog optional only while a real package Changeset can generate it. */
+async function hasPendingPackageReleaseChangesetAsync(
+  rootPath: string,
+  packageName: unknown,
+): Promise<boolean> {
+  if (typeof packageName !== 'string' || packageName.trim() === '') return false;
+  const changesetDirectory = path.join(rootPath, '.changeset');
+  const entries = await fs
+    .readdir(changesetDirectory, { withFileTypes: true })
+    .catch((error: unknown) => {
+      if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return [];
+      throw error;
+    });
+  const sources = entries.filter(
+    (entry) => entry.isFile() && entry.name.endsWith('.md') && entry.name !== 'README.md',
+  );
+  const matches = await Promise.all(
+    sources.map(async (entry) => {
+      const text = await fs.readFile(path.join(changesetDirectory, entry.name), 'utf8');
+      const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/u.exec(text)?.[1];
+      if (frontmatter === undefined) return false;
+      const releaseEntries = ['patch', 'minor', 'major'].flatMap((level) => [
+        `'${packageName}': ${level}`,
+        `"${packageName}": ${level}`,
+        `${packageName}: ${level}`,
+      ]);
+      return frontmatter.split(/\r?\n/u).some((line) => releaseEntries.includes(line.trim()));
+    }),
+  );
+  return matches.includes(true);
 }
 
 async function analyzePackagePolicy(request: {
