@@ -129,7 +129,7 @@
             <li>
     <button class="nav-button" type="button" data-target="src/analysis.ts">
       src/analysis.ts
-      <small>35 functions</small>
+      <small>36 functions</small>
     </button>
   </li><li>
     <button class="nav-button" type="button" data-target="src/authReadinessAnalysis.ts">
@@ -308,7 +308,7 @@
       <div class="summary">
         <div><strong>33</strong><span class="muted">public exports</span></div>
         <div><strong>0</strong><span class="muted">components</span></div>
-        <div><strong>62</strong><span class="muted">modules</span></div>
+        <div><strong>63</strong><span class="muted">modules</span></div>
         <div><strong>1</strong><span class="muted">entrypoints</span></div>
       </div>
       <h3>Entrypoints</h3>
@@ -651,6 +651,11 @@ surfaces when only one policy area should be inspected.</p>
     <h3>tests/paradoxSelfDependency.test.ts</h3>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/analysis.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
+  </article><article class="item" data-search="tests/releaseChangelogBootstrap.test.ts src/analysis.ts tests/testSupport.ts">
+    <h3>tests/releaseChangelogBootstrap.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>tests/testSupport.ts</code></p>
     <p><strong>Exports:</strong> <span class="empty">None</span></p>
   </article><article class="item" data-search="tests/rulesProviderConsumption.test.ts src/cliLayoutAnalysis.ts tests/testSupport.ts">
     <h3>tests/rulesProviderConsumption.test.ts</h3>
@@ -1787,6 +1792,10 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_paradoxSelfDependency_test_ts
   module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_releaseChangelogBootstrap_test_ts
+  module_tests_releaseChangelogBootstrap_test_ts --&gt; module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts --&gt; module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_rulesProviderConsumption_test_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -2043,6 +2052,10 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_paradoxSelfDependency_test_ts
   module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_releaseChangelogBootstrap_test_ts
+  module_tests_releaseChangelogBootstrap_test_ts --&gt; module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts --&gt; module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_rulesProviderConsumption_test_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -2127,6 +2140,7 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
+  module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
@@ -2249,6 +2263,8 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_packageScripts_test_ts --&gt; module_src_index_ts
   module_tests_packageScripts_test_ts --&gt; module_tests_testSupport_ts
   module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts --&gt; module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts --&gt; module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_tests_testSupport_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
@@ -2319,6 +2335,7 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
+  module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
@@ -2441,6 +2458,8 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_packageScripts_test_ts --&gt; module_src_index_ts
   module_tests_packageScripts_test_ts --&gt; module_tests_testSupport_ts
   module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts --&gt; module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts --&gt; module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_tests_testSupport_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
@@ -2513,6 +2532,7 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
+  module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
@@ -2677,6 +2697,7 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_package_test_ts[&quot;tests/package.test.ts&quot;]
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
+  module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
@@ -2883,169 +2904,174 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted"><code>src/analysis.ts:235:1</code></p>
     <p class="empty">No description available.</p>
     
+  </article><article class="item" data-search="hasPendingPackageReleaseChangesetAsync src/analysis.ts Keep the release-owned changelog optional only while a real package Changeset can generate it.">
+    <h3>hasPendingPackageReleaseChangesetAsync</h3>
+    <p class="muted"><code>src/analysis.ts:327:1</code></p>
+    <p>Keep the release-owned changelog optional only while a real package Changeset can generate it.</p>
+    
   </article><article class="item" data-search="analyzePackagePolicy src/analysis.ts ">
     <h3>analyzePackagePolicy</h3>
-    <p class="muted"><code>src/analysis.ts:317:1</code></p>
+    <p class="muted"><code>src/analysis.ts:358:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createChangesetsDependencyDiagnostic src/analysis.ts ">
     <h3>createChangesetsDependencyDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:533:1</code></p>
+    <p class="muted"><code>src/analysis.ts:574:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateAnkhMetadataAndProvider src/analysis.ts ">
     <h3>validateAnkhMetadataAndProvider</h3>
-    <p class="muted"><code>src/analysis.ts:562:1</code></p>
+    <p class="muted"><code>src/analysis.ts:603:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="inspectProviderSource src/analysis.ts ">
     <h3>inspectProviderSource</h3>
-    <p class="muted"><code>src/analysis.ts:782:1</code></p>
+    <p class="muted"><code>src/analysis.ts:823:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="resolveProviderSourcePath src/analysis.ts ">
     <h3>resolveProviderSourcePath</h3>
-    <p class="muted"><code>src/analysis.ts:873:1</code></p>
+    <p class="muted"><code>src/analysis.ts:914:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="findRepoMarkers src/analysis.ts ">
     <h3>findRepoMarkers</h3>
-    <p class="muted"><code>src/analysis.ts:901:1</code></p>
+    <p class="muted"><code>src/analysis.ts:942:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readPackageJson src/analysis.ts ">
     <h3>readPackageJson</h3>
-    <p class="muted"><code>src/analysis.ts:911:1</code></p>
+    <p class="muted"><code>src/analysis.ts:952:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="detectProfile src/analysis.ts ">
     <h3>detectProfile</h3>
-    <p class="muted"><code>src/analysis.ts:953:1</code></p>
+    <p class="muted"><code>src/analysis.ts:994:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isProviderPackage src/analysis.ts ">
     <h3>isProviderPackage</h3>
-    <p class="muted"><code>src/analysis.ts:974:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1015:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requirePublicPackageFields src/analysis.ts Validate every generic public-package metadata field from canonical Policy.">
     <h3>requirePublicPackageFields</h3>
-    <p class="muted"><code>src/analysis.ts:985:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1026:1</code></p>
     <p>Validate every generic public-package metadata field from canonical Policy.</p>
     
   </article><article class="item" data-search="maybeRequirePath src/analysis.ts ">
     <h3>maybeRequirePath</h3>
-    <p class="muted"><code>src/analysis.ts:1015:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1056:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireNonEmptyStringField src/analysis.ts ">
     <h3>requireNonEmptyStringField</h3>
-    <p class="muted"><code>src/analysis.ts:1052:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1093:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireRecordField src/analysis.ts ">
     <h3>requireRecordField</h3>
-    <p class="muted"><code>src/analysis.ts:1075:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1116:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireStringArrayField src/analysis.ts ">
     <h3>requireStringArrayField</h3>
-    <p class="muted"><code>src/analysis.ts:1098:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1139:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="expectsParadox src/analysis.ts ">
     <h3>expectsParadox</h3>
-    <p class="muted"><code>src/analysis.ts:1121:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1162:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="expectsDevtools src/analysis.ts ">
     <h3>expectsDevtools</h3>
-    <p class="muted"><code>src/analysis.ts:1140:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1181:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="hasDependency src/analysis.ts ">
     <h3>hasDependency</h3>
-    <p class="muted"><code>src/analysis.ts:1155:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1196:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateAnkhMetadataShape src/analysis.ts ">
     <h3>validateAnkhMetadataShape</h3>
-    <p class="muted"><code>src/analysis.ts:1162:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1203:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createEarlyResult src/analysis.ts ">
     <h3>createEarlyResult</h3>
-    <p class="muted"><code>src/analysis.ts:1205:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1246:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="repositoryRuleFields src/analysis.ts Return canonical rule id and severity from the repository Rules provider.">
     <h3>repositoryRuleFields</h3>
-    <p class="muted"><code>src/analysis.ts:1219:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1260:1</code></p>
     <p>Return canonical rule id and severity from the repository Rules provider.</p>
     
   </article><article class="item" data-search="createDiagnostic src/analysis.ts ">
     <h3>createDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:1224:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1265:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createPlannedChange src/analysis.ts ">
     <h3>createPlannedChange</h3>
-    <p class="muted"><code>src/analysis.ts:1228:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1269:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createInvalidPackageJsonMessage src/analysis.ts ">
     <h3>createInvalidPackageJsonMessage</h3>
-    <p class="muted"><code>src/analysis.ts:1235:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1276:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="pathExists src/analysis.ts ">
     <h3>pathExists</h3>
-    <p class="muted"><code>src/analysis.ts:1240:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1281:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="statOrNull src/analysis.ts ">
     <h3>statOrNull</h3>
-    <p class="muted"><code>src/analysis.ts:1244:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1285:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isMissingPathError src/analysis.ts ">
     <h3>isMissingPathError</h3>
-    <p class="muted"><code>src/analysis.ts:1256:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1297:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isNonEmptyString src/analysis.ts ">
     <h3>isNonEmptyString</h3>
-    <p class="muted"><code>src/analysis.ts:1265:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1306:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isPackageRelativeProviderPath src/analysis.ts ">
     <h3>isPackageRelativeProviderPath</h3>
-    <p class="muted"><code>src/analysis.ts:1269:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1310:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isRecord src/analysis.ts ">
     <h3>isRecord</h3>
-    <p class="muted"><code>src/analysis.ts:1273:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1314:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isStringTuple src/analysis.ts ">
     <h3>isStringTuple</h3>
-    <p class="muted"><code>src/analysis.ts:1277:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1318:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readStringArray src/analysis.ts ">
     <h3>readStringArray</h3>
-    <p class="muted"><code>src/analysis.ts:1281:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1322:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readCapabilities src/analysis.ts Read and normalize canonical Capability descriptors from untrusted metadata.">
     <h3>readCapabilities</h3>
-    <p class="muted"><code>src/analysis.ts:1286:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1327:1</code></p>
     <p>Read and normalize canonical Capability descriptors from untrusted metadata.</p>
     
   </article><article class="item" data-search="sameStringSet src/analysis.ts ">
     <h3>sameStringSet</h3>
-    <p class="muted"><code>src/analysis.ts:1290:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1331:1</code></p>
     <p class="empty">No description available.</p>
     
   </article>

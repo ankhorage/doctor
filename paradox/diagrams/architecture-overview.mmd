@@ -229,6 +229,10 @@ graph TD
   module_tests_paradoxSelfDependency_test_ts["tests/paradoxSelfDependency.test.ts"]
   package__ankhorage_doctor -.-> module_tests_paradoxSelfDependency_test_ts
   module_tests_paradoxSelfDependency_test_ts --> module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts["tests/releaseChangelogBootstrap.test.ts"]
+  package__ankhorage_doctor -.-> module_tests_releaseChangelogBootstrap_test_ts
+  module_tests_releaseChangelogBootstrap_test_ts --> module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts --> module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts["tests/rulesProviderConsumption.test.ts"]
   package__ankhorage_doctor -.-> module_tests_rulesProviderConsumption_test_ts
   module_tests_rulesProviderConsumption_test_ts --> module_src_cliLayoutAnalysis_ts

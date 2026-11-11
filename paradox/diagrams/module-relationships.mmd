@@ -55,6 +55,7 @@ graph LR
   module_tests_package_test_ts["tests/package.test.ts"]
   module_tests_packageScripts_test_ts["tests/packageScripts.test.ts"]
   module_tests_paradoxSelfDependency_test_ts["tests/paradoxSelfDependency.test.ts"]
+  module_tests_releaseChangelogBootstrap_test_ts["tests/releaseChangelogBootstrap.test.ts"]
   module_tests_rulesProviderConsumption_test_ts["tests/rulesProviderConsumption.test.ts"]
   module_tests_secretManifestAnalysis_test_ts["tests/secretManifestAnalysis.test.ts"]
   module_tests_standaloneContract_test_ts["tests/standaloneContract.test.ts"]
@@ -177,6 +178,8 @@ graph LR
   module_tests_packageScripts_test_ts --> module_src_index_ts
   module_tests_packageScripts_test_ts --> module_tests_testSupport_ts
   module_tests_paradoxSelfDependency_test_ts --> module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts --> module_src_analysis_ts
+  module_tests_releaseChangelogBootstrap_test_ts --> module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts --> module_src_cliLayoutAnalysis_ts
   module_tests_rulesProviderConsumption_test_ts --> module_tests_testSupport_ts
   module_tests_secretManifestAnalysis_test_ts --> module_src_manifestAnalysis_ts

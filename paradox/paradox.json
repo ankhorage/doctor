@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.14.34",
+      "value": "v0.14.35",
       "color": "cb3837"
     },
     {
@@ -796,6 +796,15 @@
       "isEntrypoint": false,
       "dependencies": [
         "src/analysis.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "tests/releaseChangelogBootstrap.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/analysis.ts",
+        "tests/testSupport.ts"
       ],
       "exports": []
     },
@@ -2144,13 +2153,24 @@
       }
     },
     {
+      "name": "hasPendingPackageReleaseChangesetAsync",
+      "description": "Keep the release-owned changelog optional only while a real package Changeset can generate it.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 327,
+        "column": 1
+      }
+    },
+    {
       "name": "analyzePackagePolicy",
       "description": null,
       "see": [],
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 317,
+        "line": 358,
         "column": 1
       }
     },
@@ -2161,7 +2181,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 533,
+        "line": 574,
         "column": 1
       }
     },
@@ -2172,7 +2192,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 562,
+        "line": 603,
         "column": 1
       }
     },
@@ -2183,7 +2203,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 782,
+        "line": 823,
         "column": 1
       }
     },
@@ -2194,7 +2214,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 873,
+        "line": 914,
         "column": 1
       }
     },
@@ -2205,7 +2225,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 901,
+        "line": 942,
         "column": 1
       }
     },
@@ -2216,7 +2236,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 911,
+        "line": 952,
         "column": 1
       }
     },
@@ -2227,7 +2247,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 953,
+        "line": 994,
         "column": 1
       }
     },
@@ -2238,7 +2258,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 974,
+        "line": 1015,
         "column": 1
       }
     },
@@ -2249,7 +2269,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 985,
+        "line": 1026,
         "column": 1
       }
     },
@@ -2260,7 +2280,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1015,
+        "line": 1056,
         "column": 1
       }
     },
@@ -2271,7 +2291,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1052,
+        "line": 1093,
         "column": 1
       }
     },
@@ -2282,7 +2302,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1075,
+        "line": 1116,
         "column": 1
       }
     },
@@ -2293,7 +2313,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1098,
+        "line": 1139,
         "column": 1
       }
     },
@@ -2304,7 +2324,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1121,
+        "line": 1162,
         "column": 1
       }
     },
@@ -2315,7 +2335,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1140,
+        "line": 1181,
         "column": 1
       }
     },
@@ -2326,7 +2346,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1155,
+        "line": 1196,
         "column": 1
       }
     },
@@ -2337,7 +2357,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1162,
+        "line": 1203,
         "column": 1
       }
     },
@@ -2348,7 +2368,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1205,
+        "line": 1246,
         "column": 1
       }
     },
@@ -2359,7 +2379,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1219,
+        "line": 1260,
         "column": 1
       }
     },
@@ -2370,7 +2390,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1224,
+        "line": 1265,
         "column": 1
       }
     },
@@ -2381,7 +2401,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1228,
+        "line": 1269,
         "column": 1
       }
     },
@@ -2392,7 +2412,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1235,
+        "line": 1276,
         "column": 1
       }
     },
@@ -2403,7 +2423,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1240,
+        "line": 1281,
         "column": 1
       }
     },
@@ -2414,7 +2434,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1244,
+        "line": 1285,
         "column": 1
       }
     },
@@ -2425,7 +2445,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1256,
+        "line": 1297,
         "column": 1
       }
     },
@@ -2436,7 +2456,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1265,
+        "line": 1306,
         "column": 1
       }
     },
@@ -2447,7 +2467,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1269,
+        "line": 1310,
         "column": 1
       }
     },
@@ -2458,7 +2478,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1273,
+        "line": 1314,
         "column": 1
       }
     },
@@ -2469,7 +2489,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1277,
+        "line": 1318,
         "column": 1
       }
     },
@@ -2480,7 +2500,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1281,
+        "line": 1322,
         "column": 1
       }
     },
@@ -2491,7 +2511,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1286,
+        "line": 1327,
         "column": 1
       }
     },
@@ -2502,7 +2522,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1290,
+        "line": 1331,
         "column": 1
       }
     },
@@ -4795,6 +4815,16 @@
         "sourcePath": "tests/paradoxSelfDependency.test.ts"
       },
       {
+        "fromPath": "tests/releaseChangelogBootstrap.test.ts",
+        "toPath": "src/analysis.ts",
+        "sourcePath": "tests/releaseChangelogBootstrap.test.ts"
+      },
+      {
+        "fromPath": "tests/releaseChangelogBootstrap.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/releaseChangelogBootstrap.test.ts"
+      },
+      {
         "fromPath": "tests/rulesProviderConsumption.test.ts",
         "toPath": "src/cliLayoutAnalysis.ts",
         "sourcePath": "tests/rulesProviderConsumption.test.ts"
@@ -4932,6 +4962,12 @@
         "fromSymbol": "analyzeDoctorTarget",
         "toSymbol": "analyzePackagePolicy",
         "callExpression": "analyzePackagePolicy",
+        "sourcePath": "src/analysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeRepoPolicy",
+        "toSymbol": "hasPendingPackageReleaseChangesetAsync",
+        "callExpression": "hasPendingPackageReleaseChangesetAsync",
         "sourcePath": "src/analysis.ts"
       },
       {
@@ -7591,6 +7627,36 @@
         "toSymbol": "writeFile",
         "callExpression": "writeFile",
         "sourcePath": "tests/paradoxSelfDependency.test.ts"
+      },
+      {
+        "fromSymbol": "tests/releaseChangelogBootstrap.test.ts",
+        "toSymbol": "expectChangelogDiagnostic",
+        "callExpression": "expectChangelogDiagnostic",
+        "sourcePath": "tests/releaseChangelogBootstrap.test.ts"
+      },
+      {
+        "fromSymbol": "expectChangelogDiagnostic",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/releaseChangelogBootstrap.test.ts"
+      },
+      {
+        "fromSymbol": "expectChangelogDiagnostic",
+        "toSymbol": "analyzeDoctorTarget",
+        "callExpression": "analyzeDoctorTarget",
+        "sourcePath": "tests/releaseChangelogBootstrap.test.ts"
+      },
+      {
+        "fromSymbol": "expectChangelogDiagnostic",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/releaseChangelogBootstrap.test.ts"
+      },
+      {
+        "fromSymbol": "expectChangelogDiagnostic",
+        "toSymbol": "rm",
+        "callExpression": "rm",
+        "sourcePath": "tests/releaseChangelogBootstrap.test.ts"
       },
       {
         "fromSymbol": "tests/rulesProviderConsumption.test.ts",

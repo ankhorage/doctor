@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.35
+
+### Patch Changes
+
+- 42e36d7: Allow Doctor to validate a first release before its CHANGELOG is generated when a valid package-specific pending Changeset will create that release-owned artifact.
+
 ## 0.14.34
 
 ### Patch Changes
