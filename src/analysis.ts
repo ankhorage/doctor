@@ -245,7 +245,10 @@ async function analyzeRepoPolicy(request: {
     for (const artifact of PUBLIC_PACKAGE_POLICY.requiredRepoPaths) {
       if (
         artifact.ruleId === 'repo.changelog.required' &&
-        (await hasPendingPackageReleaseChangesetAsync(request.targetPath, request.packageJson?.name))
+        (await hasPendingPackageReleaseChangesetAsync(
+          request.targetPath,
+          request.packageJson?.name,
+        ))
       ) {
         continue;
       }
@@ -320,7 +323,6 @@ async function analyzeRepoPolicy(request: {
   return diagnostics;
 }
 
-
 /*** Keep the release-owned changelog optional only while a real package Changeset can generate it. */
 async function hasPendingPackageReleaseChangesetAsync(
   rootPath: string,
@@ -328,12 +330,12 @@ async function hasPendingPackageReleaseChangesetAsync(
 ): Promise<boolean> {
   if (typeof packageName !== 'string' || packageName.trim() === '') return false;
   const changesetDirectory = path.join(rootPath, '.changeset');
-  const entries = await fs.readdir(changesetDirectory, { withFileTypes: true }).catch(
-    (error: unknown) => {
+  const entries = await fs
+    .readdir(changesetDirectory, { withFileTypes: true })
+    .catch((error: unknown) => {
       if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return [];
       throw error;
-    },
-  );
+    });
   const sources = entries.filter(
     (entry) => entry.isFile() && entry.name.endsWith('.md') && entry.name !== 'README.md',
   );
