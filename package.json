@@ -132,17 +132,17 @@
   },
   "dependencies": {
     "@ankhorage/capability": "^0.2.2",
-    "@ankhorage/contracts": "^26.4.0",
+    "@ankhorage/contracts": "^26.10.0",
     "@ankhorage/dependency-graph": "^1.4.0",
     "@ankhorage/rules-architecture": "^0.8.0",
-    "@ankhorage/rules-repository": "^0.2.3",
-    "@ankhorage/auth-supabase": "^2.0.8",
+    "@ankhorage/rules-repository": "^0.3.0",
+    "@ankhorage/auth-supabase": "^2.0.14",
     "@ankhorage/utility": "^1.10.0"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.13.3",
     "@ankhorage/devtools": "^2.3.47",
-    "@ankhorage/paradox": "^0.3.6",
+    "@ankhorage/paradox": "^0.4.0",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.6",
     "typescript": "^6.0.3"
