@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.36
+
+### Patch Changes
+
+- 508c7ca: Add canonical repository metadata for package discovery and generated documentation.
+
 ## 0.14.35
 
 ### Patch Changes
