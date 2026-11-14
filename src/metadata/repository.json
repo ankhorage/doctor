@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "tooling",
+  "title": "Ankhorage Doctor",
+  "summary": "Provides lightweight repository and package compliance diagnostics through Ankh provider and standalone CLI entrypoints.",
+  "purpose": "Help package maintainers analyze repository, package, manifest, and authentication readiness without coupling their projects to a specific host application.",
+  "domain": "repository compliance diagnostics",
+  "responsibilities": [
+    "Analyze repository and package compliance targets.",
+    "Provide diagnostic and fix-plan types through public package entrypoints.",
+    "Expose standalone CLI and Ankh capability-provider commands."
+  ],
+  "boundaries": [
+    "Does not make metadata rollout findings an organization-wide gate before the verified inventory is complete.",
+    "Does not require sibling repositories or unpublished source imports.",
+    "Does not own provider-specific authentication implementations."
+  ],
+  "audience": [
+    "Package maintainers running repository diagnostics.",
+    "Tooling hosts that invoke Doctor capabilities."
+  ],
+  "useCases": [
+    "Analyze repository, package, manifest, and authentication readiness.",
+    "Run lightweight compliance diagnostics through the CLI or Ankh provider."
+  ],
+  "architecture": {
+    "role": "A standalone diagnostics package with explicit CLI and capability-provider delivery boundaries.",
+    "invariants": [
+      "Diagnostics consume explicit target facts rather than hidden organization-local state.",
+      "Metadata enforcement remains inactive until the verified organization inventory is complete."
+    ]
+  },
+  "constraints": {
+    "limitations": [
+      "Results depend on the target facts and configuration supplied by the invoking host."
+    ]
+  }
+}
