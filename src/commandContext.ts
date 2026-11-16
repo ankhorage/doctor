@@ -1,4 +1,8 @@
-import packageJson from '../package.json';
+import { createRequire } from 'node:module';
+
+const packageJson = createRequire(import.meta.url)('../package.json') as {
+  readonly version: string;
+};
 
 export interface DoctorCommandContext {
   readonly cwd: string;

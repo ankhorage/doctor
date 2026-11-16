@@ -5,6 +5,7 @@ import {
 } from './analysis.js';
 import { applyBunRuntimePolicy } from './bunPolicyAnalysis.js';
 import { analyzeDoctorTargetWithCliLayout as analyzeBaseDoctorTargetWithCliLayout } from './cliLayoutAnalysis.js';
+import { analyzeRepositoryMetadata } from './repositoryMetadataAnalysis.js';
 
 /***
  * Analyze a Doctor target and apply repository-level dependency and runtime policies.
@@ -12,7 +13,7 @@ import { analyzeDoctorTargetWithCliLayout as analyzeBaseDoctorTargetWithCliLayou
 export async function analyzeDoctorTarget(
   request: DoctorAnalysisRequest,
 ): Promise<DoctorAnalysisResult> {
-  return applyRepositoryPolicies(await analyzeBaseDoctorTarget(request));
+  return applyRepositoryPolicies(await analyzeBaseDoctorTarget(request), request);
 }
 
 /***
@@ -21,7 +22,7 @@ export async function analyzeDoctorTarget(
 export async function analyzeDoctorTargetWithCliLayout(
   request: DoctorAnalysisRequest,
 ): Promise<DoctorAnalysisResult> {
-  return applyRepositoryPolicies(await analyzeBaseDoctorTargetWithCliLayout(request));
+  return applyRepositoryPolicies(await analyzeBaseDoctorTargetWithCliLayout(request), request);
 }
 
 /***
@@ -29,6 +30,10 @@ export async function analyzeDoctorTargetWithCliLayout(
  */
 async function applyRepositoryPolicies(
   result: DoctorAnalysisResult,
+  request: DoctorAnalysisRequest,
 ): Promise<DoctorAnalysisResult> {
-  return applyBunRuntimePolicy(result);
+  const policyResult = await applyBunRuntimePolicy(result);
+  return request.repositoryMetadata === undefined
+    ? policyResult
+    : analyzeRepositoryMetadata(policyResult, request);
 }

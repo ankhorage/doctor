@@ -131,12 +131,12 @@
     "test:standalone": "bun test tests/standaloneContract.test.ts"
   },
   "dependencies": {
-    "@ankhorage/capability": "^0.2.2",
-    "@ankhorage/contracts": "^26.4.0",
+    "@ankhorage/auth-supabase": "^2.0.8",
+    "@ankhorage/capability": "^0.2.3",
+    "@ankhorage/contracts": "^26.11.1",
     "@ankhorage/dependency-graph": "^1.4.0",
     "@ankhorage/rules-architecture": "^0.8.0",
-    "@ankhorage/rules-repository": "^0.2.3",
-    "@ankhorage/auth-supabase": "^2.0.8",
+    "@ankhorage/rules-repository": "^0.5.0",
     "@ankhorage/utility": "^1.10.0"
   },
   "devDependencies": {
@@ -145,7 +145,7 @@
     "@ankhorage/paradox": "^0.3.6",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.6",
-    "typescript": "^6.0.3"
+    "typescript": "~6.0.3"
   },
   "sideEffects": false,
   "packageManager": "bun@1.4.2"

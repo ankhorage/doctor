@@ -9,7 +9,9 @@ export function getRepositoryRule(ruleId: DoctorRuleId): {
   readonly id: DoctorRuleId;
   readonly severity: DoctorDiagnosticSeverity;
 } {
-  const rule = createRepositoryRuleSet().rules.find((candidate) => candidate.id === ruleId);
+  const rule = createRepositoryRuleSet().rules.find(
+    (candidate) => candidate.identity.id === ruleId,
+  );
   if (rule === undefined) {
     throw new Error('Unknown repository rule: ' + ruleId);
   }

@@ -4,6 +4,7 @@ import type { AnkhCommandDescriptor } from '@ankhorage/contracts/cli';
 import type { DoctorAnalysisResult, DoctorPlannedChange, DoctorTargetMode } from './analysis.js';
 import { CAPABILITIES } from './capabilities/index.js';
 import { analyzeDoctorTargetWithCliLayout } from './cliLayoutAnalysis.js';
+import { parseDoctorCommandArguments } from './commandArguments.js';
 import type { DoctorCommandContext, DoctorCommandRunResult } from './commandContext.js';
 import {
   countErrorDiagnostics,
@@ -17,6 +18,7 @@ type DoctorCommandName = 'fix' | 'package' | 'repo' | 'validate';
 
 interface DoctorCommandRunRequest {
   readonly context: DoctorCommandContext;
+  readonly enforceRepositoryMetadata: boolean;
   readonly inputPath?: string;
 }
 
@@ -104,7 +106,7 @@ export async function runDoctorCommand(
   const services = createDoctorCommandServices(options.services);
 
   try {
-    const parsedArgs = parseCommandArguments(request.command, request.argv);
+    const parsedArgs = parseDoctorCommandArguments(request.command, request.argv);
     if (parsedArgs.kind === 'help') {
       request.context.writeStdout(renderCommandHelp(request.command));
       return { exitCode: 0 };
@@ -113,6 +115,7 @@ export async function runDoctorCommand(
     return await request.command.run(
       {
         context: request.context,
+        enforceRepositoryMetadata: parsedArgs.enforceRepositoryMetadata,
         inputPath: parsedArgs.inputPath,
       },
       services,
@@ -165,11 +168,14 @@ function renderCommandHelp(command: DoctorCommandDefinition): string {
     command.summary,
     '',
     'Usage:',
-    `  ankhorage-doctor ${command.standaloneName} [path]`,
-    `  ankh ${DOCTOR_COMMAND_CATEGORY} ${command.path.join(' ')} [path]`,
+    `  ankhorage-doctor ${command.standaloneName} [--enforce-repository-metadata] [path]`,
+    `  ankh ${DOCTOR_COMMAND_CATEGORY} ${command.path.join(' ')} [--enforce-repository-metadata] [path]`,
     '',
     'Path resolution:',
     '  Pass a repo/package directory or app-manifest JSON file, or omit [path] to inspect the current directory.',
+    '',
+    'Repository metadata:',
+    '  --enforce-repository-metadata promotes applicable managed-repository metadata preflight findings to errors.',
     '',
   ].join('\n');
 }
@@ -182,26 +188,6 @@ function createDoctorCommandServices(
   };
 }
 
-function parseCommandArguments(
-  command: DoctorCommandDefinition,
-  argv: readonly string[],
-): { readonly kind: 'help' } | { readonly kind: 'run'; readonly inputPath?: string } {
-  const [firstArg] = argv;
-
-  if (argv.length === 1 && firstArg !== undefined && isHelpToken(firstArg)) {
-    return { kind: 'help' };
-  }
-
-  if (argv.length > 1) {
-    throw new Error(`Doctor ${command.standaloneName} accepts at most one path argument.`);
-  }
-
-  return {
-    kind: 'run',
-    inputPath: firstArg,
-  };
-}
-
 async function runValidateCommand(
   request: DoctorCommandRunRequest,
   services: DoctorCommandServices,
@@ -210,6 +196,7 @@ async function runValidateCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'validate',
+    repositoryMetadata: { enforce: request.enforceRepositoryMetadata },
   });
 
   request.context.writeStdout(renderAnalysisReport('validate', result));
@@ -227,6 +214,7 @@ async function runFixCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'fix',
+    repositoryMetadata: { enforce: request.enforceRepositoryMetadata },
   });
 
   request.context.writeStdout(renderAnalysisReport('fix', result));
@@ -244,6 +232,7 @@ async function runRepoCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'repo',
+    repositoryMetadata: { enforce: request.enforceRepositoryMetadata },
   });
 
   request.context.writeStdout(renderAnalysisReport('repo', result));
@@ -261,6 +250,7 @@ async function runPackageCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'package',
+    repositoryMetadata: { enforce: request.enforceRepositoryMetadata },
   });
 
   request.context.writeStdout(renderAnalysisReport('package', result));
@@ -341,8 +331,4 @@ function renderPlannedChangeLine(change: DoctorPlannedChange): string {
 function renderCommandFailure(commandName: DoctorCommandName, error: unknown): string {
   const message = error instanceof Error ? error.message : String(error);
   return [`Failed to run doctor ${commandName}: ${message}`, ''].join('\n');
-}
-
-function isHelpToken(value: string): boolean {
-  return value === '--help' || value === '-h' || value === 'help';
 }

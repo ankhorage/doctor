@@ -22,9 +22,16 @@ export type DoctorTargetMode = 'fix' | 'package' | 'repo' | 'validate';
 export type DoctorPlannedChangeKind =
   'create-directory' | 'create-file' | 'update-json' | 'update-text';
 
+export interface DoctorRepositoryMetadataOptions {
+  readonly eligibility?: 'applicable' | 'archived' | 'legacy' | 'third-party';
+  readonly enforce?: boolean;
+  readonly profile?: 'non-source' | 'source';
+}
+
 export interface DoctorAnalysisRequest {
   readonly cwd: string;
   readonly inputPath?: string;
+  readonly repositoryMetadata?: DoctorRepositoryMetadataOptions;
   readonly mode: DoctorTargetMode;
 }
 
