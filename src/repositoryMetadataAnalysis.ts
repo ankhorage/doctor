@@ -51,6 +51,14 @@ async function acquireRepositoryMetadataAsync(
   options: DoctorRepositoryMetadataOptions | undefined,
 ): Promise<RepositoryMetadataAcquisition> {
   const metadataOptions = options ?? {};
+  const { applicabilityDiagnostic } = metadataOptions;
+  if (applicabilityDiagnostic !== undefined) {
+    return createUnconfirmedApplicabilityAcquisition(
+      targetPath,
+      applicabilityDiagnostic,
+      metadataOptions.enforce,
+    );
+  }
   const managed = metadataOptions.managed === true;
   const eligibility = metadataOptions.eligibility ?? (managed ? 'applicable' : 'third-party');
   const profile = metadataOptions.profile ?? (await detectMetadataProfileAsync(targetPath));
@@ -84,6 +92,27 @@ async function acquireRepositoryMetadataAsync(
         fact,
         metadataOptions.enforce,
       );
+}
+
+/*** Surface an incomplete managed-host identity instead of guessing target applicability. */
+function createUnconfirmedApplicabilityAcquisition(
+  targetPath: string,
+  message: string,
+  enforce: boolean | undefined,
+): RepositoryMetadataAcquisition {
+  return {
+    diagnostics: [
+      createMetadataDiagnostic({
+        code: 'repository-metadata-applicability-unknown',
+        message,
+        path: targetPath,
+        ruleId: 'repository.metadata.eligibility.confirmed',
+        severity: metadataSeverity(enforce),
+      }),
+    ],
+    evaluate: false,
+    fact: { eligibility: 'third-party', managed: false, profile: 'non-source' },
+  };
 }
 
 type MetadataSource =

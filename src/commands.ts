@@ -13,7 +13,7 @@ import {
 } from './diagnostics.js';
 import { DOCTOR_COMMAND_CATEGORY } from './packageMetadata.js';
 import type { DoctorReadiness } from './readiness.js';
-import { createMetadataOptions } from './repositoryMetadataCommandOptions.js';
+import { createMetadataOptionsAsync } from './repositoryMetadataCommandOptions.js';
 
 type DoctorCommandName = 'fix' | 'package' | 'repo' | 'validate';
 
@@ -197,7 +197,7 @@ async function runValidateCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'validate',
-    repositoryMetadata: createMetadataOptions(request),
+    repositoryMetadata: await createMetadataOptionsAsync(request),
   });
 
   request.context.writeStdout(renderAnalysisReport('validate', result));
@@ -215,7 +215,7 @@ async function runFixCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'fix',
-    repositoryMetadata: createMetadataOptions(request),
+    repositoryMetadata: await createMetadataOptionsAsync(request),
   });
 
   request.context.writeStdout(renderAnalysisReport('fix', result));
@@ -233,7 +233,7 @@ async function runRepoCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'repo',
-    repositoryMetadata: createMetadataOptions(request),
+    repositoryMetadata: await createMetadataOptionsAsync(request),
   });
 
   request.context.writeStdout(renderAnalysisReport('repo', result));
@@ -251,7 +251,7 @@ async function runPackageCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'package',
-    repositoryMetadata: createMetadataOptions(request),
+    repositoryMetadata: await createMetadataOptionsAsync(request),
   });
 
   request.context.writeStdout(renderAnalysisReport('package', result));

@@ -263,6 +263,19 @@ test('CLI enforcement blocks a managed package-less source repository without pa
   expect(captured.stdout.value).toContain('ERROR repository.metadata.document.required');
 });
 
+test('explicit host-managed analysis remains applicable outside GitHub workspace inference', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: { name: 'unscoped-managed-fixture', private: true },
+    extraFiles: { 'src/index.ts': 'export const fixture = true;\n' },
+  });
+
+  const result = await analyze(fixture, { enforce: true, managed: true });
+
+  expect(metadataDiagnostics(result.diagnostics)).toMatchObject([
+    { ruleId: 'repository.metadata.document.required', severity: 'error' },
+  ]);
+});
+
 async function createManagedFixture(extraFiles: Record<string, string> = {}): Promise<string> {
   return createDoctorFixture({
     packageJson: { name: '@ankhorage/metadata-fixture', private: true },
@@ -286,7 +299,7 @@ async function analyze(
   });
 }
 
-function createManagedCommandContext(cwd: string) {
+function createManagedCommandContext(cwd: string, workspace = cwd) {
   const captured = createCapturedCommandContext(cwd);
   return {
     ...captured,
@@ -297,6 +310,7 @@ function createManagedCommandContext(cwd: string) {
         GITHUB_ACTIONS: 'true',
         GITHUB_REPOSITORY: 'ankhorage/ch-akontaxi',
         GITHUB_REPOSITORY_OWNER: 'ankhorage',
+        GITHUB_WORKSPACE: workspace,
       },
     },
   };

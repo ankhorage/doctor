@@ -23,6 +23,8 @@ export type DoctorPlannedChangeKind =
   'create-directory' | 'create-file' | 'update-json' | 'update-text';
 
 export interface DoctorRepositoryMetadataOptions {
+  /** A host-context identity failure that must be surfaced instead of guessing managed applicability. */
+  readonly applicabilityDiagnostic?: string;
   readonly eligibility?: 'applicable' | 'archived' | 'legacy' | 'third-party';
   readonly enforce?: boolean;
   /**
