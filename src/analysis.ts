@@ -25,6 +25,11 @@ export type DoctorPlannedChangeKind =
 export interface DoctorRepositoryMetadataOptions {
   readonly eligibility?: 'applicable' | 'archived' | 'legacy' | 'third-party';
   readonly enforce?: boolean;
+  /**
+   * True only when the calling host has established that its target is an enrolled Ankhorage
+   * repository.
+   */
+  readonly managed?: boolean;
   readonly profile?: 'non-source' | 'source';
 }
 

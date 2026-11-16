@@ -13,6 +13,7 @@ import {
 } from './diagnostics.js';
 import { DOCTOR_COMMAND_CATEGORY } from './packageMetadata.js';
 import type { DoctorReadiness } from './readiness.js';
+import { createMetadataOptions } from './repositoryMetadataCommandOptions.js';
 
 type DoctorCommandName = 'fix' | 'package' | 'repo' | 'validate';
 
@@ -196,7 +197,7 @@ async function runValidateCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'validate',
-    repositoryMetadata: { enforce: request.enforceRepositoryMetadata },
+    repositoryMetadata: createMetadataOptions(request),
   });
 
   request.context.writeStdout(renderAnalysisReport('validate', result));
@@ -214,7 +215,7 @@ async function runFixCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'fix',
-    repositoryMetadata: { enforce: request.enforceRepositoryMetadata },
+    repositoryMetadata: createMetadataOptions(request),
   });
 
   request.context.writeStdout(renderAnalysisReport('fix', result));
@@ -232,7 +233,7 @@ async function runRepoCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'repo',
-    repositoryMetadata: { enforce: request.enforceRepositoryMetadata },
+    repositoryMetadata: createMetadataOptions(request),
   });
 
   request.context.writeStdout(renderAnalysisReport('repo', result));
@@ -250,7 +251,7 @@ async function runPackageCommand(
     cwd: request.context.cwd,
     inputPath: request.inputPath,
     mode: 'package',
-    repositoryMetadata: { enforce: request.enforceRepositoryMetadata },
+    repositoryMetadata: createMetadataOptions(request),
   });
 
   request.context.writeStdout(renderAnalysisReport('package', result));

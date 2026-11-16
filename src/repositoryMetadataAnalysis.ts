@@ -20,10 +20,8 @@ export async function analyzeRepositoryMetadata(
   result: DoctorAnalysisResult,
   request: DoctorAnalysisRequest,
 ): Promise<DoctorAnalysisResult> {
-  const packageJson = await readPackageJsonAsync(result.targetPath);
   const metadata = await acquireRepositoryMetadataAsync(
     result.targetPath,
-    packageJson,
     request.repositoryMetadata,
   );
   const diagnostics = [
@@ -47,63 +45,110 @@ interface RepositoryMetadataAcquisition {
   readonly fact: RepositoryMetadataFact;
 }
 
-/*** Read package identity without allowing malformed package JSON to make metadata enforcement broader. */
-async function readPackageJsonAsync(targetPath: string): Promise<Record<string, unknown> | null> {
-  try {
-    const value: unknown = JSON.parse(
-      await fs.readFile(path.join(targetPath, 'package.json'), 'utf8'),
-    );
-    return isRecord(value) ? value : null;
-  } catch {
-    return null;
-  }
-}
-
 /*** Acquire only canonical JSON metadata and never execute target repository source code. */
 async function acquireRepositoryMetadataAsync(
   targetPath: string,
-  packageJson: Record<string, unknown> | null,
   options: DoctorRepositoryMetadataOptions | undefined,
 ): Promise<RepositoryMetadataAcquisition> {
-  const managed = isManagedAnkhorageRepository(packageJson);
-  const eligibility = options?.eligibility ?? (managed ? 'applicable' : 'third-party');
-  const profile = options?.profile ?? (await detectMetadataProfileAsync(targetPath));
+  const metadataOptions = options ?? {};
+  const managed = metadataOptions.managed === true;
+  const eligibility = metadataOptions.eligibility ?? (managed ? 'applicable' : 'third-party');
+  const profile = metadataOptions.profile ?? (await detectMetadataProfileAsync(targetPath));
+  const fact = { eligibility, managed, profile } as const satisfies RepositoryMetadataFact;
   const canonicalPath = canonicalMetadataPath(profile);
   const metadataPath = path.join(targetPath, canonicalPath);
 
   if (eligibility !== 'applicable' || !managed) {
-    return { diagnostics: [], evaluate: true, fact: { eligibility, managed, profile } };
+    return { diagnostics: [], evaluate: true, fact };
   }
 
-  let source: string;
+  const canonicalSource = await readMetadataSourceAsync(metadataPath);
+  if (canonicalSource.kind !== 'absent')
+    return acquireDiscoveredMetadata(
+      canonicalSource,
+      canonicalPath,
+      metadataPath,
+      fact,
+      metadataOptions.enforce,
+    );
+
+  const alternatePath = canonicalMetadataPath(oppositeProfile(profile));
+  const alternateMetadataPath = path.join(targetPath, alternatePath);
+  const alternateSource = await readMetadataSourceAsync(alternateMetadataPath);
+  return alternateSource.kind === 'absent'
+    ? { diagnostics: [], evaluate: true, fact }
+    : acquireDiscoveredMetadata(
+        alternateSource,
+        alternatePath,
+        alternateMetadataPath,
+        fact,
+        metadataOptions.enforce,
+      );
+}
+
+type MetadataSource =
+  | { readonly kind: 'absent' }
+  | { readonly kind: 'present'; readonly source: string }
+  | { readonly error: unknown; readonly kind: 'unreadable' };
+
+/*** Decode one discovered metadata document or surface its filesystem failure. */
+function acquireDiscoveredMetadata(
+  source: Exclude<MetadataSource, { readonly kind: 'absent' }>,
+  metadataPath: string,
+  absoluteMetadataPath: string,
+  fact: RepositoryMetadataFact,
+  enforce: boolean | undefined,
+): RepositoryMetadataAcquisition {
+  return source.kind === 'present'
+    ? decodeMetadataSource(
+        source.source,
+        { ...fact, path: metadataPath },
+        absoluteMetadataPath,
+        enforce,
+      )
+    : unreadableMetadataAcquisition(
+        metadataPath,
+        absoluteMetadataPath,
+        source.error,
+        enforce,
+        fact,
+      );
+}
+
+/*** Read metadata text while distinguishing absence from an unreadable authored document. */
+async function readMetadataSourceAsync(metadataPath: string): Promise<MetadataSource> {
   try {
-    source = await fs.readFile(metadataPath, 'utf8');
+    return { kind: 'present', source: await fs.readFile(metadataPath, 'utf8') };
   } catch (error) {
     if (hasErrorCode(error, 'ENOENT')) {
-      return { diagnostics: [], evaluate: true, fact: { eligibility, managed, profile } };
+      return { kind: 'absent' };
     }
 
-    return {
-      diagnostics: [
-        createMetadataDiagnostic({
-          code: 'repository-metadata-unreadable',
-          message: 'Repository metadata could not be read: ' + describeError(error),
-          path: metadataPath,
-          ruleId: 'repository.metadata.document.valid',
-          severity: metadataSeverity(options?.enforce),
-        }),
-      ],
-      evaluate: false,
-      fact: { eligibility, managed, path: canonicalPath, profile },
-    };
+    return { error, kind: 'unreadable' };
   }
+}
 
-  return decodeMetadataSource(
-    source,
-    { eligibility, managed, path: canonicalPath, profile },
-    metadataPath,
-    options?.enforce,
-  );
+/*** Create one unreadable-document result at the authored canonical or alternate path. */
+function unreadableMetadataAcquisition(
+  metadataPath: string,
+  absoluteMetadataPath: string,
+  error: unknown,
+  enforce: boolean | undefined,
+  fact: RepositoryMetadataFact,
+): RepositoryMetadataAcquisition {
+  return {
+    diagnostics: [
+      createMetadataDiagnostic({
+        code: 'repository-metadata-unreadable',
+        message: 'Repository metadata could not be read: ' + describeError(error),
+        path: absoluteMetadataPath,
+        ruleId: 'repository.metadata.document.valid',
+        severity: metadataSeverity(enforce),
+      }),
+    ],
+    evaluate: false,
+    fact: { ...fact, path: metadataPath },
+  };
 }
 
 /*** Parse and decode metadata while keeping syntax errors distinct from structural decoder findings. */
@@ -193,14 +238,31 @@ function evaluateMetadataPreflight(
     createMetadataDiagnostic({
       code: 'field-invalid',
       message: finding.message,
-      path: path.join(
-        targetPath,
-        finding.subjects[0]?.path ?? canonicalMetadataPath(metadata.profile),
-      ),
+      path: resolveMetadataFindingPath(targetPath, metadata, finding.subjects[0]?.path),
       ruleId: finding.ruleId as DoctorRuleId,
       severity: metadataSeverity(enforce),
     }),
   );
+}
+
+/*** Resolve Rules document paths and RFC 6901 fragments without treating a pointer as a filesystem path. */
+function resolveMetadataFindingPath(
+  targetPath: string,
+  metadata: RepositoryMetadataFact,
+  findingPath: string | undefined,
+): string {
+  const documentPath = path.join(
+    targetPath,
+    metadata.path ?? canonicalMetadataPath(metadata.profile),
+  );
+  if (findingPath === undefined || findingPath.startsWith('#')) {
+    return documentPath + (findingPath ?? '');
+  }
+
+  const fragmentIndex = findingPath.indexOf('#');
+  const relativePath = fragmentIndex === -1 ? findingPath : findingPath.slice(0, fragmentIndex);
+  const fragment = fragmentIndex === -1 ? '' : findingPath.slice(fragmentIndex);
+  return path.join(targetPath, relativePath) + fragment;
 }
 
 /*** Use published Rules path policy instead of reproducing metadata path literals in Doctor. */
@@ -210,9 +272,9 @@ function canonicalMetadataPath(profile: 'non-source' | 'source'): string {
     : REPOSITORY_RULE_METADATA.metadata.profiles.nonSource.canonicalPath;
 }
 
-/*** Keep rollout enforcement explicitly scoped to package identities owned by Ankhorage. */
-function isManagedAnkhorageRepository(packageJson: Record<string, unknown> | null): boolean {
-  return typeof packageJson?.name === 'string' && packageJson.name.startsWith('@ankhorage/');
+/*** Select the other Rules-defined profile path when canonical metadata is absent. */
+function oppositeProfile(profile: 'non-source' | 'source'): 'non-source' | 'source' {
+  return profile === 'source' ? 'non-source' : 'source';
 }
 
 /*** Promote preflight findings only through the explicit Doctor activation request. */
@@ -246,9 +308,4 @@ function hasErrorCode(error: unknown, code: string): boolean {
 /*** Render parser and filesystem failures without exposing an implementation-specific exception shape. */
 function describeError(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
-}
-
-/*** Narrow package JSON to the object shape needed for managed-repository identification. */
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }

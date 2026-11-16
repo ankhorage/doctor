@@ -37,6 +37,52 @@ test('blocks missing managed source metadata through the explicit enforcement ac
   expect(diagnostic?.severity).toBe('error');
 });
 
+test('enforces missing and invalid metadata for an explicitly managed unscoped source repository', async () => {
+  const missingFixture = await createDoctorFixture({
+    packageJson: { name: 'ch-akontaxi', private: true },
+    extraFiles: { 'src/index.ts': 'export const fixture = true;\n' },
+  });
+  const invalidFixture = await createDoctorFixture({
+    packageJson: { name: 'ch-akontaxi', private: true },
+    extraFiles: { 'src/metadata/repository.json': '{not json' },
+  });
+
+  const [missing, invalid] = await Promise.all([
+    analyze(missingFixture, { enforce: true, managed: true }),
+    analyze(invalidFixture, { enforce: true, managed: true }),
+  ]);
+
+  expect(metadataDiagnostics(missing.diagnostics)).toMatchObject([
+    { ruleId: 'repository.metadata.document.required', severity: 'error' },
+  ]);
+  expect(metadataDiagnostics(invalid.diagnostics)).toMatchObject([
+    { ruleId: 'repository.metadata.document.valid', severity: 'error' },
+  ]);
+});
+
+test('enforces missing source and invalid non-source metadata for explicitly managed package-less repositories', async () => {
+  const missingSourceFixture = await createDoctorFixture({
+    packageJson: null,
+    extraFiles: { 'src/index.ts': 'export const fixture = true;\n' },
+  });
+  const invalidNonSourceFixture = await createDoctorFixture({
+    packageJson: null,
+    extraFiles: { 'metadata/repository.json': '{not json' },
+  });
+
+  const [missing, invalid] = await Promise.all([
+    analyze(missingSourceFixture, { enforce: true, managed: true }),
+    analyze(invalidNonSourceFixture, { enforce: true, managed: true, profile: 'non-source' }),
+  ]);
+
+  expect(metadataDiagnostics(missing.diagnostics)).toMatchObject([
+    { ruleId: 'repository.metadata.document.required', severity: 'error' },
+  ]);
+  expect(metadataDiagnostics(invalid.diagnostics)).toMatchObject([
+    { ruleId: 'repository.metadata.document.valid', severity: 'error' },
+  ]);
+});
+
 test('distinguishes syntax errors from missing metadata files', async () => {
   const fixture = await createManagedFixture({
     'src/metadata/repository.json': '{not json',
@@ -101,6 +147,67 @@ test('promotes canonical preflight policy findings only through explicit activat
   ).toBe(true);
 });
 
+test('reports source metadata authored at the non-source path as a Rules location finding', async () => {
+  const fixture = await createManagedFixture({
+    'metadata/repository.json': JSON.stringify(METADATA),
+  });
+
+  const diagnostics = metadataDiagnostics((await analyze(fixture, { enforce: true })).diagnostics);
+
+  expect(diagnostics).toEqual([
+    expect.objectContaining({
+      path: `${fixture}/metadata/repository.json`,
+      ruleId: 'repository.metadata.location.canonical',
+      severity: 'error',
+    }),
+  ]);
+});
+
+test('reports non-source metadata authored at the source path as a Rules location finding', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: null,
+    extraFiles: { 'src/metadata/repository.json': JSON.stringify(METADATA) },
+  });
+
+  const diagnostics = metadataDiagnostics(
+    (await analyze(fixture, { enforce: true, managed: true, profile: 'non-source' })).diagnostics,
+  );
+
+  expect(diagnostics).toEqual([
+    expect.objectContaining({
+      path: `${fixture}/src/metadata/repository.json`,
+      ruleId: 'repository.metadata.location.canonical',
+      severity: 'error',
+    }),
+  ]);
+});
+
+test('uses the expected metadata path when both profile paths are authored', async () => {
+  const fixture = await createManagedFixture({
+    'metadata/repository.json': JSON.stringify(METADATA),
+    'src/metadata/repository.json': JSON.stringify(METADATA),
+  });
+
+  expect(metadataDiagnostics((await analyze(fixture, { enforce: true })).diagnostics)).toEqual([]);
+});
+
+test('anchors Rules title and implements JSON pointers to the discovered metadata document', async () => {
+  const fixture = await createManagedFixture({
+    'src/metadata/repository.json': JSON.stringify({
+      ...METADATA,
+      implements: [{ packageName: 'fixture-package', subpath: 'not-a-public-subpath' }],
+      title: 'TODO',
+    }),
+  });
+
+  const diagnostics = metadataDiagnostics((await analyze(fixture, { enforce: true })).diagnostics);
+  const metadataPath = `${fixture}/src/metadata/repository.json`;
+
+  expect(diagnostics.some(({ path }) => path === `${metadataPath}#/title`)).toBe(true);
+  expect(diagnostics.some(({ path }) => path === `${metadataPath}#/implements/0`)).toBe(true);
+  expect(diagnostics.some(({ path }) => path.includes('/#/'))).toBe(false);
+});
+
 test('uses the non-source canonical path when the host explicitly selects that profile', async () => {
   const fixture = await createDoctorFixture({
     packageJson: { name: '@ankhorage/non-source-fixture', private: true },
@@ -120,8 +227,8 @@ test('preserves archived and third-party exemptions during explicit enforcement'
   });
 
   const [archived, thirdParty] = await Promise.all([
-    analyze(archivedFixture, { eligibility: 'archived', enforce: true }),
-    analyze(thirdPartyFixture, { enforce: true }),
+    analyze(archivedFixture, { eligibility: 'archived', enforce: true, managed: true }),
+    analyze(thirdPartyFixture, { enforce: true, managed: false }),
   ]);
 
   expect(metadataDiagnostics(archived.diagnostics)).toEqual([]);
@@ -130,8 +237,8 @@ test('preserves archived and third-party exemptions during explicit enforcement'
 
 test('exposes metadata enforcement as an explicit standalone CLI activation flag', async () => {
   const fixture = await createManagedFixture();
-  const reportOnly = createCapturedCommandContext(fixture);
-  const enforced = createCapturedCommandContext(fixture);
+  const reportOnly = createManagedCommandContext(fixture);
+  const enforced = createManagedCommandContext(fixture);
 
   expect((await runCli(['validate'], { context: reportOnly.context })).exitCode).toBe(0);
   expect(
@@ -140,6 +247,20 @@ test('exposes metadata enforcement as an explicit standalone CLI activation flag
   ).toBe(1);
   expect(reportOnly.stdout.value).toContain('WARNING repository.metadata.document.required');
   expect(enforced.stdout.value).toContain('ERROR repository.metadata.document.required');
+});
+
+test('CLI enforcement blocks a managed package-less source repository without package-name inference', async () => {
+  const fixture = await createDoctorFixture({
+    packageJson: null,
+    extraFiles: { 'src/index.ts': 'export const fixture = true;\n' },
+  });
+  const captured = createManagedCommandContext(fixture);
+
+  expect(
+    (await runCli(['validate', '--enforce-repository-metadata'], { context: captured.context }))
+      .exitCode,
+  ).toBe(1);
+  expect(captured.stdout.value).toContain('ERROR repository.metadata.document.required');
 });
 
 async function createManagedFixture(extraFiles: Record<string, string> = {}): Promise<string> {
@@ -152,12 +273,33 @@ async function createManagedFixture(extraFiles: Record<string, string> = {}): Pr
 async function analyze(
   cwd: string,
   repositoryMetadata: {
-    readonly eligibility?: 'archived';
+    readonly eligibility?: 'archived' | 'third-party';
     readonly enforce?: boolean;
-    readonly profile?: 'non-source';
+    readonly managed?: boolean;
+    readonly profile?: 'non-source' | 'source';
   } = {},
 ) {
-  return analyzeDoctorTargetWithCliLayout({ cwd, mode: 'validate', repositoryMetadata });
+  return analyzeDoctorTargetWithCliLayout({
+    cwd,
+    mode: 'validate',
+    repositoryMetadata: { managed: true, ...repositoryMetadata },
+  });
+}
+
+function createManagedCommandContext(cwd: string) {
+  const captured = createCapturedCommandContext(cwd);
+  return {
+    ...captured,
+    context: {
+      ...captured.context,
+      env: {
+        ...captured.context.env,
+        GITHUB_ACTIONS: 'true',
+        GITHUB_REPOSITORY: 'ankhorage/ch-akontaxi',
+        GITHUB_REPOSITORY_OWNER: 'ankhorage',
+      },
+    },
+  };
 }
 
 function metadataDiagnostics(
