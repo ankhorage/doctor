@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.14.36",
+      "value": "v0.15.0",
       "color": "cb3837"
     },
     {
@@ -112,7 +112,7 @@
       "severity": "warning",
       "message": "Exported function createDefaultCommandContext has no documentation description.",
       "sourcePath": "src/commandContext.ts",
-      "line": 15
+      "line": 19
     },
     {
       "ruleId": "documentation.public-function.description",
@@ -163,6 +163,7 @@
         "DoctorFixPlan",
         "DoctorPlannedChange",
         "DoctorPlannedChangeKind",
+        "DoctorRepositoryMetadataOptions",
         "DoctorTargetCheck",
         "DoctorTargetMode"
       ]
@@ -469,11 +470,20 @@
       ]
     },
     {
-      "path": "src/commandContext.ts",
+      "path": "src/commandArguments.ts",
       "isEntrypoint": false,
       "dependencies": [
-        "package.json"
+        "src/commands.ts"
       ],
+      "exports": [
+        "DoctorCommandArguments",
+        "parseDoctorCommandArguments"
+      ]
+    },
+    {
+      "path": "src/commandContext.ts",
+      "isEntrypoint": false,
+      "dependencies": [],
       "exports": [
         "createDefaultCommandContext",
         "DoctorCommandContext",
@@ -487,10 +497,12 @@
         "src/analysis.ts",
         "src/capabilities/index.ts",
         "src/cliLayoutAnalysis.ts",
+        "src/commandArguments.ts",
         "src/commandContext.ts",
         "src/diagnostics.ts",
         "src/packageMetadata.ts",
-        "src/readiness.ts"
+        "src/readiness.ts",
+        "src/repositoryMetadataCommandOptions.ts"
       ],
       "exports": [
         "createProviderCommandDescriptors",
@@ -512,7 +524,8 @@
       "dependencies": [
         "src/analysis.ts",
         "src/bunPolicyAnalysis.ts",
-        "src/cliLayoutAnalysis.ts"
+        "src/cliLayoutAnalysis.ts",
+        "src/repositoryMetadataAnalysis.ts"
       ],
       "exports": [
         "analyzeDoctorTarget",
@@ -567,6 +580,7 @@
         "DoctorPolicyProfile",
         "DoctorReadiness",
         "DoctorReadinessStatus",
+        "DoctorRepositoryMetadataOptions",
         "DoctorRuleId",
         "DoctorTargetCheck",
         "DoctorTargetMode",
@@ -592,7 +606,6 @@
       "path": "src/packageMetadata.ts",
       "isEntrypoint": false,
       "dependencies": [
-        "package.json",
         "src/capabilities/index.ts"
       ],
       "exports": [
@@ -609,6 +622,27 @@
       "exports": [
         "DoctorReadiness",
         "DoctorReadinessStatus"
+      ]
+    },
+    {
+      "path": "src/repositoryMetadataAnalysis.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/analysis.ts",
+        "src/diagnostics.ts"
+      ],
+      "exports": [
+        "analyzeRepositoryMetadata"
+      ]
+    },
+    {
+      "path": "src/repositoryMetadataCommandOptions.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/analysis.ts"
+      ],
+      "exports": [
+        "createMetadataOptionsAsync"
       ]
     },
     {
@@ -804,6 +838,26 @@
       "isEntrypoint": false,
       "dependencies": [
         "src/analysis.ts",
+        "tests/testSupport.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "tests/repositoryMetadataAnalysis.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/cli/standalone.ts",
+        "src/dependencyPolicyAnalysis.ts",
+        "src/diagnostics.ts",
+        "tests/testSupport.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "tests/repositoryMetadataCommandOptions.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/cli/standalone.ts",
         "tests/testSupport.ts"
       ],
       "exports": []
@@ -1083,7 +1137,7 @@
       "modulePath": "src/dependencyPolicyAnalysis.ts",
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 12,
+        "line": 13,
         "column": 1
       },
       "exportPaths": [
@@ -1122,7 +1176,7 @@
       "modulePath": "src/dependencyPolicyAnalysis.ts",
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 21,
+        "line": 22,
         "column": 1
       },
       "exportPaths": [
@@ -1183,7 +1237,7 @@
       "modulePath": "src/commandContext.ts",
       "sourceLocation": {
         "filePath": "src/commandContext.ts",
-        "line": 15,
+        "line": 19,
         "column": 1
       },
       "exportPaths": [
@@ -1289,7 +1343,7 @@
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
         "filePath": "src/packageMetadata.ts",
-        "line": 8,
+        "line": 14,
         "column": 14
       },
       "exportPaths": [
@@ -1311,7 +1365,7 @@
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
         "filePath": "src/packageMetadata.ts",
-        "line": 10,
+        "line": 16,
         "column": 14
       },
       "exportPaths": [
@@ -1333,7 +1387,7 @@
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
         "filePath": "src/packageMetadata.ts",
-        "line": 6,
+        "line": 12,
         "column": 14
       },
       "exportPaths": [
@@ -1355,7 +1409,7 @@
       "modulePath": "src/packageMetadata.ts",
       "sourceLocation": {
         "filePath": "src/packageMetadata.ts",
-        "line": 7,
+        "line": 13,
         "column": 14
       },
       "exportPaths": [
@@ -1377,13 +1431,14 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 25,
+        "line": 38,
         "column": 1
       },
       "exportPaths": [
         "src/index.ts"
       ],
       "relatedSymbols": [
+        "DoctorRepositoryMetadataOptions",
         "DoctorTargetMode"
       ],
       "signatures": [],
@@ -1408,6 +1463,13 @@
           "type": "DoctorTargetMode",
           "required": true,
           "description": null
+        },
+        {
+          "name": "repositoryMetadata",
+          "kind": "property",
+          "type": "DoctorRepositoryMetadataOptions | undefined",
+          "required": false,
+          "description": null
         }
       ],
       "structuredRows": []
@@ -1423,7 +1485,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 46,
+        "line": 60,
         "column": 1
       },
       "exportPaths": [
@@ -1556,7 +1618,7 @@
       "modulePath": "src/commandContext.ts",
       "sourceLocation": {
         "filePath": "src/commandContext.ts",
-        "line": 3,
+        "line": 7,
         "column": 1
       },
       "exportPaths": [
@@ -1614,7 +1676,7 @@
       "modulePath": "src/commandContext.ts",
       "sourceLocation": {
         "filePath": "src/commandContext.ts",
-        "line": 11,
+        "line": 15,
         "column": 1
       },
       "exportPaths": [
@@ -1644,7 +1706,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 135,
+        "line": 144,
         "column": 1
       },
       "exportPaths": [
@@ -1736,7 +1798,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 16,
+        "line": 19,
         "column": 1
       },
       "exportPaths": [
@@ -1758,7 +1820,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 39,
+        "line": 53,
         "column": 1
       },
       "exportPaths": [
@@ -1813,7 +1875,7 @@
       "modulePath": "src/analysis.ts",
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 31,
+        "line": 45,
         "column": 1
       },
       "exportPaths": [
@@ -1896,7 +1958,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 17,
+        "line": 20,
         "column": 1
       },
       "exportPaths": [
@@ -2018,6 +2080,64 @@
       "structuredRows": []
     },
     {
+      "name": "DoctorRepositoryMetadataOptions",
+      "title": null,
+      "description": null,
+      "isReadme": false,
+      "see": [],
+      "security": [],
+      "kind": "type",
+      "modulePath": "src/analysis.ts",
+      "sourceLocation": {
+        "filePath": "src/analysis.ts",
+        "line": 25,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [
+        {
+          "name": "applicabilityDiagnostic",
+          "kind": "property",
+          "type": "string | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "eligibility",
+          "kind": "property",
+          "type": "\"applicable\" | \"archived\" | \"legacy\" | \"third-party\" | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "enforce",
+          "kind": "property",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "managed",
+          "kind": "property",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "profile",
+          "kind": "property",
+          "type": "\"non-source\" | \"source\" | undefined",
+          "required": false,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
       "name": "DoctorRuleId",
       "title": null,
       "description": null,
@@ -2028,7 +2148,7 @@
       "modulePath": "src/diagnostics.ts",
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 19,
+        "line": 22,
         "column": 1
       },
       "exportPaths": [
@@ -2137,7 +2257,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 88,
+        "line": 102,
         "column": 1
       }
     },
@@ -2148,7 +2268,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 235,
+        "line": 249,
         "column": 1
       }
     },
@@ -2159,7 +2279,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 327,
+        "line": 341,
         "column": 1
       }
     },
@@ -2170,7 +2290,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 358,
+        "line": 372,
         "column": 1
       }
     },
@@ -2181,7 +2301,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 574,
+        "line": 588,
         "column": 1
       }
     },
@@ -2192,7 +2312,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 603,
+        "line": 617,
         "column": 1
       }
     },
@@ -2203,7 +2323,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 823,
+        "line": 837,
         "column": 1
       }
     },
@@ -2214,7 +2334,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 914,
+        "line": 928,
         "column": 1
       }
     },
@@ -2225,7 +2345,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 942,
+        "line": 956,
         "column": 1
       }
     },
@@ -2236,7 +2356,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 952,
+        "line": 966,
         "column": 1
       }
     },
@@ -2247,7 +2367,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 994,
+        "line": 1008,
         "column": 1
       }
     },
@@ -2258,7 +2378,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1015,
+        "line": 1029,
         "column": 1
       }
     },
@@ -2269,7 +2389,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1026,
+        "line": 1040,
         "column": 1
       }
     },
@@ -2280,7 +2400,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1056,
+        "line": 1070,
         "column": 1
       }
     },
@@ -2291,7 +2411,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1093,
+        "line": 1107,
         "column": 1
       }
     },
@@ -2302,7 +2422,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1116,
+        "line": 1130,
         "column": 1
       }
     },
@@ -2313,7 +2433,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1139,
+        "line": 1153,
         "column": 1
       }
     },
@@ -2324,7 +2444,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1162,
+        "line": 1176,
         "column": 1
       }
     },
@@ -2335,7 +2455,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1181,
+        "line": 1195,
         "column": 1
       }
     },
@@ -2346,7 +2466,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1196,
+        "line": 1210,
         "column": 1
       }
     },
@@ -2357,7 +2477,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1203,
+        "line": 1217,
         "column": 1
       }
     },
@@ -2368,7 +2488,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1246,
+        "line": 1260,
         "column": 1
       }
     },
@@ -2379,7 +2499,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1260,
+        "line": 1274,
         "column": 1
       }
     },
@@ -2390,7 +2510,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1265,
+        "line": 1279,
         "column": 1
       }
     },
@@ -2401,7 +2521,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1269,
+        "line": 1283,
         "column": 1
       }
     },
@@ -2412,7 +2532,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1276,
+        "line": 1290,
         "column": 1
       }
     },
@@ -2423,7 +2543,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1281,
+        "line": 1295,
         "column": 1
       }
     },
@@ -2434,7 +2554,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1285,
+        "line": 1299,
         "column": 1
       }
     },
@@ -2445,7 +2565,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1297,
+        "line": 1311,
         "column": 1
       }
     },
@@ -2456,7 +2576,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1306,
+        "line": 1320,
         "column": 1
       }
     },
@@ -2467,7 +2587,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1310,
+        "line": 1324,
         "column": 1
       }
     },
@@ -2478,7 +2598,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1314,
+        "line": 1328,
         "column": 1
       }
     },
@@ -2489,7 +2609,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1318,
+        "line": 1332,
         "column": 1
       }
     },
@@ -2500,7 +2620,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1322,
+        "line": 1336,
         "column": 1
       }
     },
@@ -2511,7 +2631,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1327,
+        "line": 1341,
         "column": 1
       }
     },
@@ -2522,7 +2642,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/analysis.ts",
-        "line": 1331,
+        "line": 1345,
         "column": 1
       }
     },
@@ -3484,13 +3604,35 @@
       }
     },
     {
+      "name": "parseDoctorCommandArguments",
+      "description": "Parse Doctor's single target path and explicit repository-metadata activation flag.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/commandArguments.ts",
+        "line": 10,
+        "column": 1
+      }
+    },
+    {
+      "name": "isHelpToken",
+      "description": "Recognize shared standalone and provider command help spellings.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/commandArguments.ts",
+        "line": 29,
+        "column": 1
+      }
+    },
+    {
       "name": "createDefaultCommandContext",
       "description": null,
       "see": [],
       "security": [],
       "sourceLocation": {
         "filePath": "src/commandContext.ts",
-        "line": 15,
+        "line": 19,
         "column": 1
       }
     },
@@ -3501,7 +3643,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 100,
+        "line": 103,
         "column": 1
       }
     },
@@ -3512,7 +3654,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 126,
+        "line": 130,
         "column": 1
       }
     },
@@ -3523,7 +3665,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 134,
+        "line": 138,
         "column": 1
       }
     },
@@ -3534,7 +3676,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 138,
+        "line": 142,
         "column": 1
       }
     },
@@ -3545,7 +3687,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 159,
+        "line": 163,
         "column": 1
       }
     },
@@ -3556,7 +3698,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 163,
+        "line": 167,
         "column": 1
       }
     },
@@ -3567,18 +3709,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 177,
-        "column": 1
-      }
-    },
-    {
-      "name": "parseCommandArguments",
-      "description": null,
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/commands.ts",
-        "line": 185,
+        "line": 184,
         "column": 1
       }
     },
@@ -3589,7 +3720,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 205,
+        "line": 192,
         "column": 1
       }
     },
@@ -3600,7 +3731,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 222,
+        "line": 210,
         "column": 1
       }
     },
@@ -3611,7 +3742,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 239,
+        "line": 228,
         "column": 1
       }
     },
@@ -3622,7 +3753,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 256,
+        "line": 246,
         "column": 1
       }
     },
@@ -3633,7 +3764,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 273,
+        "line": 264,
         "column": 1
       }
     },
@@ -3644,7 +3775,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 329,
+        "line": 320,
         "column": 1
       }
     },
@@ -3655,7 +3786,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 333,
+        "line": 324,
         "column": 1
       }
     },
@@ -3666,7 +3797,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 337,
+        "line": 328,
         "column": 1
       }
     },
@@ -3677,18 +3808,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/commands.ts",
-        "line": 341,
-        "column": 1
-      }
-    },
-    {
-      "name": "isHelpToken",
-      "description": null,
-      "see": [],
-      "security": [],
-      "sourceLocation": {
-        "filePath": "src/commands.ts",
-        "line": 346,
+        "line": 332,
         "column": 1
       }
     },
@@ -3699,7 +3819,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 12,
+        "line": 13,
         "column": 1
       }
     },
@@ -3710,7 +3830,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 21,
+        "line": 22,
         "column": 1
       }
     },
@@ -3721,7 +3841,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/dependencyPolicyAnalysis.ts",
-        "line": 30,
+        "line": 31,
         "column": 1
       }
     },
@@ -3732,7 +3852,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 144,
+        "line": 153,
         "column": 1
       }
     },
@@ -3743,7 +3863,7 @@
       "security": [],
       "sourceLocation": {
         "filePath": "src/diagnostics.ts",
-        "line": 148,
+        "line": 157,
         "column": 1
       }
     },
@@ -3909,6 +4029,215 @@
       "sourceLocation": {
         "filePath": "src/manifestAnalysis.ts",
         "line": 454,
+        "column": 1
+      }
+    },
+    {
+      "name": "analyzeRepositoryMetadata",
+      "description": "Acquire repository metadata at the filesystem boundary and evaluate it through published Rules.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 19,
+        "column": 1
+      }
+    },
+    {
+      "name": "acquireRepositoryMetadataAsync",
+      "description": "Acquire only canonical JSON metadata and never execute target repository source code.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 49,
+        "column": 1
+      }
+    },
+    {
+      "name": "createUnconfirmedApplicabilityAcquisition",
+      "description": "Surface an incomplete managed-host identity instead of guessing target applicability.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 98,
+        "column": 1
+      }
+    },
+    {
+      "name": "acquireDiscoveredMetadata",
+      "description": "Decode one discovered metadata document or surface its filesystem failure.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 124,
+        "column": 1
+      }
+    },
+    {
+      "name": "readMetadataSourceAsync",
+      "description": "Read metadata text while distinguishing absence from an unreadable authored document.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 148,
+        "column": 1
+      }
+    },
+    {
+      "name": "unreadableMetadataAcquisition",
+      "description": "Create one unreadable-document result at the authored canonical or alternate path.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 161,
+        "column": 1
+      }
+    },
+    {
+      "name": "decodeMetadataSource",
+      "description": "Parse and decode metadata while keeping syntax errors distinct from structural decoder findings.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 184,
+        "column": 1
+      }
+    },
+    {
+      "name": "invalidMetadataAcquisition",
+      "description": "Return one invalid-document result without falsely reporting that the document is missing.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 223,
+        "column": 1
+      }
+    },
+    {
+      "name": "detectMetadataProfileAsync",
+      "description": "Derive the profile-owned location from real source ownership unless a host explicitly supplies it.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 245,
+        "column": 1
+      }
+    },
+    {
+      "name": "evaluateMetadataPreflight",
+      "description": "Evaluate canonical metadata policy using only acquired portable facts.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 254,
+        "column": 1
+      }
+    },
+    {
+      "name": "resolveMetadataFindingPath",
+      "description": "Resolve Rules document paths and RFC 6901 fragments without treating a pointer as a filesystem path.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 278,
+        "column": 1
+      }
+    },
+    {
+      "name": "canonicalMetadataPath",
+      "description": "Use published Rules path policy instead of reproducing metadata path literals in Doctor.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 298,
+        "column": 1
+      }
+    },
+    {
+      "name": "oppositeProfile",
+      "description": "Select the other Rules-defined profile path when canonical metadata is absent.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 305,
+        "column": 1
+      }
+    },
+    {
+      "name": "metadataSeverity",
+      "description": "Promote preflight findings only through the explicit Doctor activation request.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 310,
+        "column": 1
+      }
+    },
+    {
+      "name": "createMetadataDiagnostic",
+      "description": "Preserve stable Doctor diagnostic structure for Rules and decoder findings.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 315,
+        "column": 1
+      }
+    },
+    {
+      "name": "hasErrorCode",
+      "description": "Identify filesystem absence without treating other read failures as missing metadata.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 333,
+        "column": 1
+      }
+    },
+    {
+      "name": "describeError",
+      "description": "Render parser and filesystem failures without exposing an implementation-specific exception shape.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataAnalysis.ts",
+        "line": 338,
+        "column": 1
+      }
+    },
+    {
+      "name": "createMetadataOptionsAsync",
+      "description": "Derive managed applicability only when GitHub's checkout and Doctor's target share one canonical identity.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataCommandOptions.ts",
+        "line": 7,
+        "column": 1
+      }
+    },
+    {
+      "name": "createUnconfirmedApplicabilityOptions",
+      "description": "Reject incomplete managed-workflow identity instead of applying managed policy to an arbitrary target.",
+      "see": [],
+      "security": [],
+      "sourceLocation": {
+        "filePath": "src/repositoryMetadataCommandOptions.ts",
+        "line": 42,
         "column": 1
       }
     },
@@ -4475,9 +4804,9 @@
         "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
-        "fromPath": "src/commandContext.ts",
-        "toPath": "package.json",
-        "sourcePath": "src/commandContext.ts"
+        "fromPath": "src/commandArguments.ts",
+        "toPath": "src/commands.ts",
+        "sourcePath": "src/commandArguments.ts"
       },
       {
         "fromPath": "src/commands.ts",
@@ -4492,6 +4821,11 @@
       {
         "fromPath": "src/commands.ts",
         "toPath": "src/cliLayoutAnalysis.ts",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromPath": "src/commands.ts",
+        "toPath": "src/commandArguments.ts",
         "sourcePath": "src/commands.ts"
       },
       {
@@ -4515,6 +4849,11 @@
         "sourcePath": "src/commands.ts"
       },
       {
+        "fromPath": "src/commands.ts",
+        "toPath": "src/repositoryMetadataCommandOptions.ts",
+        "sourcePath": "src/commands.ts"
+      },
+      {
         "fromPath": "src/dependencyPolicyAnalysis.ts",
         "toPath": "src/analysis.ts",
         "sourcePath": "src/dependencyPolicyAnalysis.ts"
@@ -4527,6 +4866,11 @@
       {
         "fromPath": "src/dependencyPolicyAnalysis.ts",
         "toPath": "src/cliLayoutAnalysis.ts",
+        "sourcePath": "src/dependencyPolicyAnalysis.ts"
+      },
+      {
+        "fromPath": "src/dependencyPolicyAnalysis.ts",
+        "toPath": "src/repositoryMetadataAnalysis.ts",
         "sourcePath": "src/dependencyPolicyAnalysis.ts"
       },
       {
@@ -4611,13 +4955,23 @@
       },
       {
         "fromPath": "src/packageMetadata.ts",
-        "toPath": "package.json",
+        "toPath": "src/capabilities/index.ts",
         "sourcePath": "src/packageMetadata.ts"
       },
       {
-        "fromPath": "src/packageMetadata.ts",
-        "toPath": "src/capabilities/index.ts",
-        "sourcePath": "src/packageMetadata.ts"
+        "fromPath": "src/repositoryMetadataAnalysis.ts",
+        "toPath": "src/analysis.ts",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromPath": "src/repositoryMetadataAnalysis.ts",
+        "toPath": "src/diagnostics.ts",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromPath": "src/repositoryMetadataCommandOptions.ts",
+        "toPath": "src/analysis.ts",
+        "sourcePath": "src/repositoryMetadataCommandOptions.ts"
       },
       {
         "fromPath": "src/repositorySourceRulesAnalysis.ts",
@@ -4823,6 +5177,36 @@
         "fromPath": "tests/releaseChangelogBootstrap.test.ts",
         "toPath": "tests/testSupport.ts",
         "sourcePath": "tests/releaseChangelogBootstrap.test.ts"
+      },
+      {
+        "fromPath": "tests/repositoryMetadataAnalysis.test.ts",
+        "toPath": "src/cli/standalone.ts",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromPath": "tests/repositoryMetadataAnalysis.test.ts",
+        "toPath": "src/dependencyPolicyAnalysis.ts",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromPath": "tests/repositoryMetadataAnalysis.test.ts",
+        "toPath": "src/diagnostics.ts",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromPath": "tests/repositoryMetadataAnalysis.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromPath": "tests/repositoryMetadataCommandOptions.test.ts",
+        "toPath": "src/cli/standalone.ts",
+        "sourcePath": "tests/repositoryMetadataCommandOptions.test.ts"
+      },
+      {
+        "fromPath": "tests/repositoryMetadataCommandOptions.test.ts",
+        "toPath": "tests/testSupport.ts",
+        "sourcePath": "tests/repositoryMetadataCommandOptions.test.ts"
       },
       {
         "fromPath": "tests/rulesProviderConsumption.test.ts",
@@ -6279,6 +6663,18 @@
         "sourcePath": "src/cliLayoutAnalysis.ts"
       },
       {
+        "fromSymbol": "parseDoctorCommandArguments",
+        "toSymbol": "isHelpToken",
+        "callExpression": "isHelpToken",
+        "sourcePath": "src/commandArguments.ts"
+      },
+      {
+        "fromSymbol": "src/commandContext.ts",
+        "toSymbol": "createRequire",
+        "callExpression": "createRequire",
+        "sourcePath": "src/commandContext.ts"
+      },
+      {
         "fromSymbol": "runDoctorCommand",
         "toSymbol": "createDoctorCommandServices",
         "callExpression": "createDoctorCommandServices",
@@ -6286,8 +6682,8 @@
       },
       {
         "fromSymbol": "runDoctorCommand",
-        "toSymbol": "parseCommandArguments",
-        "callExpression": "parseCommandArguments",
+        "toSymbol": "parseDoctorCommandArguments",
+        "callExpression": "parseDoctorCommandArguments",
         "sourcePath": "src/commands.ts"
       },
       {
@@ -6321,15 +6717,15 @@
         "sourcePath": "src/commands.ts"
       },
       {
-        "fromSymbol": "parseCommandArguments",
-        "toSymbol": "isHelpToken",
-        "callExpression": "isHelpToken",
+        "fromSymbol": "runValidateCommand",
+        "toSymbol": "analyzeTarget",
+        "callExpression": "services.analyzeTarget",
         "sourcePath": "src/commands.ts"
       },
       {
         "fromSymbol": "runValidateCommand",
-        "toSymbol": "analyzeTarget",
-        "callExpression": "services.analyzeTarget",
+        "toSymbol": "createMetadataOptionsAsync",
+        "callExpression": "createMetadataOptionsAsync",
         "sourcePath": "src/commands.ts"
       },
       {
@@ -6354,6 +6750,12 @@
         "fromSymbol": "runFixCommand",
         "toSymbol": "analyzeTarget",
         "callExpression": "services.analyzeTarget",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runFixCommand",
+        "toSymbol": "createMetadataOptionsAsync",
+        "callExpression": "createMetadataOptionsAsync",
         "sourcePath": "src/commands.ts"
       },
       {
@@ -6378,6 +6780,12 @@
         "fromSymbol": "runRepoCommand",
         "toSymbol": "analyzeTarget",
         "callExpression": "services.analyzeTarget",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runRepoCommand",
+        "toSymbol": "createMetadataOptionsAsync",
+        "callExpression": "createMetadataOptionsAsync",
         "sourcePath": "src/commands.ts"
       },
       {
@@ -6402,6 +6810,12 @@
         "fromSymbol": "runPackageCommand",
         "toSymbol": "analyzeTarget",
         "callExpression": "services.analyzeTarget",
+        "sourcePath": "src/commands.ts"
+      },
+      {
+        "fromSymbol": "runPackageCommand",
+        "toSymbol": "createMetadataOptionsAsync",
+        "callExpression": "createMetadataOptionsAsync",
         "sourcePath": "src/commands.ts"
       },
       {
@@ -6480,6 +6894,12 @@
         "fromSymbol": "applyRepositoryPolicies",
         "toSymbol": "applyBunRuntimePolicy",
         "callExpression": "applyBunRuntimePolicy",
+        "sourcePath": "src/dependencyPolicyAnalysis.ts"
+      },
+      {
+        "fromSymbol": "applyRepositoryPolicies",
+        "toSymbol": "analyzeRepositoryMetadata",
+        "callExpression": "analyzeRepositoryMetadata",
         "sourcePath": "src/dependencyPolicyAnalysis.ts"
       },
       {
@@ -6643,6 +7063,174 @@
         "toSymbol": "createManifestDiagnostic",
         "callExpression": "createManifestDiagnostic",
         "sourcePath": "src/manifestAnalysis.ts"
+      },
+      {
+        "fromSymbol": "src/packageMetadata.ts",
+        "toSymbol": "createRequire",
+        "callExpression": "createRequire",
+        "sourcePath": "src/packageMetadata.ts"
+      },
+      {
+        "fromSymbol": "analyzeRepositoryMetadata",
+        "toSymbol": "acquireRepositoryMetadataAsync",
+        "callExpression": "acquireRepositoryMetadataAsync",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "analyzeRepositoryMetadata",
+        "toSymbol": "evaluateMetadataPreflight",
+        "callExpression": "evaluateMetadataPreflight",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "acquireRepositoryMetadataAsync",
+        "toSymbol": "createUnconfirmedApplicabilityAcquisition",
+        "callExpression": "createUnconfirmedApplicabilityAcquisition",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "acquireRepositoryMetadataAsync",
+        "toSymbol": "detectMetadataProfileAsync",
+        "callExpression": "detectMetadataProfileAsync",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "acquireRepositoryMetadataAsync",
+        "toSymbol": "canonicalMetadataPath",
+        "callExpression": "canonicalMetadataPath",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "acquireRepositoryMetadataAsync",
+        "toSymbol": "readMetadataSourceAsync",
+        "callExpression": "readMetadataSourceAsync",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "acquireRepositoryMetadataAsync",
+        "toSymbol": "acquireDiscoveredMetadata",
+        "callExpression": "acquireDiscoveredMetadata",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "acquireRepositoryMetadataAsync",
+        "toSymbol": "oppositeProfile",
+        "callExpression": "oppositeProfile",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "createUnconfirmedApplicabilityAcquisition",
+        "toSymbol": "createMetadataDiagnostic",
+        "callExpression": "createMetadataDiagnostic",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "createUnconfirmedApplicabilityAcquisition",
+        "toSymbol": "metadataSeverity",
+        "callExpression": "metadataSeverity",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "acquireDiscoveredMetadata",
+        "toSymbol": "decodeMetadataSource",
+        "callExpression": "decodeMetadataSource",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "acquireDiscoveredMetadata",
+        "toSymbol": "unreadableMetadataAcquisition",
+        "callExpression": "unreadableMetadataAcquisition",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "readMetadataSourceAsync",
+        "toSymbol": "hasErrorCode",
+        "callExpression": "hasErrorCode",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "unreadableMetadataAcquisition",
+        "toSymbol": "createMetadataDiagnostic",
+        "callExpression": "createMetadataDiagnostic",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "unreadableMetadataAcquisition",
+        "toSymbol": "describeError",
+        "callExpression": "describeError",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "unreadableMetadataAcquisition",
+        "toSymbol": "metadataSeverity",
+        "callExpression": "metadataSeverity",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "decodeMetadataSource",
+        "toSymbol": "invalidMetadataAcquisition",
+        "callExpression": "invalidMetadataAcquisition",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "decodeMetadataSource",
+        "toSymbol": "describeError",
+        "callExpression": "describeError",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "decodeMetadataSource",
+        "toSymbol": "decodeRepositoryMetadata",
+        "callExpression": "decodeRepositoryMetadata",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "src/repositoryMetadataAnalysis.ts",
+        "toSymbol": "createMetadataDiagnostic",
+        "callExpression": "createMetadataDiagnostic",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "src/repositoryMetadataAnalysis.ts",
+        "toSymbol": "metadataSeverity",
+        "callExpression": "metadataSeverity",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "invalidMetadataAcquisition",
+        "toSymbol": "createMetadataDiagnostic",
+        "callExpression": "createMetadataDiagnostic",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "invalidMetadataAcquisition",
+        "toSymbol": "metadataSeverity",
+        "callExpression": "metadataSeverity",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "evaluateMetadataPreflight",
+        "toSymbol": "evaluateRepositoryMetadataPreflight",
+        "callExpression": "evaluateRepositoryMetadataPreflight",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "src/repositoryMetadataAnalysis.ts",
+        "toSymbol": "resolveMetadataFindingPath",
+        "callExpression": "resolveMetadataFindingPath",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "resolveMetadataFindingPath",
+        "toSymbol": "canonicalMetadataPath",
+        "callExpression": "canonicalMetadataPath",
+        "sourcePath": "src/repositoryMetadataAnalysis.ts"
+      },
+      {
+        "fromSymbol": "createMetadataOptionsAsync",
+        "toSymbol": "createUnconfirmedApplicabilityOptions",
+        "callExpression": "createUnconfirmedApplicabilityOptions",
+        "sourcePath": "src/repositoryMetadataCommandOptions.ts"
       },
       {
         "fromSymbol": "analyzeRepositorySourceRules",
@@ -7659,6 +8247,114 @@
         "sourcePath": "tests/releaseChangelogBootstrap.test.ts"
       },
       {
+        "fromSymbol": "tests/repositoryMetadataAnalysis.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataAnalysis.test.ts",
+        "toSymbol": "createManagedFixture",
+        "callExpression": "createManagedFixture",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataAnalysis.test.ts",
+        "toSymbol": "analyze",
+        "callExpression": "analyze",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataAnalysis.test.ts",
+        "toSymbol": "metadataDiagnostics",
+        "callExpression": "metadataDiagnostics",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataAnalysis.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataAnalysis.test.ts",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataAnalysis.test.ts",
+        "toSymbol": "createManagedCommandContext",
+        "callExpression": "createManagedCommandContext",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataAnalysis.test.ts",
+        "toSymbol": "runCli",
+        "callExpression": "runCli",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "createManagedFixture",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "analyze",
+        "toSymbol": "analyzeDoctorTargetWithCliLayout",
+        "callExpression": "analyzeDoctorTargetWithCliLayout",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "createManagedCommandContext",
+        "toSymbol": "createCapturedCommandContext",
+        "callExpression": "createCapturedCommandContext",
+        "sourcePath": "tests/repositoryMetadataAnalysis.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataCommandOptions.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "tests/repositoryMetadataCommandOptions.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataCommandOptions.test.ts",
+        "toSymbol": "createFixture",
+        "callExpression": "createFixture",
+        "sourcePath": "tests/repositoryMetadataCommandOptions.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataCommandOptions.test.ts",
+        "toSymbol": "createManagedCommandContext",
+        "callExpression": "createManagedCommandContext",
+        "sourcePath": "tests/repositoryMetadataCommandOptions.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataCommandOptions.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "tests/repositoryMetadataCommandOptions.test.ts"
+      },
+      {
+        "fromSymbol": "tests/repositoryMetadataCommandOptions.test.ts",
+        "toSymbol": "runCli",
+        "callExpression": "runCli",
+        "sourcePath": "tests/repositoryMetadataCommandOptions.test.ts"
+      },
+      {
+        "fromSymbol": "createFixture",
+        "toSymbol": "createDoctorFixture",
+        "callExpression": "createDoctorFixture",
+        "sourcePath": "tests/repositoryMetadataCommandOptions.test.ts"
+      },
+      {
+        "fromSymbol": "createManagedCommandContext",
+        "toSymbol": "createCapturedCommandContext",
+        "callExpression": "createCapturedCommandContext",
+        "sourcePath": "tests/repositoryMetadataCommandOptions.test.ts"
+      },
+      {
         "fromSymbol": "tests/rulesProviderConsumption.test.ts",
         "toSymbol": "getAnkhorageProfile",
         "callExpression": "getAnkhorageProfile",
@@ -8008,6 +8704,11 @@
       }
     ],
     "typeReferences": [
+      {
+        "fromSymbol": "DoctorAnalysisRequest",
+        "toType": "DoctorRepositoryMetadataOptions",
+        "sourcePath": "src/analysis.ts"
+      },
       {
         "fromSymbol": "DoctorAnalysisRequest",
         "toType": "DoctorTargetMode",

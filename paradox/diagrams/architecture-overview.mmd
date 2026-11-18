@@ -117,23 +117,28 @@ graph TD
   module_src_cliLayoutAnalysis_ts --> module_src_repositorySourceRulesAnalysis_ts
   module_src_cliLayoutAnalysis_ts --> module_src_sourceArchitectureAnalysis_ts
   module_src_cliLayoutAnalysis_ts --> module_src_utils_getRepositoryRule_ts
+  module_src_commandArguments_ts["src/commandArguments.ts"]
+  package__ankhorage_doctor -.-> module_src_commandArguments_ts
+  module_src_commandArguments_ts --> module_src_commands_ts
   module_src_commandContext_ts["src/commandContext.ts"]
   package__ankhorage_doctor -.-> module_src_commandContext_ts
-  module_src_commandContext_ts --> module_package_json
   module_src_commands_ts["src/commands.ts"]
   package__ankhorage_doctor -.-> module_src_commands_ts
   module_src_commands_ts --> module_src_analysis_ts
   module_src_commands_ts --> module_src_capabilities_index_ts
   module_src_commands_ts --> module_src_cliLayoutAnalysis_ts
+  module_src_commands_ts --> module_src_commandArguments_ts
   module_src_commands_ts --> module_src_commandContext_ts
   module_src_commands_ts --> module_src_diagnostics_ts
   module_src_commands_ts --> module_src_packageMetadata_ts
   module_src_commands_ts --> module_src_readiness_ts
+  module_src_commands_ts --> module_src_repositoryMetadataCommandOptions_ts
   module_src_dependencyPolicyAnalysis_ts["src/dependencyPolicyAnalysis.ts"]
   package__ankhorage_doctor -.-> module_src_dependencyPolicyAnalysis_ts
   module_src_dependencyPolicyAnalysis_ts --> module_src_analysis_ts
   module_src_dependencyPolicyAnalysis_ts --> module_src_bunPolicyAnalysis_ts
   module_src_dependencyPolicyAnalysis_ts --> module_src_cliLayoutAnalysis_ts
+  module_src_dependencyPolicyAnalysis_ts --> module_src_repositoryMetadataAnalysis_ts
   module_src_diagnostics_ts["src/diagnostics.ts"]
   package__ankhorage_doctor -.-> module_src_diagnostics_ts
   module_src_index_ts["src/index.ts"]
@@ -145,10 +150,16 @@ graph TD
   module_src_manifestAnalysis_ts --> module_src_secretManifestAnalysis_ts
   module_src_packageMetadata_ts["src/packageMetadata.ts"]
   package__ankhorage_doctor -.-> module_src_packageMetadata_ts
-  module_src_packageMetadata_ts --> module_package_json
   module_src_packageMetadata_ts --> module_src_capabilities_index_ts
   module_src_readiness_ts["src/readiness.ts"]
   package__ankhorage_doctor -.-> module_src_readiness_ts
+  module_src_repositoryMetadataAnalysis_ts["src/repositoryMetadataAnalysis.ts"]
+  package__ankhorage_doctor -.-> module_src_repositoryMetadataAnalysis_ts
+  module_src_repositoryMetadataAnalysis_ts --> module_src_analysis_ts
+  module_src_repositoryMetadataAnalysis_ts --> module_src_diagnostics_ts
+  module_src_repositoryMetadataCommandOptions_ts["src/repositoryMetadataCommandOptions.ts"]
+  package__ankhorage_doctor -.-> module_src_repositoryMetadataCommandOptions_ts
+  module_src_repositoryMetadataCommandOptions_ts --> module_src_analysis_ts
   module_src_repositorySourceRulesAnalysis_ts["src/repositorySourceRulesAnalysis.ts"]
   package__ankhorage_doctor -.-> module_src_repositorySourceRulesAnalysis_ts
   module_src_repositorySourceRulesAnalysis_ts --> module_src_diagnostics_ts
@@ -233,6 +244,16 @@ graph TD
   package__ankhorage_doctor -.-> module_tests_releaseChangelogBootstrap_test_ts
   module_tests_releaseChangelogBootstrap_test_ts --> module_src_analysis_ts
   module_tests_releaseChangelogBootstrap_test_ts --> module_tests_testSupport_ts
+  module_tests_repositoryMetadataAnalysis_test_ts["tests/repositoryMetadataAnalysis.test.ts"]
+  package__ankhorage_doctor -.-> module_tests_repositoryMetadataAnalysis_test_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --> module_src_cli_standalone_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --> module_src_dependencyPolicyAnalysis_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --> module_src_diagnostics_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --> module_tests_testSupport_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts["tests/repositoryMetadataCommandOptions.test.ts"]
+  package__ankhorage_doctor -.-> module_tests_repositoryMetadataCommandOptions_test_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --> module_src_cli_standalone_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --> module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts["tests/rulesProviderConsumption.test.ts"]
   package__ankhorage_doctor -.-> module_tests_rulesProviderConsumption_test_ts
   module_tests_rulesProviderConsumption_test_ts --> module_src_cliLayoutAnalysis_ts

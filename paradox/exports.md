@@ -66,7 +66,7 @@ Source: `src/authReadinessFileAnalysis.ts:5:1`
 
 Kind: `function`
 Module: `src/dependencyPolicyAnalysis.ts`
-Source: `src/dependencyPolicyAnalysis.ts:12:1`
+Source: `src/dependencyPolicyAnalysis.ts:13:1`
 
 Analyze a Doctor target and apply repository-level dependency and runtime policies.
 
@@ -80,7 +80,7 @@ Analyze a Doctor target and apply repository-level dependency and runtime polici
 
 Kind: `function`
 Module: `src/dependencyPolicyAnalysis.ts`
-Source: `src/dependencyPolicyAnalysis.ts:21:1`
+Source: `src/dependencyPolicyAnalysis.ts:22:1`
 
 Analyze a Doctor target with CLI layout validation and repository-level policies.
 
@@ -100,7 +100,7 @@ Source: `src/capabilities/index.ts:3:14`
 
 Kind: `function`
 Module: `src/commandContext.ts`
-Source: `src/commandContext.ts:15:1`
+Source: `src/commandContext.ts:19:1`
 
 ### Signatures
 
@@ -136,31 +136,31 @@ Source: `src/cli/index.ts:18:1`
 
 Kind: `value`
 Module: `src/packageMetadata.ts`
-Source: `src/packageMetadata.ts:8:14`
+Source: `src/packageMetadata.ts:14:14`
 
 ## DOCTOR_PACKAGE_METADATA
 
 Kind: `value`
 Module: `src/packageMetadata.ts`
-Source: `src/packageMetadata.ts:10:14`
+Source: `src/packageMetadata.ts:16:14`
 
 ## DOCTOR_PACKAGE_NAME
 
 Kind: `value`
 Module: `src/packageMetadata.ts`
-Source: `src/packageMetadata.ts:6:14`
+Source: `src/packageMetadata.ts:12:14`
 
 ## DOCTOR_PACKAGE_VERSION
 
 Kind: `value`
 Module: `src/packageMetadata.ts`
-Source: `src/packageMetadata.ts:7:14`
+Source: `src/packageMetadata.ts:13:14`
 
 ## DoctorAnalysisRequest
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:25:1`
+Source: `src/analysis.ts:38:1`
 
 ### Members
 
@@ -169,12 +169,13 @@ Source: `src/analysis.ts:25:1`
 | cwd | property | `string` | yes |  |
 | inputPath | property | `string \| undefined` | no |  |
 | mode | property | `DoctorTargetMode` | yes |  |
+| repositoryMetadata | property | `DoctorRepositoryMetadataOptions \| undefined` | no |  |
 
 ## DoctorAnalysisResult
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:46:1`
+Source: `src/analysis.ts:60:1`
 
 ### Members
 
@@ -207,7 +208,7 @@ Source: `src/authReadinessAnalysis.ts:6:1`
 
 Kind: `type`
 Module: `src/commandContext.ts`
-Source: `src/commandContext.ts:3:1`
+Source: `src/commandContext.ts:7:1`
 
 ### Members
 
@@ -223,7 +224,7 @@ Source: `src/commandContext.ts:3:1`
 
 Kind: `type`
 Module: `src/commandContext.ts`
-Source: `src/commandContext.ts:11:1`
+Source: `src/commandContext.ts:15:1`
 
 ### Members
 
@@ -235,7 +236,7 @@ Source: `src/commandContext.ts:11:1`
 
 Kind: `type`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:135:1`
+Source: `src/diagnostics.ts:144:1`
 
 ### Members
 
@@ -258,13 +259,13 @@ Source: `src/diagnostics.ts:1:1`
 
 Kind: `unknown`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:16:1`
+Source: `src/diagnostics.ts:19:1`
 
 ## DoctorFixPlan
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:39:1`
+Source: `src/analysis.ts:53:1`
 
 ### Members
 
@@ -279,7 +280,7 @@ Source: `src/analysis.ts:39:1`
 
 Kind: `type`
 Module: `src/analysis.ts`
-Source: `src/analysis.ts:31:1`
+Source: `src/analysis.ts:45:1`
 
 ### Members
 
@@ -301,7 +302,7 @@ Source: `src/analysis.ts:22:1`
 
 Kind: `unknown`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:17:1`
+Source: `src/diagnostics.ts:20:1`
 
 ## DoctorReadiness
 
@@ -329,11 +330,27 @@ Kind: `unknown`
 Module: `src/readiness.ts`
 Source: `src/readiness.ts:5:1`
 
+## DoctorRepositoryMetadataOptions
+
+Kind: `type`
+Module: `src/analysis.ts`
+Source: `src/analysis.ts:25:1`
+
+### Members
+
+| Name | Kind | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| applicabilityDiagnostic | property | `string \| undefined` | no |  |
+| eligibility | property | `"applicable" \| "archived" \| "legacy" \| "third-party" \| undefined` | no |  |
+| enforce | property | `boolean \| undefined` | no |  |
+| managed | property | `boolean \| undefined` | no |  |
+| profile | property | `"non-source" \| "source" \| undefined` | no |  |
+
 ## DoctorRuleId
 
 Kind: `unknown`
 Module: `src/diagnostics.ts`
-Source: `src/diagnostics.ts:19:1`
+Source: `src/diagnostics.ts:22:1`
 
 ## DoctorTargetCheck
 

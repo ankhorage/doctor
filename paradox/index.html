@@ -252,6 +252,11 @@
       <small>19 functions</small>
     </button>
   </li><li>
+    <button class="nav-button" type="button" data-target="src/commandArguments.ts">
+      src/commandArguments.ts
+      <small>2 functions</small>
+    </button>
+  </li><li>
     <button class="nav-button" type="button" data-target="src/commandContext.ts">
       src/commandContext.ts
       <small>1 function</small>
@@ -259,7 +264,7 @@
   </li><li>
     <button class="nav-button" type="button" data-target="src/commands.ts">
       src/commands.ts
-      <small>18 functions</small>
+      <small>16 functions</small>
     </button>
   </li><li>
     <button class="nav-button" type="button" data-target="src/dependencyPolicyAnalysis.ts">
@@ -275,6 +280,16 @@
     <button class="nav-button" type="button" data-target="src/manifestAnalysis.ts">
       src/manifestAnalysis.ts
       <small>15 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/repositoryMetadataAnalysis.ts">
+      src/repositoryMetadataAnalysis.ts
+      <small>17 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/repositoryMetadataCommandOptions.ts">
+      src/repositoryMetadataCommandOptions.ts
+      <small>2 functions</small>
     </button>
   </li><li>
     <button class="nav-button" type="button" data-target="src/repositorySourceRulesAnalysis.ts">
@@ -306,9 +321,9 @@
     <section class="panel">
       <h2>Package overview</h2>
       <div class="summary">
-        <div><strong>33</strong><span class="muted">public exports</span></div>
+        <div><strong>34</strong><span class="muted">public exports</span></div>
         <div><strong>0</strong><span class="muted">components</span></div>
-        <div><strong>63</strong><span class="muted">modules</span></div>
+        <div><strong>68</strong><span class="muted">modules</span></div>
         <div><strong>1</strong><span class="muted">entrypoints</span></div>
       </div>
       <h3>Entrypoints</h3>
@@ -355,7 +370,7 @@ surfaces when only one policy area should be inspected.</p>
         </article><article class="item" data-search="documentation.public-function.description warning Exported function createDefaultCommandContext has no documentation description. src/commandContext.ts">
           <h3>documentation.public-function.description</h3>
           <p><strong>warning</strong> — Exported function createDefaultCommandContext has no documentation description.</p>
-          <p class="muted"><code>src/commandContext.ts:15</code></p>
+          <p class="muted"><code>src/commandContext.ts:19</code></p>
         </article><article class="item" data-search="documentation.public-function.description warning Exported function analyzeAppManifest has no documentation description. src/manifestAnalysis.ts">
           <h3>documentation.public-function.description</h3>
           <p><strong>warning</strong> — Exported function analyzeAppManifest has no documentation description.</p>
@@ -377,11 +392,11 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
     <p><strong>Exports:</strong> <span class="empty">None</span></p>
-  </article><article class="item" data-search="src/analysis.ts src/capabilityCatalog.ts src/diagnostics.ts src/readiness.ts src/utils/getRepositoryRule.ts analyzeDoctorTarget DoctorAnalysisRequest DoctorAnalysisResult DoctorFixPlan DoctorPlannedChange DoctorPlannedChangeKind DoctorTargetCheck DoctorTargetMode">
+  </article><article class="item" data-search="src/analysis.ts src/capabilityCatalog.ts src/diagnostics.ts src/readiness.ts src/utils/getRepositoryRule.ts analyzeDoctorTarget DoctorAnalysisRequest DoctorAnalysisResult DoctorFixPlan DoctorPlannedChange DoctorPlannedChangeKind DoctorRepositoryMetadataOptions DoctorTargetCheck DoctorTargetMode">
     <h3>src/analysis.ts</h3>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/capabilityCatalog.ts</code>, <code>src/diagnostics.ts</code>, <code>src/readiness.ts</code>, <code>src/utils/getRepositoryRule.ts</code></p>
-    <p><strong>Exports:</strong> <code>analyzeDoctorTarget</code>, <code>DoctorAnalysisRequest</code>, <code>DoctorAnalysisResult</code>, <code>DoctorFixPlan</code>, <code>DoctorPlannedChange</code>, <code>DoctorPlannedChangeKind</code>, <code>DoctorTargetCheck</code>, <code>DoctorTargetMode</code></p>
+    <p><strong>Exports:</strong> <code>analyzeDoctorTarget</code>, <code>DoctorAnalysisRequest</code>, <code>DoctorAnalysisResult</code>, <code>DoctorFixPlan</code>, <code>DoctorPlannedChange</code>, <code>DoctorPlannedChangeKind</code>, <code>DoctorRepositoryMetadataOptions</code>, <code>DoctorTargetCheck</code>, <code>DoctorTargetMode</code></p>
   </article><article class="item" data-search="src/authReadinessAnalysis.ts src/authReadinessProvider.ts src/authReadinessTargets.ts src/diagnostics.ts src/readiness.ts analyzeAuthReadiness DoctorAuthReadinessAnalysis">
     <h3>src/authReadinessAnalysis.ts</h3>
     <p class="muted">Referenced module</p>
@@ -512,46 +527,61 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/diagnostics.ts</code>, <code>src/manifestAnalysis.ts</code>, <code>src/repositorySourceRulesAnalysis.ts</code>, <code>src/sourceArchitectureAnalysis.ts</code>, <code>src/utils/getRepositoryRule.ts</code></p>
     <p><strong>Exports:</strong> <code>analyzeDoctorTargetWithCliLayout</code></p>
-  </article><article class="item" data-search="src/commandContext.ts package.json createDefaultCommandContext DoctorCommandContext DoctorCommandRunResult">
+  </article><article class="item" data-search="src/commandArguments.ts src/commands.ts DoctorCommandArguments parseDoctorCommandArguments">
+    <h3>src/commandArguments.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/commands.ts</code></p>
+    <p><strong>Exports:</strong> <code>DoctorCommandArguments</code>, <code>parseDoctorCommandArguments</code></p>
+  </article><article class="item" data-search="src/commandContext.ts createDefaultCommandContext DoctorCommandContext DoctorCommandRunResult">
     <h3>src/commandContext.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>package.json</code></p>
+    <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
     <p><strong>Exports:</strong> <code>createDefaultCommandContext</code>, <code>DoctorCommandContext</code>, <code>DoctorCommandRunResult</code></p>
-  </article><article class="item" data-search="src/commands.ts src/analysis.ts src/capabilities/index.ts src/cliLayoutAnalysis.ts src/commandContext.ts src/diagnostics.ts src/packageMetadata.ts src/readiness.ts createProviderCommandDescriptors DOCTOR_COMMANDS DoctorCommandDefinition DoctorCommandInvocation DoctorCommandServices findDoctorCommandByStandaloneName renderRootHelp renderUnknownCommand runDoctorCommand RunDoctorCommandImpl RunDoctorCommandOptions">
+  </article><article class="item" data-search="src/commands.ts src/analysis.ts src/capabilities/index.ts src/cliLayoutAnalysis.ts src/commandArguments.ts src/commandContext.ts src/diagnostics.ts src/packageMetadata.ts src/readiness.ts src/repositoryMetadataCommandOptions.ts createProviderCommandDescriptors DOCTOR_COMMANDS DoctorCommandDefinition DoctorCommandInvocation DoctorCommandServices findDoctorCommandByStandaloneName renderRootHelp renderUnknownCommand runDoctorCommand RunDoctorCommandImpl RunDoctorCommandOptions">
     <h3>src/commands.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/capabilities/index.ts</code>, <code>src/cliLayoutAnalysis.ts</code>, <code>src/commandContext.ts</code>, <code>src/diagnostics.ts</code>, <code>src/packageMetadata.ts</code>, <code>src/readiness.ts</code></p>
+    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/capabilities/index.ts</code>, <code>src/cliLayoutAnalysis.ts</code>, <code>src/commandArguments.ts</code>, <code>src/commandContext.ts</code>, <code>src/diagnostics.ts</code>, <code>src/packageMetadata.ts</code>, <code>src/readiness.ts</code>, <code>src/repositoryMetadataCommandOptions.ts</code></p>
     <p><strong>Exports:</strong> <code>createProviderCommandDescriptors</code>, <code>DOCTOR_COMMANDS</code>, <code>DoctorCommandDefinition</code>, <code>DoctorCommandInvocation</code>, <code>DoctorCommandServices</code>, <code>findDoctorCommandByStandaloneName</code>, <code>renderRootHelp</code>, <code>renderUnknownCommand</code>, <code>runDoctorCommand</code>, <code>RunDoctorCommandImpl</code>, <code>RunDoctorCommandOptions</code></p>
-  </article><article class="item" data-search="src/dependencyPolicyAnalysis.ts src/analysis.ts src/bunPolicyAnalysis.ts src/cliLayoutAnalysis.ts analyzeDoctorTarget analyzeDoctorTargetWithCliLayout">
+  </article><article class="item" data-search="src/dependencyPolicyAnalysis.ts src/analysis.ts src/bunPolicyAnalysis.ts src/cliLayoutAnalysis.ts src/repositoryMetadataAnalysis.ts analyzeDoctorTarget analyzeDoctorTargetWithCliLayout">
     <h3>src/dependencyPolicyAnalysis.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/bunPolicyAnalysis.ts</code>, <code>src/cliLayoutAnalysis.ts</code></p>
+    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/bunPolicyAnalysis.ts</code>, <code>src/cliLayoutAnalysis.ts</code>, <code>src/repositoryMetadataAnalysis.ts</code></p>
     <p><strong>Exports:</strong> <code>analyzeDoctorTarget</code>, <code>analyzeDoctorTargetWithCliLayout</code></p>
   </article><article class="item" data-search="src/diagnostics.ts countErrorDiagnostics countWarningDiagnostics DoctorDiagnostic DoctorDiagnosticCode DoctorDiagnosticSeverity DoctorPolicyProfile DoctorRuleId">
     <h3>src/diagnostics.ts</h3>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
     <p><strong>Exports:</strong> <code>countErrorDiagnostics</code>, <code>countWarningDiagnostics</code>, <code>DoctorDiagnostic</code>, <code>DoctorDiagnosticCode</code>, <code>DoctorDiagnosticSeverity</code>, <code>DoctorPolicyProfile</code>, <code>DoctorRuleId</code></p>
-  </article><article class="item" data-search="src/index.ts analyzeAppManifest analyzeAppManifestFile analyzeAppManifestTarget analyzeAuthReadiness analyzeAuthReadinessFile analyzeDoctorTarget analyzeDoctorTargetWithCliLayout CAPABILITIES createDefaultCommandContext createDoctorRuntimeProvider CreateDoctorRuntimeProviderOptions DOCTOR_COMMAND_CATEGORY DOCTOR_PACKAGE_METADATA DOCTOR_PACKAGE_NAME DOCTOR_PACKAGE_VERSION DoctorAnalysisRequest DoctorAnalysisResult DoctorAuthReadinessAnalysis DoctorCommandContext DoctorCommandRunResult DoctorDiagnostic DoctorDiagnosticCode DoctorDiagnosticSeverity DoctorFixPlan DoctorPlannedChange DoctorPlannedChangeKind DoctorPolicyProfile DoctorReadiness DoctorReadinessStatus DoctorRuleId DoctorTargetCheck DoctorTargetMode runCli">
+  </article><article class="item" data-search="src/index.ts analyzeAppManifest analyzeAppManifestFile analyzeAppManifestTarget analyzeAuthReadiness analyzeAuthReadinessFile analyzeDoctorTarget analyzeDoctorTargetWithCliLayout CAPABILITIES createDefaultCommandContext createDoctorRuntimeProvider CreateDoctorRuntimeProviderOptions DOCTOR_COMMAND_CATEGORY DOCTOR_PACKAGE_METADATA DOCTOR_PACKAGE_NAME DOCTOR_PACKAGE_VERSION DoctorAnalysisRequest DoctorAnalysisResult DoctorAuthReadinessAnalysis DoctorCommandContext DoctorCommandRunResult DoctorDiagnostic DoctorDiagnosticCode DoctorDiagnosticSeverity DoctorFixPlan DoctorPlannedChange DoctorPlannedChangeKind DoctorPolicyProfile DoctorReadiness DoctorReadinessStatus DoctorRepositoryMetadataOptions DoctorRuleId DoctorTargetCheck DoctorTargetMode runCli">
     <h3>src/index.ts</h3>
     <p class="muted">Configured entrypoint</p>
     <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
-    <p><strong>Exports:</strong> <code>analyzeAppManifest</code>, <code>analyzeAppManifestFile</code>, <code>analyzeAppManifestTarget</code>, <code>analyzeAuthReadiness</code>, <code>analyzeAuthReadinessFile</code>, <code>analyzeDoctorTarget</code>, <code>analyzeDoctorTargetWithCliLayout</code>, <code>CAPABILITIES</code>, <code>createDefaultCommandContext</code>, <code>createDoctorRuntimeProvider</code>, <code>CreateDoctorRuntimeProviderOptions</code>, <code>DOCTOR_COMMAND_CATEGORY</code>, <code>DOCTOR_PACKAGE_METADATA</code>, <code>DOCTOR_PACKAGE_NAME</code>, <code>DOCTOR_PACKAGE_VERSION</code>, <code>DoctorAnalysisRequest</code>, <code>DoctorAnalysisResult</code>, <code>DoctorAuthReadinessAnalysis</code>, <code>DoctorCommandContext</code>, <code>DoctorCommandRunResult</code>, <code>DoctorDiagnostic</code>, <code>DoctorDiagnosticCode</code>, <code>DoctorDiagnosticSeverity</code>, <code>DoctorFixPlan</code>, <code>DoctorPlannedChange</code>, <code>DoctorPlannedChangeKind</code>, <code>DoctorPolicyProfile</code>, <code>DoctorReadiness</code>, <code>DoctorReadinessStatus</code>, <code>DoctorRuleId</code>, <code>DoctorTargetCheck</code>, <code>DoctorTargetMode</code>, <code>runCli</code></p>
+    <p><strong>Exports:</strong> <code>analyzeAppManifest</code>, <code>analyzeAppManifestFile</code>, <code>analyzeAppManifestTarget</code>, <code>analyzeAuthReadiness</code>, <code>analyzeAuthReadinessFile</code>, <code>analyzeDoctorTarget</code>, <code>analyzeDoctorTargetWithCliLayout</code>, <code>CAPABILITIES</code>, <code>createDefaultCommandContext</code>, <code>createDoctorRuntimeProvider</code>, <code>CreateDoctorRuntimeProviderOptions</code>, <code>DOCTOR_COMMAND_CATEGORY</code>, <code>DOCTOR_PACKAGE_METADATA</code>, <code>DOCTOR_PACKAGE_NAME</code>, <code>DOCTOR_PACKAGE_VERSION</code>, <code>DoctorAnalysisRequest</code>, <code>DoctorAnalysisResult</code>, <code>DoctorAuthReadinessAnalysis</code>, <code>DoctorCommandContext</code>, <code>DoctorCommandRunResult</code>, <code>DoctorDiagnostic</code>, <code>DoctorDiagnosticCode</code>, <code>DoctorDiagnosticSeverity</code>, <code>DoctorFixPlan</code>, <code>DoctorPlannedChange</code>, <code>DoctorPlannedChangeKind</code>, <code>DoctorPolicyProfile</code>, <code>DoctorReadiness</code>, <code>DoctorReadinessStatus</code>, <code>DoctorRepositoryMetadataOptions</code>, <code>DoctorRuleId</code>, <code>DoctorTargetCheck</code>, <code>DoctorTargetMode</code>, <code>runCli</code></p>
   </article><article class="item" data-search="src/manifestAnalysis.ts src/analysis.ts src/authReadinessFileAnalysis.ts src/diagnostics.ts src/secretManifestAnalysis.ts analyzeAppManifest analyzeAppManifestFile analyzeAppManifestTarget">
     <h3>src/manifestAnalysis.ts</h3>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/authReadinessFileAnalysis.ts</code>, <code>src/diagnostics.ts</code>, <code>src/secretManifestAnalysis.ts</code></p>
     <p><strong>Exports:</strong> <code>analyzeAppManifest</code>, <code>analyzeAppManifestFile</code>, <code>analyzeAppManifestTarget</code></p>
-  </article><article class="item" data-search="src/packageMetadata.ts package.json src/capabilities/index.ts DOCTOR_COMMAND_CATEGORY DOCTOR_PACKAGE_METADATA DOCTOR_PACKAGE_NAME DOCTOR_PACKAGE_VERSION">
+  </article><article class="item" data-search="src/packageMetadata.ts src/capabilities/index.ts DOCTOR_COMMAND_CATEGORY DOCTOR_PACKAGE_METADATA DOCTOR_PACKAGE_NAME DOCTOR_PACKAGE_VERSION">
     <h3>src/packageMetadata.ts</h3>
     <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>package.json</code>, <code>src/capabilities/index.ts</code></p>
+    <p><strong>Dependencies:</strong> <code>src/capabilities/index.ts</code></p>
     <p><strong>Exports:</strong> <code>DOCTOR_COMMAND_CATEGORY</code>, <code>DOCTOR_PACKAGE_METADATA</code>, <code>DOCTOR_PACKAGE_NAME</code>, <code>DOCTOR_PACKAGE_VERSION</code></p>
   </article><article class="item" data-search="src/readiness.ts DoctorReadiness DoctorReadinessStatus">
     <h3>src/readiness.ts</h3>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
     <p><strong>Exports:</strong> <code>DoctorReadiness</code>, <code>DoctorReadinessStatus</code></p>
+  </article><article class="item" data-search="src/repositoryMetadataAnalysis.ts src/analysis.ts src/diagnostics.ts analyzeRepositoryMetadata">
+    <h3>src/repositoryMetadataAnalysis.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>src/diagnostics.ts</code></p>
+    <p><strong>Exports:</strong> <code>analyzeRepositoryMetadata</code></p>
+  </article><article class="item" data-search="src/repositoryMetadataCommandOptions.ts src/analysis.ts createMetadataOptionsAsync">
+    <h3>src/repositoryMetadataCommandOptions.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/analysis.ts</code></p>
+    <p><strong>Exports:</strong> <code>createMetadataOptionsAsync</code></p>
   </article><article class="item" data-search="src/repositorySourceRulesAnalysis.ts src/diagnostics.ts analyzeRepositorySourceRules">
     <h3>src/repositorySourceRulesAnalysis.ts</h3>
     <p class="muted">Referenced module</p>
@@ -657,6 +687,16 @@ surfaces when only one policy area should be inspected.</p>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/analysis.ts</code>, <code>tests/testSupport.ts</code></p>
     <p><strong>Exports:</strong> <span class="empty">None</span></p>
+  </article><article class="item" data-search="tests/repositoryMetadataAnalysis.test.ts src/cli/standalone.ts src/dependencyPolicyAnalysis.ts src/diagnostics.ts tests/testSupport.ts">
+    <h3>tests/repositoryMetadataAnalysis.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/cli/standalone.ts</code>, <code>src/dependencyPolicyAnalysis.ts</code>, <code>src/diagnostics.ts</code>, <code>tests/testSupport.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
+  </article><article class="item" data-search="tests/repositoryMetadataCommandOptions.test.ts src/cli/standalone.ts tests/testSupport.ts">
+    <h3>tests/repositoryMetadataCommandOptions.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/cli/standalone.ts</code>, <code>tests/testSupport.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
   </article><article class="item" data-search="tests/rulesProviderConsumption.test.ts src/cliLayoutAnalysis.ts tests/testSupport.ts">
     <h3>tests/rulesProviderConsumption.test.ts</h3>
     <p class="muted">Referenced module</p>
@@ -694,14 +734,14 @@ surfaces when only one policy area should be inspected.</p>
       
             <section>
               <h3>src/analysis.ts</h3>
-              <article class="item" id="symbol-doctoranalysisrequest" data-search="DoctorAnalysisRequest  type src/analysis.ts  DoctorTargetMode">
+              <article class="item" id="symbol-doctoranalysisrequest" data-search="DoctorAnalysisRequest  type src/analysis.ts  DoctorRepositoryMetadataOptions DoctorTargetMode">
     <h4>DoctorAnalysisRequest</h4>
     
-    <p class="muted">type • <code>src/analysis.ts:25:1</code></p>
+    <p class="muted">type • <code>src/analysis.ts:38:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
-    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorTargetMode</li></ul></div>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">DoctorRepositoryMetadataOptions</li><li class="chip">DoctorTargetMode</li></ul></div>
     
     <table>
     <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
@@ -724,13 +764,19 @@ surfaces when only one policy area should be inspected.</p>
             <td><code>DoctorTargetMode</code></td>
             <td>yes</td>
             <td></td>
+          </tr><tr>
+            <td><code>repositoryMetadata</code></td>
+            <td>property</td>
+            <td><code>DoctorRepositoryMetadataOptions | undefined</code></td>
+            <td>no</td>
+            <td></td>
           </tr>
     </tbody>
   </table>
   </article><article class="item" id="symbol-doctoranalysisresult" data-search="DoctorAnalysisResult  type src/analysis.ts  DoctorDiagnostic DoctorFixPlan DoctorPlannedChange DoctorPolicyProfile DoctorReadiness DoctorTargetCheck">
     <h4>DoctorAnalysisResult</h4>
     
-    <p class="muted">type • <code>src/analysis.ts:46:1</code></p>
+    <p class="muted">type • <code>src/analysis.ts:60:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -799,7 +845,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctorfixplan" data-search="DoctorFixPlan  type src/analysis.ts  DoctorDiagnostic DoctorPlannedChange DoctorPolicyProfile">
     <h4>DoctorFixPlan</h4>
     
-    <p class="muted">type • <code>src/analysis.ts:39:1</code></p>
+    <p class="muted">type • <code>src/analysis.ts:53:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -838,7 +884,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctorplannedchange" data-search="DoctorPlannedChange  type src/analysis.ts  DoctorPlannedChangeKind DoctorRuleId">
     <h4>DoctorPlannedChange</h4>
     
-    <p class="muted">type • <code>src/analysis.ts:31:1</code></p>
+    <p class="muted">type • <code>src/analysis.ts:45:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -890,6 +936,51 @@ surfaces when only one policy area should be inspected.</p>
     <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
     
     
+  </article><article class="item" id="symbol-doctorrepositorymetadataoptions" data-search="DoctorRepositoryMetadataOptions  type src/analysis.ts ">
+    <h4>DoctorRepositoryMetadataOptions</h4>
+    
+    <p class="muted">type • <code>src/analysis.ts:25:1</code></p>
+    
+    
+    <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
+    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>applicabilityDiagnostic</code></td>
+            <td>property</td>
+            <td><code>string | undefined</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>eligibility</code></td>
+            <td>property</td>
+            <td><code>&quot;applicable&quot; | &quot;archived&quot; | &quot;legacy&quot; | &quot;third-party&quot; | undefined</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>enforce</code></td>
+            <td>property</td>
+            <td><code>boolean | undefined</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>managed</code></td>
+            <td>property</td>
+            <td><code>boolean | undefined</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>profile</code></td>
+            <td>property</td>
+            <td><code>&quot;non-source&quot; | &quot;source&quot; | undefined</code></td>
+            <td>no</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
   </article><article class="item" id="symbol-doctortargetcheck" data-search="DoctorTargetCheck  unknown src/analysis.ts ">
     <h4>DoctorTargetCheck</h4>
     
@@ -1111,7 +1202,7 @@ surfaces when only one policy area should be inspected.</p>
               <article class="item" id="symbol-createdefaultcommandcontext" data-search="createDefaultCommandContext  function src/commandContext.ts  DoctorCommandContext () =&gt; DoctorCommandContext">
     <h4>createDefaultCommandContext</h4>
     
-    <p class="muted">function • <code>src/commandContext.ts:15:1</code></p>
+    <p class="muted">function • <code>src/commandContext.ts:19:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1126,7 +1217,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctorcommandcontext" data-search="DoctorCommandContext  type src/commandContext.ts ">
     <h4>DoctorCommandContext</h4>
     
-    <p class="muted">type • <code>src/commandContext.ts:3:1</code></p>
+    <p class="muted">type • <code>src/commandContext.ts:7:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1171,7 +1262,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctorcommandrunresult" data-search="DoctorCommandRunResult  type src/commandContext.ts ">
     <h4>DoctorCommandRunResult</h4>
     
-    <p class="muted">type • <code>src/commandContext.ts:11:1</code></p>
+    <p class="muted">type • <code>src/commandContext.ts:15:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1196,7 +1287,7 @@ surfaces when only one policy area should be inspected.</p>
               <article class="item" id="symbol-analyzedoctortarget" data-search="analyzeDoctorTarget  function src/dependencyPolicyAnalysis.ts Analyze a Doctor target and apply repository-level dependency and runtime policies. DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;">
     <h4>analyzeDoctorTarget</h4>
     
-    <p class="muted">function • <code>src/dependencyPolicyAnalysis.ts:12:1</code></p>
+    <p class="muted">function • <code>src/dependencyPolicyAnalysis.ts:13:1</code></p>
     <p>Analyze a Doctor target and apply repository-level dependency and runtime policies.</p>
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1221,7 +1312,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-analyzedoctortargetwithclilayout" data-search="analyzeDoctorTargetWithCliLayout  function src/dependencyPolicyAnalysis.ts Analyze a Doctor target with CLI layout validation and repository-level policies. DoctorAnalysisRequest DoctorAnalysisResult (request: DoctorAnalysisRequest) =&gt; Promise&lt;DoctorAnalysisResult&gt;">
     <h4>analyzeDoctorTargetWithCliLayout</h4>
     
-    <p class="muted">function • <code>src/dependencyPolicyAnalysis.ts:21:1</code></p>
+    <p class="muted">function • <code>src/dependencyPolicyAnalysis.ts:22:1</code></p>
     <p>Analyze a Doctor target with CLI layout validation and repository-level policies.</p>
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1250,7 +1341,7 @@ surfaces when only one policy area should be inspected.</p>
               <article class="item" id="symbol-doctordiagnostic" data-search="DoctorDiagnostic  type src/diagnostics.ts  DoctorDiagnosticCode DoctorDiagnosticSeverity DoctorPolicyProfile DoctorRuleId">
     <h4>DoctorDiagnostic</h4>
     
-    <p class="muted">type • <code>src/diagnostics.ts:135:1</code></p>
+    <p class="muted">type • <code>src/diagnostics.ts:144:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1311,7 +1402,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctordiagnosticseverity" data-search="DoctorDiagnosticSeverity  unknown src/diagnostics.ts ">
     <h4>DoctorDiagnosticSeverity</h4>
     
-    <p class="muted">unknown • <code>src/diagnostics.ts:16:1</code></p>
+    <p class="muted">unknown • <code>src/diagnostics.ts:19:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1321,7 +1412,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctorpolicyprofile" data-search="DoctorPolicyProfile  unknown src/diagnostics.ts ">
     <h4>DoctorPolicyProfile</h4>
     
-    <p class="muted">unknown • <code>src/diagnostics.ts:17:1</code></p>
+    <p class="muted">unknown • <code>src/diagnostics.ts:20:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1331,7 +1422,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctorruleid" data-search="DoctorRuleId  unknown src/diagnostics.ts ">
     <h4>DoctorRuleId</h4>
     
-    <p class="muted">unknown • <code>src/diagnostics.ts:19:1</code></p>
+    <p class="muted">unknown • <code>src/diagnostics.ts:22:1</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1429,7 +1520,7 @@ surfaces when only one policy area should be inspected.</p>
               <article class="item" id="symbol-doctor-command-category" data-search="DOCTOR_COMMAND_CATEGORY  value src/packageMetadata.ts ">
     <h4>DOCTOR_COMMAND_CATEGORY</h4>
     
-    <p class="muted">value • <code>src/packageMetadata.ts:8:14</code></p>
+    <p class="muted">value • <code>src/packageMetadata.ts:14:14</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1439,7 +1530,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctor-package-metadata" data-search="DOCTOR_PACKAGE_METADATA  value src/packageMetadata.ts ">
     <h4>DOCTOR_PACKAGE_METADATA</h4>
     
-    <p class="muted">value • <code>src/packageMetadata.ts:10:14</code></p>
+    <p class="muted">value • <code>src/packageMetadata.ts:16:14</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1449,7 +1540,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctor-package-name" data-search="DOCTOR_PACKAGE_NAME  value src/packageMetadata.ts ">
     <h4>DOCTOR_PACKAGE_NAME</h4>
     
-    <p class="muted">value • <code>src/packageMetadata.ts:6:14</code></p>
+    <p class="muted">value • <code>src/packageMetadata.ts:12:14</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1459,7 +1550,7 @@ surfaces when only one policy area should be inspected.</p>
   </article><article class="item" id="symbol-doctor-package-version" data-search="DOCTOR_PACKAGE_VERSION  value src/packageMetadata.ts ">
     <h4>DOCTOR_PACKAGE_VERSION</h4>
     
-    <p class="muted">value • <code>src/packageMetadata.ts:7:14</code></p>
+    <p class="muted">value • <code>src/packageMetadata.ts:13:14</code></p>
     
     
     <p><strong>Export paths:</strong> <code>src/index.ts</code></p>
@@ -1680,23 +1771,28 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cliLayoutAnalysis_ts --&gt; module_src_repositorySourceRulesAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_utils_getRepositoryRule_ts
+  module_src_commandArguments_ts[&quot;src/commandArguments.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_commandArguments_ts
+  module_src_commandArguments_ts --&gt; module_src_commands_ts
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_commandContext_ts
-  module_src_commandContext_ts --&gt; module_package_json
   module_src_commands_ts[&quot;src/commands.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_commands_ts
   module_src_commands_ts --&gt; module_src_analysis_ts
   module_src_commands_ts --&gt; module_src_capabilities_index_ts
   module_src_commands_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_commands_ts --&gt; module_src_commandArguments_ts
   module_src_commands_ts --&gt; module_src_commandContext_ts
   module_src_commands_ts --&gt; module_src_diagnostics_ts
   module_src_commands_ts --&gt; module_src_packageMetadata_ts
   module_src_commands_ts --&gt; module_src_readiness_ts
+  module_src_commands_ts --&gt; module_src_repositoryMetadataCommandOptions_ts
   module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_dependencyPolicyAnalysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_analysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_bunPolicyAnalysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_repositoryMetadataAnalysis_ts
   module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_diagnostics_ts
   module_src_index_ts[&quot;src/index.ts&quot;]
@@ -1708,10 +1804,16 @@ surfaces when only one policy area should be inspected.</p>
   module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_packageMetadata_ts
-  module_src_packageMetadata_ts --&gt; module_package_json
   module_src_packageMetadata_ts --&gt; module_src_capabilities_index_ts
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_readiness_ts
+  module_src_repositoryMetadataAnalysis_ts[&quot;src/repositoryMetadataAnalysis.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_repositoryMetadataAnalysis_ts
+  module_src_repositoryMetadataAnalysis_ts --&gt; module_src_analysis_ts
+  module_src_repositoryMetadataAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_repositoryMetadataCommandOptions_ts[&quot;src/repositoryMetadataCommandOptions.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_repositoryMetadataCommandOptions_ts
+  module_src_repositoryMetadataCommandOptions_ts --&gt; module_src_analysis_ts
   module_src_repositorySourceRulesAnalysis_ts[&quot;src/repositorySourceRulesAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_repositorySourceRulesAnalysis_ts
   module_src_repositorySourceRulesAnalysis_ts --&gt; module_src_diagnostics_ts
@@ -1796,6 +1898,16 @@ surfaces when only one policy area should be inspected.</p>
   package__ankhorage_doctor -.-&gt; module_tests_releaseChangelogBootstrap_test_ts
   module_tests_releaseChangelogBootstrap_test_ts --&gt; module_src_analysis_ts
   module_tests_releaseChangelogBootstrap_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_repositoryMetadataAnalysis_test_ts[&quot;tests/repositoryMetadataAnalysis.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_repositoryMetadataAnalysis_test_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_cli_standalone_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_dependencyPolicyAnalysis_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_diagnostics_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts[&quot;tests/repositoryMetadataCommandOptions.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_repositoryMetadataCommandOptions_test_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --&gt; module_src_cli_standalone_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --&gt; module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_rulesProviderConsumption_test_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -1940,23 +2052,28 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cliLayoutAnalysis_ts --&gt; module_src_repositorySourceRulesAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_utils_getRepositoryRule_ts
+  module_src_commandArguments_ts[&quot;src/commandArguments.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_commandArguments_ts
+  module_src_commandArguments_ts --&gt; module_src_commands_ts
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_commandContext_ts
-  module_src_commandContext_ts --&gt; module_package_json
   module_src_commands_ts[&quot;src/commands.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_commands_ts
   module_src_commands_ts --&gt; module_src_analysis_ts
   module_src_commands_ts --&gt; module_src_capabilities_index_ts
   module_src_commands_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_commands_ts --&gt; module_src_commandArguments_ts
   module_src_commands_ts --&gt; module_src_commandContext_ts
   module_src_commands_ts --&gt; module_src_diagnostics_ts
   module_src_commands_ts --&gt; module_src_packageMetadata_ts
   module_src_commands_ts --&gt; module_src_readiness_ts
+  module_src_commands_ts --&gt; module_src_repositoryMetadataCommandOptions_ts
   module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_dependencyPolicyAnalysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_analysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_bunPolicyAnalysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_repositoryMetadataAnalysis_ts
   module_src_diagnostics_ts[&quot;src/diagnostics.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_diagnostics_ts
   module_src_index_ts[&quot;src/index.ts&quot;]
@@ -1968,10 +2085,16 @@ surfaces when only one policy area should be inspected.</p>
   module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_packageMetadata_ts
-  module_src_packageMetadata_ts --&gt; module_package_json
   module_src_packageMetadata_ts --&gt; module_src_capabilities_index_ts
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_readiness_ts
+  module_src_repositoryMetadataAnalysis_ts[&quot;src/repositoryMetadataAnalysis.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_repositoryMetadataAnalysis_ts
+  module_src_repositoryMetadataAnalysis_ts --&gt; module_src_analysis_ts
+  module_src_repositoryMetadataAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_repositoryMetadataCommandOptions_ts[&quot;src/repositoryMetadataCommandOptions.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_src_repositoryMetadataCommandOptions_ts
+  module_src_repositoryMetadataCommandOptions_ts --&gt; module_src_analysis_ts
   module_src_repositorySourceRulesAnalysis_ts[&quot;src/repositorySourceRulesAnalysis.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_src_repositorySourceRulesAnalysis_ts
   module_src_repositorySourceRulesAnalysis_ts --&gt; module_src_diagnostics_ts
@@ -2056,6 +2179,16 @@ surfaces when only one policy area should be inspected.</p>
   package__ankhorage_doctor -.-&gt; module_tests_releaseChangelogBootstrap_test_ts
   module_tests_releaseChangelogBootstrap_test_ts --&gt; module_src_analysis_ts
   module_tests_releaseChangelogBootstrap_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_repositoryMetadataAnalysis_test_ts[&quot;tests/repositoryMetadataAnalysis.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_repositoryMetadataAnalysis_test_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_cli_standalone_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_dependencyPolicyAnalysis_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_diagnostics_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts[&quot;tests/repositoryMetadataCommandOptions.test.ts&quot;]
+  package__ankhorage_doctor -.-&gt; module_tests_repositoryMetadataCommandOptions_test_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --&gt; module_src_cli_standalone_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --&gt; module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   package__ankhorage_doctor -.-&gt; module_tests_rulesProviderConsumption_test_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
@@ -2112,6 +2245,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
+  module_src_commandArguments_ts[&quot;src/commandArguments.ts&quot;]
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   module_src_commands_ts[&quot;src/commands.ts&quot;]
   module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
@@ -2120,6 +2254,8 @@ surfaces when only one policy area should be inspected.</p>
   module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
+  module_src_repositoryMetadataAnalysis_ts[&quot;src/repositoryMetadataAnalysis.ts&quot;]
+  module_src_repositoryMetadataCommandOptions_ts[&quot;src/repositoryMetadataCommandOptions.ts&quot;]
   module_src_repositorySourceRulesAnalysis_ts[&quot;src/repositorySourceRulesAnalysis.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
@@ -2141,6 +2277,8 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
+  module_tests_repositoryMetadataAnalysis_test_ts[&quot;tests/repositoryMetadataAnalysis.test.ts&quot;]
+  module_tests_repositoryMetadataCommandOptions_test_ts[&quot;tests/repositoryMetadataCommandOptions.test.ts&quot;]
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
@@ -2206,23 +2344,28 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cliLayoutAnalysis_ts --&gt; module_src_repositorySourceRulesAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_utils_getRepositoryRule_ts
-  module_src_commandContext_ts --&gt; module_package_json
+  module_src_commandArguments_ts --&gt; module_src_commands_ts
   module_src_commands_ts --&gt; module_src_analysis_ts
   module_src_commands_ts --&gt; module_src_capabilities_index_ts
   module_src_commands_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_commands_ts --&gt; module_src_commandArguments_ts
   module_src_commands_ts --&gt; module_src_commandContext_ts
   module_src_commands_ts --&gt; module_src_diagnostics_ts
   module_src_commands_ts --&gt; module_src_packageMetadata_ts
   module_src_commands_ts --&gt; module_src_readiness_ts
+  module_src_commands_ts --&gt; module_src_repositoryMetadataCommandOptions_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_analysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_bunPolicyAnalysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_repositoryMetadataAnalysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_analysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_authReadinessFileAnalysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
-  module_src_packageMetadata_ts --&gt; module_package_json
   module_src_packageMetadata_ts --&gt; module_src_capabilities_index_ts
+  module_src_repositoryMetadataAnalysis_ts --&gt; module_src_analysis_ts
+  module_src_repositoryMetadataAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_repositoryMetadataCommandOptions_ts --&gt; module_src_analysis_ts
   module_src_repositorySourceRulesAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
@@ -2265,6 +2408,12 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
   module_tests_releaseChangelogBootstrap_test_ts --&gt; module_src_analysis_ts
   module_tests_releaseChangelogBootstrap_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_cli_standalone_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_dependencyPolicyAnalysis_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_diagnostics_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --&gt; module_src_cli_standalone_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --&gt; module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_tests_testSupport_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
@@ -2307,6 +2456,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
+  module_src_commandArguments_ts[&quot;src/commandArguments.ts&quot;]
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   module_src_commands_ts[&quot;src/commands.ts&quot;]
   module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
@@ -2315,6 +2465,8 @@ surfaces when only one policy area should be inspected.</p>
   module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
+  module_src_repositoryMetadataAnalysis_ts[&quot;src/repositoryMetadataAnalysis.ts&quot;]
+  module_src_repositoryMetadataCommandOptions_ts[&quot;src/repositoryMetadataCommandOptions.ts&quot;]
   module_src_repositorySourceRulesAnalysis_ts[&quot;src/repositorySourceRulesAnalysis.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
@@ -2336,6 +2488,8 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
+  module_tests_repositoryMetadataAnalysis_test_ts[&quot;tests/repositoryMetadataAnalysis.test.ts&quot;]
+  module_tests_repositoryMetadataCommandOptions_test_ts[&quot;tests/repositoryMetadataCommandOptions.test.ts&quot;]
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
@@ -2401,23 +2555,28 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cliLayoutAnalysis_ts --&gt; module_src_repositorySourceRulesAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_sourceArchitectureAnalysis_ts
   module_src_cliLayoutAnalysis_ts --&gt; module_src_utils_getRepositoryRule_ts
-  module_src_commandContext_ts --&gt; module_package_json
+  module_src_commandArguments_ts --&gt; module_src_commands_ts
   module_src_commands_ts --&gt; module_src_analysis_ts
   module_src_commands_ts --&gt; module_src_capabilities_index_ts
   module_src_commands_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_commands_ts --&gt; module_src_commandArguments_ts
   module_src_commands_ts --&gt; module_src_commandContext_ts
   module_src_commands_ts --&gt; module_src_diagnostics_ts
   module_src_commands_ts --&gt; module_src_packageMetadata_ts
   module_src_commands_ts --&gt; module_src_readiness_ts
+  module_src_commands_ts --&gt; module_src_repositoryMetadataCommandOptions_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_analysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_bunPolicyAnalysis_ts
   module_src_dependencyPolicyAnalysis_ts --&gt; module_src_cliLayoutAnalysis_ts
+  module_src_dependencyPolicyAnalysis_ts --&gt; module_src_repositoryMetadataAnalysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_analysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_authReadinessFileAnalysis_ts
   module_src_manifestAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_manifestAnalysis_ts --&gt; module_src_secretManifestAnalysis_ts
-  module_src_packageMetadata_ts --&gt; module_package_json
   module_src_packageMetadata_ts --&gt; module_src_capabilities_index_ts
+  module_src_repositoryMetadataAnalysis_ts --&gt; module_src_analysis_ts
+  module_src_repositoryMetadataAnalysis_ts --&gt; module_src_diagnostics_ts
+  module_src_repositoryMetadataCommandOptions_ts --&gt; module_src_analysis_ts
   module_src_repositorySourceRulesAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_secretManifestAnalysis_ts --&gt; module_src_diagnostics_ts
   module_src_sourceArchitectureAnalysis_ts --&gt; module_src_diagnostics_ts
@@ -2460,6 +2619,12 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_paradoxSelfDependency_test_ts --&gt; module_src_analysis_ts
   module_tests_releaseChangelogBootstrap_test_ts --&gt; module_src_analysis_ts
   module_tests_releaseChangelogBootstrap_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_cli_standalone_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_dependencyPolicyAnalysis_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_src_diagnostics_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --&gt; module_tests_testSupport_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --&gt; module_src_cli_standalone_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --&gt; module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_src_cliLayoutAnalysis_ts
   module_tests_rulesProviderConsumption_test_ts --&gt; module_tests_testSupport_ts
   module_tests_secretManifestAnalysis_test_ts --&gt; module_src_manifestAnalysis_ts
@@ -2504,6 +2669,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
+  module_src_commandArguments_ts[&quot;src/commandArguments.ts&quot;]
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   module_src_commands_ts[&quot;src/commands.ts&quot;]
   module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
@@ -2512,6 +2678,8 @@ surfaces when only one policy area should be inspected.</p>
   module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
+  module_src_repositoryMetadataAnalysis_ts[&quot;src/repositoryMetadataAnalysis.ts&quot;]
+  module_src_repositoryMetadataCommandOptions_ts[&quot;src/repositoryMetadataCommandOptions.ts&quot;]
   module_src_repositorySourceRulesAnalysis_ts[&quot;src/repositorySourceRulesAnalysis.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
@@ -2533,6 +2701,8 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
+  module_tests_repositoryMetadataAnalysis_test_ts[&quot;tests/repositoryMetadataAnalysis.test.ts&quot;]
+  module_tests_repositoryMetadataCommandOptions_test_ts[&quot;tests/repositoryMetadataCommandOptions.test.ts&quot;]
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
@@ -2583,6 +2753,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_packageMetadata_ts --&gt; export_DOCTOR_PACKAGE_VERSION
   export_DoctorAnalysisRequest[&quot;DoctorAnalysisRequest&quot;]
   module_src_analysis_ts --&gt; export_DoctorAnalysisRequest
+  export_DoctorAnalysisRequest -.-&gt; export_DoctorRepositoryMetadataOptions
   export_DoctorAnalysisRequest -.-&gt; export_DoctorTargetMode
   export_DoctorAnalysisResult[&quot;DoctorAnalysisResult&quot;]
   module_src_analysis_ts --&gt; export_DoctorAnalysisResult
@@ -2628,6 +2799,8 @@ surfaces when only one policy area should be inspected.</p>
   export_DoctorReadiness -.-&gt; export_DoctorReadinessStatus
   export_DoctorReadinessStatus[&quot;DoctorReadinessStatus&quot;]
   module_src_readiness_ts --&gt; export_DoctorReadinessStatus
+  export_DoctorRepositoryMetadataOptions[&quot;DoctorRepositoryMetadataOptions&quot;]
+  module_src_analysis_ts --&gt; export_DoctorRepositoryMetadataOptions
   export_DoctorRuleId[&quot;DoctorRuleId&quot;]
   module_src_diagnostics_ts --&gt; export_DoctorRuleId
   export_DoctorTargetCheck[&quot;DoctorTargetCheck&quot;]
@@ -2669,6 +2842,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_cli_index_ts[&quot;src/cli/index.ts&quot;]
   module_src_cli_standalone_ts[&quot;src/cli/standalone.ts&quot;]
   module_src_cliLayoutAnalysis_ts[&quot;src/cliLayoutAnalysis.ts&quot;]
+  module_src_commandArguments_ts[&quot;src/commandArguments.ts&quot;]
   module_src_commandContext_ts[&quot;src/commandContext.ts&quot;]
   module_src_commands_ts[&quot;src/commands.ts&quot;]
   module_src_dependencyPolicyAnalysis_ts[&quot;src/dependencyPolicyAnalysis.ts&quot;]
@@ -2677,6 +2851,8 @@ surfaces when only one policy area should be inspected.</p>
   module_src_manifestAnalysis_ts[&quot;src/manifestAnalysis.ts&quot;]
   module_src_packageMetadata_ts[&quot;src/packageMetadata.ts&quot;]
   module_src_readiness_ts[&quot;src/readiness.ts&quot;]
+  module_src_repositoryMetadataAnalysis_ts[&quot;src/repositoryMetadataAnalysis.ts&quot;]
+  module_src_repositoryMetadataCommandOptions_ts[&quot;src/repositoryMetadataCommandOptions.ts&quot;]
   module_src_repositorySourceRulesAnalysis_ts[&quot;src/repositorySourceRulesAnalysis.ts&quot;]
   module_src_secretManifestAnalysis_ts[&quot;src/secretManifestAnalysis.ts&quot;]
   module_src_sourceArchitectureAnalysis_ts[&quot;src/sourceArchitectureAnalysis.ts&quot;]
@@ -2698,6 +2874,8 @@ surfaces when only one policy area should be inspected.</p>
   module_tests_packageScripts_test_ts[&quot;tests/packageScripts.test.ts&quot;]
   module_tests_paradoxSelfDependency_test_ts[&quot;tests/paradoxSelfDependency.test.ts&quot;]
   module_tests_releaseChangelogBootstrap_test_ts[&quot;tests/releaseChangelogBootstrap.test.ts&quot;]
+  module_tests_repositoryMetadataAnalysis_test_ts[&quot;tests/repositoryMetadataAnalysis.test.ts&quot;]
+  module_tests_repositoryMetadataCommandOptions_test_ts[&quot;tests/repositoryMetadataCommandOptions.test.ts&quot;]
   module_tests_rulesProviderConsumption_test_ts[&quot;tests/rulesProviderConsumption.test.ts&quot;]
   module_tests_secretManifestAnalysis_test_ts[&quot;tests/secretManifestAnalysis.test.ts&quot;]
   module_tests_standaloneContract_test_ts[&quot;tests/standaloneContract.test.ts&quot;]
@@ -2748,6 +2926,7 @@ surfaces when only one policy area should be inspected.</p>
   module_src_packageMetadata_ts --&gt; export_DOCTOR_PACKAGE_VERSION
   export_DoctorAnalysisRequest[&quot;DoctorAnalysisRequest&quot;]
   module_src_analysis_ts --&gt; export_DoctorAnalysisRequest
+  export_DoctorAnalysisRequest -.-&gt; export_DoctorRepositoryMetadataOptions
   export_DoctorAnalysisRequest -.-&gt; export_DoctorTargetMode
   export_DoctorAnalysisResult[&quot;DoctorAnalysisResult&quot;]
   module_src_analysis_ts --&gt; export_DoctorAnalysisResult
@@ -2793,6 +2972,8 @@ surfaces when only one policy area should be inspected.</p>
   export_DoctorReadiness -.-&gt; export_DoctorReadinessStatus
   export_DoctorReadinessStatus[&quot;DoctorReadinessStatus&quot;]
   module_src_readiness_ts --&gt; export_DoctorReadinessStatus
+  export_DoctorRepositoryMetadataOptions[&quot;DoctorRepositoryMetadataOptions&quot;]
+  module_src_analysis_ts --&gt; export_DoctorRepositoryMetadataOptions
   export_DoctorRuleId[&quot;DoctorRuleId&quot;]
   module_src_diagnostics_ts --&gt; export_DoctorRuleId
   export_DoctorTargetCheck[&quot;DoctorTargetCheck&quot;]
@@ -2896,182 +3077,182 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/analysis.ts</h2>
       <article class="item" data-search="analyzeDoctorTarget src/analysis.ts ">
     <h3>analyzeDoctorTarget</h3>
-    <p class="muted"><code>src/analysis.ts:88:1</code></p>
+    <p class="muted"><code>src/analysis.ts:102:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="analyzeRepoPolicy src/analysis.ts ">
     <h3>analyzeRepoPolicy</h3>
-    <p class="muted"><code>src/analysis.ts:235:1</code></p>
+    <p class="muted"><code>src/analysis.ts:249:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="hasPendingPackageReleaseChangesetAsync src/analysis.ts Keep the release-owned changelog optional only while a real package Changeset can generate it.">
     <h3>hasPendingPackageReleaseChangesetAsync</h3>
-    <p class="muted"><code>src/analysis.ts:327:1</code></p>
+    <p class="muted"><code>src/analysis.ts:341:1</code></p>
     <p>Keep the release-owned changelog optional only while a real package Changeset can generate it.</p>
     
   </article><article class="item" data-search="analyzePackagePolicy src/analysis.ts ">
     <h3>analyzePackagePolicy</h3>
-    <p class="muted"><code>src/analysis.ts:358:1</code></p>
+    <p class="muted"><code>src/analysis.ts:372:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createChangesetsDependencyDiagnostic src/analysis.ts ">
     <h3>createChangesetsDependencyDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:574:1</code></p>
+    <p class="muted"><code>src/analysis.ts:588:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateAnkhMetadataAndProvider src/analysis.ts ">
     <h3>validateAnkhMetadataAndProvider</h3>
-    <p class="muted"><code>src/analysis.ts:603:1</code></p>
+    <p class="muted"><code>src/analysis.ts:617:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="inspectProviderSource src/analysis.ts ">
     <h3>inspectProviderSource</h3>
-    <p class="muted"><code>src/analysis.ts:823:1</code></p>
+    <p class="muted"><code>src/analysis.ts:837:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="resolveProviderSourcePath src/analysis.ts ">
     <h3>resolveProviderSourcePath</h3>
-    <p class="muted"><code>src/analysis.ts:914:1</code></p>
+    <p class="muted"><code>src/analysis.ts:928:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="findRepoMarkers src/analysis.ts ">
     <h3>findRepoMarkers</h3>
-    <p class="muted"><code>src/analysis.ts:942:1</code></p>
+    <p class="muted"><code>src/analysis.ts:956:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readPackageJson src/analysis.ts ">
     <h3>readPackageJson</h3>
-    <p class="muted"><code>src/analysis.ts:952:1</code></p>
+    <p class="muted"><code>src/analysis.ts:966:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="detectProfile src/analysis.ts ">
     <h3>detectProfile</h3>
-    <p class="muted"><code>src/analysis.ts:994:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1008:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isProviderPackage src/analysis.ts ">
     <h3>isProviderPackage</h3>
-    <p class="muted"><code>src/analysis.ts:1015:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1029:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requirePublicPackageFields src/analysis.ts Validate every generic public-package metadata field from canonical Policy.">
     <h3>requirePublicPackageFields</h3>
-    <p class="muted"><code>src/analysis.ts:1026:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1040:1</code></p>
     <p>Validate every generic public-package metadata field from canonical Policy.</p>
     
   </article><article class="item" data-search="maybeRequirePath src/analysis.ts ">
     <h3>maybeRequirePath</h3>
-    <p class="muted"><code>src/analysis.ts:1056:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1070:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireNonEmptyStringField src/analysis.ts ">
     <h3>requireNonEmptyStringField</h3>
-    <p class="muted"><code>src/analysis.ts:1093:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1107:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireRecordField src/analysis.ts ">
     <h3>requireRecordField</h3>
-    <p class="muted"><code>src/analysis.ts:1116:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1130:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="requireStringArrayField src/analysis.ts ">
     <h3>requireStringArrayField</h3>
-    <p class="muted"><code>src/analysis.ts:1139:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1153:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="expectsParadox src/analysis.ts ">
     <h3>expectsParadox</h3>
-    <p class="muted"><code>src/analysis.ts:1162:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1176:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="expectsDevtools src/analysis.ts ">
     <h3>expectsDevtools</h3>
-    <p class="muted"><code>src/analysis.ts:1181:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1195:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="hasDependency src/analysis.ts ">
     <h3>hasDependency</h3>
-    <p class="muted"><code>src/analysis.ts:1196:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1210:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="validateAnkhMetadataShape src/analysis.ts ">
     <h3>validateAnkhMetadataShape</h3>
-    <p class="muted"><code>src/analysis.ts:1203:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1217:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createEarlyResult src/analysis.ts ">
     <h3>createEarlyResult</h3>
-    <p class="muted"><code>src/analysis.ts:1246:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1260:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="repositoryRuleFields src/analysis.ts Return canonical rule id and severity from the repository Rules provider.">
     <h3>repositoryRuleFields</h3>
-    <p class="muted"><code>src/analysis.ts:1260:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1274:1</code></p>
     <p>Return canonical rule id and severity from the repository Rules provider.</p>
     
   </article><article class="item" data-search="createDiagnostic src/analysis.ts ">
     <h3>createDiagnostic</h3>
-    <p class="muted"><code>src/analysis.ts:1265:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1279:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createPlannedChange src/analysis.ts ">
     <h3>createPlannedChange</h3>
-    <p class="muted"><code>src/analysis.ts:1269:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1283:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createInvalidPackageJsonMessage src/analysis.ts ">
     <h3>createInvalidPackageJsonMessage</h3>
-    <p class="muted"><code>src/analysis.ts:1276:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1290:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="pathExists src/analysis.ts ">
     <h3>pathExists</h3>
-    <p class="muted"><code>src/analysis.ts:1281:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1295:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="statOrNull src/analysis.ts ">
     <h3>statOrNull</h3>
-    <p class="muted"><code>src/analysis.ts:1285:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1299:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isMissingPathError src/analysis.ts ">
     <h3>isMissingPathError</h3>
-    <p class="muted"><code>src/analysis.ts:1297:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1311:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isNonEmptyString src/analysis.ts ">
     <h3>isNonEmptyString</h3>
-    <p class="muted"><code>src/analysis.ts:1306:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1320:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isPackageRelativeProviderPath src/analysis.ts ">
     <h3>isPackageRelativeProviderPath</h3>
-    <p class="muted"><code>src/analysis.ts:1310:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1324:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isRecord src/analysis.ts ">
     <h3>isRecord</h3>
-    <p class="muted"><code>src/analysis.ts:1314:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1328:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="isStringTuple src/analysis.ts ">
     <h3>isStringTuple</h3>
-    <p class="muted"><code>src/analysis.ts:1318:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1332:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readStringArray src/analysis.ts ">
     <h3>readStringArray</h3>
-    <p class="muted"><code>src/analysis.ts:1322:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1336:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="readCapabilities src/analysis.ts Read and normalize canonical Capability descriptors from untrusted metadata.">
     <h3>readCapabilities</h3>
-    <p class="muted"><code>src/analysis.ts:1327:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1341:1</code></p>
     <p>Read and normalize canonical Capability descriptors from untrusted metadata.</p>
     
   </article><article class="item" data-search="sameStringSet src/analysis.ts ">
     <h3>sameStringSet</h3>
-    <p class="muted"><code>src/analysis.ts:1331:1</code></p>
+    <p class="muted"><code>src/analysis.ts:1345:1</code></p>
     <p class="empty">No description available.</p>
     
   </article>
@@ -3631,12 +3812,27 @@ surfaces when only one policy area should be inspected.</p>
     
   </article>
     </section>
+  </section><section id="view-src-commandarguments-ts" class="view" data-view="src/commandArguments.ts" hidden>
+    <section class="panel">
+      <h2>src/commandArguments.ts</h2>
+      <article class="item" data-search="parseDoctorCommandArguments src/commandArguments.ts Parse Doctor&#39;s single target path and explicit repository-metadata activation flag.">
+    <h3>parseDoctorCommandArguments</h3>
+    <p class="muted"><code>src/commandArguments.ts:10:1</code></p>
+    <p>Parse Doctor&#39;s single target path and explicit repository-metadata activation flag.</p>
+    
+  </article><article class="item" data-search="isHelpToken src/commandArguments.ts Recognize shared standalone and provider command help spellings.">
+    <h3>isHelpToken</h3>
+    <p class="muted"><code>src/commandArguments.ts:29:1</code></p>
+    <p>Recognize shared standalone and provider command help spellings.</p>
+    
+  </article>
+    </section>
   </section><section id="view-src-commandcontext-ts" class="view" data-view="src/commandContext.ts" hidden>
     <section class="panel">
       <h2>src/commandContext.ts</h2>
       <article class="item" data-search="createDefaultCommandContext src/commandContext.ts ">
     <h3>createDefaultCommandContext</h3>
-    <p class="muted"><code>src/commandContext.ts:15:1</code></p>
+    <p class="muted"><code>src/commandContext.ts:19:1</code></p>
     <p class="empty">No description available.</p>
     
   </article>
@@ -3646,92 +3842,82 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/commands.ts</h2>
       <article class="item" data-search="runDoctorCommand src/commands.ts ">
     <h3>runDoctorCommand</h3>
-    <p class="muted"><code>src/commands.ts:100:1</code></p>
+    <p class="muted"><code>src/commands.ts:103:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createProviderCommandDescriptors src/commands.ts ">
     <h3>createProviderCommandDescriptors</h3>
-    <p class="muted"><code>src/commands.ts:126:1</code></p>
+    <p class="muted"><code>src/commands.ts:130:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="findDoctorCommandByStandaloneName src/commands.ts ">
     <h3>findDoctorCommandByStandaloneName</h3>
-    <p class="muted"><code>src/commands.ts:134:1</code></p>
+    <p class="muted"><code>src/commands.ts:138:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="renderRootHelp src/commands.ts ">
     <h3>renderRootHelp</h3>
-    <p class="muted"><code>src/commands.ts:138:1</code></p>
+    <p class="muted"><code>src/commands.ts:142:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="renderUnknownCommand src/commands.ts ">
     <h3>renderUnknownCommand</h3>
-    <p class="muted"><code>src/commands.ts:159:1</code></p>
+    <p class="muted"><code>src/commands.ts:163:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="renderCommandHelp src/commands.ts ">
     <h3>renderCommandHelp</h3>
-    <p class="muted"><code>src/commands.ts:163:1</code></p>
+    <p class="muted"><code>src/commands.ts:167:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="createDoctorCommandServices src/commands.ts ">
     <h3>createDoctorCommandServices</h3>
-    <p class="muted"><code>src/commands.ts:177:1</code></p>
-    <p class="empty">No description available.</p>
-    
-  </article><article class="item" data-search="parseCommandArguments src/commands.ts ">
-    <h3>parseCommandArguments</h3>
-    <p class="muted"><code>src/commands.ts:185:1</code></p>
+    <p class="muted"><code>src/commands.ts:184:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="runValidateCommand src/commands.ts ">
     <h3>runValidateCommand</h3>
-    <p class="muted"><code>src/commands.ts:205:1</code></p>
+    <p class="muted"><code>src/commands.ts:192:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="runFixCommand src/commands.ts ">
     <h3>runFixCommand</h3>
-    <p class="muted"><code>src/commands.ts:222:1</code></p>
+    <p class="muted"><code>src/commands.ts:210:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="runRepoCommand src/commands.ts ">
     <h3>runRepoCommand</h3>
-    <p class="muted"><code>src/commands.ts:239:1</code></p>
+    <p class="muted"><code>src/commands.ts:228:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="runPackageCommand src/commands.ts ">
     <h3>runPackageCommand</h3>
-    <p class="muted"><code>src/commands.ts:256:1</code></p>
+    <p class="muted"><code>src/commands.ts:246:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="renderAnalysisReport src/commands.ts ">
     <h3>renderAnalysisReport</h3>
-    <p class="muted"><code>src/commands.ts:273:1</code></p>
+    <p class="muted"><code>src/commands.ts:264:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="renderDiagnosticLine src/commands.ts ">
     <h3>renderDiagnosticLine</h3>
-    <p class="muted"><code>src/commands.ts:329:1</code></p>
+    <p class="muted"><code>src/commands.ts:320:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="renderReadinessLine src/commands.ts ">
     <h3>renderReadinessLine</h3>
-    <p class="muted"><code>src/commands.ts:333:1</code></p>
+    <p class="muted"><code>src/commands.ts:324:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="renderPlannedChangeLine src/commands.ts ">
     <h3>renderPlannedChangeLine</h3>
-    <p class="muted"><code>src/commands.ts:337:1</code></p>
+    <p class="muted"><code>src/commands.ts:328:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="renderCommandFailure src/commands.ts ">
     <h3>renderCommandFailure</h3>
-    <p class="muted"><code>src/commands.ts:341:1</code></p>
-    <p class="empty">No description available.</p>
-    
-  </article><article class="item" data-search="isHelpToken src/commands.ts ">
-    <h3>isHelpToken</h3>
-    <p class="muted"><code>src/commands.ts:346:1</code></p>
+    <p class="muted"><code>src/commands.ts:332:1</code></p>
     <p class="empty">No description available.</p>
     
   </article>
@@ -3741,17 +3927,17 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/dependencyPolicyAnalysis.ts</h2>
       <article class="item" data-search="analyzeDoctorTarget src/dependencyPolicyAnalysis.ts Analyze a Doctor target and apply repository-level dependency and runtime policies.">
     <h3>analyzeDoctorTarget</h3>
-    <p class="muted"><code>src/dependencyPolicyAnalysis.ts:12:1</code></p>
+    <p class="muted"><code>src/dependencyPolicyAnalysis.ts:13:1</code></p>
     <p>Analyze a Doctor target and apply repository-level dependency and runtime policies.</p>
     
   </article><article class="item" data-search="analyzeDoctorTargetWithCliLayout src/dependencyPolicyAnalysis.ts Analyze a Doctor target with CLI layout validation and repository-level policies.">
     <h3>analyzeDoctorTargetWithCliLayout</h3>
-    <p class="muted"><code>src/dependencyPolicyAnalysis.ts:21:1</code></p>
+    <p class="muted"><code>src/dependencyPolicyAnalysis.ts:22:1</code></p>
     <p>Analyze a Doctor target with CLI layout validation and repository-level policies.</p>
     
   </article><article class="item" data-search="applyRepositoryPolicies src/dependencyPolicyAnalysis.ts Apply repository policies that remain independent from concrete package identities.">
     <h3>applyRepositoryPolicies</h3>
-    <p class="muted"><code>src/dependencyPolicyAnalysis.ts:30:1</code></p>
+    <p class="muted"><code>src/dependencyPolicyAnalysis.ts:31:1</code></p>
     <p>Apply repository policies that remain independent from concrete package identities.</p>
     
   </article>
@@ -3761,12 +3947,12 @@ surfaces when only one policy area should be inspected.</p>
       <h2>src/diagnostics.ts</h2>
       <article class="item" data-search="countErrorDiagnostics src/diagnostics.ts ">
     <h3>countErrorDiagnostics</h3>
-    <p class="muted"><code>src/diagnostics.ts:144:1</code></p>
+    <p class="muted"><code>src/diagnostics.ts:153:1</code></p>
     <p class="empty">No description available.</p>
     
   </article><article class="item" data-search="countWarningDiagnostics src/diagnostics.ts ">
     <h3>countWarningDiagnostics</h3>
-    <p class="muted"><code>src/diagnostics.ts:148:1</code></p>
+    <p class="muted"><code>src/diagnostics.ts:157:1</code></p>
     <p class="empty">No description available.</p>
     
   </article>
@@ -3848,6 +4034,111 @@ surfaces when only one policy area should be inspected.</p>
     <h3>toErrorMessage</h3>
     <p class="muted"><code>src/manifestAnalysis.ts:454:1</code></p>
     <p class="empty">No description available.</p>
+    
+  </article>
+    </section>
+  </section><section id="view-src-repositorymetadataanalysis-ts" class="view" data-view="src/repositoryMetadataAnalysis.ts" hidden>
+    <section class="panel">
+      <h2>src/repositoryMetadataAnalysis.ts</h2>
+      <article class="item" data-search="analyzeRepositoryMetadata src/repositoryMetadataAnalysis.ts Acquire repository metadata at the filesystem boundary and evaluate it through published Rules.">
+    <h3>analyzeRepositoryMetadata</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:19:1</code></p>
+    <p>Acquire repository metadata at the filesystem boundary and evaluate it through published Rules.</p>
+    
+  </article><article class="item" data-search="acquireRepositoryMetadataAsync src/repositoryMetadataAnalysis.ts Acquire only canonical JSON metadata and never execute target repository source code.">
+    <h3>acquireRepositoryMetadataAsync</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:49:1</code></p>
+    <p>Acquire only canonical JSON metadata and never execute target repository source code.</p>
+    
+  </article><article class="item" data-search="createUnconfirmedApplicabilityAcquisition src/repositoryMetadataAnalysis.ts Surface an incomplete managed-host identity instead of guessing target applicability.">
+    <h3>createUnconfirmedApplicabilityAcquisition</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:98:1</code></p>
+    <p>Surface an incomplete managed-host identity instead of guessing target applicability.</p>
+    
+  </article><article class="item" data-search="acquireDiscoveredMetadata src/repositoryMetadataAnalysis.ts Decode one discovered metadata document or surface its filesystem failure.">
+    <h3>acquireDiscoveredMetadata</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:124:1</code></p>
+    <p>Decode one discovered metadata document or surface its filesystem failure.</p>
+    
+  </article><article class="item" data-search="readMetadataSourceAsync src/repositoryMetadataAnalysis.ts Read metadata text while distinguishing absence from an unreadable authored document.">
+    <h3>readMetadataSourceAsync</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:148:1</code></p>
+    <p>Read metadata text while distinguishing absence from an unreadable authored document.</p>
+    
+  </article><article class="item" data-search="unreadableMetadataAcquisition src/repositoryMetadataAnalysis.ts Create one unreadable-document result at the authored canonical or alternate path.">
+    <h3>unreadableMetadataAcquisition</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:161:1</code></p>
+    <p>Create one unreadable-document result at the authored canonical or alternate path.</p>
+    
+  </article><article class="item" data-search="decodeMetadataSource src/repositoryMetadataAnalysis.ts Parse and decode metadata while keeping syntax errors distinct from structural decoder findings.">
+    <h3>decodeMetadataSource</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:184:1</code></p>
+    <p>Parse and decode metadata while keeping syntax errors distinct from structural decoder findings.</p>
+    
+  </article><article class="item" data-search="invalidMetadataAcquisition src/repositoryMetadataAnalysis.ts Return one invalid-document result without falsely reporting that the document is missing.">
+    <h3>invalidMetadataAcquisition</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:223:1</code></p>
+    <p>Return one invalid-document result without falsely reporting that the document is missing.</p>
+    
+  </article><article class="item" data-search="detectMetadataProfileAsync src/repositoryMetadataAnalysis.ts Derive the profile-owned location from real source ownership unless a host explicitly supplies it.">
+    <h3>detectMetadataProfileAsync</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:245:1</code></p>
+    <p>Derive the profile-owned location from real source ownership unless a host explicitly supplies it.</p>
+    
+  </article><article class="item" data-search="evaluateMetadataPreflight src/repositoryMetadataAnalysis.ts Evaluate canonical metadata policy using only acquired portable facts.">
+    <h3>evaluateMetadataPreflight</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:254:1</code></p>
+    <p>Evaluate canonical metadata policy using only acquired portable facts.</p>
+    
+  </article><article class="item" data-search="resolveMetadataFindingPath src/repositoryMetadataAnalysis.ts Resolve Rules document paths and RFC 6901 fragments without treating a pointer as a filesystem path.">
+    <h3>resolveMetadataFindingPath</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:278:1</code></p>
+    <p>Resolve Rules document paths and RFC 6901 fragments without treating a pointer as a filesystem path.</p>
+    
+  </article><article class="item" data-search="canonicalMetadataPath src/repositoryMetadataAnalysis.ts Use published Rules path policy instead of reproducing metadata path literals in Doctor.">
+    <h3>canonicalMetadataPath</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:298:1</code></p>
+    <p>Use published Rules path policy instead of reproducing metadata path literals in Doctor.</p>
+    
+  </article><article class="item" data-search="oppositeProfile src/repositoryMetadataAnalysis.ts Select the other Rules-defined profile path when canonical metadata is absent.">
+    <h3>oppositeProfile</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:305:1</code></p>
+    <p>Select the other Rules-defined profile path when canonical metadata is absent.</p>
+    
+  </article><article class="item" data-search="metadataSeverity src/repositoryMetadataAnalysis.ts Promote preflight findings only through the explicit Doctor activation request.">
+    <h3>metadataSeverity</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:310:1</code></p>
+    <p>Promote preflight findings only through the explicit Doctor activation request.</p>
+    
+  </article><article class="item" data-search="createMetadataDiagnostic src/repositoryMetadataAnalysis.ts Preserve stable Doctor diagnostic structure for Rules and decoder findings.">
+    <h3>createMetadataDiagnostic</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:315:1</code></p>
+    <p>Preserve stable Doctor diagnostic structure for Rules and decoder findings.</p>
+    
+  </article><article class="item" data-search="hasErrorCode src/repositoryMetadataAnalysis.ts Identify filesystem absence without treating other read failures as missing metadata.">
+    <h3>hasErrorCode</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:333:1</code></p>
+    <p>Identify filesystem absence without treating other read failures as missing metadata.</p>
+    
+  </article><article class="item" data-search="describeError src/repositoryMetadataAnalysis.ts Render parser and filesystem failures without exposing an implementation-specific exception shape.">
+    <h3>describeError</h3>
+    <p class="muted"><code>src/repositoryMetadataAnalysis.ts:338:1</code></p>
+    <p>Render parser and filesystem failures without exposing an implementation-specific exception shape.</p>
+    
+  </article>
+    </section>
+  </section><section id="view-src-repositorymetadatacommandoptions-ts" class="view" data-view="src/repositoryMetadataCommandOptions.ts" hidden>
+    <section class="panel">
+      <h2>src/repositoryMetadataCommandOptions.ts</h2>
+      <article class="item" data-search="createMetadataOptionsAsync src/repositoryMetadataCommandOptions.ts Derive managed applicability only when GitHub&#39;s checkout and Doctor&#39;s target share one canonical identity.">
+    <h3>createMetadataOptionsAsync</h3>
+    <p class="muted"><code>src/repositoryMetadataCommandOptions.ts:7:1</code></p>
+    <p>Derive managed applicability only when GitHub&#39;s checkout and Doctor&#39;s target share one canonical identity.</p>
+    
+  </article><article class="item" data-search="createUnconfirmedApplicabilityOptions src/repositoryMetadataCommandOptions.ts Reject incomplete managed-workflow identity instead of applying managed policy to an arbitrary target.">
+    <h3>createUnconfirmedApplicabilityOptions</h3>
+    <p class="muted"><code>src/repositoryMetadataCommandOptions.ts:42:1</code></p>
+    <p>Reject incomplete managed-workflow identity instead of applying managed policy to an arbitrary target.</p>
     
   </article>
     </section>

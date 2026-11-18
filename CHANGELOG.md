@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.0
+
+### Minor Changes
+
+- b89c6df: Add opt-in enforcement for canonical repository metadata using the published Rules decoder and preflight.
+
 ## 0.14.36
 
 ### Patch Changes

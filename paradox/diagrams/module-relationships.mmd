@@ -27,6 +27,7 @@ graph LR
   module_src_cli_index_ts["src/cli/index.ts"]
   module_src_cli_standalone_ts["src/cli/standalone.ts"]
   module_src_cliLayoutAnalysis_ts["src/cliLayoutAnalysis.ts"]
+  module_src_commandArguments_ts["src/commandArguments.ts"]
   module_src_commandContext_ts["src/commandContext.ts"]
   module_src_commands_ts["src/commands.ts"]
   module_src_dependencyPolicyAnalysis_ts["src/dependencyPolicyAnalysis.ts"]
@@ -35,6 +36,8 @@ graph LR
   module_src_manifestAnalysis_ts["src/manifestAnalysis.ts"]
   module_src_packageMetadata_ts["src/packageMetadata.ts"]
   module_src_readiness_ts["src/readiness.ts"]
+  module_src_repositoryMetadataAnalysis_ts["src/repositoryMetadataAnalysis.ts"]
+  module_src_repositoryMetadataCommandOptions_ts["src/repositoryMetadataCommandOptions.ts"]
   module_src_repositorySourceRulesAnalysis_ts["src/repositorySourceRulesAnalysis.ts"]
   module_src_secretManifestAnalysis_ts["src/secretManifestAnalysis.ts"]
   module_src_sourceArchitectureAnalysis_ts["src/sourceArchitectureAnalysis.ts"]
@@ -56,6 +59,8 @@ graph LR
   module_tests_packageScripts_test_ts["tests/packageScripts.test.ts"]
   module_tests_paradoxSelfDependency_test_ts["tests/paradoxSelfDependency.test.ts"]
   module_tests_releaseChangelogBootstrap_test_ts["tests/releaseChangelogBootstrap.test.ts"]
+  module_tests_repositoryMetadataAnalysis_test_ts["tests/repositoryMetadataAnalysis.test.ts"]
+  module_tests_repositoryMetadataCommandOptions_test_ts["tests/repositoryMetadataCommandOptions.test.ts"]
   module_tests_rulesProviderConsumption_test_ts["tests/rulesProviderConsumption.test.ts"]
   module_tests_secretManifestAnalysis_test_ts["tests/secretManifestAnalysis.test.ts"]
   module_tests_standaloneContract_test_ts["tests/standaloneContract.test.ts"]
@@ -121,23 +126,28 @@ graph LR
   module_src_cliLayoutAnalysis_ts --> module_src_repositorySourceRulesAnalysis_ts
   module_src_cliLayoutAnalysis_ts --> module_src_sourceArchitectureAnalysis_ts
   module_src_cliLayoutAnalysis_ts --> module_src_utils_getRepositoryRule_ts
-  module_src_commandContext_ts --> module_package_json
+  module_src_commandArguments_ts --> module_src_commands_ts
   module_src_commands_ts --> module_src_analysis_ts
   module_src_commands_ts --> module_src_capabilities_index_ts
   module_src_commands_ts --> module_src_cliLayoutAnalysis_ts
+  module_src_commands_ts --> module_src_commandArguments_ts
   module_src_commands_ts --> module_src_commandContext_ts
   module_src_commands_ts --> module_src_diagnostics_ts
   module_src_commands_ts --> module_src_packageMetadata_ts
   module_src_commands_ts --> module_src_readiness_ts
+  module_src_commands_ts --> module_src_repositoryMetadataCommandOptions_ts
   module_src_dependencyPolicyAnalysis_ts --> module_src_analysis_ts
   module_src_dependencyPolicyAnalysis_ts --> module_src_bunPolicyAnalysis_ts
   module_src_dependencyPolicyAnalysis_ts --> module_src_cliLayoutAnalysis_ts
+  module_src_dependencyPolicyAnalysis_ts --> module_src_repositoryMetadataAnalysis_ts
   module_src_manifestAnalysis_ts --> module_src_analysis_ts
   module_src_manifestAnalysis_ts --> module_src_authReadinessFileAnalysis_ts
   module_src_manifestAnalysis_ts --> module_src_diagnostics_ts
   module_src_manifestAnalysis_ts --> module_src_secretManifestAnalysis_ts
-  module_src_packageMetadata_ts --> module_package_json
   module_src_packageMetadata_ts --> module_src_capabilities_index_ts
+  module_src_repositoryMetadataAnalysis_ts --> module_src_analysis_ts
+  module_src_repositoryMetadataAnalysis_ts --> module_src_diagnostics_ts
+  module_src_repositoryMetadataCommandOptions_ts --> module_src_analysis_ts
   module_src_repositorySourceRulesAnalysis_ts --> module_src_diagnostics_ts
   module_src_secretManifestAnalysis_ts --> module_src_diagnostics_ts
   module_src_sourceArchitectureAnalysis_ts --> module_src_diagnostics_ts
@@ -180,6 +190,12 @@ graph LR
   module_tests_paradoxSelfDependency_test_ts --> module_src_analysis_ts
   module_tests_releaseChangelogBootstrap_test_ts --> module_src_analysis_ts
   module_tests_releaseChangelogBootstrap_test_ts --> module_tests_testSupport_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --> module_src_cli_standalone_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --> module_src_dependencyPolicyAnalysis_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --> module_src_diagnostics_ts
+  module_tests_repositoryMetadataAnalysis_test_ts --> module_tests_testSupport_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --> module_src_cli_standalone_ts
+  module_tests_repositoryMetadataCommandOptions_test_ts --> module_tests_testSupport_ts
   module_tests_rulesProviderConsumption_test_ts --> module_src_cliLayoutAnalysis_ts
   module_tests_rulesProviderConsumption_test_ts --> module_tests_testSupport_ts
   module_tests_secretManifestAnalysis_test_ts --> module_src_manifestAnalysis_ts
