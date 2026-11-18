@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.1
+
+### Patch Changes
+
+- 0215885: Update dependencies: `@ankhorage/auth-supabase`, `@ankhorage/contracts`, `@ankhorage/dependency-graph`, `@ankhorage/paradox`, `@ankhorage/utility`.
+
 ## 0.15.0
 
 ### Minor Changes

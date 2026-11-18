@@ -1,9 +1,12 @@
 {
-  "packageName": "@ankhorage/doctor",
+  "packageName": "Ankhorage Doctor",
   "packageId": "@ankhorage/doctor",
-  "description": "Executable Ankh provider and standalone CLI for lightweight repo and package compliance diagnostics.",
-  "collaborators": null,
-  "donation": null,
+  "description": "Provides lightweight repository and package compliance diagnostics through Ankh provider and standalone CLI entrypoints.",
+  "purpose": "Help package maintainers analyze repository, package, manifest, and authentication readiness without coupling their projects to a specific host application.",
+  "collaborators": true,
+  "donation": {
+    "account": "ankhorage"
+  },
   "badges": [
     {
       "id": "license",
@@ -14,7 +17,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.15.0",
+      "value": "v0.15.1",
       "color": "cb3837"
     },
     {
