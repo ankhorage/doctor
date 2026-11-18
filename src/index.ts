@@ -4,6 +4,7 @@ export type {
   DoctorFixPlan,
   DoctorPlannedChange,
   DoctorPlannedChangeKind,
+  DoctorRepositoryMetadataOptions,
   DoctorTargetCheck,
   DoctorTargetMode,
 } from './analysis.js';

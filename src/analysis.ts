@@ -22,9 +22,23 @@ export type DoctorTargetMode = 'fix' | 'package' | 'repo' | 'validate';
 export type DoctorPlannedChangeKind =
   'create-directory' | 'create-file' | 'update-json' | 'update-text';
 
+export interface DoctorRepositoryMetadataOptions {
+  /** A host-context identity failure that must be surfaced instead of guessing managed applicability. */
+  readonly applicabilityDiagnostic?: string;
+  readonly eligibility?: 'applicable' | 'archived' | 'legacy' | 'third-party';
+  readonly enforce?: boolean;
+  /**
+   * True only when the calling host has established that its target is an enrolled Ankhorage
+   * repository.
+   */
+  readonly managed?: boolean;
+  readonly profile?: 'non-source' | 'source';
+}
+
 export interface DoctorAnalysisRequest {
   readonly cwd: string;
   readonly inputPath?: string;
+  readonly repositoryMetadata?: DoctorRepositoryMetadataOptions;
   readonly mode: DoctorTargetMode;
 }
 
