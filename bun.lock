@@ -14,8 +14,8 @@
         "@ankhorage/utility": "^1.10.1",
       },
       "devDependencies": {
-        "@ankhorage/ankh": "^0.13.3",
-        "@ankhorage/devtools": "^2.3.47",
+        "@ankhorage/ankh": "^0.13.7",
+        "@ankhorage/devtools": "^2.9.6",
         "@ankhorage/paradox": "^0.6.0",
         "@types/bun": "^1.4.2",
         "@types/node": "^26.6.6",
@@ -42,7 +42,7 @@
 
     "@ankhorage/dependency-graph": ["@ankhorage/dependency-graph@1.4.1", "", { "dependencies": { "@ankhorage/api": "^0.2.0", "@ankhorage/graph": "^0.3.0", "@ankhorage/project-detector": "^0.3.3", "@ankhorage/utility": "^0.8.0", "java-parser": "^3.0.1", "typescript": "~6.0.3" } }, "sha512-H2kiOq4iqvi18zVkvVZvB9/UcuLzaca29S8T67o773H5cH4Y+pr6/affEgX+DpCf+LgNS5pp8og4OA38EBMJ0Q=="],
 
-    "@ankhorage/devtools": ["@ankhorage/devtools@2.9.4", "", { "dependencies": { "@ankhorage/apm": "^0.8.15", "@ankhorage/capability": "^0.2.3", "@ankhorage/contracts": "^26.12.0", "@ankhorage/project-detector": "^0.3.6", "@ankhorage/rules-repository": "^0.5.0", "@ankhorage/utility": "^0.5.5", "@changesets/cli": "^3.0.3", "@eslint/compat": "^2.1.1", "@eslint/js": "^10.0.1", "@next/eslint-plugin-next": "^16.4.6", "eslint": "^10.15.0", "eslint-config-prettier": "^10.1.8", "eslint-plugin-import": "^2.32.0", "eslint-plugin-prettier": "^5.5.7", "eslint-plugin-react": "^7.37.5", "eslint-plugin-react-hooks": "^7.1.1", "eslint-plugin-react-native": "^5.0.0", "eslint-plugin-security": "^4.2.1", "eslint-plugin-simple-import-sort": "^14.0.0", "eslint-plugin-unused-imports": "^4.4.1", "knip": "^6.46.1", "prettier": "^3.10.1", "typescript": "~6.0.3", "typescript-eslint": "^8.73.0" }, "bin": { "ankhorage-knip": "dist/cli/bin/knip.js", "ankhorage-eslint": "dist/cli/bin/eslint.js", "ankhorage-prettier": "dist/cli/bin/prettier.js", "ankhorage-changeset": "dist/cli/bin/changeset.js", "ankhorage-ci-impact": "dist/cli/bin/ci-impact.js", "ankhorage-structure": "dist/cli/bin/structure.js", "ankhorage-repository": "dist/cli/bin/repository.js", "ankhorage-apm-release": "dist/cli/bin/apm-release.js" } }, "sha512-nwXGM/2AkPveW7Ga3gZurPrV3N5OnspAbVx8lxmQzcYvRfRXVSm7Bz8m8d7Jke0qPmGnGhmnfxwgieq6gGtEpw=="],
+    "@ankhorage/devtools": ["@ankhorage/devtools@2.9.6", "", { "dependencies": { "@ankhorage/apm": "^0.8.15", "@ankhorage/capability": "^0.2.3", "@ankhorage/contracts": "^26.12.0", "@ankhorage/project-detector": "^0.3.6", "@ankhorage/rules-repository": "^0.5.0", "@ankhorage/utility": "^0.5.5", "@changesets/cli": "^3.0.3", "@eslint/compat": "^2.1.1", "@eslint/js": "^10.0.1", "@next/eslint-plugin-next": "^16.4.6", "eslint": "^10.15.0", "eslint-config-prettier": "^10.1.8", "eslint-plugin-import": "^2.32.0", "eslint-plugin-prettier": "^5.5.7", "eslint-plugin-react": "^7.37.5", "eslint-plugin-react-hooks": "^7.1.1", "eslint-plugin-react-native": "^5.0.0", "eslint-plugin-security": "^4.2.1", "eslint-plugin-simple-import-sort": "^14.0.0", "eslint-plugin-unused-imports": "^4.4.1", "knip": "^6.46.1", "prettier": "^3.10.1", "typescript": "~6.0.3", "typescript-eslint": "^8.73.0" }, "bin": { "ankhorage-knip": "dist/cli/bin/knip.js", "ankhorage-eslint": "dist/cli/bin/eslint.js", "ankhorage-prettier": "dist/cli/bin/prettier.js", "ankhorage-changeset": "dist/cli/bin/changeset.js", "ankhorage-ci-impact": "dist/cli/bin/ci-impact.js", "ankhorage-structure": "dist/cli/bin/structure.js", "ankhorage-repository": "dist/cli/bin/repository.js", "ankhorage-apm-release": "dist/cli/bin/apm-release.js" } }, "sha512-RRYEkrqPwvcQWHMjBzGajMOEkSRS3QzHzt5jrQZA9IXUJZnhxr9fxpiQGdo3q/bWAXo0DYPbMxrqwpOwxk/txg=="],
 
     "@ankhorage/graph": ["@ankhorage/graph@0.3.1", "", {}, "sha512-d103XvzbI1ej7K0pwbj9A3Ca+1FkAtZAC981gOcx+RWMkh/2GTijQy6TB9JISSvxUX66RNuihvC6XZwmJzExUA=="],
 
