@@ -3,6 +3,7 @@
   "packageId": "@ankhorage/doctor",
   "description": "Provides lightweight repository and package compliance diagnostics through Ankh provider and standalone CLI entrypoints.",
   "purpose": "Help package maintainers analyze repository, package, manifest, and authentication readiness without coupling their projects to a specific host application.",
+  "productDocumentation": null,
   "collaborators": true,
   "donation": {
     "account": "ankhorage"
@@ -17,7 +18,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.15.1",
+      "value": "v0.15.2",
       "color": "cb3837"
     },
     {
@@ -53,8 +54,8 @@
     {
       "id": "tests",
       "label": "tests",
-      "value": "checked",
-      "color": "0a7f3f"
+      "value": "configured",
+      "color": "6f42c1"
     },
     {
       "id": "docs",
