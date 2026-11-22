@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.15.6
+
+### Patch Changes
+
+- 01badd4: Update dependencies: `@ankhorage/dependency-graph`.
+- 0bddacd: Update dependencies: `@ankhorage/auth-supabase`.
+- d835fed: Update dependencies: `@ankhorage/dependency-graph`.
+
 ## 0.15.5
 
 ### Patch Changes
