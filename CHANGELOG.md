@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.5
+
+### Patch Changes
+
+- 22fae86: Update dependencies: `@ankhorage/auth-supabase`.
+
 ## 0.15.4
 
 ### Patch Changes
