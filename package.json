@@ -131,7 +131,7 @@
     "test:standalone": "bun test tests/standaloneContract.test.ts"
   },
   "dependencies": {
-    "@ankhorage/auth-supabase": "^2.0.20",
+    "@ankhorage/auth-supabase": "^2.0.21",
     "@ankhorage/capability": "^0.2.3",
     "@ankhorage/contracts": "^26.13.1",
     "@ankhorage/dependency-graph": "^1.5.0",
