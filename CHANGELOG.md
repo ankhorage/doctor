@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.7
+
+### Patch Changes
+
+- e29c3d8: Update dependencies: `@ankhorage/dependency-graph`.
+
 ## 0.15.6
 
 ### Patch Changes
