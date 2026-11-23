@@ -5,7 +5,7 @@
     "": {
       "name": "@ankhorage/doctor",
       "dependencies": {
-        "@ankhorage/auth-supabase": "^2.0.23",
+        "@ankhorage/auth-supabase": "^2.0.24",
         "@ankhorage/capability": "^0.2.3",
         "@ankhorage/contracts": "^26.16.0",
         "@ankhorage/dependency-graph": "^1.5.2",
@@ -32,7 +32,7 @@
 
     "@ankhorage/auth": ["@ankhorage/auth@0.2.0", "", { "dependencies": { "@ankhorage/contracts": "26.0.0" } }, "sha512-v67XWYdoUJD0yptHHKhrPTRtRul5eoYvnKoJZf0hlr9n3IOaHUU6ynkXIheKlXpfm9DsFXJH8UDpQ06cUjJItQ=="],
 
-    "@ankhorage/auth-supabase": ["@ankhorage/auth-supabase@2.0.23", "", { "dependencies": { "@ankhorage/auth": "^0.2.0", "@ankhorage/contracts": "^26.15.0", "@noble/hashes": "2.4.0" } }, "sha512-/60CkhWN/Nq02LZXZ9gAhegMGVJJkMYUU39abrnBQuILzgoEDrAAedchednPTuRWB8Eidw7StsaxF0xTPIv4IA=="],
+    "@ankhorage/auth-supabase": ["@ankhorage/auth-supabase@2.0.24", "", { "dependencies": { "@ankhorage/auth": "^0.2.0", "@ankhorage/contracts": "^26.16.0", "@noble/hashes": "2.4.0" } }, "sha512-zxcRq2a/MemLlj4KkRYK1jUt79tUqXJaVGKKg5k3Fo1fYSbhZsgHAIJYmCTLC4fY+5s6Korktzl0pVZs3n9IUg=="],
 
     "@ankhorage/capability": ["@ankhorage/capability@0.2.3", "", { "dependencies": { "@ankhorage/contracts": "^26.0.0", "@ankhorage/utility": "^1.9.85" } }, "sha512-xjQeaB0wLkdtHCjzzCvQ3+sJCKjQ20I+0FIpmdl60bpy9yij6UUgdoXEI3lWMpPoXG9tMMHmWQfXp7IP31bq4A=="],
 
