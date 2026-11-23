@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.8
+
+### Patch Changes
+
+- da2c335: Update dependencies: `@ankhorage/contracts`.
+
 ## 0.15.7
 
 ### Patch Changes
