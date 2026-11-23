@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.13
+
+### Patch Changes
+
+- c1d1c0d: Update dependencies: `@ankhorage/auth-supabase`.
+
 ## 0.15.12
 
 ### Patch Changes
