@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.16
+
+### Patch Changes
+
+- 1e6cf58: Validate repository build targets through the published repository Rules.
+
 ## 0.15.15
 
 ### Patch Changes
