@@ -125,6 +125,40 @@ test('evaluates valid source metadata through canonical Rules without executing 
   expect(metadataDiagnostics(result.diagnostics)).toEqual([]);
 });
 
+test('accepts ZORA independent native and web build targets through published Rules', async () => {
+  const fixture = await createManagedFixture({
+    'src/metadata/repository.json': JSON.stringify({
+      ...METADATA,
+      build: {
+        targets: {
+          native: {
+            language: 'typescript',
+            framework: 'react-native',
+            platforms: ['ios', 'android', 'web'],
+            entry: '.',
+            outDir: 'dist',
+            sources: { include: ['src/**/*.ts', 'src/**/*.tsx'] },
+            builder: { script: 'build' },
+          },
+          web: {
+            language: 'typescript',
+            framework: 'react',
+            platforms: ['web'],
+            entry: './web/*',
+            outDir: 'web-dist',
+            sources: { include: ['src/features/**/public.ts', 'src/authoring.browser.ts'] },
+            builder: { script: 'build' },
+          },
+        },
+      },
+    }),
+  });
+
+  const result = await analyze(fixture, { enforce: true });
+
+  expect(metadataDiagnostics(result.diagnostics)).toEqual([]);
+});
+
 test('promotes canonical preflight policy findings only through explicit activation', async () => {
   const fixture = await createManagedFixture({
     'src/metadata/repository.json': JSON.stringify({ ...METADATA, title: 'TODO' }),
