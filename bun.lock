@@ -5,7 +5,7 @@
     "": {
       "name": "@ankhorage/doctor",
       "dependencies": {
-        "@ankhorage/auth-supabase": "^2.0.25",
+        "@ankhorage/auth-supabase": "^2.0.26",
         "@ankhorage/capability": "^0.2.3",
         "@ankhorage/contracts": "^26.17.0",
         "@ankhorage/dependency-graph": "^1.5.2",
@@ -30,9 +30,9 @@
 
     "@ankhorage/apm": ["@ankhorage/apm@0.8.15", "", { "dependencies": { "@ankhorage/contracts": "^26.0.0", "@ankhorage/project-detector": "^0.1.0", "@ankhorage/utility": "^1.4.0", "jsonc-parser": "^3.3.1", "semver": "^7.8.5", "yaml": "^2.9.1" }, "peerDependencies": { "@ankhorage/ankh": "^0.13.1" }, "optionalPeers": ["@ankhorage/ankh"], "bin": { "apm": "dist/cli/runAsync.js" } }, "sha512-3Gts6J0ayMKx1gogCtjPWuh4kvFsDEdyKwSzagjHS4vcVae42XnkobJoSUIj4ffehBNYOSZi67jYSLzg8CjMXw=="],
 
-    "@ankhorage/auth": ["@ankhorage/auth@0.2.0", "", { "dependencies": { "@ankhorage/contracts": "26.0.0" } }, "sha512-v67XWYdoUJD0yptHHKhrPTRtRul5eoYvnKoJZf0hlr9n3IOaHUU6ynkXIheKlXpfm9DsFXJH8UDpQ06cUjJItQ=="],
+    "@ankhorage/auth": ["@ankhorage/auth@0.3.0", "", { "dependencies": { "@ankhorage/contracts": "26.0.0" } }, "sha512-SlPw3baXy/CKvOlPyqZ9vchbGEg6HhHQeFn+3Yo+QpzMRMHrTX3ZUrdRM+wGbGVdYH2jwDEmp3rN4UsECrlycQ=="],
 
-    "@ankhorage/auth-supabase": ["@ankhorage/auth-supabase@2.0.25", "", { "dependencies": { "@ankhorage/auth": "^0.2.0", "@ankhorage/contracts": "^26.17.0", "@noble/hashes": "2.4.0" } }, "sha512-qRjq1wTVhgj8BaEllXNcdkS1HrkGIHVqJgiji8fWzIC7/RapJdUUBOg1HyLpkES+QtCe46yn18GV1C4VfA5pTQ=="],
+    "@ankhorage/auth-supabase": ["@ankhorage/auth-supabase@2.0.26", "", { "dependencies": { "@ankhorage/auth": "^0.3.0", "@ankhorage/contracts": "^26.17.0", "@noble/hashes": "2.4.0" } }, "sha512-BRO9Q4UrelidDpoC6zEBWi78BfVD/UhRuCIrKbEkOHQGWHnFmBKr2NfGlGGn1+xiQCHOm56NCamVYmKtc1T+Bw=="],
 
     "@ankhorage/capability": ["@ankhorage/capability@0.2.3", "", { "dependencies": { "@ankhorage/contracts": "^26.0.0", "@ankhorage/utility": "^1.9.85" } }, "sha512-xjQeaB0wLkdtHCjzzCvQ3+sJCKjQ20I+0FIpmdl60bpy9yij6UUgdoXEI3lWMpPoXG9tMMHmWQfXp7IP31bq4A=="],
 
