@@ -3,7 +3,7 @@
 
 # Ankhorage Doctor
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.15.17](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: configured](././paradox/badges/tests.svg) ![paradox: warnings](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.15.18](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: configured](././paradox/badges/tests.svg) ![paradox: warnings](././paradox/badges/docs.svg)
 
 Provides lightweight repository and package compliance diagnostics through Ankh provider and standalone CLI entrypoints.
 
