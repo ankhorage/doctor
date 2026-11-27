@@ -137,7 +137,7 @@
     "@ankhorage/dependency-graph": "^1.5.2",
     "@ankhorage/rules-architecture": "^0.8.0",
     "@ankhorage/rules-repository": "^0.6.0",
-    "@ankhorage/utility": "^1.10.1"
+    "@ankhorage/utility": "^1.11.0"
   },
   "devDependencies": {
     "@ankhorage/ankh": "^0.13.7",
