@@ -133,7 +133,7 @@
   "dependencies": {
     "@ankhorage/auth-supabase": "^2.1.0",
     "@ankhorage/capability": "^0.2.3",
-    "@ankhorage/contracts": "^26.17.0",
+    "@ankhorage/contracts": "^26.17.1",
     "@ankhorage/dependency-graph": "^1.5.2",
     "@ankhorage/rules-architecture": "^0.8.0",
     "@ankhorage/rules-repository": "^0.6.0",
