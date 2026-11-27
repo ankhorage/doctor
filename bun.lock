@@ -11,7 +11,7 @@
         "@ankhorage/dependency-graph": "^1.5.2",
         "@ankhorage/rules-architecture": "^0.8.0",
         "@ankhorage/rules-repository": "^0.6.0",
-        "@ankhorage/utility": "^1.10.1",
+        "@ankhorage/utility": "^1.11.0",
       },
       "devDependencies": {
         "@ankhorage/ankh": "^0.13.7",
@@ -58,7 +58,7 @@
 
     "@ankhorage/rules-repository": ["@ankhorage/rules-repository@0.6.0", "", { "dependencies": { "@ankhorage/contracts": "^26.17.0", "@ankhorage/rules": "^0.6.0" } }, "sha512-D7Vi1ReSo0O+79/zpyzbkJ2y9BfZY0It8wPHR3LrPe8Wk3VRX0mXEzQW4kgAIx6PBhqQa86+2GG1dLMMHZugjA=="],
 
-    "@ankhorage/utility": ["@ankhorage/utility@1.10.1", "", { "peerDependencies": { "fastify": "^5.12.5" }, "optionalPeers": ["fastify"] }, "sha512-NZEIF05j3rbfOJk083fAAiZL6nCC2IPiDCjsWgH/bRF8V0G5uVnVlJ7gACJp+Nu2VPf+LEyTLtmtwgMVBPQonA=="],
+    "@ankhorage/utility": ["@ankhorage/utility@1.11.0", "", { "peerDependencies": { "fastify": "^5.12.5" }, "optionalPeers": ["fastify"] }, "sha512-SskvBXAdU1SNmyi4mWn0Dcv1ljzAVlTE3vcdHQaYiPBCONtLjCgfUFUHooBfKZBPvoM+o9848Yk+EJVTSy5vfA=="],
 
     "@babel/code-frame": ["@babel/code-frame@7.29.7", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.29.7", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw=="],
 
